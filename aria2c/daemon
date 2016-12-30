@@ -1,0 +1,13 @@
+continue
+daemon=false
+
+dir=/home/remilia/Downloads
+file-allocation=falloc
+max-connection-per-server=4
+max-concurrent-downloads=3
+max-overall-download-limit=0
+min-split-size=5M
+
+enable-rpc=true
+rpc-listen-all=false
+rpc-secret=remilia

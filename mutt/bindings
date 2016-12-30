@@ -1,0 +1,5 @@
+# vim: filetype=muttrc
+bind pager j next-line
+bind pager k previous-line
+
+macro attach B "<pipe-message>cat > /tmp/mutt.html;chromium /tmp/mutt.html<enter>"

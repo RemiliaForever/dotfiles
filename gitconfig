@@ -1,0 +1,24 @@
+[user]
+    email = remilia@koumakan.cc
+    name = RemiliaForever
+    signingkey = remilia@koumakan.cc
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --show-signature
+    cs = commit -S -m
+    cas = commit -S -a -m
+    ca = commit -a -m
+    dt = difftool
+    mt = mergetool
+[push]
+    default = simple
+[core]
+    editor = vim
+[github]
+    user = RemiliaForever
+[color]
+    ui = true
+[diff]
+    tool = vimdiff
+[merge]
+    tool = vimdiff
