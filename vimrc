@@ -190,10 +190,6 @@ let mapleader = ","
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
 
-" vim-latex
-autocmd FileType tex map <buffer> <F3> <ESC>,ll
-autocmd FileType tex map <buffer> <F4> <ESC>,lv
-
 " cscope
 if filereadable("cscope.out")
     set cst
@@ -201,8 +197,8 @@ if filereadable("cscope.out")
     set nocsverb
     set cspc=3
     cs add cscope.out
-    nmap <leader>j :cn<CR>
-    nmap <leader>k :cp<CR>
+    nmap <C-j> :cn<CR>
+    nmap <C-k> :cp<CR>
     nmap <C-_>a :cs find a <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
@@ -217,7 +213,6 @@ endif
 " Bundle
 call vundle#rc()
 Bundle 'Valloric/YouCompleteMe'
-Bundle 'vim-latex/vim-latex'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'Tagbar'
