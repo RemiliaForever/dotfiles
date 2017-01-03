@@ -131,10 +131,13 @@ set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
 set lcs=trail:▓,tab:\|\-
 colorscheme default
-vmap <c-c> "+y
-nmap <c-p> "+p
-vmap <c-x> "+c
+
+vnoremap <c-c> "+y
+vnoremap <c-x> "+c
+nnoremap <c-p> "+p
 nnoremap <c-h> :nohl<CR>
+nnoremap q :q<CR>
+
 "autocmd InsertLeave * silent! !fcitx-remote -c
 " format
 autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
