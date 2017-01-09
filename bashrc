@@ -15,7 +15,7 @@ source ~/.git-prompt.sh
 
 export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[33m\]\w\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY\n\[\e[34m\]└\[\e[35m\]\$\[\e[0m\] '
 
-export PAGER='vimpager'
+export PAGER='less'
 export EDITOR='vim'
 
 alias exeg++='x86_64-w64-mingw32-g++'
