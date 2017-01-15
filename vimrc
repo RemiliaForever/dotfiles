@@ -136,7 +136,6 @@ vnoremap <c-c> "+y
 vnoremap <c-x> "+c
 nnoremap <c-p> "+p
 nnoremap <c-h> :nohl<CR>
-nnoremap q :q<CR>
 
 "autocmd InsertLeave * silent! !fcitx-remote -c
 " format

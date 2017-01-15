@@ -38,7 +38,6 @@ export GTK_IM_MODULE=fcitx
 export QT_IM_MODULE=fcitx
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
-#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 sudo nvidia-smi -pm 1
 exec startxfce4
 #exec awesome

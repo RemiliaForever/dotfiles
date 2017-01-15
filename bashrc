@@ -24,4 +24,4 @@ alias execmake='x86_64-w64-mingw32-cmake'
 
 alias aria2c='aria2c --conf-path=/home/remilia/.config/aria2c/daemon'
 alias gpg='gpg --keyserver pgp.mit.edu'
-alias ssp='export http_proxy=http://localhost:8118 && export https_proxy=$http_proxy && export DEF_PROXY=\(proxy:8118\)'
+alias ssp='source setproxy.sh'
