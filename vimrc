@@ -135,6 +135,7 @@ colorscheme default
 vnoremap <c-c> "+y
 vnoremap <c-x> "+c
 nnoremap <c-p> "+p
+nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
 "autocmd InsertLeave * silent! !fcitx-remote -c
