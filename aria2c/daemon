@@ -3,8 +3,8 @@ daemon=false
 
 dir=/home/remilia/Downloads
 file-allocation=falloc
-max-connection-per-server=4
-max-concurrent-downloads=3
+max-connection-per-server=10
+max-concurrent-downloads=5
 max-overall-download-limit=0
 min-split-size=5M
 
