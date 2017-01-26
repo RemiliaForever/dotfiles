@@ -18,6 +18,9 @@ export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[3
 export PAGER='less'
 export EDITOR='vim'
 
+alias ls='ls --color=always'
+alias grep='grep --color=always'
+
 alias exeg++='x86_64-w64-mingw32-g++'
 alias exegcc='x86_64-w64-mingw32-gcc'
 alias execmake='x86_64-w64-mingw32-cmake'
@@ -25,3 +28,5 @@ alias execmake='x86_64-w64-mingw32-cmake'
 alias aria2c='aria2c --conf-path=/home/remilia/.config/aria2c/daemon'
 alias gpg='gpg --keyserver pgp.mit.edu'
 alias ssp='source setproxy.sh'
+alias ygt='you-get -p mpv'
+alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -- mpv -wid WID'
