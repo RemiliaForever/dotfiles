@@ -17,6 +17,7 @@ export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[3
 
 export PAGER='less'
 export EDITOR='vim'
+export BROWSER='chromium'
 
 alias ls='ls --color=always'
 alias grep='grep --color=always'
