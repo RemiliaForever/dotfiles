@@ -158,15 +158,15 @@ let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
 
 " NERDTree
-let NERDTreeWinSize = 30
+let g:NERDTreeWinSize = 25
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '\.aux$', '\.bcf$', '\.toc$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
-let g:tagbar_title="[Tagbar]"
-let g:tagbar_width=30
+let g:tagbar_title = "[Tagbar]"
+let g:tagbar_width = 25
 nnoremap <c-l> :TagbarToggle<CR>
 
 " Buffer Explorer

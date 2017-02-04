@@ -1,3 +1,3 @@
 #!/bin/bash
 
-zenity --info --text "`xprop`"
+zenity --info --text "`xprop | grep '[=,:]'`"

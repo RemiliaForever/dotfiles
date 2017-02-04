@@ -6,10 +6,10 @@ local theme = {}
 
 theme.font          = "sans 9"
 
-theme.bg_normal     = "#222222aa"
-theme.bg_focus      = "#535d6caa"
-theme.bg_urgent     = "#ff0000aa"
-theme.bg_minimize   = "#444444aa"
+theme.bg_normal     = "#222222cc"
+theme.bg_focus      = "#535d6ccc"
+theme.bg_urgent     = "#ff0000cc"
+theme.bg_minimize   = "#444444cc"
 theme.bg_systray    = bg_normal
 
 theme.fg_normal     = "#aaaaaa"

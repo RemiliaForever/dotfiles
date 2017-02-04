@@ -10,7 +10,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local freedesktop = require("freedesktop")
@@ -79,10 +78,10 @@ awful.layout.layouts = {
     awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
+    -- awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
-    awful.layout.suit.max,
-    awful.layout.suit.max.fullscreen,
+    -- awful.layout.suit.max,
+    -- awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
     awful.layout.suit.floating,
     -- awful.layout.suit.corner.nw,
@@ -127,8 +126,6 @@ mymainmenu = freedesktop.menu.build({
     }
 })
 
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- Keyboard map indicator and switcher
@@ -434,7 +431,7 @@ local function set_wallpaper(s)
     end
 end
 -- }}}
--- {{{ Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+-- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
@@ -461,7 +458,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 30, screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -480,13 +477,12 @@ awful.screen.connect_for_each_screen(function(s)
             volumewidget,
             batwidget,
             mykeyboardlayout,
-            wibox.widget.systray(),
+            wibox.layout.margin(wibox.widget.systray(),3,3,3,3),
             mytextclock,
             s.mylayoutbox,
         },
     }
 end)
--- }}}
 -- }}}
 
 -- {{{ Mouse bindings
@@ -593,19 +589,15 @@ globalkeys = awful.util.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"}),
 
-    -- user bindings
-    awful.key({}, "Print",
-        function ()
-            awful.util.spawn_with_shell("gnome-screenshot -i")
-        end),
-    awful.key({modkey}, "Delete",
-        function ()
-            awful.util.spawn_with_shell("slock")
-        end)
+    -- {{{ user bindings
+    awful.key({}, "Print", function() awful.util.spawn_with_shell("gnome-screenshot -i") end),
+    awful.key({modkey}, "Delete", function() awful.util.spawn_with_shell("slock") end),
+    awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),
+    awful.key({}, "XF86AudioRaiseVolume", function() volumectl("up", volumewidget) end),
+    awful.key({}, "XF86AudioLowerVolume", function() volumectl("down", volumewidget) end),
+    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end)
+    -- }}}
 )
 
 clientkeys = awful.util.table.join(
@@ -638,10 +630,6 @@ clientkeys = awful.util.table.join(
             c:raise()
         end ,
         {description = "maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "t",
-        function (c)
-            awful.titlebar.toggle(c)
-        end)
 )
 
 -- Bind all key numbers to tags.
@@ -727,20 +715,12 @@ awful.rules.rules = {
         },
         class = {
           "Arandr",
-          "Gpick",
-          "Kruler",
-          "MessageWin",  -- kalarm.
-          "Sxiv",
-          "Wpa_gui",
-          "pinentry",
-          "veromix",
-          "xtightvncviewer"},
-
+          "Gimp",
+          },
         name = {
           "Event Tester",  -- xev.
         },
         role = {
-          "AlarmWindow",  -- Thunderbird's calendar.
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
       }, properties = { floating = true }},
@@ -755,7 +735,7 @@ awful.rules.rules = {
        properties = { screen = 1, tag = "网络" } },
     { rule = { class = "netease-cloud-music" },
         properties = { screen = 1, tag = "音乐" } },
-    { rule = { class = "deadbeef" },
+    { rule = { class = "Deadbeef" },
         properties = { screen = 1, tag = "音乐" } },
     { rule = { class = "TelegramDesktop" },
         properties = { screen = 1, tag = "聊天" } },

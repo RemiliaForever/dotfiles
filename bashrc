@@ -19,6 +19,8 @@ export PAGER='less'
 export EDITOR='vim'
 export BROWSER='chromium'
 
+export TERM=xterm-256color
+
 alias ls='ls --color=always'
 alias grep='grep --color=always'
 
