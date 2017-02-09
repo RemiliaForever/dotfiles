@@ -23,7 +23,7 @@ theme.border_normal = "#ffffff00"
 theme.border_focus  = "#535d6cff"
 theme.border_marked = "#91231cff"
 
-theme.systray_icon_spacing = 2
+theme.systray_icon_spacing = 4
 
 -- There are other variable sets
 -- overriding the default one when
@@ -44,7 +44,7 @@ theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
-theme.menu_height = 24
+theme.menu_height = 32
 theme.menu_width  = 160
 
 -- You can add as many variables as

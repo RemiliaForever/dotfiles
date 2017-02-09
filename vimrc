@@ -138,7 +138,6 @@ nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
-"autocmd InsertLeave * silent! !fcitx-remote -c
 " format
 autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
 autocmd FileType go map <buffer> <F3> :!gofmt -w %<CR><CR>
@@ -212,6 +211,9 @@ if filereadable("cscope.out")
     nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
     nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
 endif
+
+" fcitx
+autocmd InsertLeave * call system('fcitx-remote -c')
 
 " Bundle
 call vundle#rc()

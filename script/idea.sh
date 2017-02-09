@@ -1,0 +1,1 @@
+/opt/idea-IU-162.2228.15/bin/idea.sh

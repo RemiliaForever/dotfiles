@@ -4,11 +4,8 @@
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
--- Widget and layout library
 local wibox = require("wibox")
--- Theme handling library
 local beautiful = require("beautiful")
--- Notification library
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
@@ -136,23 +133,69 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
 
 -- {{{ my widget
+-- {{{ mailwatch indicator
+function mailwidget_update()
+    if mail_watch_time ~= nil then
+        return
+    end
+    mailwidget.image = '/usr/share/icons/Adwaita/scalable/actions/mail-send-receive-symbolic.svg'
+    awful.util.spawn('fetch_mail.py')
+    mail_watch_time = timer({ timeout = 1 })
+    mail_watch_time:connect_signal("timeout", function ()
+        local f = io.open('/tmp/fetch_mail_count', 'r')
+        local new_mail_count = tonumber(f:read())
+        if new_mail_count == -1 then
+            f:close()
+            return
+        end
+        mail_watch_time:stop()
+        mail_watch_time = nil
+        if new_mail_count == -2 then
+            naughty.notify({
+                title = '邮件监视器',
+                text = f:read(),
+            })
+            mailwidget.image = '/usr/share/icons/Adwaita/scalable/actions/mail-mark-important-symbolic.svg'
+            return
+        end
+        if new_mail_count > 0 then
+            naughty.notify({
+                title = '邮件监视器',
+                text = '你有 ' .. new_mail_count .. ' 封新邮件',
+            })
+            mailwidget.image = '/usr/share/icons/Adwaita/48x48/status/mail-unread.png'
+            return
+        end
+        mailwidget.image = '/usr/share/icons/Adwaita/scalable/status/mail-unread-symbolic.svg'
+    end)
+    mail_watch_time:start()
+end
+mailwidget = wibox.widget.imagebox()
+mailwidget.forced_height = 24
+mailwidget.forced_width = 24
+mailwidget:buttons(awful.util.table.join(
+    awful.button({ }, 3, function () mailwidget_update() end),
+    awful.button({ }, 1, function () awful.util.spawn('termite -e mutt') end)
+))
+mailwidget_update()
+mailtimer = timer({ timeout = 60 * 10 })
+mailtimer:connect_signal("timeout", function () mailwidget_update() end)
+mailtimer:start()
+-- }}}
 -- {{{ network speed indicator
 function update_netstat()
     local interval = netwidget_clock.timeout
     local netif, text
-    local f = io.open('/proc/net/route')
-    for line in f:lines() do
+    for line in io.lines('/proc/net/route') do
         netif = line:match('^(%w+)%s+00000000%s')
         if netif then
             break
         end
     end
-    f:close()
 
     if netif then
         local down, up
-        f = io.open('/proc/net/dev')
-        for line in f:lines() do
+        for line in io.lines('/proc/net/dev') do
             -- Match wmaster0 as well as rt0 (multiple leading spaces)
             local name, recv, send = string.match(line, "^%s*(%w+):%s+(%d+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+(%d+)")
             if name == netif then
@@ -169,7 +212,6 @@ function update_netstat()
                 break
             end
         end
-        f:close()
         down = string.format('%.1fKb', down / 1024)
         up = string.format('%.1fKb', up / 1024)
         text = '▼<span color="#5798d9">'.. down ..'</span> ▲<span color="#c2ba62">'.. up ..'</span>'
@@ -183,7 +225,7 @@ netdata = {}
 netwidget = wibox.widget.textbox('(net)')
 netwidget.width = 100
 netwidget:set_align('center')
-netwidget_clock = timer({ timeout = 2 })
+netwidget_clock = timer({ timeout = 1 })
 netwidget_clock:connect_signal("timeout", update_netstat)
 netwidget_clock:start()
 update_netstat()
@@ -200,12 +242,7 @@ end
 function update_memwidget()
     local meminfo = get_memory_usage()
     local free
-    if meminfo.MemAvailable then
-        -- Linux 3.14+
-        free = meminfo.MemAvailable
-    else
-        free = meminfo.MemFree + meminfo.Buffers + meminfo.Cached
-    end
+    free = meminfo.MemFree + meminfo.Buffers + meminfo.Cached
     local total = meminfo.MemTotal
     local percent = 100 - math.floor(free / total * 100 + 0.5)
     memwidget:set_markup(' Mem <span color="#90ee90">'.. percent ..'%</span>' .. " ")
@@ -213,7 +250,7 @@ end
 memwidget = wibox.widget.textbox('Mem ??')
 memwidget.width = 550
 update_memwidget()
-mem_clock = timer({ timeout = 5 })
+mem_clock = timer({ timeout = 10 })
 mem_clock:connect_signal("timeout", update_memwidget)
 mem_clock:start()
 -- }}}
@@ -240,7 +277,7 @@ end
 cputempwidget = wibox.widget.textbox('CPU ??℃')
 cputempwidget.width = 60
 update_cputemp()
-cputemp_clock = timer({ timeout = 5 })
+cputemp_clock = timer({ timeout = 2 })
 cputemp_clock:connect_signal("timeout", update_cputemp)
 cputemp_clock:start()
 -- }}}
@@ -252,6 +289,7 @@ local battery_state = {
     Charging    = '<span color="green">+ ',
     Discharging = '<span color="#1e90ff">– ',
 }
+last_bat_warning = 0
 function update_batwidget()
     local pipe = io.popen('acpi')
     if not pipe then
@@ -285,19 +323,19 @@ function update_batwidget()
         return
     end
 
-    if max_percent <= 30 then
+    if max_percent <= 40 then
         if bats[max_percent_index][1] == 'Discharging' then
             local t = os.time()
             if t - last_bat_warning > 60 * 5 then
-                naughty.notify{
+                naughty.notify({
                     preset = naughty.config.presets.critical,
                     title = "电量警报",
                     text = '电池电量只剩下 ' .. max_percent .. '% 了！',
-                }
+                })
                 last_bat_warning = t
             end
             if max_percent <= 10 and not dont_hibernate then
-                awful.util.spawn("systemctl hibernate")
+                awful.util.spawn("systemctl suspend")
             end
         end
     end
@@ -317,7 +355,7 @@ function update_batwidget()
 end
 batwidget = wibox.widget.textbox('↯??%')
 update_batwidget()
-bat_clock = timer({ timeout = 5 })
+bat_clock = timer({ timeout = 10 })
 bat_clock:connect_signal("timeout", update_batwidget)
 bat_clock:start()
 -- }}}
@@ -458,7 +496,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", height = 30, screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 28, screen = s })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -474,8 +512,9 @@ awful.screen.connect_for_each_screen(function(s)
             memwidget,
             cputempwidget,
             netwidget,
-            volumewidget,
             batwidget,
+            volumewidget,
+            wibox.container.margin(mailwidget,0,0,3,3),
             mykeyboardlayout,
             wibox.layout.margin(wibox.widget.systray(),3,3,3,3),
             mytextclock,
@@ -629,7 +668,7 @@ clientkeys = awful.util.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "maximize", group = "client"}),
+        {description = "maximize", group = "client"})
 )
 
 -- Bind all key numbers to tags.
@@ -710,12 +749,13 @@ awful.rules.rules = {
     -- Floating clients.
     { rule_any = {
         instance = {
-          "DTA",  -- Firefox addon DownThemAll.
           "copyq",  -- Includes session name in class.
         },
         class = {
           "Arandr",
           "Gimp",
+          "Wine",
+          "Minecraft",
           },
         name = {
           "Event Tester",  -- xev.

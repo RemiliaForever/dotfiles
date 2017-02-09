@@ -31,4 +31,5 @@ export LC_ALL=zh_CN.UTF-8
 sudo nvidia-smi -pm 1
 #exec startxfce4
 
+xset -dpms
 exec awesome
