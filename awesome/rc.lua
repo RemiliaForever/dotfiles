@@ -133,6 +133,29 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
 
 -- {{{ my widget
+-- {{{ light function
+function change_light(change)
+    --local max = tonumber(io.open('/sys/class/backlight/intel_backlight/max_brightness'):read())
+    local max = 851
+    local current =  tonumber(io.open('/sys/class/backlight/intel_backlight/brightness'):read())
+    --local step = max/10
+    local step = 85
+    if change == 1 then
+        if current+step > max then
+            current = max
+        else
+            current = current + step
+        end
+    else
+        if current-step < 0 then
+            current = 0
+        else
+            current = current - step
+        end
+    end
+    awful.util.spawn_with_shell('echo ' .. current .. '| sudo tee /sys/class/backlight/intel_backlight/brightness')
+end
+-- }}}
 -- {{{ mailwatch indicator
 function mailwidget_update()
     if mail_watch_time ~= nil then
@@ -635,7 +658,9 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),
     awful.key({}, "XF86AudioRaiseVolume", function() volumectl("up", volumewidget) end),
     awful.key({}, "XF86AudioLowerVolume", function() volumectl("down", volumewidget) end),
-    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end)
+    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end),
+    awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
+    awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
     -- }}}
 )
 
@@ -756,6 +781,7 @@ awful.rules.rules = {
           "Gimp",
           "Wine",
           "Minecraft",
+          "Steam",
           },
         name = {
           "Event Tester",  -- xev.

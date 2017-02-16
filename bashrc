@@ -10,7 +10,6 @@ export JAVA_HOME=/usr/lib/jvm/default
 export GOPATH=/home/remilia/Workspace/GoTest
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
-source /usr/share/doc/pkgfile/command-not-found.bash
 source ~/.git-prompt.sh
 
 export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[33m\]\w\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY\n\[\e[34m\]└\[\e[35m\]\$\[\e[0m\] '
