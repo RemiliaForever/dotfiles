@@ -29,6 +29,7 @@ alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 alias aria2c='/usr/bin/aria2c --conf-path=/home/remilia/.config/aria2c/daemon'
 alias gpg='/usr/bin/gpg --keyserver pgp.mit.edu'
+alias primusrun='vblank_mode=0 primusrun'
 
 alias ssp='source setproxy.sh'
 alias ygt='/usr/bin/you-get -p mpv'

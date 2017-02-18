@@ -132,6 +132,7 @@ set list
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 
+map q: <Nop>
 vnoremap <c-c> "+y
 vnoremap <c-x> "+c
 nnoremap <c-p> "+p
