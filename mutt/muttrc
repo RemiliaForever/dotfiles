@@ -1,14 +1,6 @@
 set editor      =   "/usr/bin/vim"
 set charset     =   "utf-8"
 
-# maildir
-set mbox_type   =   Maildir
-set folder      =   $HOME/.mail
-set spoolfile   =   +inbox
-set postponed   =   +draft
-set trash       =   +trash
-set header_cache=   $HOME/.cache/mutt/headers
-set message_cachedir=$HOME/.cache/mutt/bodies
 # gui
 ignore *
 unignore from date subject to cc
@@ -28,34 +20,18 @@ set pager_index_lines=5
 set pager_stop  =   yes
 # bind
 source $HOME/.mutt/bindings
-# hook
 
-bind pager h display-toggle-weed
-set delete      =   yes
 # color
 source $HOME/.mutt/colors
-# personal
-set realname    =   "RemiliaForever"
-set use_from    =   yes
-set envelope_from = yes
-set from        =   "remilia@koumakan.cc"
-set crypt_use_gpgme = yes
-set signature   =   $HOME/.mutt/signature
 
-source "gpg -dq $HOME/.mutt/passwd |"
-# pop3s
-set pop_host    =   "pops://$my_name:$my_passwd@koumakan.cc:8196"
-set pop_delete  =   yes
-# smtps
-set record      =   +sent
-set smtp_url    =   "smtps://$my_name:$my_passwd@koumakan.cc"
-set ssl_force_tls = yes
-
-# address
-set alias_file  =   $HOME/.mutt/aliases
-set sort_alias  =   alias
-source  $alias_file
 # mailcap
 set mailcap_path =  $HOME/.mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/enriched text/plain
+
+# general settings
+set header_cache=   $HOME/.cache/mutt/headers
+set message_cachedir=$HOME/.cache/mutt/bodies
+
+# default account
+source $HOME/.mutt/remilia@koumakan.cc/remilia

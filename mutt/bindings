@@ -1,5 +1,12 @@
 # vim: filetype=muttrc
+bind pager h display-toggle-weed
+
 bind pager j next-line
 bind pager k previous-line
 
 macro attach B "<pipe-message>cat > /tmp/mutt.html;chromium /tmp/mutt.html<enter>"
+
+# multi account
+folder-hook 'remilia@koumakan.cc' 'source ~/.mutt/remilia@koumakan.cc/remilia'
+macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter>'
