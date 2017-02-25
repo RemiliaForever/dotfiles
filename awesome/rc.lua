@@ -782,6 +782,8 @@ awful.rules.rules = {
           "Wine",
           "Minecraft",
           "Steam",
+          "Display",
+          "Animation",
           },
         name = {
           "Event Tester",  -- xev.

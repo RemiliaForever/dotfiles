@@ -139,6 +139,19 @@ nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
+" 16hex
+nnoremap <F4> :call ToggleHex()<CR>
+let s:current_hex_mode = 0
+function ToggleHex()
+    if s:current_hex_mode == 1
+        let s:current_hex_mode = 0
+        %!xxd -r
+    else
+        let s:current_hex_mode = 1
+        %!xxd
+    endif
+endfunction
+
 " format
 autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
 autocmd FileType go map <buffer> <F3> :!gofmt -w %<CR><CR>
@@ -200,25 +213,47 @@ if filereadable("cscope.out")
     set nocsverb
     set cspc=3
     cs add cscope.out
-    nmap <C-j> :cn<CR>
-    nmap <C-k> :cp<CR>
-    nmap <C-_>a :cs find a <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-_>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
-    nmap <C-_>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap <C-_>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+
+    "fix imap in latex-suite
+    nnoremap <C-space> <Plug>IMAP_JumpForward
+
+    nnoremap <C-j> :cn<CR>
+    nnoremap <C-k> :cp<CR>
+    nnoremap <C-[>a :cs find a <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    nnoremap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+    nnoremap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    nnoremap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>
 endif
 
 " fcitx
 autocmd InsertLeave * call system('fcitx-remote -c')
 
+" latex
+let g:Tex_CompileRule_pdf = 'xelatex $*'
+let g:Tex_GotoError = 0
+let g:Tex_IgnoredWarnings =
+\"Underfull\n".
+\"Overfull\n".
+\"specifier changed to\n".
+\"You have requested\n".
+\"Missing number, treated as zero.\n".
+\"There were undefined references\n".
+\"Citation %.%# undefined\n".
+\"Latex Font Warning: %s\n".
+\"Package microtype Warning: %s\n"
+let g:Tex_IgnoreLevel = 9
+let g:Tex_ViewRule_pdf = 'evince'
+let g:Tex_DefaultTargetFormat = 'pdf'
+
 " Bundle
 call vundle#rc()
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'gerw/vim-latex-suite'
 
 Bundle 'scrooloose/nerdtree'
 Bundle 'Tagbar'
