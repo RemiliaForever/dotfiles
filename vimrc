@@ -234,7 +234,7 @@ endif
 autocmd InsertLeave * call system('fcitx-remote -c')
 
 " latex
-let g:Tex_CompileRule_pdf = 'xelatex $*'
+let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode -halt-on-error -synctex=1 $*'
 let g:Tex_GotoError = 0
 let g:Tex_IgnoredWarnings =
 \"Underfull\n".
@@ -245,10 +245,13 @@ let g:Tex_IgnoredWarnings =
 \"There were undefined references\n".
 \"Citation %.%# undefined\n".
 \"Latex Font Warning: %s\n".
-\"Package microtype Warning: %s\n"
-let g:Tex_IgnoreLevel = 9
-let g:Tex_ViewRule_pdf = 'evince'
+\"Package microtype Warning: %s\n".
+\"Package pgfplots Warning: %s\n"
+let g:Tex_IgnoreLevel = 10
+let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_UsePython = 0
+autocmd Filetype tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
 
 " Bundle
 call vundle#rc()
