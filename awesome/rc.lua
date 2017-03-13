@@ -307,10 +307,10 @@ cputemp_clock:start()
 --{{{ battery indicator, using the acpi command
 local battery_state = {
     -- Unknown     = '<span color="yellow">? ',
-    Unknown     = '<span color="#0000ff">🔌',
-    Idle        = '<span color="#0000ff">🔌',
-    Charging    = '<span color="green">🔌',
-    Discharging = '<span color="#1e90ff">🔋',
+    Unknown     = '🔌<span color="#0000ff">',
+    Idle        = '🔌<span color="#0000ff">',
+    Charging    = '🔌<span color="green">',
+    Discharging = '🔋<span color="#1e90ff">',
 }
 last_bat_warning = 0
 function update_batwidget()

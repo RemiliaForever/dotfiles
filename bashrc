@@ -16,7 +16,7 @@ export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[3
 
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vim'
-export BROWSER='/usr/bin/chromium'
+export BROWSER='/usr/bin/chromium-dev'
 
 export TERM=xterm-256color
 
@@ -32,5 +32,6 @@ alias gpg='/usr/bin/gpg --keyserver pgpkeys.eu'
 alias primusrun='vblank_mode=0 primusrun'
 
 alias ssp='source setproxy.sh'
-alias ygt='/usr/bin/you-get -p mpv'
+alias ygp='/usr/bin/you-get -p mpv'
+alias ygd='/usr/bin/you-get -p aria2c'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
