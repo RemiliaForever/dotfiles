@@ -1,0 +1,4 @@
+# vim: filetype=muttrc
+unalias *
+
+source ~/.mutt/aliases

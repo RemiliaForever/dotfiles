@@ -1,0 +1,32 @@
+# vim: filetype=muttrc
+
+# personal
+set realname    =   "陈鸿志"
+set use_from    =   yes
+set envelope_from = yes
+set from        =   "chenhongzhi@begoit.com"
+set crypt_use_gpgme = yes
+set signature   =   $HOME/.mutt/chenhongzhi@begoit.com/signature
+
+source "gpg -dq $HOME/.mutt/chenhongzhi@begoit.com/passwd |"
+# ir
+set mbox_type   =   Maildir
+set folder      =   $HOME/.mail/chenhongzhi@begoit.com
+set spoolfile   =   +inbox
+set postponed   =   +draft
+set trash       =   +trash
+set delete      =   yes
+# pop3s
+set pop_host    =   "pops://$my_name:$my_passwd@pop3.mxhichina.com"
+set pop_delete  =   yes
+# smtps
+set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.mxhichina.com"
+set ssl_force_tls = yes
+set record      =   +sent
+
+# address
+set alias_file  =   $HOME/.mutt/chenhongzhi@begoit.com/aliases
+set sort_alias  =   alias
+source  $alias_file
+
+set status_format = "[chenhongzhi@begoit.com%f] %r [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?] (%s/%S) %> [%m](%P) "

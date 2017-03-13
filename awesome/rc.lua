@@ -179,14 +179,16 @@ function mailwidget_update()
                 text = f:read(),
             })
             mailwidget.image = '/usr/share/icons/Adwaita/scalable/actions/mail-mark-important-symbolic.svg'
+            f:close()
             return
         end
         if new_mail_count > 0 then
             naughty.notify({
                 title = '邮件监视器',
-                text = '你有 ' .. new_mail_count .. ' 封新邮件',
+                text = '你有 ' .. new_mail_count .. ' 封新邮件\n来自 ' .. f:read(),
             })
             mailwidget.image = '/usr/share/icons/Adwaita/48x48/status/mail-unread.png'
+            f:close()
             return
         end
         mailwidget.image = '/usr/share/icons/Adwaita/scalable/status/mail-unread-symbolic.svg'
