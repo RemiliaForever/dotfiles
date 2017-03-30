@@ -71,7 +71,7 @@ check_hash = yes
 # "auto" (start and stop DHT as needed), or "on" (start DHT immediately).
 # The default is "off". For DHT to work, a session directory must be defined.
 #
-dht = off
+dht = on
 
 # UDP port to use for DHT.
 #
