@@ -8,6 +8,7 @@
     cs = commit -S -m
     cas = commit -S -a -m
     ca = commit -a -m
+    cm = commit -m
     dt = difftool
     mt = mergetool
 [push]
