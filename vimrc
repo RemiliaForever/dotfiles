@@ -202,6 +202,7 @@ let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_python_binary_path = '/usr/bin/python'
 let mapleader = ","
+autocmd FileType html set filetype=html.javascript
 "nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR> 
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
