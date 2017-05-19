@@ -3,6 +3,12 @@
     "browser",
     "jquery"
   ],
+  "loadEagerly": [
+      "./js/*.js"
+  ],
   "plugins": {
+      "doc_comment": {
+          "fullDocs": true
+      }
   }
 }
