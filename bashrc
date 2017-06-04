@@ -7,7 +7,6 @@
 
 export STEAM_RUNTIME=0
 export JAVA_HOME=/usr/lib/jvm/default
-export GOPATH=/home/remilia/Workspace/GoTest
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh

@@ -17,6 +17,7 @@ autorunApps =
     'compton --config ~/.config/compton/config',
     'fcitx -D -r',
     'nm-applet',
+    'blueman-applet',
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
 }
 for app = 1, #autorunApps do
