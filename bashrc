@@ -5,13 +5,13 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export STEAM_RUNTIME=0
 export JAVA_HOME=/usr/lib/jvm/default
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
 
-export PS1='\[\e[34m\]┌\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H \[\e[35m\]\A \[\e[33m\]\w\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY\n\[\e[34m\]└\[\e[35m\]\$\[\e[0m\] '
+export PS1_START='\r'
+export PS1='$(echo -ne $PS1_START)\[\e[34m\]┌\[\e[34m\][\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY\n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vim'

@@ -21,7 +21,7 @@ cursor_blink = system
 cursor_shape = block
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
-browser = chromium
+browser = chromium-dev
 
 # set size hints for the window
 #size_hints = false
@@ -40,7 +40,7 @@ foreground_bold = #ebebeb
 #background = #3f3f3f
 
 # 20% background transparency (requires a compositor)
-background = rgba(33, 33, 33, 0.75)
+background = rgba(33, 33, 33, 0.85)
 
 # if unset, will reverse foreground and background
 highlight = #2f2f2f
@@ -54,8 +54,8 @@ color2  = #55ff55
 color10 = #55ff55
 color3  = #ffff55
 color11 = #ffff55
-color4  = #44bbff
-color12 = #44bbff
+color4  = #44aaff
+color12 = #44aaff
 color5  = #ff55ff
 color13 = #ff55ff
 color6  = #55ffff
@@ -67,8 +67,6 @@ color15 = #aaaaaa
 #font = Monospace 12
 #foreground = #dcdccc
 #background = #3f3f3f
-#active_foreground = #e68080
-#active_background = #3f3f3f
 #padding = 2
 #border = #3f3f3f
 #border_width = 0.5
