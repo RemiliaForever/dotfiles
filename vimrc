@@ -152,10 +152,16 @@ function ToggleHex()
     endif
 endfunction
 
+" frontend
+au BufNewFile,BufRead *.vue set filetype=html.javascript
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_always_populate_loc_list = 1
+
 " format
 autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
-autocmd FileType go map <buffer> <F3> :!gofmt -w %<CR><CR>
 autocmd FileType h,c,cpp,cl,glsl map <buffer> <F3> :!clang-format -i -style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true}" %<CR><CR>
+autocmd FileType html.javascript,javascript map <buffer> <F3> :!eslint --fix %<CR><CR>:SyntasticCheck<CR>
+
 
 " highlight
 hi LineNr ctermfg=yellow
@@ -171,7 +177,7 @@ let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
 
 " NERDTree
-let g:NERDTreeWinSize = 25
+let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '\.aux$', '\.bcf$', '\.toc$']
@@ -179,7 +185,7 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
 let g:tagbar_title = "[Tagbar]"
-let g:tagbar_width = 25
+let g:tagbar_width = 30
 nnoremap <c-l> :TagbarToggle<CR>
 
 " Buffer Explorer
@@ -252,7 +258,7 @@ let g:Tex_IgnoreLevel = 10
 let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_UsePython = 0
-autocmd Filetype tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
+autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
 
 " Bundle
 call vundle#rc()
@@ -263,6 +269,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'Tagbar'
 Bundle 'cscope.vim'
 Bundle 'pyflakes'
+Bundle 'scrooloose/syntastic'
 Bundle 'bufexplorer.zip'
 
 Bundle 'ShaderHighLight'
