@@ -152,6 +152,7 @@ function ToggleHex()
     endif
 endfunction
 
+nnoremap <F5> :!xdg-open %<CR><CR>
 " frontend
 au BufNewFile,BufRead *.vue set filetype=html.javascript
 let g:syntastic_javascript_checkers = ['eslint']
@@ -171,6 +172,7 @@ hi DiffText ctermfg=white cterm=reverse
 hi DiffAdd ctermfg=white
 hi Error ctermfg=white
 hi ErrorMsg ctermfg=white
+hi SpellBad ctermbg=224 ctermfg=black
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
 let g:cpp_class_scope_highlight = 0
