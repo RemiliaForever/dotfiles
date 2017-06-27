@@ -270,7 +270,6 @@ Bundle 'gerw/vim-latex-suite'
 Bundle 'scrooloose/nerdtree'
 Bundle 'Tagbar'
 Bundle 'cscope.vim'
-Bundle 'pyflakes'
 Bundle 'scrooloose/syntastic'
 Bundle 'bufexplorer.zip'
 
