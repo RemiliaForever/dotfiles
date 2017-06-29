@@ -15,6 +15,8 @@
     default = simple
 [core]
     editor = vim
+    autocrlf = input
+    excludesfile = ~/.gitignore
 [github]
     user = RemiliaForever
 [color]
@@ -23,3 +25,5 @@
     tool = vimdiff
 [merge]
     tool = vimdiff
+[mergetool]
+    keepBackup = false

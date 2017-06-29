@@ -159,6 +159,9 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 
 " format
+let mapleader = ","
+autocmd FileType html set filetype=html.javascript
+autocmd FileType qrc set filetype=qrc.xml
 autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
 autocmd FileType h,c,cpp,cl,glsl map <buffer> <F3> :!clang-format -i -style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}" %<CR><CR>
 autocmd FileType html.javascript,javascript map <buffer> <F3> :!eslint --fix %<CR><CR>:SyntasticCheck<CR>
@@ -209,8 +212,6 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 0
 let g:ycm_python_binary_path = '/usr/bin/python'
-let mapleader = ","
-autocmd FileType html set filetype=html.javascript
 "nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR> 
 "nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 "nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>

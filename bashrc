@@ -37,3 +37,4 @@ alias ygb='/usr/bin/you-get -p "/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -n
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
 
 alias yy='yaourt -Syua'
+alias python='/usr/bin/ipython'
