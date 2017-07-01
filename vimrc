@@ -157,12 +157,14 @@ nnoremap <F5> :!xdg-open %<CR><CR>
 au BufNewFile,BufRead *.vue set filetype=html.javascript
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
+" python
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--max-line-length=120'
 
 " format
 let mapleader = ","
 autocmd FileType html set filetype=html.javascript
 autocmd FileType qrc set filetype=qrc.xml
-autocmd FileType python map <buffer> <F3> :call Pyflakes()<CR>
 autocmd FileType h,c,cpp,cl,glsl map <buffer> <F3> :!clang-format -i -style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}" %<CR><CR>
 autocmd FileType html.javascript,javascript map <buffer> <F3> :!eslint --fix %<CR><CR>:SyntasticCheck<CR>
 
@@ -200,8 +202,6 @@ nnoremap <F2> :BufExplorer<CR>
 hi YcmErrorSection ctermfg=8 ctermbg=1
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm/ycm_extra_conf.py'
 set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif    "离开插入模式后关闭预览窗口
-inoremap <expr> <space>       pumvisible() ? "\<C-y>" : "\<space>"
 "按空格键即选中当前项
 "let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
 "let g:ycm_seed_identifiers_with_syntax = 1

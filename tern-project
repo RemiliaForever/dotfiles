@@ -1,14 +1,15 @@
 {
-  "libs": [
-    "browser",
-    "jquery"
-  ],
-  "loadEagerly": [
-      "./js/*.js"
-  ],
-  "plugins": {
-      "doc_comment": {
-          "fullDocs": true
-      }
-  }
+    "libs": [
+        "browser",
+        "jquery"
+    ],
+    "loadEagerly": [
+        "./js/*.js"
+    ],
+    "plugins": {
+        "doc_comment": {
+            "fullDocs": true
+        },
+        "webpack": {},
+    }
 }
