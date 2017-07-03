@@ -9,16 +9,21 @@ set crypt_use_gpgme = yes
 set signature   =   $HOME/.mutt/chenhongzhi@begoit.com/signature
 
 source "gpg -dq $HOME/.mutt/chenhongzhi@begoit.com/passwd |"
-# ir
+# maildir
 set mbox_type   =   Maildir
-set folder      =   $HOME/.mail/chenhongzhi@begoit.com
+set folder      =   imaps://imap.mxhichina.com/
 set spoolfile   =   +inbox
 set postponed   =   +draft
 set trash       =   +trash
 set delete      =   yes
 # pop3s
-set pop_host    =   "pops://$my_name:$my_passwd@pop3.mxhichina.com"
-set pop_delete  =   yes
+#set pop_host    =   "pops://$my_name:$my_passwd@pop3.mxhichina.com"
+#set pop_delete  =   yes
+# imaps
+set imap_user   =   $my_name
+set imap_pass   =   $my_passwd
+set imap_keepalive = 300
+set mail_check  =   60
 # smtps
 set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.mxhichina.com"
 set ssl_force_tls = yes

@@ -1,1 +1,4 @@
-# Your aliases
+# vim: filetype=muttrc
+unalias *
+
+source ~/.mutt/aliases
