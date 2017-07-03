@@ -11,22 +11,23 @@ set signature   =   $HOME/.mutt/remilia@koumakan.cc/signature
 source "gpg -dq $HOME/.mutt/remilia@koumakan.cc/passwd |"
 # maildir
 set mbox_type   =   Maildir
-set folder      =   imaps://koumakan.cc:8194/
-set spoolfile   =   +inbox
-set postponed   =   +draft
-set trash       =   +trash
+set folder      =   imaps://koumakan.cc:8993/
+set spoolfile   =   +Inbox
+set postponed   =   +Draft
+set trash       =   +Trash
 set delete      =   yes
 # pop3s
 #set pop_host    =   "pops://$my_name:$my_passwd@koumakan.cc:8196"
 #set pop_delete  =   no
 set imap_user   =   $my_name
 set imap_pass   =   $my_passwd
-set imap_keepalive = 300
+set imap_keepalive = 30
 set mail_check  =   60
+unset imap_passive
 # smtps
-set smtp_url    =   "smtps://$my_name:$my_passwd@koumakan.cc"
+set smtp_url    =   "smtps://$my_name:$my_passwd@koumakan.cc:8465"
 set ssl_force_tls = yes
-set record      =   +sent
+set record      =   +Sent
 
 # address
 set alias_file  =   $HOME/.mutt/remilia@koumakan.cc/aliases
