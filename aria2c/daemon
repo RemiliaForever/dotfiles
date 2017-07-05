@@ -9,5 +9,6 @@ max-overall-download-limit=0
 min-split-size=5M
 
 enable-rpc=false
-rpc-listen-all=false
+rpc-listen-all=true
+rpc-allow-origin-all=true
 rpc-secret=remilia
