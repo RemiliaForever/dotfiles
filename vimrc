@@ -262,6 +262,10 @@ let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_UsePython = 0
 autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
+let g:syntastic_quiet_messages = { "regex": [
+        \ '\mpossible unwanted space at "{"',
+        \ 'bottomrule from booktabs',
+        \ ] }
 
 " Bundle
 call vundle#rc()
