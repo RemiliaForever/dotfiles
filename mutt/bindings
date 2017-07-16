@@ -1,6 +1,9 @@
 # vim: filetype=muttrc
 bind pager h display-toggle-weed
 
+bind index G imap-fetch-mail
+bind pager G imap-fetch-mail
+
 bind pager j next-line
 bind pager k previous-line
 
