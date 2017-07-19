@@ -176,12 +176,14 @@ hi LineNr ctermfg=yellow
 hi CursorLineNr cterm=bold ctermfg=yellow
 hi Statement ctermfg=yellow
 hi DiffText ctermfg=white cterm=reverse
-hi DiffAdd ctermfg=white
+hi DiffAdd ctermfg=black
+hi DiffChange ctermfg=black
 hi Error ctermfg=white
 hi ErrorMsg ctermfg=white
 hi SpellBad ctermbg=224 ctermfg=black
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
+hi Folded ctermfg=black
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
 
@@ -267,6 +269,7 @@ autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':
 let g:syntastic_quiet_messages = { "regex": [
         \ '\mpossible unwanted space at "{"',
         \ 'bottomrule from booktabs',
+        \ 'You should put a space in front of parenthesis',
         \ ] }
 
 " Bundle
