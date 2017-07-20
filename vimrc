@@ -183,7 +183,7 @@ hi ErrorMsg ctermfg=white
 hi SpellBad ctermbg=224 ctermfg=black
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
-hi Folded ctermfg=black
+hi Folded ctermfg=6 ctermbg=0
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
 
