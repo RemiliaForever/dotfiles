@@ -60,8 +60,8 @@ color5  = #ff55ff
 color13 = #ff55ff
 color6  = #55ffff
 color14 = #55ffff
-color7  = #aaaaaa
-color15 = #aaaaaa
+color7  = #cccccc
+color15 = #cccccc
 
 [hints]
 #font = Monospace 12
