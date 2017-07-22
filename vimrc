@@ -129,6 +129,7 @@ set showcmd
 set mouse=a
 set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
+set fdm=syntax
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 
@@ -154,6 +155,7 @@ endfunction
 
 nnoremap <F5> :!xdg-open %<CR><CR>
 " frontend
+autocmd FileType html set filetype=html.javascript
 au BufNewFile,BufRead *.vue set filetype=html.javascript
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
@@ -161,10 +163,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--max-line-length=120'
 " rust
+au BufNewFile,BufRead *.toml set filetype=toml
 let g:ycm_rust_src_path = '/usr/src/rust/src'
 " format
 let mapleader = ","
-autocmd FileType html set filetype=html.javascript
 autocmd FileType qrc set filetype=qrc.xml
 autocmd FileType h,c,cpp,cl,glsl map <buffer> <F3> :!clang-format -i -style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}" %<CR><CR>
 autocmd FileType html.javascript,javascript map <buffer> <F3> :!eslint --fix %<CR><CR>:SyntasticCheck<CR>
@@ -282,6 +284,7 @@ Bundle 'Tagbar'
 Bundle 'cscope.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'bufexplorer.zip'
+Bundle 'cespare/vim-toml'
 
 Bundle 'ShaderHighLight'
 Bundle 'beyondmarc/opengl.vim'
