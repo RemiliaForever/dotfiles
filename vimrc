@@ -168,6 +168,9 @@ au BufNewFile,BufRead *.toml set filetype=toml
 autocmd FileType rust map <buffer> <F3> :RustFmt <CR>
 let g:rustfmt_autosave = 1
 let g:ycm_rust_src_path = '/usr/src/rust/src'
+let g:syntastic_rust_rustc_exe = 'cargo check'
+let g:syntastic_rust_rustc_fname = ''
+let g:syntastic_rust_rustc_args = '--'
 let g:syntastic_rust_checkers = ['rustc']
 " format
 let mapleader = ","
