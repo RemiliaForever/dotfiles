@@ -790,6 +790,7 @@ awful.rules.rules = {
           },
         name = {
           "Event Tester",  -- xev.
+          "Gnuplot",
         },
         role = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
