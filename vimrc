@@ -289,4 +289,4 @@ Bundle 'cespare/vim-toml'
 Bundle 'ShaderHighLight'
 Bundle 'beyondmarc/opengl.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
-
+Bundle 'othree/html5.vim'

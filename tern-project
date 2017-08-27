@@ -10,6 +10,6 @@
         "doc_comment": {
             "fullDocs": true
         },
-        "webpack": {},
+        "webpack": {}
     }
 }
