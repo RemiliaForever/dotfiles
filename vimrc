@@ -198,7 +198,7 @@ let g:cpp_experimental_template_highlight = 0
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '\.aux$', '\.bcf$', '\.toc$']
+let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '^node_modules$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
