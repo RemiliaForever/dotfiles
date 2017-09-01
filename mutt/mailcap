@@ -1,4 +1,4 @@
-text/html; chromium-dev '%s' &; test=test -n '$DISPLAY';
+text/html; chromium '%s' &; test=test -n '$DISPLAY';
 text/html; w3m -I %{charset} -T text/html -dump; copiousoutput;
 image/gif; animate %s;
 image/*; display %s;

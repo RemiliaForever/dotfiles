@@ -1,7 +1,7 @@
 {
     "libs": [
         "browser",
-        "jquery"
+        "ecma6"
     ],
     "loadEagerly": [
         "./js/*.js"
@@ -10,6 +10,12 @@
         "doc_comment": {
             "fullDocs": true
         },
-        "webpack": {}
+        "webpack": {
+            "configPath": "./build/webpack.dev.conf.js"
+        },
+        "node": {},
+        "complete_strings": {},
+        "modules": {},
+        "es_modules": {}
     }
 }

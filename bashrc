@@ -15,7 +15,7 @@ export PS1='$(echo -ne $PS1_START)\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[32m\
 
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vim'
-export BROWSER='/usr/bin/chromium-dev'
+export BROWSER='/usr/bin/chromium'
 
 export TERM=xterm-256color
 
