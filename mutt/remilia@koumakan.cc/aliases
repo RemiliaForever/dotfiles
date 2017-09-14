@@ -1,4 +1,6 @@
 # vim: filetype=muttrc
 unalias *
 
+subscribe aur-general@archlinux.org
+
 source ~/.mutt/aliases
