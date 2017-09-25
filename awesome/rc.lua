@@ -240,7 +240,7 @@ function update_netstat()
         end
         down = string.format('%.1fKb', down / 1024)
         up = string.format('%.1fKb', up / 1024)
-        text = '⬇️<span color="#5798d9">'.. down ..'</span> ⬆️<span color="#c2ba62">'.. up ..'</span>'
+        text = '🔻<span color="#5798d9">'.. down ..'</span> 🔺<span color="#c2ba62">'.. up ..'</span>'
     else
         netdata = {} -- clear as the interface may have been reset
         text = '(No network)'
@@ -310,9 +310,9 @@ cputemp_clock:start()
 --{{{ battery indicator, using the acpi command
 local battery_state = {
     -- Unknown     = '<span color="yellow">? ',
-    Unknown     = '🔌<span color="#0000ff">',
-    Idle        = '🔌<span color="#0000ff">',
-    Charging    = '🔌<span color="green">',
+    Unknown     = '⚡<span color="#0000ff">',
+    Idle        = '⚡<span color="#0000ff">',
+    Charging    = '⚡<span color="green">',
     Discharging = '🔋<span color="#1e90ff">',
 }
 last_bat_warning = 0

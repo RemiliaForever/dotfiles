@@ -16,7 +16,7 @@
 #upload_rate = 0
 
 # Default directory to save the downloaded torrents.
-directory = /home/remilia/Downloads
+directory = /run/media/remilia/这是一个移动硬盘/PT
 
 # Default session directory. Make sure you don't run multiple instance
 # of rtorrent using the same session directory. Perhaps using a
@@ -33,7 +33,7 @@ session = /home/remilia/.cache/rtorrent
 
 # The ip address reported to the tracker.
 #ip = 127.0.0.1
-#ip = rakshasa.no
+#ip = koumakan.cc
 
 # The ip address the listening socket and outgoing connections is
 # bound to.
@@ -44,7 +44,7 @@ session = /home/remilia/.cache/rtorrent
 #port_range = 6890-6999
 
 # Start opening ports at a random position within the port range.
-#port_random = no
+port_random = yes
 
 # Check hash for finished torrents. Might be usefull until the bug is
 # fixed that causes lack of diskspace not to be properly reported.
