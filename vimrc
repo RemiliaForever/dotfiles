@@ -158,7 +158,7 @@ nnoremap <F5> :!xdg-open %<CR><CR>
 " frontend
 autocmd FileType html set filetype=html.javascript
 au BufNewFile,BufRead *.vue set filetype=html.javascript
-autocmd FileType html.javascript,javascript map <buffer> <F3> :!eslint --fix %<CR><CR>:SyntasticCheck<CR>
+autocmd FileType html.javascript,javascript map <buffer> <F3> :!./node_modules/eslint/bin/eslint --fix %<CR><CR>:SyntasticCheck<CR>
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_always_populate_loc_list = 1
 " python

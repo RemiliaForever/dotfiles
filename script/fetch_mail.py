@@ -23,7 +23,7 @@ try:
     count += count_hostname
 
     M = imaplib.IMAP4_SSL('[hostname]')
-    M.login('[username]', '[password]')
+    M.login('[username]@[hostname]', '[password]')
     M.select(readonly=True)
     count_hostname = parse_status(M.status('INBOX', '(UNSEEN)'))
     M.close()
