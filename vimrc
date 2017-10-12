@@ -158,10 +158,11 @@ nnoremap <F5> :!xdg-open %<CR><CR>
 " frontend
 autocmd FileType html set filetype=html.javascript
 au BufNewFile,BufRead *.vue set filetype=html.javascript
-autocmd FileType html.javascript,javascript map <buffer> <F3> :!./node_modules/eslint/bin/eslint --fix %<CR><CR>:SyntasticCheck<CR>
+autocmd FileType html.javascript,javascript map <buffer> <F3> :!./node_modules/.bin/eslint --fix %<CR>:SyntasticCheck<CR>
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
 " python
+autocmd FileType python map <buffer> <F3> :!autopep8 -i --max-line-length 120 %<CR>:SyntasticCheck<CR>
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--max-line-length=120'
 " rust
