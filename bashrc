@@ -31,9 +31,6 @@ alias gpg='/usr/bin/gpg --keyserver pgpkeys.eu'
 alias primusrun='vblank_mode=0 primusrun'
 
 alias ssp='source setproxy.sh'
-alias ygp='/usr/bin/you-get -p mpv'
-alias ygd='/usr/bin/you-get -p aria2c'
-alias ygb='/usr/bin/you-get -p "/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID"'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
 
 alias yy='yaourt -Syua'
