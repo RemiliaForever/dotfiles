@@ -153,6 +153,19 @@ function ToggleHex()
         %!xxd
     endif
 endfunction
+" relative number
+map <F1> :call ToggleRelativeNumber()<CR>
+set relativenumber
+let s:current_relative_number_mode = 1
+function ToggleRelativeNumber()
+    if s:current_relative_number_mode == 1
+        let s:current_relative_number_mode = 0
+        set norelativenumber
+    else
+        let s:current_relative_number_mode = 1
+        set relativenumber
+    endif
+endfunction
 
 nnoremap <F5> :!xdg-open %<CR><CR>
 " frontend
