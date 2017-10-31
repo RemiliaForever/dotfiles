@@ -154,7 +154,8 @@ function ToggleHex()
     endif
 endfunction
 " relative number
-map <F1> :call ToggleRelativeNumber()<CR>
+nmap <F1> :call ToggleRelativeNumber()<CR>
+imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
 set relativenumber
 let s:current_relative_number_mode = 1
 function ToggleRelativeNumber()
