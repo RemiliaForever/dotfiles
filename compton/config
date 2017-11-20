@@ -82,6 +82,7 @@ shadow-exclude = [
     "! name~=''",
     "name *= 'compton'",
     "name *= 'Chromium'",
+    "name *= 'Firefox'",
     "class_g = 'fcitx'",
     "class_g = 'netease-cloud-music'",
     "_GTK_FRAME_EXTENTS@:c"
