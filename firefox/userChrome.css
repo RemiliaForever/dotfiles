@@ -1,0 +1,9 @@
+#main-window #PersonalToolbar {
+    visibility: collapse !important;
+}
+#main-window[title^="about:newtab"] #PersonalToolbar,
+#main-window[title^="New Tab"] #PersonalToolbar,
+#main-window[title^="Nightly"] #PersonalToolbar {
+    height: 28px;
+    visibility: visible !important;
+}
