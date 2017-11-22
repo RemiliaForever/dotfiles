@@ -141,18 +141,6 @@ nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
-" 16hex
-nnoremap <F4> :call ToggleHex()<CR>
-let s:current_hex_mode = 0
-function ToggleHex()
-    if s:current_hex_mode == 1
-        let s:current_hex_mode = 0
-        %!xxd -r
-    else
-        let s:current_hex_mode = 1
-        %!xxd
-    endif
-endfunction
 " relative number
 nmap <F1> :call ToggleRelativeNumber()<CR>
 imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
@@ -165,6 +153,21 @@ function ToggleRelativeNumber()
     else
         let s:current_relative_number_mode = 1
         set relativenumber
+    endif
+endfunction
+" Buffer Explorer
+nnoremap <F2> :BufExplorer<CR>
+
+" 16hex
+nnoremap <F4> :call ToggleHex()<CR>
+let s:current_hex_mode = 0
+function ToggleHex()
+    if s:current_hex_mode == 1
+        let s:current_hex_mode = 0
+        %!xxd -r
+    else
+        let s:current_hex_mode = 1
+        %!xxd
     endif
 endfunction
 
@@ -183,7 +186,7 @@ let g:syntastic_python_flake8_args = '--max-line-length=120'
 au BufNewFile,BufRead *.toml set filetype=toml
 autocmd FileType rust map <buffer> <F3> :RustFmt <CR>
 let g:rustfmt_autosave = 1
-let g:ycm_rust_src_path = '/usr/src/rust/src'
+let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
 let g:syntastic_rust_rustc_exe = 'cargo check'
 let g:syntastic_rust_rustc_fname = ''
 let g:syntastic_rust_rustc_args = '--'
@@ -221,9 +224,6 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 let g:tagbar_title = "[Tagbar]"
 let g:tagbar_width = 30
 nnoremap <c-l> :TagbarToggle<CR>
-
-" Buffer Explorer
-nnoremap <F2> :BufExplorer<CR>
 
 " YCM
 hi YcmErrorSection ctermfg=8 ctermbg=1
