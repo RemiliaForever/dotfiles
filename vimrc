@@ -229,8 +229,22 @@ let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '^node_modules$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
-let g:tagbar_title = "[Tagbar]"
 let g:tagbar_width = 30
+let g:tagbar_type_rust= {
+    \ 'ctagstype' : 'Rust',
+    \ 'kinds'     : [
+    \ 'f:function definitions',
+    \ 'T:type definitions',
+    \ 'g:enumeration names',
+    \ 's:structure names',
+    \ 'm:module names',
+    \ 'c:static constants',
+    \ 't:traits',
+    \ 'i:trait implementations',
+    \ 'd:macro definitions',
+    \ ],
+    \ 'sort:'   : 0
+    \}
 nnoremap <c-l> :TagbarToggle<CR>
 
 " YCM
