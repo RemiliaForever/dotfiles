@@ -15,5 +15,5 @@ macro attach B "<pipe-message>cat > /tmp/mutt.html;xdg-open /tmp/mutt.html<enter
 macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
 macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter>'
 macro pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter>'
-macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/chenhongzhi@begoit.com/chenhongzhi<enter><change-folder>!<enter>'
-macro pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/chenhongzhi@begoit.com/chenhongzhi<enter><change-folder>!<enter>'
+#macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/chenhongzhi@begoit.com/chenhongzhi<enter><change-folder>!<enter>'
+#macro pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/chenhongzhi@begoit.com/chenhongzhi<enter><change-folder>!<enter>'
