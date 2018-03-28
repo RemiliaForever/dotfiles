@@ -16,7 +16,7 @@ autorunApps =
 {
     'compton --config ~/.config/compton/config',
     'fcitx -D -r',
-    'nm-applet',
+    -- 'nm-applet',
     -- 'blueman-applet',
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
 }
@@ -54,7 +54,9 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/themes/default/theme.lua")
+beautiful.init("~/.config/awesome/theme.lua")
+-- Changing Notify font size.
+naughty.config.defaults['icon_size'] = 100
 
 -- This is used later as the default terminal and editor to run.
 terminal = "termite"
@@ -282,14 +284,14 @@ mem_clock:start()
 -- }}}
 -- {{{ CPU Temperature
 function update_cputemp()
-    local pipe = io.popen('sensors coretemp-isa-0000')
+    local pipe = io.popen('sensors')
     if not pipe then
         cputempwidget:set_markup('CPU <span color="red">ERR</span>℃')
         return
     end
     local temp = 0
     for line in pipe:lines() do
-        local newtemp = line:match('^Core [^:]+:%s+%+([0-9.]+)°C')
+        local newtemp = line:match('^temp5:%s+%+([0-9.]+)°C')
         if newtemp then
             newtemp = tonumber(newtemp)
             if temp < newtemp then
@@ -306,84 +308,6 @@ update_cputemp()
 cputemp_clock = timer({ timeout = 2 })
 cputemp_clock:connect_signal("timeout", update_cputemp)
 cputemp_clock:start()
--- }}}
---{{{ battery indicator, using the acpi command
-local battery_state = {
-    -- Unknown     = '<span color="yellow">? ',
-    Unknown     = '⚡<span color="#0000ff">',
-    Idle        = '⚡<span color="#0000ff">',
-    Charging    = '⚡<span color="green">',
-    Discharging = '🔋<span color="#1e90ff">',
-}
-last_bat_warning = 0
-function update_batwidget()
-    local pipe = io.popen('acpi')
-    if not pipe then
-        batwidget:set_markup('<span color="red">ERR</span>')
-        return
-    end
-
-    local bats = {}
-    local max_percent = 0
-    local max_percent_index = 0
-    local index = 0
-    for line in pipe:lines() do
-        index = index + 1
-        local state, percent, rest = line:match('^Battery %d+:%s+([^,]+), ([0-9.]+)%%(.*)')
-        local t
-        if rest ~= '' then
-            t = rest:match('[1-9]*%d:%d+')
-        end
-        if not t then t = '' end
-        percent = tonumber(percent)
-        if percent > max_percent then
-            max_percent = percent
-            max_percent_index = index
-        end
-        table.insert(bats, {state, percent, t})
-    end
-    pipe:close()
-
-    if index == 0 then
-        batwidget:set_markup('<span color="red">ERR</span>')
-        return
-    end
-
-    if max_percent <= 40 then
-        if bats[max_percent_index][1] == 'Discharging' then
-            local t = os.time()
-            if t - last_bat_warning > 60 * 5 then
-                naughty.notify({
-                    preset = naughty.config.presets.critical,
-                    title = "电量警报",
-                    text = '电池电量只剩下 ' .. max_percent .. '% 了！',
-                })
-                last_bat_warning = t
-            end
-            if max_percent <= 10 and not dont_hibernate then
-                awful.util.spawn("systemctl suspend")
-            end
-        end
-    end
-    local text = ' '
-    for i, v in ipairs(bats) do
-        local percent = v[2]
-        if percent <= 30 then
-            percent = '<span color="red">' .. percent .. '</span>'
-        end
-        text = text .. (battery_state[v[1]] or battery_state.Unknown) .. percent .. '%'
-               .. (v[3] ~= '' and (' ' .. v[3]) or '') .. '</span>'
-        if i ~= #bats then
-            text = text .. ' '
-        end
-    end
-    batwidget:set_markup(text .. " ")
-end
-batwidget = wibox.widget.textbox('🔌??%')
-update_batwidget()
-bat_clock = timer({ timeout = 10 })
-bat_clock:connect_signal("timeout", update_batwidget)
-bat_clock:start()
 -- }}}
 -- {{{ Volume Controller
 function volumectl (mode, widget)
@@ -803,7 +727,7 @@ awful.rules.rules = {
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    { rule = { class = "Chromium" },
+    { rule = { class = "Firefox" },
        properties = { screen = 1, tag = "网络" } },
     { rule = { class = "netease-cloud-music" },
         properties = { screen = 1, tag = "音乐" } },

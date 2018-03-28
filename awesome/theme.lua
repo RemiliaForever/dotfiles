@@ -4,7 +4,8 @@
 
 local theme = {}
 
-theme.font          = "sans 9"
+theme.font          = "sans 10"
+theme.notification_font = "sans 12"
 
 theme.bg_normal     = "#222222cc"
 theme.bg_focus      = "#535d6ccc"
@@ -17,7 +18,7 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   =  2
+theme.useless_gap   =  1
 theme.border_width  = 0
 theme.border_normal = "#ffffff00"
 theme.border_focus  = "#535d6cff"
