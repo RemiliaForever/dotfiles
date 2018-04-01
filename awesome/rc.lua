@@ -291,10 +291,10 @@ function update_cputemp()
     end
     local temp = 0
     for line in pipe:lines() do
-        local newtemp = line:match('^temp5:%s+%+([0-9.]+)°C')
+        local newtemp = line:match('^temp3:%s+%+([0-9.]+)°C')
         if newtemp then
             newtemp = tonumber(newtemp)
-            if temp < newtemp then
+            if temp == 0 then
                 temp = newtemp
             end
         end

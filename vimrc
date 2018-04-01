@@ -199,6 +199,8 @@ let g:syntastic_rust_rustc_exe = 'cargo check'
 let g:syntastic_rust_rustc_fname = ''
 let g:syntastic_rust_rustc_args = '--'
 let g:syntastic_rust_checkers = ['rustc']
+" java
+let g:syntastic_java_checkers = []
 " format
 let mapleader = ","
 autocmd FileType qrc set filetype=qrc.xml
@@ -225,7 +227,7 @@ let g:cpp_experimental_template_highlight = 0
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^cscope', '^__pycache__$', '^\.git$', '^node_modules$']
+let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
@@ -261,33 +263,12 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python'
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-
-" cscope
-if filereadable("cscope.out")
-    set cst
-    set csto=0
-    set nocsverb
-    set cspc=3
-    cs add cscope.out
-
-    "fix imap in latex-suite
-    nnoremap <C-space> <Plug>IMAP_JumpForward
-
-    nnoremap <C-j> :cn<CR>
-    nnoremap <C-k> :cp<CR>
-    nnoremap <C-[>a :cs find a <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nnoremap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
-    nnoremap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nnoremap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-endif
+nnoremap [d :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap [l :YcmCompleter GoTo<CR>
+nnoremap [t :YcmCompleter GetType<CR>
+nnoremap [p :YcmCompleter GetParent<CR>
+nnoremap [o :YcmCompleter GetDoc<CR>
+nnoremap [q :pclose<CR>
 
 " fcitx
 autocmd InsertLeave * call system('fcitx-remote -c')
@@ -320,16 +301,15 @@ let g:syntastic_quiet_messages = { "regex": [
 " Bundle
 call vundle#rc()
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'rust-lang/rust.vim'
 Bundle 'gerw/vim-latex-suite'
+Bundle 'scrooloose/syntastic'
 
 Bundle 'scrooloose/nerdtree'
-Bundle 'Tagbar'
-Bundle 'cscope.vim'
-Bundle 'scrooloose/syntastic'
 Bundle 'bufexplorer.zip'
-Bundle 'rust-lang/rust.vim'
-Bundle 'cespare/vim-toml'
+Bundle 'Tagbar'
 
+Bundle 'cespare/vim-toml'
 Bundle 'ShaderHighLight'
 Bundle 'beyondmarc/opengl.vim'
 Bundle 'octol/vim-cpp-enhanced-highlight'
