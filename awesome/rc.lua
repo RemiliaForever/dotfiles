@@ -484,8 +484,8 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
-              {description="show help", group="awesome"}),
+    -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+    --           {description="show help", group="awesome"}),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
@@ -580,6 +580,13 @@ globalkeys = awful.util.table.join(
               {description = "lua execute prompt", group = "awesome"}),
 
     -- {{{ user bindings
+    awful.key({modkey}, "s",
+        function()
+            local c = client.focus
+            if c then
+                c.sticky = not c.sticky
+            end
+        end),
     awful.key({}, "Print", function() awful.util.spawn_with_shell("gnome-screenshot -i") end),
     awful.key({modkey}, "Delete", function() awful.util.spawn_with_shell("slock") end),
     awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),

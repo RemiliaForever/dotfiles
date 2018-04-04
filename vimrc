@@ -131,6 +131,7 @@ set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
 set fdm=syntax
 set foldlevelstart=99
+set previewheight=8
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 
