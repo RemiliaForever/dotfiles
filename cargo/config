@@ -1,4 +1,10 @@
 [target.x86_64-pc-windows-gnu]
 linker = "/usr/bin/x86_64-w64-mingw32-gcc"
-ar = "/usr/x86_64-w64-mingw32/bin/ar"
 rustflags = ["-Clink-args=-mwindows"]
+
+[target.aarch64-linux-android]
+linker = "/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-gcc"
+rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm64"]
+
+[http]
+proxy = "127.0.0.1:8118"

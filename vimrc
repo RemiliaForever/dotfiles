@@ -264,6 +264,7 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python'
+let g:ycm_add_preview_to_completeopt = 1
 nnoremap [d :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap [l :YcmCompleter GoTo<CR>
 nnoremap [t :YcmCompleter GetType<CR>
