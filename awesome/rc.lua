@@ -136,28 +136,27 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
 
 -- {{{ my widget
--- {{{ light function
-function change_light(change)
-    --local max = tonumber(io.open('/sys/class/backlight/intel_backlight/max_brightness'):read())
-    local max = 851
-    local current =  tonumber(io.open('/sys/class/backlight/intel_backlight/brightness'):read())
-    --local step = max/10
-    local step = 85
-    if change == 1 then
-        if current+step > max then
-            current = max
-        else
-            current = current + step
-        end
-    else
-        if current-step < 0 then
-            current = 0
-        else
-            current = current - step
-        end
-    end
-    awful.util.spawn_with_shell('echo ' .. current .. '| sudo tee /sys/class/backlight/intel_backlight/brightness')
-end
+-- -- {{{ light function
+-- function change_light(change)
+--     --local max = tonumber(io.open('/sys/class/backlight/intel_backlight/max_brightness'):read())
+--     local current =  tonumber(io.open('xrandr'):read())
+--     --local step = max/10
+--     local step = 85
+--     if change == 1 then
+--         if current+step > max then
+--             current = max
+--         else
+--             current = current + step
+--         end
+--     else
+--         if current-step < 0 then
+--             current = 0
+--         else
+--             current = current - step
+--         end
+--     end
+--     awful.util.spawn_with_shell('echo ' .. current .. '| sudo tee /sys/class/backlight/intel_backlight/brightness')
+-- end
 -- }}}
 -- {{{ mailwatch indicator
 function mailwidget_update()
@@ -269,8 +268,7 @@ function get_memory_usage()
 end
 function update_memwidget()
     local meminfo = get_memory_usage()
-    local free
-    free = meminfo.MemFree + meminfo.Buffers + meminfo.Cached
+    local free = meminfo.MemAvailable
     local total = meminfo.MemTotal
     local percent = 100 - math.floor(free / total * 100 + 0.5)
     memwidget:set_markup(' Mem <span color="#90ee90">'.. percent ..'%</span>' .. " ")
@@ -593,8 +591,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function() volumectl("up", volumewidget) end),
     awful.key({}, "XF86AudioLowerVolume", function() volumectl("down", volumewidget) end),
     awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end),
-    awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
-    awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
+    -- awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
+    -- awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
     -- }}}
 )
 
@@ -734,7 +732,7 @@ awful.rules.rules = {
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
-    { rule = { class = "Firefox" },
+    { rule = { name = "Firefox" },
        properties = { screen = 1, tag = "网络" } },
     { rule = { class = "netease-cloud-music" },
         properties = { screen = 1, tag = "音乐" } },
