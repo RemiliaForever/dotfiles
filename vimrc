@@ -118,9 +118,6 @@ set undodir=~/.vim/history
 set nobackup
 set noswapfile
 set nowritebackup
-filetype on
-filetype plugin on
-filetype indent on
 set foldenable
 set autoindent
 set smartindent
@@ -264,7 +261,6 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python'
-let g:ycm_add_preview_to_completeopt = 1
 nnoremap [d :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap [l :YcmCompleter GoTo<CR>
 nnoremap [t :YcmCompleter GetType<CR>
@@ -301,18 +297,23 @@ let g:syntastic_quiet_messages = { "regex": [
         \ ] }
 
 " Bundle
-call vundle#rc()
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'rust-lang/rust.vim'
-Bundle 'gerw/vim-latex-suite'
-Bundle 'scrooloose/syntastic'
+filetype off
+call vundle#begin()
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'rust-lang/rust.vim'
+Plugin 'gerw/vim-latex-suite'
+Plugin 'scrooloose/syntastic'
 
-Bundle 'scrooloose/nerdtree'
-Bundle 'bufexplorer.zip'
-Bundle 'Tagbar'
+Plugin 'scrooloose/nerdtree'
+Plugin 'bufexplorer.zip'
+Plugin 'Tagbar'
 
-Bundle 'cespare/vim-toml'
-Bundle 'ShaderHighLight'
-Bundle 'beyondmarc/opengl.vim'
-Bundle 'octol/vim-cpp-enhanced-highlight'
-Bundle 'othree/html5.vim'
+Plugin 'cespare/vim-toml'
+Plugin 'ShaderHighLight'
+Plugin 'beyondmarc/opengl.vim'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'othree/html5.vim'
+call vundle#end()
+filetype on
+filetype plugin on
+filetype indent on
