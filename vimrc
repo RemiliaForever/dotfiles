@@ -132,6 +132,7 @@ set previewheight=8
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 
+let mapleader = ","
 map q: <Nop>
 vnoremap <c-c> "+y
 vnoremap <c-x> "+c
@@ -164,6 +165,8 @@ augroup END
 " Buffer Explorer
 nnoremap <F2> :BufExplorer<CR>
 
+nnoremap <F3> :ALEFix<CR>
+
 " 16hex
 nnoremap <F4> :call ToggleHex()<CR>
 let s:current_hex_mode = 0
@@ -178,32 +181,7 @@ function ToggleHex()
 endfunction
 
 nnoremap <F5> :!xdg-open %<CR><CR>
-" frontend
-autocmd FileType html set filetype=html.javascript
-au BufNewFile,BufRead *.vue set filetype=html.javascript
-autocmd FileType html.javascript,javascript map <buffer> <F3> :!./node_modules/.bin/eslint --fix %<CR>:SyntasticCheck<CR>
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = './node_modules/.bin/eslint'
-" python
-autocmd FileType python map <buffer> <F3> :!autopep8 -i --max-line-length 120 %<CR>:SyntasticCheck<CR>
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args = '--max-line-length=120'
-" rust
-au BufNewFile,BufRead *.toml set filetype=toml
-autocmd FileType rust map <buffer> <F3> :RustFmt <CR>
-let g:rustfmt_autosave = 1
-let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
-let g:syntastic_rust_rustc_exe = 'cargo check'
-let g:syntastic_rust_rustc_fname = ''
-let g:syntastic_rust_rustc_args = '--'
-let g:syntastic_rust_checkers = ['rustc']
-" java
-let g:syntastic_java_checkers = []
-" format
-let mapleader = ","
-autocmd FileType qrc set filetype=qrc.xml
-autocmd FileType h,c,cpp,cl,glsl map <buffer> <F3> :!clang-format -i -style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}" %<CR><CR>
-
+nmap <c-g> :SignifyToggle<CR>
 
 " highlight
 hi LineNr ctermfg=yellow
@@ -221,7 +199,7 @@ hi Folded ctermfg=6 ctermbg=0
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
 
-" NERDTree
+" nerdtree
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
@@ -230,6 +208,7 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 
 " Tagbar
 let g:tagbar_width = 30
+nnoremap <c-l> :TagbarToggle<CR>
 let g:tagbar_type_rust= {
     \ 'ctagstype' : 'Rust',
     \ 'kinds'     : [
@@ -245,13 +224,37 @@ let g:tagbar_type_rust= {
     \ ],
     \ 'sort:'   : 0
     \}
-nnoremap <c-l> :TagbarToggle<CR>
 
-" YCM
+" ale
+let g:ale_echo_delay = 20
+let g:ale_lint_delay = 500
+let g:airline#extensions#ale#enabled = 1
+let g:ale_linters = {
+\   'tex': ['chktex'],
+\   }
+let g:ale_rust_cargo_use_check = 1
+let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_fixers = {
+\   'rust': ['rustfmt'],
+\   'c': ['clang-format'],
+\   'cpp': ['clang-format'],
+\   'javascript': ['eslint'],
+\   'python': ['autopep8'],
+\   }
+let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
+let g:ale_python_flake8_options = '--max-line-length 120'
+let g:ale_python_autopep8_options = '--max-line-length 120'
+let g:ale_fix_on_save = 1
+
+au BufNewFile,BufRead *.vue set filetype=html.javascript
+au BufNewFile,BufRead *.toml set filetype=toml
+
+" YouCompleteMe
+let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
 hi YcmErrorSection ctermfg=8 ctermbg=1
-let g:ycm_global_ycm_extra_conf ='~/.vim/ycm/ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
 set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-"按空格键即选中当前项
 "let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
 "let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
@@ -290,30 +293,23 @@ let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_UsePython = 0
 autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
-let g:syntastic_quiet_messages = { "regex": [
-        \ '\mpossible unwanted space at "{"',
-        \ 'bottomrule from booktabs',
-        \ 'You should put a space in front of parenthesis',
-        \ ] }
 
-" Bundle
-filetype off
-call vundle#begin()
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'rust-lang/rust.vim'
-Plugin 'gerw/vim-latex-suite'
-Plugin 'scrooloose/syntastic'
+call plug#begin('~/.vim/plugged')
+Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
+Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'othree/html5.vim', {'for': ['html', 'vue']}
+Plug 'ShaderHighLight', {'for': ['glsl']}
 
-Plugin 'scrooloose/nerdtree'
-Plugin 'bufexplorer.zip'
-Plugin 'Tagbar'
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
+Plug 'Tagbar', {'on': 'TagbarToggle'}
 
-Plugin 'cespare/vim-toml'
-Plugin 'ShaderHighLight'
-Plugin 'beyondmarc/opengl.vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
-Plugin 'othree/html5.vim'
-call vundle#end()
+Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
+Plug 'Shougo/echodoc.vim'
+Plug 'w0rp/ale'
+Plug 'gerw/vim-latex-suite'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
+call plug#end()
 filetype on
 filetype plugin on
 filetype indent on
