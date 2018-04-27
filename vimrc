@@ -140,9 +140,15 @@ nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
+" hide cursorline when buffer unfocused
+augroup CursorLine
+    au!
+    au VimEnter * setlocal cursorline
+    au WinEnter * setlocal cursorline
+    au BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 " relative number
-nmap <F1> :call ToggleRelativeNumber()<CR>
-imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
 set relativenumber
 let s:current_relative_number_mode = 1
 function ToggleRelativeNumber()
@@ -154,21 +160,12 @@ function ToggleRelativeNumber()
         set relativenumber
     endif
 endfunction
-" hide cursorline when buffer unfocused
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
+nmap <F1> :call ToggleRelativeNumber()<CR>
+imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
 " Buffer Explorer
 nnoremap <F2> :BufExplorer<CR>
-
-nnoremap <F3> :ALEFix<CR>
-
 " 16hex
-nnoremap <F4> :call ToggleHex()<CR>
+nnoremap <F3> :call ToggleHex()<CR>
 let s:current_hex_mode = 0
 function ToggleHex()
     if s:current_hex_mode == 1
@@ -179,9 +176,9 @@ function ToggleHex()
         %!xxd
     endif
 endfunction
-
-nnoremap <F5> :!xdg-open %<CR><CR>
-nmap <c-g> :SignifyToggle<CR>
+nnoremap <F4> :!xdg-open %<CR><CR>
+nnoremap <F5> :ALEFix<CR>
+nnoremap <c-g> :SignifyToggle<CR>
 
 " highlight
 hi LineNr ctermfg=yellow
@@ -228,12 +225,15 @@ let g:tagbar_type_rust= {
 " ale
 let g:ale_echo_delay = 20
 let g:ale_lint_delay = 500
-let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'tex': ['chktex'],
+\   'javascript': ['eslint'],
+\   'vue': ['eslint'],
+\   'typescript': ['eslint'],
 \   }
 let g:ale_rust_cargo_use_check = 1
-let g:ale_lint_on_text_changed = 'always'
+au BufNewFile,BufRead *.vue set filetype=vue.html.typescript.javascript.css
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'rust': ['rustfmt'],
@@ -247,13 +247,13 @@ let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 
-au BufNewFile,BufRead *.vue set filetype=html.javascript
-au BufNewFile,BufRead *.toml set filetype=toml
-
 " YouCompleteMe
 let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
 hi YcmErrorSection ctermfg=8 ctermbg=1
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
+let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_enable_diagnostic_signs = 0
 set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 "let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
 "let g:ycm_seed_identifiers_with_syntax = 1
@@ -298,6 +298,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'othree/html5.vim', {'for': ['html', 'vue']}
+Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
 Plug 'ShaderHighLight', {'for': ['glsl']}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
@@ -305,9 +306,8 @@ Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
 Plug 'Tagbar', {'on': 'TagbarToggle'}
 
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
-Plug 'Shougo/echodoc.vim'
 Plug 'w0rp/ale'
-Plug 'gerw/vim-latex-suite'
+Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
 call plug#end()
 filetype on
