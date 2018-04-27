@@ -187,17 +187,23 @@ nnoremap <c-g> :SignifyToggle<CR>
 hi LineNr ctermfg=yellow
 hi CursorLineNr cterm=bold ctermfg=yellow
 hi Statement ctermfg=yellow
-hi DiffText ctermfg=white cterm=reverse
-hi DiffAdd ctermfg=black
-hi DiffChange ctermfg=black
-hi Error ctermfg=white
-hi ErrorMsg ctermfg=white
-hi SpellBad ctermbg=224 ctermfg=black
+hi Folded ctermfg=cyan ctermbg=black
+hi Error ctermfg=red ctermbg=gray cterm=bold
+hi Todo ctermfg=yellow ctermbg=gray cterm=bold
+hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
+hi DiffAdd ctermbg=lightgreen ctermfg=black
+hi DiffChange ctermbg=lightmagenta ctermfg=black
+hi DiffDelete ctermbg=lightred ctermfg=black
+hi SpellBad ctermbg=lightred ctermfg=black
+hi MatchParen cterm=reverse ctermfg=none ctermbg=none
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
-hi Folded ctermfg=6 ctermbg=0
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
+hi SignColumn ctermbg=gray
+hi SignifySignAdd ctermfg=green ctermbg=gray cterm=bold
+hi SignifySignChange ctermfg=yellow ctermbg=gray cterm=bold
+hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 
 " nerdtree
 let g:NERDTreeWinSize = 30
