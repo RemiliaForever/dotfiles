@@ -131,6 +131,9 @@ set foldlevelstart=99
 set previewheight=8
 set lcs=trail:▓,tab:\|\-
 colorscheme default
+filetype on
+filetype plugin on
+filetype indent on
 
 let mapleader = ","
 map q: <Nop>
@@ -232,7 +235,6 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   }
 let g:ale_rust_cargo_use_check = 1
-au BufNewFile,BufRead *.vue set filetype=vue.html.typescript.javascript.css
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
@@ -240,12 +242,16 @@ let g:ale_fixers = {
 \   'c': ['clang-format'],
 \   'cpp': ['clang-format'],
 \   'javascript': ['eslint'],
+\   'vue': ['eslint'],
+\   'typescript': ['eslint'],
 \   'python': ['autopep8'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
+
+au filetype vue set filetype=vue.html.typescript.css
 
 " YouCompleteMe
 let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
@@ -298,6 +304,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'othree/html5.vim', {'for': ['html', 'vue']}
+Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
 Plug 'ShaderHighLight', {'for': ['glsl']}
 
@@ -308,8 +315,6 @@ Plug 'Tagbar', {'on': 'TagbarToggle'}
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --cs-completer --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
 call plug#end()
-filetype on
-filetype plugin on
-filetype indent on
+
