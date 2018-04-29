@@ -6,6 +6,7 @@
 [[ $- != *i* ]] && return
 
 export JAVA_HOME=/usr/lib/jvm/default
+export PATH=$PATH:./node_modules/.bin
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
@@ -19,8 +20,8 @@ export BROWSER='/usr/local/bin/firefox'
 
 export TERM=xterm-256color
 
-alias ls='/usr/bin/ls --color=always'
-alias ll='/usr/bin/ls --color=always -l'
+alias ls='/usr/bin/ls --color=always -v'
+alias ll='/usr/bin/ls --color=always -lv'
 alias grep='/usr/bin/grep --color=always'
 
 alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
@@ -34,5 +35,5 @@ alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
 
 alias yy='yaourt -Syua'
-alias python='/usr/bin/ipython'
+alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'

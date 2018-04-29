@@ -195,7 +195,7 @@ hi DiffAdd ctermbg=lightgreen ctermfg=black
 hi DiffChange ctermbg=lightmagenta ctermfg=black
 hi DiffDelete ctermbg=lightred ctermfg=black
 hi SpellBad ctermbg=lightred ctermfg=black
-hi MatchParen cterm=reverse ctermfg=none ctermbg=none
+hi MatchParen ctermbg=none cterm=bold,italic
 hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
 let g:cpp_class_scope_highlight = 0
@@ -233,7 +233,8 @@ let g:tagbar_type_rust= {
 
 " ale
 let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
+let g:ale_lint_delay = 300
+let g:ale_sign_warning = '>>'
 let g:ale_linters = {
 \   'tex': ['chktex'],
 \   'javascript': ['eslint'],
@@ -258,10 +259,10 @@ let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 
 au filetype vue set filetype=vue.html.typescript.css
+au filetype vue syntax sync fromstart
 
 " YouCompleteMe
 let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
-hi YcmErrorSection ctermfg=8 ctermbg=1
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
@@ -310,8 +311,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
 Plug 'cespare/vim-toml', {'for': 'toml'}
 Plug 'othree/html5.vim', {'for': ['html', 'vue']}
-Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
+Plug 'cakebaker/scss-syntax.vim', {'for': ['css', 'scss', 'sass', 'vue']}
+Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'ShaderHighLight', {'for': ['glsl']}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
