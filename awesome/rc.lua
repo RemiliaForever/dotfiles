@@ -56,7 +56,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/theme.lua")
 -- Changing Notify font size.
-naughty.config.defaults['icon_size'] = 100
+naughty.config.defaults['icon_size'] = 80
 
 -- This is used later as the default terminal and editor to run.
 terminal = "termite"
@@ -72,14 +72,14 @@ modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
-    awful.layout.suit.tile,
-    -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.left,
+    -- awful.layout.suit.tile,
     awful.layout.suit.tile.top,
+    -- awful.layout.suit.tile.bottom,
     awful.layout.suit.fair,
-    -- awful.layout.suit.fair.horizontal,
+    awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
-    -- awful.layout.suit.spiral.dwindle,
+    awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier,
@@ -590,7 +590,7 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),
     awful.key({}, "XF86AudioRaiseVolume", function() volumectl("up", volumewidget) end),
     awful.key({}, "XF86AudioLowerVolume", function() volumectl("down", volumewidget) end),
-    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end),
+    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end)
     -- awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
     -- awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
     -- }}}

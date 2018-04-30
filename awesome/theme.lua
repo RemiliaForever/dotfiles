@@ -18,10 +18,10 @@ theme.fg_focus      = "#ffffff"
 theme.fg_urgent     = "#ffffff"
 theme.fg_minimize   = "#ffffff"
 
-theme.useless_gap   =  1
+theme.useless_gap   = 1
 theme.border_width  = 0
-theme.border_normal = "#ffffff00"
-theme.border_focus  = "#535d6cff"
+theme.border_normal = "#535d6c00"
+theme.border_focus  = "#ffffffff"
 theme.border_marked = "#91231cff"
 
 theme.systray_icon_spacing = 4
