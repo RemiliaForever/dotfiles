@@ -10,6 +10,7 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local freedesktop = require("freedesktop")
+local fix_textbox = require("./widget/textbox")
 
 -- {{{ AutoRun App
 autorunApps =
@@ -239,19 +240,23 @@ function update_netstat()
                 break
             end
         end
-        down = string.format('%.1fKb', down / 1024)
-        up = string.format('%.1fKb', up / 1024)
-        text = '🔻<span color="#5798d9">'.. down ..'</span> 🔺<span color="#c2ba62">'.. up ..'</span>'
+        text = ' 🔻<span color="#5798d9">'.. format_width(down) ..'</span> 🔺<span color="#c2ba62">'.. format_width(up) ..'</span>'
     else
         netdata = {} -- clear as the interface may have been reset
         text = '(No network)'
     end
     netwidget:set_markup(text .. " ")
 end
+function format_width(num)
+    speed = num / 1024
+    if speed > 99 then
+        return string.format('%4dKb', math.floor(speed))
+    else
+        return string.format('%4.1fKb', speed)
+    end
+end
 netdata = {}
-netwidget = wibox.widget.textbox('(net)')
-netwidget.width = 100
-netwidget:set_align('center')
+netwidget = fix_textbox('(net)')
 netwidget_clock = timer({ timeout = 1 })
 netwidget_clock:connect_signal("timeout", update_netstat)
 netwidget_clock:start()
@@ -271,12 +276,11 @@ function update_memwidget()
     local free = meminfo.MemAvailable
     local total = meminfo.MemTotal
     local percent = 100 - math.floor(free / total * 100 + 0.5)
-    memwidget:set_markup(' Mem <span color="#90ee90">'.. percent ..'%</span>' .. " ")
+    memwidget:set_markup(' MEM <span color="#90ee90">'.. percent ..'%</span>')
 end
-memwidget = wibox.widget.textbox('Mem ??')
-memwidget.width = 550
+memwidget = fix_textbox(' MEM ??')
 update_memwidget()
-mem_clock = timer({ timeout = 10 })
+mem_clock = timer({ timeout = 5 })
 mem_clock:connect_signal("timeout", update_memwidget)
 mem_clock:start()
 -- }}}
@@ -298,10 +302,9 @@ function update_cputemp()
         end
     end
     pipe:close()
-    cputempwidget:set_markup('CPU <span color="#008000">'..temp..'</span>℃' .. " ")
+    cputempwidget:set_markup(' CPU <span color="#008000">'..temp..'</span>℃')
 end
-cputempwidget = wibox.widget.textbox('CPU ??℃')
-cputempwidget.width = 60
+cputempwidget = fix_textbox(' CPU ??℃')
 update_cputemp()
 cputemp_clock = timer({ timeout = 2 })
 cputemp_clock:connect_signal("timeout", update_cputemp)
@@ -323,9 +326,9 @@ function volumectl (mode, widget)
         local muted = f:read("*all")
         f:close()
         if muted:gsub('%s+', '') == "false" then
-            volume = '🎵' .. volume .. "%"
+            volume = ' 🎵' .. volume .. '%'
         else
-            volume = '🎵' .. volume .. "<span color='red'>M</span>"
+            volume = ' 🎵' .. volume .. '<span color="red">M</span>'
         end
         widget:set_markup(volume .. " ")
     elseif mode == "up" then
@@ -349,9 +352,7 @@ volume_clock = timer({ timeout = 10 })
 volume_clock:connect_signal("timeout", function () volumectl("update", volumewidget) end)
 volume_clock:start()
 
-volumewidget = wibox.widget.textbox('(volume)')
-volumewidget.width = 48
-volumewidget:set_align('right')
+volumewidget = fix_textbox('(volume)')
 volumewidget:buttons(awful.util.table.join(
     awful.button({ }, 4, function () volumectl("up", volumewidget) end),
     awful.button({ }, 5, function () volumectl("down", volumewidget) end),
@@ -457,14 +458,14 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
+            netwidget,
             memwidget,
             cputempwidget,
-            netwidget,
             batwidget,
             volumewidget,
             wibox.container.margin(mailwidget,0,0,3,3),
 --            mykeyboardlayout,
-            wibox.layout.margin(wibox.widget.systray(),3,3,3,3),
+            wibox.container.margin(wibox.widget.systray(),3,3,3,3),
             mytextclock,
             s.mylayoutbox,
         },

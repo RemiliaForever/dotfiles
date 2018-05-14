@@ -21,7 +21,7 @@ export BROWSER='/usr/local/bin/firefox'
 export TERM=xterm-256color
 
 alias ls='/usr/bin/ls --color=always -v'
-alias ll='/usr/bin/ls --color=always -lv'
+alias ll='/usr/bin/ls --color=always -lhv'
 alias grep='/usr/bin/grep --color=always'
 
 alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
