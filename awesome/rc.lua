@@ -240,7 +240,7 @@ function update_netstat()
                 break
             end
         end
-        text = ' 🔻<span color="#5798d9">'.. format_width(down) ..'</span> 🔺<span color="#c2ba62">'.. format_width(up) ..'</span>'
+        text = ' 🔻<span color="#c2ba62">'.. format_width(down) ..'</span> 🔺<span color="#5798d9">'.. format_width(up) ..'</span>'
     else
         netdata = {} -- clear as the interface may have been reset
         text = '(No network)'
@@ -276,7 +276,7 @@ function update_memwidget()
     local free = meminfo.MemAvailable
     local total = meminfo.MemTotal
     local percent = 100 - math.floor(free / total * 100 + 0.5)
-    memwidget:set_markup(' MEM <span color="#90ee90">'.. percent ..'%</span>')
+    memwidget:set_markup(' MEM <span color="#90ee90">'.. string.format("%2d", percent) ..'%</span>')
 end
 memwidget = fix_textbox(' MEM ??')
 update_memwidget()
