@@ -1,16 +1,16 @@
 [options]
 scroll_on_output = false
 scroll_on_keystroke = true
-audible_bell = false
-mouse_autohide = false
+audible_bell = true
+mouse_autohide = true
 allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Monaco 10
+font = Monaco 12
 scrollback_lines = 10000
 search_wrap = true
-icon_name = terminal
+icon_name = utilities-terminal
 fullscreen = false
 #geometry = 640x480
 
@@ -43,7 +43,7 @@ foreground_bold = #ebebeb
 background = rgba(33, 33, 33, 0.85)
 
 # if unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #2f2f2f
 
 # colors from color0 to color254 can be set
 color0  = #555555
