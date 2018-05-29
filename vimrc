@@ -184,7 +184,7 @@ nnoremap <F5> :ALEFix<CR>
 nnoremap <c-g> :SignifyToggle<CR>
 
 " highlight
-hi LineNr ctermfg=yellow
+hi LineNr ctermfg=214
 hi CursorLineNr cterm=bold ctermfg=yellow
 hi Statement ctermfg=yellow
 hi Folded ctermfg=cyan ctermbg=black
@@ -194,6 +194,7 @@ hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
 hi DiffAdd ctermbg=lightgreen ctermfg=black
 hi DiffChange ctermbg=lightmagenta ctermfg=black
 hi DiffDelete ctermbg=lightred ctermfg=black
+hi SpellCap ctermbg=black
 hi SpellBad ctermbg=lightred ctermfg=black
 hi MatchParen ctermbg=none cterm=bold,italic
 hi Pmenu ctermbg=white ctermfg=black
@@ -233,7 +234,7 @@ let g:tagbar_type_rust= {
 
 " ale
 let g:ale_echo_delay = 20
-let g:ale_lint_delay = 300
+let g:ale_lint_delay = 500
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
 \   'tex': ['chktex'],
@@ -262,7 +263,7 @@ au filetype vue set filetype=vue.html.typescript.css
 au filetype vue syntax sync fromstart
 
 " YouCompleteMe
-let g:ycm_rust_src_path = '/usr/lib/rustlib/src/rust/src'
+let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
@@ -282,6 +283,9 @@ nnoremap [l :YcmCompleter GoTo<CR>
 nnoremap [t :YcmCompleter GetType<CR>
 nnoremap [p :YcmCompleter GetParent<CR>
 nnoremap [o :YcmCompleter GetDoc<CR>
+nnoremap [c :YcmCompleter GoToDeclaration<CR>
+nnoremap [f :YcmCompleter GoToDefinition<CR>
+nnoremap [i :YcmCompleter GoToInclude<CR>
 nnoremap [q :pclose<CR>
 
 " fcitx
@@ -324,5 +328,8 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --cs-completer --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
+Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
+
+Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}
 call plug#end()
 
