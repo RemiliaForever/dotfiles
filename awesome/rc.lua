@@ -15,8 +15,10 @@ local fix_textbox = require("./widget/textbox")
 -- {{{ AutoRun App
 autorunApps =
 {
-    'compton --config ~/.config/compton/config',
+    -- 'compton --config ~/.config/compton/config',
     'fcitx -D -r',
+    'gnome-keyring-daemon -s',
+    -- 'owncloud',
     -- 'nm-applet',
     -- 'blueman-applet',
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
@@ -326,7 +328,11 @@ function volumectl (mode, widget)
         local muted = f:read("*all")
         f:close()
         if muted:gsub('%s+', '') == "false" then
-            volume = ' 🎵' .. volume .. '%'
+            if notify_is_mute then
+                volume = ' 🎵' .. volume .. '<span color="green">M</span>'
+            else
+                volume = ' 🎵' .. volume .. '%'
+            end
         else
             volume = ' 🎵' .. volume .. '<span color="red">M</span>'
         end
@@ -357,9 +363,21 @@ volumewidget:buttons(awful.util.table.join(
     awful.button({ }, 4, function () volumectl("up", volumewidget) end),
     awful.button({ }, 5, function () volumectl("down", volumewidget) end),
     awful.button({ }, 3, function () awful.util.spawn("pavucontrol") end),
+    awful.button({ }, 2, function ()
+        notify_is_mute = not notify_is_mute
+        volumectl("update", volumewidget)
+    end),
     awful.button({ }, 1, function () volumectl("mute", volumewidget) end)
 ))
 volumectl("update", volumewidget)
+
+notify_is_mute = false
+function naughty.config.notify_callback(args)
+    if not notify_is_mute then
+        awful.spawn{ "paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"}
+    end
+    return args
+end
 --}}}
 -- }}}
 

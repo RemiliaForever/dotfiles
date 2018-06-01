@@ -8,4 +8,5 @@ $silent = 0;
 
 $pdf_previewer = "zathura %O %S";
 
+$clean_ext = "bbl nav out snm";
 # vim: filetype=config
