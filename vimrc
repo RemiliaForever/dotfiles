@@ -128,14 +128,14 @@ set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
 set fdm=syntax
 set foldlevelstart=99
-set previewheight=8
+set previewheight=5
+set splitbelow
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
 filetype plugin on
 filetype indent on
 
-let mapleader = ","
 map q: <Nop>
 vnoremap <c-c> "+y
 vnoremap <c-x> "+c
@@ -190,6 +190,7 @@ hi Statement ctermfg=yellow
 hi Folded ctermfg=cyan ctermbg=black
 hi Error ctermfg=red ctermbg=gray cterm=bold
 hi Todo ctermfg=yellow ctermbg=gray cterm=bold
+hi Search ctermfg=black ctermbg=yellow
 hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
 hi DiffAdd ctermbg=lightgreen ctermfg=black
 hi DiffChange ctermbg=lightmagenta ctermfg=black
@@ -201,7 +202,7 @@ hi Pmenu ctermbg=white ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
-hi SignColumn ctermbg=gray
+hi SignColumn ctermbg=darkgray
 hi SignifySignAdd ctermfg=green ctermbg=gray cterm=bold
 hi SignifySignChange ctermfg=yellow ctermbg=gray cterm=bold
 hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
@@ -326,7 +327,7 @@ Plug 'Tagbar', {'on': 'TagbarToggle'}
 
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'w0rp/ale'
-Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex']}
+Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --cs-completer --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
