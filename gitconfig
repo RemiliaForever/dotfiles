@@ -3,6 +3,8 @@
     name = RemiliaForever
     signingkey = remilia@koumakan.cc
 [alias]
+    pushall = "!f(){ for i in `git remote`; do git push $i master; done; };f"
+    pullall = "!f(){ for i in `git remote`; do git pull $i master; done; };f"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgi = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --show-signature
