@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Mutt
+Comment=Mail Client
+GenericName=Mutt
+Exec=termite -e "mutt %u"
+Icon=mutt
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/mailto;
+Categories=ConsoleOnly;Network;Email

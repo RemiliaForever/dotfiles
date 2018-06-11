@@ -35,6 +35,8 @@ alias yy='yaourt -Syua'
 alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'
 
+alias disgit='__git_ps1() { echo " (disabled)"; }'
+
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu
 }
