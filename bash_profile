@@ -3,7 +3,6 @@
 #
 
 [[ -f ~/.bashrc ]] && . ~/.bashrc
-export PATH=/usr/lib/ccache/bin:$PATH
 export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
 export DOCKER_HOST=tcp://node0:2375
 
