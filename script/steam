@@ -1,0 +1,4 @@
+#!/bin/bash
+. /usr/local/bin/setproxy.sh
+export STEAM_FRAME_FORCE_CLOSE=1
+exec /usr/bin/steam-native
