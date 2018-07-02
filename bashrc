@@ -7,6 +7,7 @@
 
 export JAVA_HOME=/usr/lib/jvm/default
 export PATH=$PATH:./node_modules/.bin
+export PATH=$PATH:$HOME/.cargo/bin
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
@@ -37,6 +38,9 @@ alias latexmk='latexmk -interaction=nonstopmode'
 
 alias disgit='__git_ps1() { echo " (disabled)"; }'
 
+cargo_linux() {
+    cargo $@ --target=x86_64-unknown-linux-gnu
+}
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu
 }

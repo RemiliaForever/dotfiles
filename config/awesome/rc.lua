@@ -18,6 +18,11 @@ autorunApps =
     -- 'compton --config ~/.config/compton/config',
     'fcitx -D -r',
     'gnome-keyring-daemon -s',
+    -- 'netease-cloud-music',
+    -- 'steam',
+    -- 'owncloud',
+    -- 'telegram-desktop',
+    -- 'firefox',
     -- 'owncloud',
     -- 'nm-applet',
     -- 'blueman-applet',
@@ -752,6 +757,8 @@ awful.rules.rules = {
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
+    { rule = { name = "Steam" },
+       properties = { screen = 1, tag = "文档" } },
     { rule = { name = "Firefox" },
        properties = { screen = 1, tag = "网络" } },
     { rule = { class = "netease-cloud-music" },
@@ -759,6 +766,8 @@ awful.rules.rules = {
     { rule = { class = "Deadbeef" },
         properties = { screen = 1, tag = "音乐" } },
     { rule = { class = "TelegramDesktop" },
+        properties = { screen = 1, tag = "聊天" } },
+    { rule = { name = "WeeChat" },
         properties = { screen = 1, tag = "聊天" } },
 }
 -- }}}

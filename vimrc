@@ -235,7 +235,7 @@ let g:tagbar_type_rust= {
 
 " ale
 let g:ale_echo_delay = 20
-let g:ale_lint_delay = 500
+let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
 \   'tex': ['chktex'],
@@ -244,7 +244,8 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   }
 let g:ale_rust_cargo_use_check = 1
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'rust': ['rustfmt'],
@@ -260,8 +261,9 @@ let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 
-au filetype vue set filetype=vue.html.typescript.css
+au filetype vue set filetype=vue.html.typescript.javascript.css
 au filetype vue syntax sync fromstart
+au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
 
 " YouCompleteMe
 let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
@@ -312,6 +314,9 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_UsePython = 0
 autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
 
+" colorizer
+let g:colorizer_hex_alpha_first = 1
+
 call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
 Plug 'cespare/vim-toml', {'for': 'toml'}
@@ -320,6 +325,7 @@ Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['css', 'scss', 'sass', 'vue']}
 Plug 'posva/vim-vue', {'for': 'vue'}
 Plug 'ShaderHighLight', {'for': ['glsl']}
+Plug 'lilydjwg/colorizer', {'on': 'Colorizer'}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
@@ -328,7 +334,7 @@ Plug 'Tagbar', {'on': 'TagbarToggle'}
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --cs-completer --clang-completer --rust-completer --js-completer --java-completer --system-boost --system-libclang --ninja'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --system-boost --system-libclang'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}

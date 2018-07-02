@@ -1,0 +1,7 @@
+#!/bin/bash
+setsid steam &
+setsid netease-cloud-music &
+setsid telegram-desktop &
+setsid owncloud &
+setsid termite -e weechat -t WeeChat &
+setsid firefox &
