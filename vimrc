@@ -128,7 +128,7 @@ set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
 set fdm=syntax
 set foldlevelstart=99
-set previewheight=5
+set previewheight=8
 set splitbelow
 set lcs=trail:▓,tab:\|\-
 colorscheme default
@@ -142,6 +142,9 @@ vnoremap <c-x> "+c
 nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
+nnoremap <c-j> :cnext<CR>
+nnoremap <c-k> :cprev<CR>
+
 
 " hide cursorline when buffer unfocused
 augroup CursorLine
@@ -207,12 +210,45 @@ hi SignifySignAdd ctermfg=green ctermbg=gray cterm=bold
 hi SignifySignChange ctermfg=yellow ctermbg=gray cterm=bold
 hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 
+" statusline
+set statusline=%f\ %h%w%m%r
+set statusline+=%{FugitiveStatusline()}
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? '' : printf(
+    \   '[%d Warning %d Error]',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
+set statusline+=%#warningmsg#
+set statusline+=%{LinterStatus()}
+set statusline+=%*
+
+set statusline+=%=%(%l,%c%V\ %=\ %P%)
+
 " nerdtree
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$']
 nnoremap <c-n> :NERDTreeToggle<CR>
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "❗️",
+    \ "Staged"    : "➕",
+    \ "Untracked" : "🔸",
+    \ "Renamed"   : "🌀",
+    \ "Unmerged"  : "🔱",
+    \ "Deleted"   : "❌",
+    \ "Dirty"     : "🔧",
+    \ "Clean"     : "⭕️",
+    \ 'Ignored'   : "◽️",
+    \ "Unknown"   : "❓"
+    \ }
+au BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
 
 " Tagbar
 let g:tagbar_width = 30
@@ -294,6 +330,9 @@ nnoremap [q :pclose<CR>
 " fcitx
 autocmd InsertLeave * call system('fcitx-remote -c')
 
+" signify
+let g:signify_vcs_list = ['git']
+
 " latex
 let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode -halt-on-error -synctex=1 $*'
 let g:Tex_GotoError = 0
@@ -328,10 +367,12 @@ Plug 'ShaderHighLight', {'for': ['glsl']}
 Plug 'lilydjwg/colorizer', {'on': 'Colorizer'}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
 Plug 'Tagbar', {'on': 'TagbarToggle'}
 
-Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --system-boost --system-libclang'}
