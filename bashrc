@@ -11,6 +11,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 #export MESA_GL_VERSION_OVERRIDE=2.1
 source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
+source ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/etc/bash_completion.d/*
 source ~/.diesel_completion
 
 #export PS1_START='\r'

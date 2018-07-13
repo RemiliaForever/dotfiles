@@ -237,18 +237,18 @@ let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "❗️",
+    \ "Modified"  : "🔧",
     \ "Staged"    : "➕",
     \ "Untracked" : "🔸",
     \ "Renamed"   : "🌀",
     \ "Unmerged"  : "🔱",
     \ "Deleted"   : "❌",
-    \ "Dirty"     : "🔧",
+    \ "Dirty"     : "❗️",
     \ "Clean"     : "⭕️",
     \ 'Ignored'   : "◽️",
     \ "Unknown"   : "❓"
     \ }
-au BufWritePost * NERDTreeFocus | execute 'normal R' | wincmd p
+au BufWritePost * if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1 | NERDTreeFocus | execute 'normal R' | wincmd p | endif
 
 " Tagbar
 let g:tagbar_width = 30
@@ -279,8 +279,8 @@ let g:ale_linters = {
 \   'vue': ['eslint'],
 \   'typescript': ['eslint'],
 \   }
-let g:ale_rust_cargo_use_check = 1
 let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_rust_cargo_check_tests = 1
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
