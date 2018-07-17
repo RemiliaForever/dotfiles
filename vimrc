@@ -170,8 +170,11 @@ nmap <F1> :call ToggleRelativeNumber()<CR>
 imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
 " Buffer Explorer
 nnoremap <F2> :BufExplorer<CR>
+nnoremap <F3> :Leaderf 
+nnoremap <F4> :!xdg-open %<CR><CR>
+nnoremap <F5> :ALEFix<CR>
 " 16hex
-nnoremap <F3> :call ToggleHex()<CR>
+nnoremap <F6> :call ToggleHex()<CR>
 let s:current_hex_mode = 0
 function ToggleHex()
     if s:current_hex_mode == 1
@@ -182,8 +185,6 @@ function ToggleHex()
         %!xxd
     endif
 endfunction
-nnoremap <F4> :!xdg-open %<CR><CR>
-nnoremap <F5> :ALEFix<CR>
 nnoremap <c-g> :SignifyToggle<CR>
 
 " highlight
@@ -211,7 +212,10 @@ hi SignifySignChange ctermfg=yellow ctermbg=gray cterm=bold
 hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 
 " statusline
+hi StatusLineGit ctermbg=21 cterm=reverse
+hi StatusLineALE ctermbg=196 cterm=reverse
 set statusline=%f\ %h%w%m%r
+set statusline+=%#StatusLineGit#
 set statusline+=%{FugitiveStatusline()}
 
 function! LinterStatus() abort
@@ -224,7 +228,7 @@ function! LinterStatus() abort
     \   all_errors
     \)
 endfunction
-set statusline+=%#warningmsg#
+set statusline+=%#StatusLineALE#
 set statusline+=%{LinterStatus()}
 set statusline+=%*
 
@@ -269,6 +273,17 @@ let g:tagbar_type_rust= {
     \ 'sort:'   : 0
     \}
 
+" gutentags
+let g:gutentags_project_root = ['.root', '.svn', '.git', '.project']
+let g:gutentags_ctags_tagfile = '.tags'
+let s:vim_tags = expand('~/.vim/tags')
+let g:gutentags_cache_dir = s:vim_tags
+let g:gutentags_file_list_command = 'rg --files'
+
+" leaderf
+let g:Lf_WindowHeight = 0.3
+
+
 " ale
 let g:ale_echo_delay = 20
 let g:ale_lint_delay = 300
@@ -281,7 +296,7 @@ let g:ale_linters = {
 \   }
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
-let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'rust': ['rustfmt'],
@@ -371,12 +386,15 @@ Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
 Plug 'Tagbar', {'on': 'TagbarToggle'}
 
-Plug 'mhinz/vim-signify'
+Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --system-boost --system-libclang'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
+
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}
 call plug#end()
