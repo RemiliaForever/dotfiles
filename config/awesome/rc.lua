@@ -743,26 +743,27 @@ awful.rules.rules = {
         role = {
           "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
         }
-      }, properties = { floating = true }},
+      }, properties = { floating = true }
+    },
 
     -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "dialog" }
+    { rule_any = { type = { "dialog" }
       }, properties = { titlebars_enabled = true }
     },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { rule = { name = "Steam" },
-       properties = { screen = 1, tag = "文档" } },
+       properties = { screen = 1, tag = "文档", maximized = true } },
     { rule = { name = "Firefox" },
-       properties = { screen = 1, tag = "网络" } },
+       properties = { screen = 1, tag = "网络", maximized = true } },
     { rule = { class = "netease-cloud-music" },
-        properties = { screen = 1, tag = "音乐" } },
+        properties = { screen = 1, tag = "音乐", maximized = true } },
     { rule = { class = "Deadbeef" },
-        properties = { screen = 1, tag = "音乐" } },
+        properties = { screen = 1, tag = "音乐", maximized = true } },
     { rule = { class = "TelegramDesktop" },
-        properties = { screen = 1, tag = "聊天" } },
+        properties = { screen = 1, tag = "聊天", maximized = true } },
     { rule = { name = "WeeChat" },
-        properties = { screen = 1, tag = "聊天" } },
+        properties = { screen = 1, tag = "聊天", maximized = true } },
 }
 -- }}}
 

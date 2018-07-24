@@ -166,13 +166,13 @@ function ToggleRelativeNumber()
         set relativenumber
     endif
 endfunction
-nmap <F1> :call ToggleRelativeNumber()<CR>
-imap <F1> <c-o>:call ToggleRelativeNumber()<CR>
 " Buffer Explorer
-nnoremap <F2> :BufExplorer<CR>
+nnoremap <F1> :BufExplorer<CR>
+nnoremap <F2> :Leaderf tag<CR>
 nnoremap <F3> :Leaderf 
 nnoremap <F4> :!xdg-open %<CR><CR>
-nnoremap <F5> :ALEFix<CR>
+nmap <F5> :call ToggleRelativeNumber()<CR>
+imap <F5> <c-o>:call ToggleRelativeNumber()<CR>
 " 16hex
 nnoremap <F6> :call ToggleHex()<CR>
 let s:current_hex_mode = 0
@@ -214,9 +214,18 @@ hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 " statusline
 hi StatusLineGit ctermbg=21 cterm=reverse
 hi StatusLineALE ctermbg=196 cterm=reverse
+hi StatusLineTag ctermbg=226 cterm=reverse
 set statusline=%f\ %h%w%m%r
 set statusline+=%#StatusLineGit#
 set statusline+=%{FugitiveStatusline()}
+
+augroup StatusLineRefresher
+    autocmd!
+    autocmd User GutentagsUpdating redrawstatus
+    autocmd User GutentagsUpdated redrawstatus
+augroup END
+set statusline+=%#StatusLineTag#
+set statusline+=%{gutentags#statusline('[',']')}
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -269,8 +278,7 @@ let g:tagbar_type_rust= {
     \ 't:traits',
     \ 'i:trait implementations',
     \ 'd:macro definitions',
-    \ ],
-    \ 'sort:'   : 0
+    \ ]
     \}
 
 " gutentags
@@ -293,7 +301,9 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
 \   'typescript': ['eslint'],
+\   'cpp': ['clangcheck'],
 \   }
+let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_lint_on_text_changed = 'normal'
@@ -315,6 +325,7 @@ let g:ale_fix_on_save = 1
 au filetype vue set filetype=vue.html.typescript.javascript.css
 au filetype vue syntax sync fromstart
 au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
+au BufNewFile,BufRead *.qrc set filetype=xml
 
 " YouCompleteMe
 let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
@@ -373,18 +384,20 @@ let g:colorizer_hex_alpha_first = 1
 
 call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
-Plug 'cespare/vim-toml', {'for': 'toml'}
+Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'othree/html5.vim', {'for': ['html', 'vue']}
 Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['css', 'scss', 'sass', 'vue']}
-Plug 'posva/vim-vue', {'for': 'vue'}
-Plug 'ShaderHighLight', {'for': ['glsl']}
+Plug 'posva/vim-vue', {'for': ['vue']}
+Plug 'tikhomirov/vim-glsl', {'for': ['glsl']}
 Plug 'lilydjwg/colorizer', {'on': 'Colorizer'}
+Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
+Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
-Plug 'Tagbar', {'on': 'TagbarToggle'}
+Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
