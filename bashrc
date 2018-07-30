@@ -14,6 +14,8 @@ source ~/.git-prompt.sh
 source ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/etc/bash_completion.d/*
 source ~/.diesel_completion
 
+export MAKEFLAGS='-j16'
+
 #export PS1_START='\r'
 export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
@@ -24,8 +26,8 @@ export BROWSER='/usr/local/bin/firefox'
 export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
 
-alias ls='/usr/bin/ls --color=always'
-alias ll='/usr/bin/ls --color=always -lh'
+alias ls='/usr/bin/exa'
+alias ll='/usr/bin/exa -bghHliS'
 alias grep='/usr/bin/grep --color=always'
 
 alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
@@ -40,6 +42,7 @@ alias latexmk='latexmk -interaction=nonstopmode'
 
 alias disgit='__git_ps1() { echo " (disabled)"; }'
 
+alias cargo='/usr/bin/cargo -Z config-profile -Z compile-progress'
 cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }

@@ -1,9 +1,10 @@
 [target.x86_64-unknown-linux-gnu]
 linker = "/usr/bin/gcc"
+rustflags = []
 
 [target.x86_64-pc-windows-gnu]
 linker = "/usr/bin/x86_64-w64-mingw32-gcc"
-rustflags = ["-Clink-args=-mwindows"]
+rustflags = []
 
 [target.aarch64-linux-android]
 linker = "/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-gcc"
@@ -16,6 +17,9 @@ rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-a
 [target.armv7-linux-androideabi]
 linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
 rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
+
+[build]
+target-dir = "/home/remilia/.cargo/target"
 
 [profile.release]
 lto = true
