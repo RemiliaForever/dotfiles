@@ -750,6 +750,9 @@ awful.rules.rules = {
     { rule_any = { type = { "dialog" }
       }, properties = { titlebars_enabled = true }
     },
+    { rule = { class = "jetbrains-idea"},
+        properties = { titlebars_enabled = false }
+    },
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { rule = { name = "Steam" },
@@ -757,7 +760,7 @@ awful.rules.rules = {
     { rule = { name = "Firefox" },
        properties = { screen = 1, tag = "网络", maximized = true } },
     { rule = { class = "netease-cloud-music" },
-        properties = { screen = 1, tag = "音乐", maximized = true } },
+        properties = { screen = 1, tag = "音乐" } },
     { rule = { class = "Deadbeef" },
         properties = { screen = 1, tag = "音乐", maximized = true } },
     { rule = { class = "TelegramDesktop" },

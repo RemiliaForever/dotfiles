@@ -302,11 +302,13 @@ let g:ale_linters = {
 \   'vue': ['eslint'],
 \   'typescript': ['eslint'],
 \   'cpp': ['clangcheck'],
+\   'rust': ['rls'],
 \   }
 let g:ale_c_build_dir = './build'
-let g:ale_rust_cargo_check_all_targets = 1
-let g:ale_rust_cargo_check_tests = 1
-let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_rust_cargo_check_all_targets = 1
+" let g:ale_rust_cargo_check_tests = 1
+" let g:ale_rust_cargo_default_feature_behavior = 'all'
+let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'rust': ['rustfmt'],
