@@ -223,6 +223,10 @@ augroup StatusLineRefresher
     autocmd!
     autocmd User GutentagsUpdating redrawstatus
     autocmd User GutentagsUpdated redrawstatus
+    autocmd User ALELintPre let g:LinterProgress = '[Lint...]' | redrawstatus
+    autocmd User ALELintPost let g:LinterProgress = '' | redrawstatus
+    autocmd User ALEFixPre let g:FixerProgress = '[Fix...]' | redrawstatus
+    autocmd User ALEFixPost let g:FixerProgress = '' | redrawstatus
 augroup END
 set statusline+=%#StatusLineTag#
 set statusline+=%{gutentags#statusline('[',']')}
@@ -232,12 +236,16 @@ function! LinterStatus() abort
     let l:all_errors = l:counts.error + l:counts.style_error
     let l:all_non_errors = l:counts.total - l:all_errors
     return l:counts.total == 0 ? '' : printf(
-    \   '[%d Warning %d Error]',
+    \   '[❗️%d ❌%d]',
     \   all_non_errors,
     \   all_errors
     \)
 endfunction
+let g:LinterProgress = ''
+let g:FixerProgress = ''
 set statusline+=%#StatusLineALE#
+set statusline+=%{LinterProgress}
+set statusline+=%{FixerProgress}
 set statusline+=%{LinterStatus()}
 set statusline+=%*
 
