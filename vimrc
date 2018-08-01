@@ -269,7 +269,10 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : "◽️",
     \ "Unknown"   : "❓"
     \ }
-au BufWritePost * if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1 | NERDTreeFocus | execute 'normal R' | wincmd p | endif
+augroup NerdTreeAutoRefresh
+    autocmd!
+    au BufWritePost * if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1 | NERDTreeFocus | execute 'normal R' | wincmd p | endif
+augroup END
 
 " Tagbar
 let g:tagbar_width = 30
@@ -332,10 +335,13 @@ let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 
-au filetype vue set filetype=vue.html.typescript.javascript.css
-au filetype vue syntax sync fromstart
-au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
-au BufNewFile,BufRead *.qrc set filetype=xml
+augroup FileTypeChecking
+    autocmd!
+    au filetype vue set filetype=vue.html.typescript.javascript.css
+    au filetype vue syntax sync fromstart
+    au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
+    au BufNewFile,BufRead *.qrc set filetype=xml
+augroup END
 
 " YouCompleteMe
 let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
@@ -364,7 +370,10 @@ nnoremap [i :YcmCompleter GoToInclude<CR>
 nnoremap [q :pclose<CR>
 
 " fcitx
-autocmd InsertLeave * call system('fcitx-remote -c')
+augroup FcitxSupport
+    autocmd!
+    autocmd InsertLeave * call system('fcitx-remote -c')
+augroup END
 
 " signify
 let g:signify_vcs_list = ['git']
@@ -387,7 +396,10 @@ let g:Tex_IgnoreLevel = 10
 let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_UsePython = 0
-autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
+augroup TexBiberMapper
+    autocmd!
+    autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
+augroup END
 
 " colorizer
 let g:colorizer_hex_alpha_first = 1
