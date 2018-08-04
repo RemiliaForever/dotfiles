@@ -142,9 +142,6 @@ vnoremap <c-x> "+c
 nnoremap <c-p> "+p
 nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
-nnoremap <c-j> :cnext<CR>
-nnoremap <c-k> :cprev<CR>
-
 
 " hide cursorline when buffer unfocused
 augroup CursorLine
@@ -334,6 +331,8 @@ let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, C
 let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 augroup FileTypeChecking
     autocmd!
@@ -401,6 +400,8 @@ augroup TexBiberMapper
     autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
 augroup END
 
+" markdown preview
+let g:mkdp_path_to_chrome = 'firefox --new-window'
 " colorizer
 let g:colorizer_hex_alpha_first = 1
 

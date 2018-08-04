@@ -2,6 +2,6 @@
 setsid steam &
 setsid netease-cloud-music &
 setsid telegram-desktop &
-setsid owncloud &
+setsid nextcloud &
 setsid termite -e weechat -t WeeChat &
 setsid firefox &
