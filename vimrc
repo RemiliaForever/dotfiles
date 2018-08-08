@@ -325,7 +325,7 @@ let g:ale_fixers = {
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
 \   'typescript': ['eslint'],
-\   'python': ['autopep8'],
+\   'python': ['yapf'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_python_flake8_options = '--max-line-length 120'
