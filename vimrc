@@ -308,9 +308,10 @@ let g:ale_linters = {
 \   'tex': ['chktex'],
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'tslint'],
 \   'cpp': ['clangcheck'],
 \   'rust': ['rls'],
+\   'python': ['flake8'],
 \   }
 let g:ale_c_build_dir = './build'
 " let g:ale_rust_cargo_check_all_targets = 1
@@ -324,19 +325,18 @@ let g:ale_fixers = {
 \   'cpp': ['clang-format'],
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
-\   'typescript': ['eslint'],
+\   'typescript': ['eslint', 'tslint'],
 \   'python': ['yapf'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_python_flake8_options = '--max-line-length 120'
-let g:ale_python_autopep8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 augroup FileTypeChecking
     autocmd!
-    au filetype vue set filetype=vue.html.typescript.javascript.css
+    au filetype vue set filetype=vue.typescript
     au filetype vue syntax sync fromstart
     au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
     au BufNewFile,BufRead *.qrc set filetype=xml
@@ -416,6 +416,7 @@ Plug 'tikhomirov/vim-glsl', {'for': ['glsl']}
 Plug 'lilydjwg/colorizer', {'on': 'Colorizer'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
+Plug 'chr4/nginx.vim', {'for': ['nginx']}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
@@ -426,7 +427,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --js-completer --system-boost --system-libclang'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --system-boost --system-libclang'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
