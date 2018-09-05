@@ -314,9 +314,9 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \   }
 let g:ale_c_build_dir = './build'
-" let g:ale_rust_cargo_check_all_targets = 1
-" let g:ale_rust_cargo_check_tests = 1
-" let g:ale_rust_cargo_default_feature_behavior = 'all'
+let g:ale_rust_cargo_check_all_targets = 1
+let g:ale_rust_cargo_check_tests = 1
+let g:ale_rust_cargo_default_feature_behavior = 'all'
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
