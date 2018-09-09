@@ -212,7 +212,39 @@ hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 hi StatusLineGit ctermbg=21 cterm=reverse
 hi StatusLineALE ctermbg=196 cterm=reverse
 hi StatusLineTag ctermbg=226 cterm=reverse
-set statusline=%f\ %h%w%m%r
+
+function! ModeStatus() abort
+    let l:mode = mode()
+    if l:mode == 'n'
+        hi ModeStatus ctermbg=232 cterm=reverse
+        let l:mode = 'NORMAL'
+    elseif l:mode == 'i'
+        hi ModeStatus ctermbg=033 cterm=reverse
+        let l:mode = 'INSERT'
+    elseif l:mode == 'v' || l:mode == 'V' || l:mode == ''
+        hi ModeStatus ctermbg=214 cterm=reverse
+        let l:mode = 'VISUAL'
+    elseif l:mode == 'R' || l:mode == 'Rv'
+        hi ModeStatus ctermbg=124 cterm=reverse
+        let l:mode = 'REPLAC'
+    elseif l:mode == 's' || l:mode == 's' || l:mode == ''
+        hi ModeStatus ctermbg=076 cterm=reverse
+        let l:mode = 'SELECT'
+    elseif l:mode == 'cv' || l:mode == 'ce'
+        hi ModeStatus ctermbg=001 cterm=reverse
+        let l:mode = 'EXMODE'
+    else
+        hi ModeStatus ctermbg=246 cterm=reverse
+        let l:mode = 'UNKNOW'
+    endif
+    return '[' . l:mode . ']'
+endfunction
+hi ModeStatusEnd ctermbg=NONE cterm=NONE
+set statusline=%#ModeStatus#
+set statusline+=%{ModeStatus()}
+set statusline+=%*
+set statusline+=%f\ %h%w%m%r
+
 set statusline+=%#StatusLineGit#
 set statusline+=%{FugitiveStatusline()}
 
@@ -252,7 +284,7 @@ set statusline+=%=%(%l,%c%V\ %=\ %P%)
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$']
+let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "🔧",
@@ -404,6 +436,10 @@ augroup END
 let g:mkdp_path_to_chrome = 'firefox --new-window'
 " colorizer
 let g:colorizer_hex_alpha_first = 1
+" echodoc
+set noshowmode
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#enable_force_overwrite = 1
 
 call plug#begin('~/.vim/plugged')
 Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
@@ -428,6 +464,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --system-boost --system-libclang'}
+Plug 'Shougo/echodoc.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
