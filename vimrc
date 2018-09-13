@@ -381,8 +381,16 @@ let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
 let g:ycm_enable_diagnostic_signs = 0
 set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
-"let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
-"let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
+" let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_semantic_triggers = {
+   \   'css': [ 're!^\s{4}', 're!:\s+' ],
+   \   'scss': [ 're!^\s{4}', 're!:\s+' ],
+   \   'html': [ '<', ' ' ],
+   \   'vue': [ '<', ' ' ],
+   \ }
+let g:ycm_key_invoke_completion = '<C-l>'
+let g:ycm_collect_identifiers_from_tags_files=1
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
