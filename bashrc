@@ -39,6 +39,7 @@ alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WI
 
 alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'
+alias vim='/usr/bin/vim --servername VIM'
 
 alias disgit='__git_ps1() { echo " (disabled)"; }'
 

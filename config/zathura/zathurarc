@@ -1,0 +1,4 @@
+set synctex true
+set synctex-editor-command "vim --remote-silent +%{line} %{input}"
+
+set highlight-transparency 0.1

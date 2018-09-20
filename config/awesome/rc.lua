@@ -766,7 +766,7 @@ awful.rules.rules = {
     { rule = { class = "TelegramDesktop" },
         properties = { screen = 1, tag = "聊天", maximized = true } },
     { rule = { name = "WeeChat" },
-        properties = { screen = 1, tag = "聊天", maximized = true } },
+        properties = { screen = 1, tag = "聊天" } },
 }
 -- }}}
 
