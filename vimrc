@@ -115,9 +115,11 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set undodir=~/.vim/history
+set swapfile
+set directory=~/.vim/swap
 set nobackup
-set noswapfile
-set nowritebackup
+set writebackup
+set backupdir=~/.vim/backup
 set foldenable
 set autoindent
 set smartindent
