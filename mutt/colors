@@ -23,7 +23,8 @@ color quoted4 color166 default
 color prompt magenta default
 
 color index brightcolor35 default "~N|~O"
-color index white default "~D|~T"
+color index white color34 "~D"
+color index white color63 "~T"
 
 color header yellow default "^(Subject)"
 
