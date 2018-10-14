@@ -43,9 +43,12 @@ alias vim='/usr/bin/vim --servername VIM'
 
 alias disgit='__git_ps1() { echo " (disabled)"; }'
 
-alias cargo='/usr/bin/cargo -Z config-profile -Z compile-progress'
+alias cargo='/usr/bin/cargo -Z config-profile'
 cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
+}
+cargo_musl() {
+    cargo $@ --target=x86_64-unknown-linux-musl
 }
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu

@@ -445,7 +445,7 @@ augroup END
 " markdown preview
 let g:mkdp_path_to_chrome = 'firefox --new-window'
 " colorizer
-let g:colorizer_hex_alpha_first = 1
+let g:colorizer_hex_alpha_first = 0
 " echodoc
 set noshowmode
 let g:echodoc#enable_at_startup = 1
@@ -459,14 +459,14 @@ Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
 Plug 'cakebaker/scss-syntax.vim', {'for': ['css', 'scss', 'sass', 'vue']}
 Plug 'posva/vim-vue', {'for': ['vue']}
 Plug 'tikhomirov/vim-glsl', {'for': ['glsl']}
-Plug 'lilydjwg/colorizer', {'on': 'Colorizer'}
+Plug 'lilydjwg/colorizer', {'on': 'ColorHighlight'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
 Plug 'chr4/nginx.vim', {'for': ['nginx']}
 
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
-Plug 'bufexplorer.zip', {'on': 'BufExplorer'}
+Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
