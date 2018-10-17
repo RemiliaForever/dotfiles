@@ -48,7 +48,7 @@ cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }
 cargo_musl() {
-    cargo $@ --target=x86_64-unknown-linux-musl
+    PKG_CONFIG_ALLOW_CROSS=1 OPENSSL_DIR=$(pwd)/openssl cargo $@ --target=x86_64-unknown-linux-musl
 }
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu

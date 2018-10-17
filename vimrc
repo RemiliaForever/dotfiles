@@ -128,6 +128,7 @@ set showcmd
 set mouse=a
 set fillchars=vert:\ ,stl:\ ,stlnc:-
 set list
+set nospell
 set fdm=syntax
 set foldlevelstart=99
 set previewheight=8
