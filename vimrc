@@ -123,7 +123,7 @@ set backupdir=~/.vim/backup
 set foldenable
 set autoindent
 set smartindent
-set cursorline
+set nocursorline
 set showcmd
 set mouse=a
 set fillchars=vert:\ ,stl:\ ,stlnc:-
@@ -147,13 +147,13 @@ nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
 " hide cursorline when buffer unfocused
-augroup CursorLine
-    au!
-    au VimEnter * setlocal cursorline
-    au WinEnter * setlocal cursorline
-    au BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
+" augroup CursorLine
+"     au!
+"     au VimEnter * setlocal cursorline
+"     au WinEnter * setlocal cursorline
+"     au BufWinEnter * setlocal cursorline
+"     au WinLeave * setlocal nocursorline
+" augroup END
 " relative number
 set relativenumber
 let s:current_relative_number_mode = 1
@@ -188,6 +188,7 @@ endfunction
 nnoremap <c-g> :SignifyToggle<CR>
 
 " highlight
+hi Visual ctermbg=244
 hi LineNr ctermfg=214
 hi CursorLineNr cterm=bold ctermfg=yellow
 hi Statement ctermfg=yellow
@@ -195,6 +196,7 @@ hi Folded ctermfg=cyan ctermbg=black
 hi Error ctermfg=red ctermbg=gray cterm=bold
 hi Todo ctermfg=yellow ctermbg=gray cterm=bold
 hi Search ctermfg=black ctermbg=yellow
+hi SpecialKey ctermfg=168
 hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
 hi DiffAdd ctermbg=lightgreen ctermfg=black
 hi DiffChange ctermbg=lightmagenta ctermfg=black
