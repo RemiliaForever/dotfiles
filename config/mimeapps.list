@@ -1,0 +1,11 @@
+[Default Applications]
+x-scheme-handler/mailto=mutt.desktop;
+application/x-java-archive=org.gnome.FileRoller.desktop
+inode/directory=org.gnome.Nautilus.desktop
+application/pdf=org.pwmt.zathura.desktop
+video/x-flv=mpv.desktop
+video/mp4=mpv.desktop
+video/webm=mpv.desktop
+
+[Added Associations]
+video/x-flv=mpv.desktop;

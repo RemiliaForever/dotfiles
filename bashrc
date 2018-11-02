@@ -26,22 +26,31 @@ export BROWSER='/usr/local/bin/firefox'
 export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
 
+# replaced utils
 alias ls='/usr/bin/exa'
 alias ll='/usr/bin/exa -bghHliS'
 alias grep='/usr/bin/grep --color=always'
-
-alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
-alias exegcc='/usr/bin/x86_64-w64-mingw32-gcc'
-alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
+alias ncdu='/usr/bin/ncdu --color=dark'
+alias cat='/usr/bin/bat'
+export BAT_PAGER="less -RF"
+export BAT_THEME=OneHalfDark
+source /usr/share/fzf/key-bindings.bash
+source /usr/share/fzf/completion.bash
+export FZF_DEFAULT_OPTS="--preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
+export FZF_CTRL_T_OPTS="--preview 'bat --color always {}'"
 
 alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
+alias disgit='__git_ps1() { echo " (disabled)"; }'
 
 alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'
 alias vim='/usr/bin/vim --servername VIM'
 
-alias disgit='__git_ps1() { echo " (disabled)"; }'
+alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
+alias exegcc='/usr/bin/x86_64-w64-mingw32-gcc'
+alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
+
 
 alias cargo='/usr/bin/cargo -Z config-profile'
 cargo_linux() {
