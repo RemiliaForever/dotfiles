@@ -3,8 +3,8 @@
     name = RemiliaForever
     signingkey = remilia@koumakan.cc
 [alias]
-    pushall = "!f(){ for i in `git remote`; do git push $i master; done; };f"
-    pullall = "!f(){ for i in `git remote`; do git pull $i master; done; };f"
+    pushall = "!f(){ for i in `git remote`; do git push $i; done; };f"
+    pullall = "!f(){ for i in `git remote`; do git pull --ff $i; done; };f"
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgi = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgs = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --show-signature
@@ -14,6 +14,9 @@
     cm = commit -m
     dt = difftool
     mt = mergetool
+    c = commit -m
+    d = diff
+    s = status
 [push]
     default = simple
 [core]
@@ -31,6 +34,18 @@
 [pager]
     diff = diff-so-fancy | less --tabs=1,5 -RFX
     show = diff-so-fancy | less --tabs=1,5 -RFX
+[color "diff-highlight"]
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+[color "diff"]
+    meta = yellow
+    frag = magenta bold
+    commit = yellow bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
 [merge]
     ff = false
     tool = vimdiff

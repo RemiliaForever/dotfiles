@@ -31,6 +31,7 @@ alias ls='/usr/bin/exa'
 alias ll='/usr/bin/exa -bghHliS'
 alias grep='/usr/bin/grep --color=always'
 alias ncdu='/usr/bin/ncdu --color=dark'
+alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
 export BAT_PAGER="less -RF"
 export BAT_THEME=OneHalfDark
