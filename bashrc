@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+export HISTSIZE=65535
+
 export JAVA_HOME=/usr/lib/jvm/default
 export PATH=$PATH:./node_modules/.bin
 export PATH=$PATH:$HOME/.cargo/bin
