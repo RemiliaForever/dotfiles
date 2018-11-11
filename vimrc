@@ -285,6 +285,8 @@ set statusline+=%*
 
 set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
+set laststatus=2
+
 " nerdtree
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
@@ -467,7 +469,7 @@ Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
 Plug 'chr4/nginx.vim', {'for': ['nginx']}
 
-Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}
 Plug 'jlanzarotta/bufexplorer', {'on': 'BufExplorer'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
