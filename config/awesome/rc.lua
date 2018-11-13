@@ -10,7 +10,7 @@ local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local freedesktop = require("freedesktop")
-local fix_textbox = require("./widget/textbox")
+local fix_textbox = require("widget/lib/textbox")
 
 -- {{{ AutoRun App
 autorunApps =
@@ -136,249 +136,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
-
--- {{{ my widget
--- -- {{{ light function
--- function change_light(change)
---     --local max = tonumber(io.open('/sys/class/backlight/intel_backlight/max_brightness'):read())
---     local current =  tonumber(io.open('xrandr'):read())
---     --local step = max/10
---     local step = 85
---     if change == 1 then
---         if current+step > max then
---             current = max
---         else
---             current = current + step
---         end
---     else
---         if current-step < 0 then
---             current = 0
---         else
---             current = current - step
---         end
---     end
---     awful.util.spawn_with_shell('echo ' .. current .. '| sudo tee /sys/class/backlight/intel_backlight/brightness')
--- end
--- }}}
--- {{{ mailwatch indicator
-function mailwidget_update()
-    if mail_watch_time ~= nil then
-        return
-    end
-    mailwidget.image = '/usr/share/icons/Adwaita/scalable/actions/mail-send-receive-symbolic.svg'
-    awful.util.spawn('fetch_mail.py')
-    mail_watch_time = timer({ timeout = 1 })
-    mail_watch_time:connect_signal("timeout", function ()
-        local f = io.open('/tmp/fetch_mail_count', 'r')
-        local new_mail_count = tonumber(f:read())
-        if new_mail_count == -1 then
-            f:close()
-            return
-        end
-        mail_watch_time:stop()
-        mail_watch_time = nil
-        if new_mail_count == -2 then
-            naughty.notify({
-                title = '邮件监视器',
-                text = f:read(),
-            })
-            mailwidget.image = '/usr/share/icons/Adwaita/scalable/actions/mail-mark-important-symbolic.svg'
-            f:close()
-            return
-        end
-        if new_mail_count > 0 then
-            naughty.notify({
-                title = '邮件监视器',
-                text = '你有 ' .. new_mail_count .. ' 封新邮件\n来自 ' .. f:read(),
-            })
-            mailwidget.image = '/usr/share/icons/Adwaita/48x48/status/mail-unread.png'
-            f:close()
-            return
-        end
-        mailwidget.image = '/usr/share/icons/Adwaita/scalable/status/mail-unread-symbolic.svg'
-    end)
-    mail_watch_time:start()
-end
-mailwidget = wibox.widget.imagebox()
-mailwidget.forced_height = 24
-mailwidget.forced_width = 24
-mailwidget:buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mailwidget_update() end),
-    awful.button({ }, 1, function () awful.util.spawn('termite -e mutt') end)
-))
-mailwidget_update()
-mailtimer = timer({ timeout = 60 * 10 })
-mailtimer:connect_signal("timeout", function () mailwidget_update() end)
-mailtimer:start()
--- }}}
--- {{{ network speed indicator
-function update_netstat()
-    local interval = netwidget_clock.timeout
-    local netif, text
-    for line in io.lines('/proc/net/route') do
-        netif = line:match('^(%w+)%s+00000000%s')
-        if netif then
-            break
-        end
-    end
-
-    if netif then
-        local down, up
-        for line in io.lines('/proc/net/dev') do
-            -- Match wmaster0 as well as rt0 (multiple leading spaces)
-            local name, recv, send = string.match(line, "^%s*(%w+):%s+(%d+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+(%d+)")
-            if name == netif then
-                if netdata[name] == nil then
-                    -- Default values on the first run
-                    netdata[name] = {}
-                    down, up = 0, 0
-                else
-                    down = (recv - netdata[name][1]) / interval
-                    up   = (send - netdata[name][2]) / interval
-                end
-                netdata[name][1] = recv
-                netdata[name][2] = send
-                break
-            end
-        end
-        text = ' 🔻<span color="#c2ba62">'.. format_width(down) ..'</span> 🔺<span color="#5798d9">'.. format_width(up) ..'</span>'
-    else
-        netdata = {} -- clear as the interface may have been reset
-        text = '(No network)'
-    end
-    netwidget:set_markup(text .. " ")
-end
-function format_width(num)
-    speed = num / 1024
-    if speed > 99 then
-        return string.format('%4dKb', math.floor(speed))
-    else
-        return string.format('%4.1fKb', speed)
-    end
-end
-netdata = {}
-netwidget = fix_textbox('(net)')
-netwidget_clock = timer({ timeout = 1 })
-netwidget_clock:connect_signal("timeout", update_netstat)
-netwidget_clock:start()
-update_netstat()
--- }}}
--- {{{ memory usage indicator
-function get_memory_usage()
-    local ret = {}
-    for l in io.lines('/proc/meminfo') do
-        local k, v = l:match("([^:]+):%s+(%d+)")
-        ret[k] = tonumber(v)
-    end
-    return ret
-end
-function update_memwidget()
-    local meminfo = get_memory_usage()
-    local free = meminfo.MemAvailable
-    local total = meminfo.MemTotal
-    local percent = 100 - math.floor(free / total * 100 + 0.5)
-    memwidget:set_markup(' MEM <span color="#90ee90">'.. string.format("%2d", percent) ..'%</span>')
-end
-memwidget = fix_textbox(' MEM ??')
-update_memwidget()
-mem_clock = timer({ timeout = 5 })
-mem_clock:connect_signal("timeout", update_memwidget)
-mem_clock:start()
--- }}}
--- {{{ CPU Temperature
-function update_cputemp()
-    local pipe = io.popen('sensors')
-    if not pipe then
-        cputempwidget:set_markup('CPU <span color="red">ERR</span>℃')
-        return
-    end
-    local temp = 0
-    for line in pipe:lines() do
-        local newtemp = line:match('^temp3:%s+%+([0-9.]+)°C')
-        if newtemp then
-            newtemp = tonumber(newtemp)
-            if temp == 0 then
-                temp = newtemp
-            end
-        end
-    end
-    pipe:close()
-    cputempwidget:set_markup(' CPU <span color="#008000">'..temp..'</span>℃')
-end
-cputempwidget = fix_textbox(' CPU ??℃')
-update_cputemp()
-cputemp_clock = timer({ timeout = 2 })
-cputemp_clock:connect_signal("timeout", update_cputemp)
-cputemp_clock:start()
--- }}}
--- {{{ Volume Controller
-function volumectl (mode, widget)
-    if mode == "update" then
-        local f = io.popen("pamixer --get-volume")
-        local volume = f:read("*all")
-        f:close()
-        if not tonumber(volume) then
-            widget:set_markup("<span color='red'>ERR</span>")
-            do return end
-        end
-        volume = string.format("% 3d", volume)
-
-        f = io.popen("pamixer --get-mute")
-        local muted = f:read("*all")
-        f:close()
-        if muted:gsub('%s+', '') == "false" then
-            if notify_is_mute then
-                volume = ' 🎵' .. volume .. '<span color="green">M</span>'
-            else
-                volume = ' 🎵' .. volume .. '%'
-            end
-        else
-            volume = ' 🎵' .. volume .. '<span color="red">M</span>'
-        end
-        widget:set_markup(volume .. " ")
-    elseif mode == "up" then
-        local f = io.popen("pamixer --allow-boost --increase 5")
-        f:read("*all")
-        f:close()
-        volumectl("update", widget)
-    elseif mode == "down" then
-        local f = io.popen("pamixer --allow-boost --decrease 5")
-        f:read("*all")
-        f:close()
-        volumectl("update", widget)
-    else
-        local f = io.popen("pamixer --toggle-mute")
-        f:read("*all")
-        f:close()
-        volumectl("update", widget)
-    end
-end
-volume_clock = timer({ timeout = 10 })
-volume_clock:connect_signal("timeout", function () volumectl("update", volumewidget) end)
-volume_clock:start()
-
-volumewidget = fix_textbox('(volume)')
-volumewidget:buttons(awful.util.table.join(
-    awful.button({ }, 4, function () volumectl("up", volumewidget) end),
-    awful.button({ }, 5, function () volumectl("down", volumewidget) end),
-    awful.button({ }, 3, function () awful.util.spawn("pavucontrol") end),
-    awful.button({ }, 2, function ()
-        notify_is_mute = not notify_is_mute
-        volumectl("update", volumewidget)
-    end),
-    awful.button({ }, 1, function () volumectl("mute", volumewidget) end)
-))
-volumectl("update", volumewidget)
-
-notify_is_mute = false
-function naughty.config.notify_callback(args)
-    if not notify_is_mute then
-        awful.spawn{ "paplay", "/usr/share/sounds/freedesktop/stereo/complete.oga"}
-    end
-    return args
-end
---}}}
--- }}}
+mytextclock.font = 'Monaco 10'
 
 -- {{{ Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -475,12 +233,12 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            netwidget,
-            memwidget,
-            cputempwidget,
-            batwidget,
-            volumewidget,
-            wibox.container.margin(mailwidget,0,0,3,3),
+            require("widget/mpd"),
+            require("widget/net"),
+            require("widget/mem"),
+            require("widget/cpu"),
+            require("widget/volume"),
+            wibox.container.margin(require("widget/mail"),0,0,3,3),
 --            mykeyboardlayout,
             wibox.container.margin(wibox.widget.systray(),3,3,3,3),
             mytextclock,
@@ -499,6 +257,7 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+local volume_widget = require("widget/volume")
 globalkeys = awful.util.table.join(
     -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
     --           {description="show help", group="awesome"}),
@@ -606,9 +365,14 @@ globalkeys = awful.util.table.join(
     awful.key({}, "Print", function() awful.util.spawn_with_shell("gnome-screenshot -i") end),
     awful.key({modkey}, "Delete", function() awful.util.spawn_with_shell("slock") end),
     awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),
-    awful.key({}, "XF86AudioRaiseVolume", function() volumectl("up", volumewidget) end),
-    awful.key({}, "XF86AudioLowerVolume", function() volumectl("down", volumewidget) end),
-    awful.key({}, "XF86AudioMute", function() volumectl("mute", volumewidget) end)
+    awful.key({}, "XF86Tools", function() awful.util.spawn_with_shell("mpc") end),
+    awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:volumectl("up", volume_widget) end),
+    awful.key({}, "XF86AudioLowerVolume", function() volume_widget:volumectl("down", volume_widget) end),
+    awful.key({}, "XF86AudioMute", function() volume_widget:volumectl("mute", volume_widget) end),
+    awful.key({}, "XF86Mail", function() awful.util.spawn_with_shell("termite -e 'mutt'") end),
+    awful.key({}, "XF86HomePage", function() awful.util.spawn_with_shell("firefox") end),
+    awful.key({}, "XF86Calculator", function() awful.util.spawn_with_shell("termite -e 'py'") end),
+    awful.key({}, "XF86Search", function() awful.util.spawn_with_shell("termite") end)
     -- awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
     -- awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
     -- }}}
