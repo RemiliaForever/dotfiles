@@ -1,27 +1,42 @@
 local timer = require("gears.timer")
 local awful = require("awful")
+local wibox = require("wibox")
 
 local mpc = require("widget/lib/mpc")
 local textbox = require("widget/lib/textbox")
+local utf8str = require("widget/lib/utf8str")
 
-local mpd_widget = textbox()
+local title_text = textbox()
+local time_text = textbox()
+local mpd_widget = wibox.widget {
+    layout = wibox.layout.fixed.horizontal,
+    wibox.container.margin(wibox.widget {
+        layout = wibox.container.scroll.horizontal,
+        max_size = 180,
+        speed = 30,
+        title_text
+    },5,5,5,5),
+    time_text
+}
 local state, title, artist, file = "stop", "", "", ""
 local elapse, duration = 0, 0
 
-local width, roll = 30, 0
-
 local function update_widget()
-    local text = ' <span color="#66ccff">'
-    info = tostring(artist or "N/A") .. " - " .. tostring(title or file)
-    text = text .. info
-    text = text .. '</span> <span color="#66ffcc">' .. elapsed .. "/" .. duration
+    local text = '<span color="#66ccff">'
+
+    local info = tostring(artist or "N/A") .. " - " .. tostring(title or file)
+    text = text .. awful.util.escape(info) .. '</span> '
+    title_text:set_markup(text)
+
     if state == "pause" then
-        text = text .. " (P)"
+        text = '<span color="#ffcc66">'
+    elseif state == "stop" then
+        text = '<span color="#ff66cc">'
+    else
+        text = '<span color="#66ffcc">'
     end
-    if state == "stop" then
-        text = text .. " (S)"
-    end
-    mpd_widget:set_markup(text .. "</span>")
+    text = text .. elapsed .. "/" .. duration .. "</span>"
+    time_text:set_markup(text)
 end
 
 local function to_minute(sec)
@@ -36,7 +51,8 @@ end
 
 local connection
 local function error_handler(err)
-    mpd_widget:set_text("")
+    title_text:set_text("error")
+    time_text:set_text('<span color="#66ffcc">-:--/-:--</span>')
 end
 connection = mpc.new(nil, nil, nil, error_handler,
 "status", function(_, result)
@@ -50,7 +66,6 @@ end)
 clock = timer({ timeout = 1 })
 clock:connect_signal("timeout", function()
     connection:send("status", function(_, result)
-        roll = roll + 1
         elapsed = to_minute(result.elapsed)
         pcall(update_widget)
     end)
@@ -62,8 +77,8 @@ function mpd_widget:send(s)
 end
 
 mpd_widget:buttons(awful.util.table.join(
-    awful.button({ }, 3, function () awful.util.spawn_with_shell("termite -e 'ncmpcpp'") end),
-    awful.button({ }, 1, function () mpd_widget:send("pause") end)
+awful.button({ }, 3, function () awful.util.spawn_with_shell("termite -e 'ncmpcpp'") end),
+awful.button({ }, 1, function () mpd_widget:send("pause") end)
 ))
 
 return mpd_widget
