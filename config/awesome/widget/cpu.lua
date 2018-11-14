@@ -22,7 +22,7 @@ local function update_cputemp()
 end
 cputemp_widget = textbox(' CPU ??℃')
 update_cputemp()
-cputemp_clock = timer({ timeout = 2 })
+cputemp_clock = timer({ timeout = 5 })
 cputemp_clock:connect_signal("timeout", update_cputemp)
 cputemp_clock:start()
 
