@@ -3,7 +3,6 @@ local awful = require("awful")
 
 local mpc = require("widget/lib/mpc")
 local textbox = require("widget/lib/textbox")
-local utf8str = require("widget/lib/utf8str")
 
 local mpd_widget = textbox()
 local state, title, artist, file = "stop", "", "", ""
