@@ -15,7 +15,7 @@ local mpd_widget = wibox.widget {
         max_size = 180,
         speed = 30,
         title_text
-    },5,5,5,5),
+    },5,5,0,0),
     time_text
 }
 local state, title, artist, file = "stop", "", "", ""
@@ -25,7 +25,7 @@ local function update_widget()
     local text = '<span color="#66ccff">'
 
     local info = tostring(artist or "N/A") .. " - " .. tostring(title or file)
-    text = text .. awful.util.escape(info) .. '</span> '
+    text = text .. awful.util.escape(info) .. '</span>'
     title_text:set_markup(text)
 
     if state == "pause" then
@@ -51,8 +51,8 @@ end
 
 local connection
 local function error_handler(err)
-    title_text:set_text("error")
-    time_text:set_text('<span color="#66ffcc">-:--/-:--</span>')
+    title_text:set_text("")
+    time_text:set_markup('<span color="#66ffcc">-:--/-:--</span>')
 end
 connection = mpc.new(nil, nil, nil, error_handler,
 "status", function(_, result)
@@ -77,8 +77,10 @@ function mpd_widget:send(s)
 end
 
 mpd_widget:buttons(awful.util.table.join(
-awful.button({ }, 3, function () awful.util.spawn_with_shell("termite -e 'ncmpcpp'") end),
-awful.button({ }, 1, function () mpd_widget:send("pause") end)
+    awful.button({ }, 1, function () mpd_widget:send("pause") end),
+    awful.button({ }, 3, function () awful.util.spawn_with_shell("termite -e 'ncmpcpp'") end),
+    awful.button({ }, 5, function () mpd_widget:send("next") end),
+    awful.button({ }, 4, function () mpd_widget:send("previous") end)
 ))
 
 return mpd_widget
