@@ -133,6 +133,7 @@ set fdm=syntax
 set foldlevelstart=99
 set previewheight=8
 set splitbelow
+set timeoutlen=50
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
@@ -143,7 +144,6 @@ map q: <Nop>
 vnoremap <c-c> "+y
 vnoremap <c-x> "+c
 nnoremap <c-p> "+p
-nnoremap <c-a> ggvG$
 nnoremap <c-h> :nohl<CR>
 
 " hide cursorline when buffer unfocused
@@ -457,17 +457,11 @@ let g:echodoc#enable_at_startup = 1
 let g:echodoc#enable_force_overwrite = 1
 
 call plug#begin('~/.vim/plugged')
-Plug 'octol/vim-cpp-enhanced-highlight', {'for': ['c', 'cpp', 'h']}
-Plug 'cespare/vim-toml', {'for': ['toml']}
-Plug 'othree/html5.vim', {'for': ['html', 'vue']}
-Plug 'leafgarland/typescript-vim', {'for': ['typescript', 'vue']}
-Plug 'cakebaker/scss-syntax.vim', {'for': ['css', 'scss', 'sass', 'vue']}
-Plug 'posva/vim-vue', {'for': ['vue']}
-Plug 'tikhomirov/vim-glsl', {'for': ['glsl']}
+Plug 'sheerun/vim-polyglot'
 Plug 'lilydjwg/colorizer', {'on': 'ColorHighlight'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
-Plug 'chr4/nginx.vim', {'for': ['nginx']}
+Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}

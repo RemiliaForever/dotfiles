@@ -13,7 +13,7 @@ scrollback_lines = 10000
 search_wrap = true
 icon_name = utilities-terminal
 fullscreen = false
-geometry = 1916x1048
+#geometry = 1916x1048
 
 # "system", "on" or "off"
 cursor_blink = system
