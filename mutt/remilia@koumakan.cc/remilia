@@ -12,7 +12,7 @@ source "gpg -dq $HOME/.mutt/remilia@koumakan.cc/passwd |"
 # maildir
 set mbox_type   =   Maildir
 set folder      =   imaps://koumakan.cc:8993/
-set spoolfile   =   +Inbox
+set spoolfile   =   +INBOX
 set postponed   =   +Draft
 set trash       =   +Trash
 set delete      =   yes

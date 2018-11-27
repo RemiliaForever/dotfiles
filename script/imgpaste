@@ -2,5 +2,5 @@
 
 for i in $*
 do
-    echo '"name=@'${i}'"' | xargs curl https://img.vim-cn.com -sF
+    echo "'name=@${i}'" | xargs curl https://img.vim-cn.com -sF
 done

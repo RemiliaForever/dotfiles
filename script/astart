@@ -1,6 +1,6 @@
 #!/bin/bash
 setsid steam &
-setsid netease-cloud-music &
+#setsid netease-cloud-music &
 setsid telegram-desktop &
 setsid nextcloud &
 setsid termite -e weechat -t WeeChat &
