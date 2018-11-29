@@ -4,7 +4,6 @@ local wibox = require("wibox")
 
 local mpc = require("widget/lib/mpc")
 local textbox = require("widget/lib/textbox")
-local utf8str = require("widget/lib/utf8str")
 
 local title_text = textbox()
 local time_text = textbox()
