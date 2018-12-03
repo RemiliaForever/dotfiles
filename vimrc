@@ -133,7 +133,8 @@ set fdm=syntax
 set foldlevelstart=99
 set previewheight=8
 set splitbelow
-set timeoutlen=50
+set timeoutlen=3000
+set ttimeoutlen=30
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
@@ -405,15 +406,17 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python'
-nnoremap [d :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap [l :YcmCompleter GoTo<CR>
-nnoremap [t :YcmCompleter GetType<CR>
-nnoremap [p :YcmCompleter GetParent<CR>
-nnoremap [o :YcmCompleter GetDoc<CR>
-nnoremap [c :YcmCompleter GoToDeclaration<CR>
-nnoremap [f :YcmCompleter GoToDefinition<CR>
-nnoremap [i :YcmCompleter GoToInclude<CR>
+let g:ycm_goto_buffer_command = 'split-or-existing-window'
+nnoremap [d :rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap [l :rightbelow vertical YcmCompleter GoTo<CR>
+nnoremap [t :rightbelow vertical YcmCompleter GetType<CR>
+nnoremap [p :rightbelow vertical YcmCompleter GetParent<CR>
+nnoremap [o :rightbelow vertical YcmCompleter GetDoc<CR>
+nnoremap [c :rightbelow vertical YcmCompleter GoToDeclaration<CR>
+nnoremap [f :rightbelow vertical YcmCompleter GoToDefinition<CR>
+nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
 nnoremap [q :pclose<CR>
+nnoremap ]q :close<CR>
 
 " fcitx
 augroup FcitxSupport
