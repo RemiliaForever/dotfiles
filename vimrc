@@ -134,7 +134,7 @@ set foldlevelstart=99
 set previewheight=8
 set splitbelow
 set timeoutlen=3000
-set ttimeoutlen=30
+set ttimeoutlen=0
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
@@ -382,6 +382,9 @@ augroup FileTypeChecking
     au BufNewFile,BufRead *.qrc set filetype=xml
 augroup END
 
+" polyglot
+let g:vue_disable_pre_processors = 1
+let g:polyglot_disabled = ['latex']
 " YouCompleteMe
 let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
@@ -474,7 +477,7 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
-Plug 'gerw/vim-latex-suite', {'for': ['tex', 'latex', 'bib']}
+Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --system-boost --system-libclang'}
 Plug 'Shougo/echodoc.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
