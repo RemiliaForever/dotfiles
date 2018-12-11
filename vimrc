@@ -292,7 +292,7 @@ set laststatus=2
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
+let g:NERDTreeIgnore = ['^build$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "🔧",

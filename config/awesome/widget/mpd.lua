@@ -23,7 +23,7 @@ local elapse, duration = 0, 0
 local function update_widget()
     local text = '<span color="#66ccff">'
 
-    local info = tostring(artist or "N/A") .. " - " .. tostring(title or file)
+    local info = " " .. tostring(artist or "N/A") .. " - " .. tostring(title or file) .. " "
     text = text .. awful.util.escape(info) .. '</span>'
     title_text:set_markup(text)
 
