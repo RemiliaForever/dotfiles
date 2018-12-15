@@ -348,7 +348,7 @@ let g:ale_linters = {
 \   'tex': ['chktex'],
 \   'javascript': ['eslint'],
 \   'vue': ['eslint'],
-\   'typescript': ['eslint', 'tslint'],
+\   'typescript': ['eslint'],
 \   'cpp': ['clangcheck'],
 \   'rust': ['rls'],
 \   'python': ['flake8'],
@@ -418,8 +418,8 @@ nnoremap [o :rightbelow vertical YcmCompleter GetDoc<CR>
 nnoremap [c :rightbelow vertical YcmCompleter GoToDeclaration<CR>
 nnoremap [f :rightbelow vertical YcmCompleter GoToDefinition<CR>
 nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
-nnoremap [q :pclose<CR>
-nnoremap ]q :close<CR>
+nnoremap [q :close<CR>
+nnoremap ]q :pclose<CR>
 
 " fcitx
 augroup FcitxSupport
@@ -478,7 +478,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clang-completer --rust-completer --system-boost --system-libclang'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --rust-completer --ts-completer'}
 Plug 'Shougo/echodoc.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
