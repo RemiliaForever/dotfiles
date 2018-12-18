@@ -23,9 +23,9 @@ export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H\[\e[34m\]]-[\[\e[3
 
 export PAGER='/usr/bin/less'
 export EDITOR='/usr/bin/vim'
-export BROWSER='/usr/local/bin/firefox'
+export BROWSER='/usr/bin/firefox'
 
-export TERM=xterm-termite
+#export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
 
 # replaced utils
@@ -37,10 +37,12 @@ alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
 export BAT_PAGER="less -RF"
 export BAT_THEME=OneHalfDark
-source /usr/share/fzf/key-bindings.bash
-source /usr/share/fzf/completion.bash
-export FZF_DEFAULT_OPTS="--preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
-export FZF_CTRL_T_OPTS="--preview 'bat --color always {}'"
+#source /usr/share/fzf/key-bindings.bash
+#source /usr/share/fzf/completion.bash
+source /usr/share/skim/key-bindings.bash
+source /usr/share/skim/completion.bash
+export SKIM_DEFAULT_OPTIONS="--preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
+export SKIM_CTRL_T_OPTS="--preview 'bat --color always {}'"
 
 alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
