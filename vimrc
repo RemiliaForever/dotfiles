@@ -292,7 +292,7 @@ set laststatus=2
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^build$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
+let g:NERDTreeIgnore = ['^venv$', '^build$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "🔧",
@@ -377,7 +377,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 augroup FileTypeChecking
     autocmd!
     au filetype vue set filetype=vue.typescript
-    au filetype vue syntax sync fromstart
+    " au filetype vue syntax sync fromstart
     au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
     au BufNewFile,BufRead *.qrc set filetype=xml
 augroup END
@@ -398,7 +398,7 @@ let g:ycm_semantic_triggers = {
    \   'css': [ 're!^\s{4}', 're!:\s+' ],
    \   'scss': [ 're!^\s{4}', 're!:\s+' ],
    \   'html': [ '<', ' ' ],
-   \   'vue': [ '<', ' ' ],
+   \   'vue': [ '<', ' ', 're!^\s{4}', 're!:\s+' ],
    \ }
 let g:ycm_key_invoke_completion = '<C-l>'
 let g:ycm_collect_identifiers_from_tags_files=1
@@ -478,7 +478,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --rust-completer --ts-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --rust-completer --ts-completer --go-completer'}
 Plug 'Shougo/echodoc.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
