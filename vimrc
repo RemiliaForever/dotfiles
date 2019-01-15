@@ -133,7 +133,7 @@ set fdm=syntax
 set foldlevelstart=99
 set previewheight=8
 set splitbelow
-set timeoutlen=3000
+set timeoutlen=500
 set ttimeoutlen=0
 set lcs=trail:▓,tab:\|\-
 colorscheme default
@@ -352,6 +352,7 @@ let g:ale_linters = {
 \   'cpp': ['clangcheck'],
 \   'rust': ['rls'],
 \   'python': ['flake8'],
+\   'markdown': ['proselint'],
 \   }
 let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
@@ -367,6 +368,7 @@ let g:ale_fixers = {
 \   'vue': ['eslint'],
 \   'typescript': ['eslint', 'tslint'],
 \   'python': ['yapf'],
+\   'markdown': ['prettier'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_python_flake8_options = '--max-line-length 120'
@@ -377,7 +379,7 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 augroup FileTypeChecking
     autocmd!
     au filetype vue set filetype=vue.typescript
-    " au filetype vue syntax sync fromstart
+    au filetype vue syntax sync fromstart
     au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
     au BufNewFile,BufRead *.qrc set filetype=xml
 augroup END
