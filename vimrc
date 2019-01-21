@@ -135,6 +135,7 @@ set previewheight=8
 set splitbelow
 set timeoutlen=500
 set ttimeoutlen=0
+set diffopt+=vertical
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
@@ -385,7 +386,7 @@ augroup FileTypeChecking
 augroup END
 
 " polyglot
-let g:vue_disable_pre_processors = 1
+let g:vue_disable_pre_processors = 0
 let g:polyglot_disabled = ['latex']
 " YouCompleteMe
 let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
