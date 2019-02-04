@@ -1,0 +1,5 @@
+showhost: True
+stream_large_bodies: 512k
+console_default_contentview: json
+console_palette_transparent: True
+console_palette: solarized_dark
