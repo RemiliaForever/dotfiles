@@ -27,6 +27,7 @@ export BROWSER='/usr/bin/firefox'
 
 #export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
+alias dssh='TERM=xterm-256color docker-machine ssh'
 
 # replaced utils
 alias ls='/usr/bin/exa'
@@ -58,6 +59,7 @@ alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 
 alias cargo='/usr/bin/cargo -Z config-profile'
+export CARGO_INCREMENTAL=0
 cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }
@@ -76,3 +78,5 @@ cargo_android_arm() {
 cargo_android_armv7() {
     cargo $@ --target=armv7-linux-android
 }
+
+export GOPATH=$HOME/.go

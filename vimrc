@@ -352,6 +352,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'cpp': ['clangcheck'],
 \   'rust': ['rls'],
+\   'go': ['govet'],
 \   'python': ['flake8'],
 \   'markdown': ['proselint'],
 \   }
@@ -363,6 +364,7 @@ let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'rust': ['rustfmt'],
+\   'go': ['gofmt'],
 \   'c': ['clang-format'],
 \   'cpp': ['clang-format'],
 \   'javascript': ['eslint'],
