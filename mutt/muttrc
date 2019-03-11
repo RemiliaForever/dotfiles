@@ -24,21 +24,17 @@ set pager_stop          =   yes
 
 # sidebar
 set sidebar_visible = yes
-set sidebar_width = 15
+set sidebar_width = 20
 set sidebar_new_mail_only = no
 set sidebar_divider_char = '│'
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
 set sidebar_sort_method = 'path'
-bind index,pager \Cp sidebar-prev
-bind index,pager \Cn sidebar-next
-bind index,pager \Co sidebar-open
-bind index,pager <F5> sidebar-toggle-visible
+
 color sidebar_new green default
 color sidebar_flagged red default
 color sidebar_highlight default color8
 color sidebar_divider color8 default
 color indicator cyan default
-
 # bind
 source $HOME/.mutt/bindings
 
@@ -56,3 +52,4 @@ set message_cachedir=$HOME/.cache/mutt/bodies
 
 # default account
 source $HOME/.mutt/remilia@koumakan.cc/remilia
+#source $HOME/.mutt/hongzhichen@deepglint.com/hongzhichen

@@ -3,4 +3,3 @@ unalias *
 
 source ~/.mutt/aliases
 
-subscribe aur-general@archlinux.org

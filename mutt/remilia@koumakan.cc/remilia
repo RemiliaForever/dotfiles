@@ -1,5 +1,5 @@
 # vim: filetype=muttrc
-
+unmailboxes *
 # personal
 set realname    =   "RemiliaForever"
 set use_from    =   yes
@@ -16,6 +16,7 @@ set spoolfile   =   +INBOX
 set postponed   =   +Draft
 set trash       =   +Trash
 set delete      =   yes
+mailboxes +INBOX +2017 +2018 +aur +ccsvc +Draft +Junk +Sent +Trash
 # pop3s
 #set pop_host    =   "pops://$my_name:$my_passwd@koumakan.cc:8196"
 #set pop_delete  =   no

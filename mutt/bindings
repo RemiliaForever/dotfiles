@@ -11,7 +11,13 @@ macro attach B "<pipe-message>cat > /tmp/mutt.html;xdg-open /tmp/mutt.html<enter
 
 # multi account
 #folder-hook 'remilia@koumakan.cc' 'source ~/.mutt/remilia@koumakan.cc/remilia'
-#folder-hook '' 'source ~/.mutt/chz@koumakan.cc/chz'
+#folder-hook 'hongzhichen@deepglint.com' 'source ~/.mutt/hongzhichen@deepglint.com/hongzhichen'
 macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter>'
-#macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/chenhongzhi@begoit.com/chenhongzhi<enter><change-folder>!<enter>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@deepglint.com/hongzhichen<enter><change-folder>!<enter>'
+
+# sidebar
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+bind index,pager <F5> sidebar-toggle-visible
