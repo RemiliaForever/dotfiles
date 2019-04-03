@@ -26,7 +26,7 @@ unset imap_passive
 # smtps
 set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.exmail.qq.com"
 set ssl_force_tls = yes
-#set record      =   +Sent
+set record      =   +Sent\ Messages
 
 # address
 set alias_file  =   $HOME/.mutt/hongzhichen@deepglint.com/aliases

@@ -26,6 +26,9 @@ try:
     M.login('[username]@[hostname]', '[password]')
     M.select(readonly=True)
     count_hostname = parse_status(M.status('INBOX', '(UNSEEN)'))
+    count_hostname += parse_status(M.status('&UXZO1mWHTvZZOQ-/Confluence', '(UNSEEN)'))
+    count_hostname += parse_status(M.status('&UXZO1mWHTvZZOQ-/JIRA', '(UNSEEN)'))
+    count_hostname += parse_status(M.status('&UXZO1mWHTvZZOQ-/EMQTT', '(UNSEEN)'))
     M.close()
     count += count_hostname
     if count_hostname > 0:
