@@ -6,6 +6,8 @@ bind pager G imap-fetch-mail
 
 bind pager j next-line
 bind pager k previous-line
+bind pager z next-page
+bind pager Z previous-page
 
 macro attach B "<pipe-message>cat > /tmp/mutt.html;xdg-open /tmp/mutt.html<enter>"
 
