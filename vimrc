@@ -372,6 +372,7 @@ let g:ale_fixers = {
 \   'typescript': ['eslint', 'tslint'],
 \   'python': ['yapf'],
 \   'markdown': ['prettier'],
+\   'yaml': ['prettier'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_python_flake8_options = '--max-line-length 120'
@@ -383,6 +384,7 @@ augroup FileTypeChecking
     autocmd!
     au filetype vue set filetype=vue.typescript
     au filetype vue syntax sync fromstart
+    au filetype go set lcs=trail:▓,tab:\|\ 
     au BufNewFile,BufRead *.vert,*.tesc,*.tese,*.glsl,*.geom,*.frag,*.comp set filetype=glsl
     au BufNewFile,BufRead *.qrc set filetype=xml
 augroup END
@@ -423,6 +425,8 @@ nnoremap [o :rightbelow vertical YcmCompleter GetDoc<CR>
 nnoremap [c :rightbelow vertical YcmCompleter GoToDeclaration<CR>
 nnoremap [f :rightbelow vertical YcmCompleter GoToDefinition<CR>
 nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
+nnoremap [m :rightbelow vertical YcmCompleter GoToImplementation<CR>
+nnoremap [r :rightbelow vertical YcmCompleter GoToReferences<CR>
 nnoremap [q :close<CR>
 nnoremap ]q :pclose<CR>
 
