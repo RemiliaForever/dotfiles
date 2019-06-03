@@ -80,3 +80,6 @@ cargo_android_armv7() {
 }
 
 export GOPATH=$HOME/.go
+export PATH=$GOPATH/bin:$PATH
+
+export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
