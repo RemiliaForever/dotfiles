@@ -10,6 +10,7 @@ shadow-offset-y = -10;
 # shadow-green = 0.0;
 # shadow-blue = 0.0;
 shadow-exclude = [
+    "class_g = 'fcitx'",
     "_GTK_FRAME_EXTENTS@:c"
 ];
 # shadow-exclude = "n:e:Notification";
@@ -77,6 +78,6 @@ wintypes:
 {
   tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; };
   dropdown_menu = { shadow = false; };
-  popup_menu = { shadow = false; };
+  popup_menu = { shadow = true; };
   utility = { shadow = false; };
 };
