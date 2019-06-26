@@ -474,6 +474,7 @@ let g:echodoc#enable_force_overwrite = 1
 call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'chaoren/vim-wordmotion'
+Plug 'tpope/vim-surround'
 Plug 'lilydjwg/colorizer', {'on': 'ColorHighlight'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}

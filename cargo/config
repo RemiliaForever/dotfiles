@@ -6,6 +6,10 @@ rustflags = []
 linker = "/usr/bin/musl-gcc"
 rustflags = []
 
+[target.aarch64-unknown-linux-musl]
+linker = "/usr/bin/aarch64-linux-gnu-musl-gcc"
+rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"
+
 [target.x86_64-pc-windows-gnu]
 linker = "/usr/bin/x86_64-w64-mingw32-gcc"
 rustflags = []

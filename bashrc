@@ -66,6 +66,9 @@ cargo_linux() {
 cargo_musl() {
     cargo $@ --target=x86_64-unknown-linux-musl
 }
+cargo_musl_aarch64() {
+    cargo $@ --target=aarch64-unknown-linux-musl
+}
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu
 }
