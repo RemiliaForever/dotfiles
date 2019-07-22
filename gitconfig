@@ -16,6 +16,9 @@
     mt = mergetool
     c = commit -m
     d = diff
+    f = fetch
+    pl = pull --ff
+    ps = push
     s = status
 [push]
     default = simple

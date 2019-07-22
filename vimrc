@@ -171,7 +171,7 @@ endfunction
 " Buffer Explorer
 nnoremap <F1> :BufExplorer<CR>
 nnoremap <F2> :Leaderf tag<CR>
-nnoremap <F3> :Leaderf 
+nnoremap <F3> :Leaderf rg<CR>
 nnoremap <F4> :!xdg-open %<CR><CR>
 nmap <F5> :call ToggleRelativeNumber()<CR>
 imap <F5> <c-o>:call ToggleRelativeNumber()<CR>
@@ -393,7 +393,7 @@ augroup END
 let g:vue_disable_pre_processors = 0
 let g:polyglot_disabled = ['latex']
 " YouCompleteMe
-let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
+"let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
