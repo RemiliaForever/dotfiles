@@ -311,6 +311,7 @@ augroup NerdTreeAutoRefresh
     autocmd!
     au BufWritePost * if exists('t:NERDTreeBufName') && bufwinnr(t:NERDTreeBufName) != -1 | NERDTreeFocus | execute 'normal R' | wincmd p | endif
 augroup END
+nnoremap [n :NERDTreeFind<CR>
 
 " Tagbar
 let g:tagbar_width = 30
