@@ -353,7 +353,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'cpp': ['clangcheck'],
 \   'rust': ['rls'],
-\   'go': ['govet'],
+\   'go': ['gobuild'],
 \   'python': ['flake8'],
 \   'markdown': ['proselint'],
 \   }
@@ -490,7 +490,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --rust-completer --ts-completer --go-completer'}
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --ts-completer'}
 Plug 'Shougo/echodoc.vim'
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
