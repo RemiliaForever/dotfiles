@@ -357,6 +357,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'vue': ['eslint'],
 \   }
+let g:ale_cpp_clangcheck_options = '-extra-arg -Xanalyzer -extra-arg -analyzer-output=text'
 let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
