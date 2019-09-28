@@ -347,15 +347,15 @@ let g:ale_echo_delay = 20
 let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
-\   'tex': ['chktex'],
-\   'javascript': ['eslint'],
-\   'vue': ['eslint'],
-\   'typescript': ['eslint'],
 \   'cpp': ['clangcheck'],
-\   'rust': ['rls'],
 \   'go': ['gobuild'],
-\   'python': ['flake8'],
+\   'javascript': ['eslint'],
 \   'markdown': ['proselint'],
+\   'python': ['flake8'],
+\   'rust': ['cargo'],
+\   'tex': ['chktex'],
+\   'typescript': ['eslint'],
+\   'vue': ['eslint'],
 \   }
 let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
@@ -364,18 +364,19 @@ let g:ale_rust_cargo_default_feature_behavior = 'all'
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
-\   'rust': ['rustfmt'],
-\   'go': ['gofmt'],
 \   'c': ['clang-format'],
 \   'cpp': ['clang-format'],
+\   'go': ['gofmt'],
 \   'javascript': ['eslint'],
-\   'vue': ['eslint'],
-\   'typescript': ['eslint', 'tslint'],
-\   'python': ['yapf'],
 \   'markdown': ['prettier'],
+\   'python': ['yapf'],
+\   'rust': ['rustfmt'],
+\   'typescript': ['eslint', 'tslint'],
+\   'vue': ['eslint'],
 \   'yaml': ['prettier'],
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
+let g:ale_rust_rustfmt_options = '--edition 2018'
 let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
