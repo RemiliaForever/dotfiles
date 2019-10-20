@@ -55,7 +55,7 @@ mark-ovredir-focused = true;
 detect-rounded-corners = true;
 detect-client-opacity = true;
 refresh-rate = 0;
-vsync = "opengl";
+vsync = false;
 dbe = false;
 # sw-opti = true;
 unredir-if-possible = true;
@@ -70,14 +70,14 @@ invert-color-include = [ ];
 # GLX backend
 glx-no-stencil = true;
 glx-no-rebind-pixmap = true;
-glx-swap-method = "exchange";
+use-damage = true
 # glx-use-gpushader4 = true;
 
 # Window type settings
 wintypes:
 {
   tooltip = { fade = true; shadow = true; opacity = 0.75; focus = true; };
-  dropdown_menu = { shadow = false; };
+  dropdown_menu = { shadow = true; };
   popup_menu = { shadow = true; };
   utility = { shadow = false; };
 };
