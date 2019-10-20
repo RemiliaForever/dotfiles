@@ -23,7 +23,7 @@ autorunApps =
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
 }
 for app = 1, #autorunApps do
-    awful.util.spawn_with_shell(autorunApps[app])
+    awful.spawn.with_shell(autorunApps[app])
 end
 
 -- }}}
@@ -76,8 +76,8 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
-    awful.layout.suit.tile.top,
-    -- awful.layout.suit.tile.bottom,
+    -- awful.layout.suit.tile.top,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
     -- awful.layout.suit.spiral,
@@ -189,7 +189,8 @@ local function set_wallpaper(s)
         if type(wallpaper) == "function" then
             wallpaper = wallpaper(s)
         end
-        gears.wallpaper.maximized(wallpaper, s, true)
+        -- gears.wallpaper.maximized(wallpaper, s, true)
+        gears.wallpaper.fit(wallpaper, s)
     end
 end
 -- }}}

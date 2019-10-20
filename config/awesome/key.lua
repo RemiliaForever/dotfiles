@@ -106,10 +106,10 @@ globalkeys = awful.util.table.join(
                 c.sticky = not c.sticky
             end
         end),
-    awful.key({}, "Print", function() awful.util.spawn_with_shell("gnome-screenshot -i") end),
-    awful.key({modkey}, "Delete", function() awful.util.spawn_with_shell("slock") end),
-    awful.key({}, "XF86Display", function() awful.util.spawn_with_shell("arandr") end),
-    awful.key({}, "XF86Tools", function() awful.util.spawn_with_shell("mpc") end),
+    awful.key({}, "Print", function() awful.spawn.with_shell("spectacle") end),
+    awful.key({modkey}, "Delete", function() awful.spawn.with_shell("slock") end),
+    awful.key({}, "XF86Display", function() awful.spawn.with_shell("arandr") end),
+    awful.key({}, "XF86Tools", function() awful.spawn.with_shell("mpc") end),
     awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:volumectl("up") end),
     awful.key({}, "XF86AudioLowerVolume", function() volume_widget:volumectl("down") end),
     awful.key({}, "XF86AudioMute", function() volume_widget:volumectl("mute") end),
@@ -117,10 +117,10 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioPrev", function() mpd_widget:send("previous") end),
     awful.key({}, "XF86AudioPlay", function() mpd_widget:send("pause") end),
     awful.key({}, "XF86AudioNext", function() mpd_widget:send("next") end),
-    awful.key({}, "XF86Mail", function() awful.util.spawn_with_shell("termite -e 'mutt'") end),
-    awful.key({}, "XF86HomePage", function() awful.util.spawn_with_shell("firefox") end),
-    awful.key({}, "XF86Calculator", function() awful.util.spawn_with_shell("termite -e 'ipython'") end),
-    awful.key({}, "XF86Search", function() awful.util.spawn_with_shell("termite") end)
+    awful.key({}, "XF86Mail", function() awful.spawn.with_shell("termite -e 'mutt'") end),
+    awful.key({}, "XF86HomePage", function() awful.spawn.with_shell("firefox") end),
+    awful.key({}, "XF86Calculator", function() awful.spawn.with_shell("termite -e 'ipython'") end),
+    awful.key({}, "XF86Search", function() awful.spawn.with_shell("termite") end)
     -- awful.key({}, "XF86MonBrightnessDown", function() change_light(-1) end),
     -- awful.key({}, "XF86MonBrightnessUp", function() change_light(1) end)
     -- }}}
