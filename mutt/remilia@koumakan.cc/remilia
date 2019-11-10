@@ -28,7 +28,7 @@ unset imap_passive
 # smtps
 set smtp_url    =   "smtps://$my_name:$my_passwd@koumakan.cc:8465"
 set ssl_force_tls = yes
-set record      =   +Sent
+set record      =   +INBOX
 
 # address
 set alias_file  =   $HOME/.mutt/remilia@koumakan.cc/aliases

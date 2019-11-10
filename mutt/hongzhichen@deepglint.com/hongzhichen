@@ -16,7 +16,7 @@ set spoolfile   =   +INBOX
 set postponed   =   +Drafts
 set trash       =   +Deleted\ Messages
 set delete      =   yes
-mailboxes +INBOX +其他文件夹 +Deleted\ Messages +Drafts +Junk +Sent\ Messages
+mailboxes +INBOX +其他文件夹/Confluence +其他文件夹/EMQTT +其他文件夹/JIRA +Deleted\ Messages +Drafts +Junk +Sent\ Messages
 
 set imap_user   =   $my_name
 set imap_pass   =   $my_passwd
@@ -26,7 +26,7 @@ unset imap_passive
 # smtps
 set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.exmail.qq.com"
 set ssl_force_tls = yes
-set record      =   +Sent\ Messages
+set record      =   +INBOX
 
 # address
 set alias_file  =   $HOME/.mutt/hongzhichen@deepglint.com/aliases
