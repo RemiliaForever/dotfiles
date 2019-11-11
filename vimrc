@@ -348,7 +348,7 @@ let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
 \   'cpp': ['clangcheck'],
-\   'go': ['gobuild'],
+\   'go': ['gopls'],
 \   'javascript': ['eslint'],
 \   'markdown': ['proselint'],
 \   'python': ['flake8'],
@@ -473,6 +473,8 @@ let g:colorizer_hex_alpha_first = 0
 set noshowmode
 let g:echodoc#enable_at_startup = 1
 let g:echodoc#enable_force_overwrite = 1
+" template
+let g:templates_directory = ['~/.vim/templates']
 
 call plug#begin('~/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
@@ -499,6 +501,7 @@ Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
+Plug 'aperezdc/vim-template'
 Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}
 call plug#end()
 
