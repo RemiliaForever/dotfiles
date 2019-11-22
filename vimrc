@@ -469,10 +469,6 @@ augroup END
 let g:mkdp_path_to_chrome = 'firefox --new-window'
 " colorizer
 let g:colorizer_hex_alpha_first = 0
-" echodoc
-set noshowmode
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#enable_force_overwrite = 1
 " template
 let g:templates_directory = ['~/.vim/templates']
 
@@ -494,8 +490,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --system-boost --system-libclang --clang-completer --ts-completer'}
-Plug 'Shougo/echodoc.vim'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer --ts-completer'}
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
