@@ -12,6 +12,7 @@
     cas = commit -S -a -m
     ca = commit -a -m
     cm = commit -m
+    cd = commit --amend --no-edit
     dt = difftool
     mt = mergetool
     c = commit -m

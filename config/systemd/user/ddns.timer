@@ -1,0 +1,9 @@
+[Unit]
+Description=Update DDNS Info
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=1h
+
+[Install]
+WantedBy=timers.target
