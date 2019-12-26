@@ -1,5 +1,0 @@
-#!/bin/bash
-/usr/bin/gnome-screenshot -i
-cd ~/Pictures/ScreenShot
-rename " " "_" ./*屏幕截图*
-rename "屏幕截图" "" ./*屏幕截图*

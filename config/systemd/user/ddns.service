@@ -1,0 +1,6 @@
+[Unit]
+Description=Update DDNS Info
+
+[Service]
+Type=oneshot
+ExecStart=/home/remilia/.config/systemd/user/ddns.py
