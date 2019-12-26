@@ -42,8 +42,10 @@ export BAT_THEME=OneHalfDark
 #source /usr/share/fzf/completion.bash
 source /usr/share/skim/key-bindings.bash
 source /usr/share/skim/completion.bash
-export SKIM_DEFAULT_OPTIONS="--preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
+export SKIM_DEFAULT_OPTIONS="--no-mouse --preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
 export SKIM_CTRL_T_OPTS="--preview 'bat --color always {}'"
+
+source /usr/share/doc/ranger/examples/bash_automatic_cd.sh
 
 alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
@@ -60,6 +62,9 @@ alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 alias cargo='/usr/bin/cargo -Z config-profile'
 export CARGO_INCREMENTAL=0
+cargo_wasm() {
+    cargo $@ --target=wasm32-unknown-unknown
+}
 cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }
@@ -82,7 +87,24 @@ cargo_android_armv7() {
     cargo $@ --target=armv7-linux-android
 }
 
+#export DOCKER_TLS_VERIFY="1"
+#export DOCKER_HOST="tcp://192.168.99.102:2376"
+#export DOCKER_CERT_PATH="/home/remilia/.docker/machine/machines/default"
+#export DOCKER_MACHINE_NAME="default"
+
+http_login() {
+    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password=admin123 | jq -r '.data | .token'`
+    echo $HTTP_JWT_TOKEN
+}
+http_auth() {
+    http --pretty=all $@ Authorization:"Bearer $HTTP_JWT_TOKEN" > /tmp/httpie_res
+    export HTTP_JWT_TOKEN=`cat /tmp/httpie_res | rg Refresh-Token | awk '{print $2}'`
+    /usr/bin/cat /tmp/httpie_res
+    rm /tmp/httpie_res
+}
+
 export GOPATH=$HOME/.go
-export PATH=$GOPATH/bin:$PATH
+export PATH=$PATH:$GOPATH/bin
+export PYTHONPYCACHEPREFIX=$HOME/.cache/python
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
