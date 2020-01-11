@@ -1,0 +1,6 @@
+{ +force-text-mode +content-type-overwrite{audio/flac} }
+.music.126.net/.*\.flac$
+{ +forward-override{forward .} }
+.music.126.net
+.netease.com
+.music.163.com
