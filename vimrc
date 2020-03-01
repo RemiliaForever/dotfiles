@@ -225,7 +225,7 @@ set laststatus=2
 let g:NERDTreeWinSize = 30
 let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeIgnore = ['^venv$', '^build$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
+let g:NERDTreeIgnore = ['^venv$', '^build$', '^dist$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
 nnoremap <c-n> :NERDTreeToggle<CR>
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "🔧",
@@ -281,7 +281,8 @@ let g:ale_sign_warning = '>>'
 let g:ale_linters = {
 \   'cpp': ['clangcheck'],
 \   'go': ['gopls'],
-\   'javascript': ['eslint'],
+\   'java': ['eclipselsp'],
+\   'javascript': ['tsserver'],
 \   'markdown': ['proselint'],
 \   'python': ['flake8'],
 \   'rust': ['rls'],
@@ -294,12 +295,14 @@ let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_default_feature_behavior = 'all'
+let g:ale_java_eclipselsp_path = '/home/remilia/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/eclipse.jdt.ls'
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
 \   'c': ['clang-format'],
 \   'cpp': ['clang-format'],
 \   'go': ['gofmt'],
+\   'java': ['google_java_format'],
 \   'javascript': ['eslint'],
 \   'markdown': ['prettier'],
 \   'python': ['yapf'],
@@ -311,6 +314,7 @@ let g:ale_fixers = {
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_rust_rustfmt_options = '--edition 2018'
 let g:ale_python_flake8_options = '--max-line-length 120'
+let g:ale_java_google_java_format_options = '--aosp'
 let g:ale_fix_on_save = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -432,4 +436,3 @@ Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'aperezdc/vim-template'
 Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}
 call plug#end()
-

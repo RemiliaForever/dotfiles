@@ -16,7 +16,7 @@ set spoolfile   =   +INBOX
 set postponed   =   +Draft
 set trash       =   +Trash
 set delete      =   yes
-mailboxes +INBOX +2017 +2018 +aur +ccsvc +Draft +Junk +Sent +Trash
+mailboxes +INBOX +2017 +2018 +2019 +aur +ccsvc +Draft +Junk +Sent +Trash
 # pop3s
 #set pop_host    =   "pops://$my_name:$my_passwd@koumakan.cc:8196"
 #set pop_delete  =   no
