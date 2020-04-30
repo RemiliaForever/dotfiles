@@ -1,0 +1,5 @@
+dev-lang/rust -nightly -system-llvm
+
+dev-cpp/eigen -cuda
+media-gfx/blender -cuda
+media-libs/opensubdiv -cuda

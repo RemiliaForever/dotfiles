@@ -1,0 +1,233 @@
+# default use
+
+*/* -handbook -ibus
+*/* X pulseaudio vim-syntax fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
+
+# global use
+
+*/* lto pgo
+*/* PYTHON_TARGETS: -python2_7 -python3_6 python3_7
+*/* PYTHON_SINGLE_TARGET: -python3_6 python3_7
+
+# sys package use
+sys-apps/util-linux static-libs
+sys-kernel/gentoo-sources symlink
+sys-boot/grub -pc
+x11-drivers/nvidia-drivers gtk3 acpi
+
+# explict use
+
+app-arch/file-roller libnotify nautilus
+app-arch/unzip natspec
+app-editors/vim python
+app-emulation/qemu nfs opengl spice usb usbredir virgl virtfs
+app-emulation/virt-manager gtk
+app-i18n/fcitx -table -enchant
+app-office/libreoffice -mariadb
+app-office/libreoffice-l10n L10N: en zh-CN
+app-text/texlive graphics extra cjk xetex L10N: zh en
+dev-lang/python sqlite
+dev-lang/rust clippy rls rustfmt system-llvm nightly
+#dev-python/ipython matplotlib
+#dev-python/matplotlib qt5
+dev-python/virtualenv PYTHON_TARGETS: python2_7
+dev-util/ctags json xml yaml
+dev-util/idea-ultimate custom-jdk
+gnome-base/nautilus -previewer
+mail-client/mutt gpgme mbox
+media-fonts/noto cjk -extra
+media-gfx/blender cuda openvdb cycles tiff openimageio color-management llvm opensubdiv opencl PYTHON_SINGLE_TARGET: python3_6
+media-gfx/darktable colord geolocation opencl
+media-gfx/digikam calendar marble mediaplayer scanner opengl
+media-gfx/imagemagick raw
+media-gfx/krita color-management gif
+media-libs/opencv opencl
+media-sound/lmms fluidsynth mp3
+media-video/ffmpeg bluray mp3 vdpau v4l libv4l opus dav1d
+net-im/telegram-desktop -alsa
+net-misc/nextcloud-client nautilus
+net-p2p/deluge console geoip gtk libnotify
+net-wireless/blueman policykit network
+sci-libs/openblas eselect-ldso
+sci-libs/pytorch cuda PYTHON_TARGETS: python3_6
+sys-apps/lm-sensors contrib
+sys-devel/gdb source-highlight xml xxhash -server
+www-client/firefox geckodriver hwaccel L10N: zh-CN en-GB
+x11-misc/picom opengl
+x11-wm/awesome luajit
+
+# required use
+
+app-emulation/libvirt virt-network libssh
+app-emulation/wine-staging vkd3d
+app-text/ghostscript-gpl cups
+app-text/poppler cairo
+app-text/poppler cjk
+app-text/texlive-core cjk xetex
+app-text/xmlto text
+app-text/zathura synctex
+dev-db/sqlite secure-delete
+dev-libs/boost python
+dev-libs/libpcre2 pcre16
+dev-libs/libxml2 python
+dev-libs/xmlsec nss
+dev-python/numpy lapack
+dev-python/PyQt5 gui widgets
+dev-qt/qtgui egl
+gnome-base/gconf PYTHON_TARGETS: python2_7
+gnome-base/gvfs fuse mtp nfs samba udev
+media-gfx/hugin lapack raw L10N: en-GB zh-CN
+media-libs/libcanberra alsa
+media-libs/libcanberra alsa
+media-libs/libpng apng
+media-libs/libvpx postproc
+media-libs/mesa -vulkan wayland
+media-libs/opensubdiv cuda opencl ptex tbb
+media-video/mpv bluray dvd libcaca luajit vdpau
+media-video/vlc -X -qt5 -jpeg -png flac -ffmpeg mp3
+net-fs/samba client
+net-libs/libpcap netlink bluetooth usb
+net-libs/libtorrent-rasterbar python
+net-libs/zeromq drafts
+sci-libs/lapack eselect-ldso
+sys-apps/systemd policykit
+sys-libs/zlib minizip
+www-client/w3m imlib
+x11-apps/mesa-progs egl
+x11-base/xorg-server xvfb lm-sensors vulkan
+
+### nvidia driver
+>=dev-util/pkgconf-1.6.3 abi_x86_32
+>=media-libs/libglvnd-1.3.1 abi_x86_32
+>=net-dns/dnsmasq-2.80-r2 script
+>=net-misc/spice-gtk-0.37-r2 usbredir
+>=sys-libs/zlib-1.2.11-r2 abi_x86_32
+>=virtual/pkgconfig-1 abi_x86_32
+>=x11-base/xcb-proto-1.14-r1 abi_x86_32
+>=x11-libs/libX11-1.6.9 abi_x86_32
+>=x11-libs/libXau-1.0.9 abi_x86_32
+>=x11-libs/libXdmcp-1.1.3 abi_x86_32
+>=x11-libs/libXext-1.3.4 abi_x86_32
+>=x11-libs/libvdpau-1.3 abi_x86_32
+>=x11-libs/libxcb-1.14 abi_x86_32
+
+### blender
+>=dev-python/PySocks-1.7.1 python_targets_python3_6
+>=dev-python/certifi-2019.11.28 python_targets_python3_6
+>=dev-python/cffi-1.14.0 python_targets_python3_6
+>=dev-python/chardet-3.0.4 python_targets_python3_6
+>=dev-python/cryptography-2.8-r1 python_targets_python3_6
+>=dev-python/idna-2.8 python_targets_python3_6
+>=dev-python/numpy-1.16.5-r1 python_targets_python3_6
+>=dev-python/ply-3.11 python_targets_python3_6
+>=dev-python/pycparser-2.19-r1 python_targets_python3_6
+>=dev-python/pyopenssl-19.1.0 python_targets_python3_6
+>=dev-python/requests-2.22.0 python_targets_python3_6
+>=dev-python/setuptools-44.0.0 python_targets_python3_6
+>=dev-python/six-1.14.0 python_targets_python3_6
+>=dev-python/urllib3-1.25.8 python_targets_python3_6
+>=media-gfx/openvdb-4.0.2-r3 python_single_target_python3_6 -abi3-compat
+>=x11-drivers/nvidia-drivers-440.82 uvm
+
+# digikam
+>=dev-qt/qtwebchannel-5.14.1 qml
+>=dev-qt/qtwebengine-5.14.1 widgets
+>=media-libs/libvpx-1.7.0-r1 svc
+>=media-libs/qtav-1.12.0-r2 opengl
+>=media-libs/vigra-1.11.1-r3 openexr
+>=x11-libs/wxGTK-3.0.4-r2:3.0 opengl
+
+# steam
+>=dev-libs/expat-2.2.8 abi_x86_32
+>=dev-libs/libffi-3.3-r1 abi_x86_32
+>=dev-libs/wayland-1.18.0 abi_x86_32
+>=media-libs/mesa-19.3.5 abi_x86_32
+>=sys-devel/llvm-9.0.1 abi_x86_32
+>=sys-libs/ncurses-6.1_p20190609 abi_x86_32
+>=virtual/opengl-7.0-r2 abi_x86_32
+>=x11-libs/libXdamage-1.1.5 abi_x86_32
+>=x11-libs/libXfixes-5.0.3-r1 abi_x86_32
+>=x11-libs/libXrandr-1.5.2 abi_x86_32
+>=x11-libs/libXrender-0.9.10-r1 abi_x86_32
+>=x11-libs/libXxf86vm-1.1.4-r1 abi_x86_32
+>=x11-libs/libdrm-2.4.100 abi_x86_32
+>=x11-libs/libxshmfence-1.3-r1 abi_x86_32
+
+# nextcloud-client
+>=dev-python/certifi-2019.11.28 python_targets_python2_7
+>=dev-python/pycairo-1.18.2 python_targets_python2_7
+>=dev-python/pygobject-3.34.0 python_targets_python2_7
+>=dev-python/setuptools-44.0.0 python_targets_python2_7
+
+# wine-staging
+#>=x11-libs/libXcursor-1.2.0 abi_x86_32
+#>=x11-libs/libXi-1.7.10 abi_x86_32
+#>=media-libs/alsa-lib-1.2.1.2 abi_x86_32
+#>=media-libs/fontconfig-2.13.0-r4 abi_x86_32
+#>=dev-libs/libgcrypt-1.8.5 abi_x86_32
+#>=media-libs/lcms-2.9 abi_x86_32
+#>=sys-devel/gettext-0.20.1 abi_x86_32
+#>=media-libs/libpng-1.6.37 abi_x86_32
+#>=media-sound/pulseaudio-13.0 abi_x86_32
+#>=net-libs/gnutls-3.6.13 abi_x86_32
+#>=sys-apps/attr-2.4.48-r3 abi_x86_32
+#>=media-libs/freetype-2.9.1-r3 abi_x86_32
+#>=sys-apps/dbus-1.12.16 abi_x86_32
+#>=sys-libs/libunwind-1.2.1-r3 abi_x86_32
+#>=media-libs/vulkan-loader-1.1.125 abi_x86_32
+#>=x11-libs/libXcomposite-0.4.5 abi_x86_32
+#>=dev-libs/libxml2-2.9.9-r3 abi_x86_32
+#>=dev-libs/libxslt-1.1.33-r1 abi_x86_32
+#>=app-emulation/wine-gecko-2.47.1 abi_x86_32
+#>=dev-libs/icu-65.1-r1 abi_x86_32
+#>=app-arch/bzip2-1.0.6-r11 abi_x86_32
+#>=dev-libs/libtasn1-4.13 abi_x86_32
+#>=dev-libs/libunistring-0.9.10 abi_x86_32
+#>=dev-libs/nettle-3.4.1 abi_x86_32
+#>=dev-libs/gmp-6.2.0-r1 abi_x86_32
+#>=net-dns/libidn2-2.3.0 abi_x86_32
+#>=media-libs/libsndfile-1.0.29_pre2_p20191024 abi_x86_32
+#>=x11-libs/libSM-1.2.3 abi_x86_32
+#>=x11-libs/libICE-1.0.10 abi_x86_32
+#>=x11-libs/libXtst-1.2.3-r1 abi_x86_32
+#>=sys-libs/libcap-2.26-r2 abi_x86_32
+#>=dev-libs/glib-2.62.6 abi_x86_32
+#>=sys-apps/tcp-wrappers-7.6.28 abi_x86_32
+#>=net-libs/libasyncns-0.8-r4 abi_x86_32
+#>=sys-apps/systemd-244.3 abi_x86_32
+#>=media-plugins/alsa-plugins-1.2.1 abi_x86_32
+#>=sys-apps/util-linux-2.33.2 abi_x86_32
+#>=app-arch/lz4-1.9.2 abi_x86_32
+#>=sys-libs/pam-1.3.1-r2 abi_x86_32
+#>=sys-libs/db-5.3.28-r2 abi_x86_32
+#>=sys-libs/cracklib-2.9.7 abi_x86_32
+#>=dev-libs/libpcre-8.42 abi_x86_32
+#>=media-libs/flac-1.3.3 abi_x86_32
+#>=media-libs/libogg-1.3.3 abi_x86_32
+#>=media-libs/libvorbis-1.3.6-r1 abi_x86_32
+#>=media-libs/opus-1.3.1-r1 abi_x86_32
+#>=dev-libs/libgpg-error-1.36 abi_x86_32
+#>=media-libs/libsdl2-2.0.10-r1 abi_x86_32
+#>=virtual/libudev-232-r3 abi_x86_32
+#>=virtual/libintl-0-r2 abi_x86_32
+#>=virtual/jpeg-0-r3 abi_x86_32
+#>=media-libs/libjpeg-turbo-2.0.4 abi_x86_32
+#>=virtual/libiconv-0-r2 abi_x86_32
+#>=virtual/libffi-3.3_rc0 abi_x86_32
+#>=virtual/libcrypt-1 abi_x86_32
+#>=virtual/glu-9.0-r2 abi_x86_32
+#>=media-libs/glu-9.0.1 abi_x86_32
+
+# kdenlive
+>=media-libs/libsdl2-2.0.10-r1 opengl
+>=media-libs/mlt-6.20.0 sdl melt ffmpeg xml kdenlive frei0r qt5
+>=media-video/ffmpeg-4.2.2 sdl
+
+# pytorch
+>=dev-cpp/eigen-3.3.7 cuda
+>=dev-python/cython-0.29.15 python_targets_python3_6
+>=dev-python/namespace-google-1 python_targets_python3_6
+>=dev-python/protobuf-python-3.11.4 python_targets_python3_6
+>=dev-python/pybind11-2.4.3 python_targets_python3_6
+>=dev-python/pyyaml-5.3.1 python_targets_python3_6
+>=virtual/python-typing-0-r1 python_targets_python3_6
