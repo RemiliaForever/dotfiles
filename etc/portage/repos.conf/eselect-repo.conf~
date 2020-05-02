@@ -35,7 +35,18 @@ location = /var/db/repos/benzene-overlay
 sync-type = git
 sync-uri = https://github.com/gentoo-mirror/benzene-overlay.git
 
-[anomen]
-location = /var/db/repos/anomen
+
+[science]
+location = /var/db/repos/science
 sync-type = git
-sync-uri = https://github.com/gentoo-mirror/anomen.git
+sync-uri = https://github.com/gentoo-mirror/science.git
+
+[guru]
+location = /var/db/repos/guru
+sync-type = git
+sync-uri = https://github.com/gentoo-mirror/guru.git
+
+[tastytea]
+location = /var/db/repos/tastytea
+sync-type = git
+sync-uri = https://github.com/gentoo-mirror/tastytea.git

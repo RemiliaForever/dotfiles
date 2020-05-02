@@ -1,5 +1,7 @@
+app-emulation/dxvk ~amd64
 app-emulation/wine-staging ~amd64
 app-text/ydcv ~amd64
+dev-java/openjdk ~amd64
 dev-qt/qcef ~amd64
 dev-libs/cudnn ~amd64
 dev-util/nvidia-cuda-toolkit ~amd64
