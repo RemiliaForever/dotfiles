@@ -17,7 +17,6 @@ x11-drivers/nvidia-drivers gtk3 acpi
 
 # explict use
 
-app-arch/file-roller libnotify nautilus
 app-arch/unzip natspec
 app-editors/vim python
 app-emulation/dxvk ABI_X86: 32
@@ -34,7 +33,6 @@ dev-lang/rust clippy rls rustfmt system-llvm nightly
 dev-python/virtualenv PYTHON_TARGETS: python2_7
 dev-util/ctags json xml yaml
 dev-util/idea-ultimate custom-jdk
-gnome-base/nautilus -previewer
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
 media-gfx/blender cuda openvdb cycles tiff openimageio color-management llvm opensubdiv opencl PYTHON_SINGLE_TARGET: python3_6
@@ -44,10 +42,12 @@ media-gfx/imagemagick raw
 media-gfx/krita color-management gif
 media-libs/opencv opencl
 media-sound/lmms fluidsynth mp3
-media-video/ffmpeg bluray mp3 vdpau v4l libv4l opus dav1d
+media-video/ffmpeg bluray mp3 vdpau v4l libv4l opus dav1d x264
+media-video/obs-studio imagemagick luajit nvenc speex v4l
 net-im/telegram-desktop -alsa
-net-misc/nextcloud-client nautilus
+net-misc/nextcloud-client dolphin
 net-p2p/deluge console geoip gtk libnotify
+net-proxy/frp client
 net-wireless/blueman policykit network
 sci-libs/openblas eselect-ldso
 sci-libs/pytorch cuda PYTHON_TARGETS: python3_6
@@ -76,7 +76,7 @@ dev-python/numpy lapack
 dev-python/PyQt5 gui widgets
 dev-qt/qtgui egl
 gnome-base/gconf PYTHON_TARGETS: python2_7
-gnome-base/gvfs fuse mtp nfs samba udev
+kde-apps/ark zip
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
 media-libs/libcanberra alsa
 media-libs/libcanberra alsa
@@ -85,7 +85,7 @@ media-libs/libvpx postproc
 media-libs/mesa -vulkan wayland
 media-libs/opensubdiv cuda opencl ptex tbb
 media-video/mpv bluray dvd libcaca luajit vdpau
-media-video/vlc -X -qt5 -jpeg -png flac -ffmpeg mp3
+media-video/vlc -X -qt5 -jpeg -png flac -ffmpeg mp3 vorbis ogg
 net-fs/samba client
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
@@ -96,6 +96,7 @@ sys-libs/zlib minizip
 www-client/w3m imlib
 x11-apps/mesa-progs egl
 x11-base/xorg-server xvfb lm-sensors vulkan
+
 
 ### nvidia driver
 >=dev-util/pkgconf-1.6.3 abi_x86_32
@@ -271,8 +272,6 @@ x11-base/xorg-server xvfb lm-sensors vulkan
 >=x11-libs/xcb-util-keysyms-0.4.0-r1 abi_x86_32
 >=x11-libs/xcb-util-renderutil-0.3.9-r2 abi_x86_32
 >=x11-libs/xcb-util-wm-0.4.1-r2 abi_x86_32
-
-
 
 # kdenlive
 >=media-libs/libsdl2-2.0.10-r1 opengl

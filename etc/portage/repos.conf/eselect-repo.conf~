@@ -30,11 +30,6 @@ location = /var/db/repos/jorgicio
 sync-type = git
 sync-uri = https://github.com/gentoo-mirror/jorgicio.git
 
-[benzene-overlay]
-location = /var/db/repos/benzene-overlay
-sync-type = git
-sync-uri = https://github.com/gentoo-mirror/benzene-overlay.git
-
 
 [science]
 location = /var/db/repos/science
