@@ -65,9 +65,11 @@ set fdm=syntax
 set foldlevelstart=99
 set previewheight=8
 set splitbelow
+set updatetime=1000
 set timeoutlen=500
 set ttimeoutlen=0
 set diffopt+=vertical
+set fencs=ucs-bom,utf-8,gbk,latin1
 set lcs=trail:▓,tab:\|\-
 colorscheme default
 filetype on
@@ -291,11 +293,9 @@ let g:ale_linters = {
 \   'vue': ['eslint'],
 \   }
 let g:ale_cpp_clangcheck_options = '-extra-arg -Xanalyzer -extra-arg -analyzer-output=text'
-let g:ale_c_build_dir = './build'
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
 let g:ale_rust_cargo_default_feature_behavior = 'all'
-let g:ale_java_eclipselsp_path = '/home/remilia/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/eclipse.jdt.ls'
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
@@ -332,8 +332,9 @@ augroup END
 let g:vue_disable_pre_processors = 0
 let g:polyglot_disabled = ['latex']
 " YouCompleteMe
-"let g:ycm_rust_src_path = '~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src'
-let g:ycm_clangd_binary_path = "/usr/bin/clangd"
+let g:ycm_gopls_binary_path = "gopls"
+let g:ycm_rls_binary_path = "rls"
+let g:ycm_rustc_binary_path = "rustc"
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
 let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_show_diagnostics_ui = 0
@@ -355,7 +356,6 @@ let g:ycm_complete_in_strings = 1
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
-let g:ycm_python_binary_path = '/usr/bin/python'
 let g:ycm_goto_buffer_command = 'split-or-existing-window'
 nnoremap [d :rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap [l :rightbelow vertical YcmCompleter GoTo<CR>
@@ -427,7 +427,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py --clangd-completer --ts-completer --go-completer --java-completer'}
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --system-boost --clangd-completer --java-completer --ts-completer' }
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
