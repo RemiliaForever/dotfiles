@@ -6,19 +6,19 @@ local volume_widget = textbox('(volume)')
 function volume_widget:volumectl (mode)
     local widget = volume_widget
     if mode == "update" then
-        local f = io.popen("pamixer --get-volume")
-        local volume = f:read("*all")
+        local f = io.popen("pulsemixer --get-volume")
+        local volume = f:read("*n")
         f:close()
-        if not tonumber(volume) then
+        if volume == nil then
             widget:set_markup("<span color='red'>ERR</span>")
             do return end
         end
         volume = string.format("% 3d", volume)
 
-        f = io.popen("pamixer --get-mute")
-        local muted = f:read("*all")
+        f = io.popen("pulsemixer --get-mute")
+        local muted = f:read("*n")
         f:close()
-        if muted:gsub('%s+', '') == "false" then
+        if muted == 0 then
             if notify_is_mute then
                 volume = ' 🎵' .. volume .. '<span color="green">M</span>'
             else
@@ -29,17 +29,17 @@ function volume_widget:volumectl (mode)
         end
         widget:set_markup(volume .. " ")
     elseif mode == "up" then
-        local f = io.popen("pamixer --allow-boost --increase 5")
+        local f = io.popen("pulsemixer --change-volume +5")
         f:read("*all")
         f:close()
         volume_widget:volumectl("update")
     elseif mode == "down" then
-        local f = io.popen("pamixer --allow-boost --decrease 5")
+        local f = io.popen("pulsemixer --change-volume -5")
         f:read("*all")
         f:close()
         volume_widget:volumectl("update")
     else
-        local f = io.popen("pamixer --toggle-mute")
+        local f = io.popen("pulsemixer --toggle-mute")
         f:read("*all")
         f:close()
         volume_widget:volumectl("update")
@@ -52,7 +52,7 @@ volume_clock:start()
 volume_widget:buttons(awful.util.table.join(
     awful.button({ }, 4, function () volume_widget:volumectl("up") end),
     awful.button({ }, 5, function () volume_widget:volumectl("down") end),
-    awful.button({ }, 3, function () awful.util.spawn("pavucontrol") end),
+    awful.button({ }, 3, function () awful.util.spawn("termite -e pulsemixer") end),
     awful.button({ }, 2, function ()
         notify_is_mute = not notify_is_mute
         volume_widget:volumectl("update")
