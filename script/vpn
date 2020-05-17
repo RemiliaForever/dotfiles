@@ -1,0 +1,9 @@
+#!/bin/env bash
+
+SERVER=
+AUTHGROUP=
+USERNAME=
+PASSWORD=
+rm /tmp/vpn.pin
+gnutls-cli --print-cert ${SERVER} < /dev/null | grep pin-sha256: > /tmp/vpn.pin
+echo ${PASSWORD} | openconnect --authgroup=${AUTHGROUP} --user=${USERNAME} --passwd-on-stdin ${SERVER} --servercert $(cat /tmp/vpn.pin)
