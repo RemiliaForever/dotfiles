@@ -7,13 +7,12 @@
 
 export HISTSIZE=16384
 
-export JAVA_HOME=/usr/lib/jvm/default
-export PATH=$PATH:./node_modules/.bin
-export PATH=$PATH:$HOME/.cargo/bin
-#export MESA_GL_VERSION_OVERRIDE=2.1
-source /usr/share/git/completion/git-completion.bash
+export PATH=./node_modules/.bin:$PATH
+export PATH=$HOME/.cargo/bin:$PATH
+
+#source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
-source ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/etc/bash_completion.d/*
+#source ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/etc/bash_completion.d/*
 source ~/.diesel_completion
 
 export MAKEFLAGS='-j16'
@@ -22,9 +21,9 @@ export WINEESYNC=1
 #export PS1_START='\r'
 export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
-export PAGER='/usr/bin/less'
-export EDITOR='/usr/bin/vim'
-export BROWSER='/usr/bin/firefox'
+#export PAGER='/usr/bin/less'
+#export EDITOR='/usr/bin/vim'
+#export BROWSER='/usr/bin/firefox'
 
 #export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
@@ -39,8 +38,6 @@ alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
 export BAT_PAGER="less -RF"
 export BAT_THEME=OneHalfDark
-#source /usr/share/fzf/key-bindings.bash
-#source /usr/share/fzf/completion.bash
 source /usr/share/skim/key-bindings.bash
 source /usr/share/skim/completion.bash
 export SKIM_DEFAULT_OPTIONS="--no-mouse --preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
@@ -61,19 +58,18 @@ alias exegcc='/usr/bin/x86_64-w64-mingw32-gcc'
 alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 # Rust
-alias cargo='/usr/bin/cargo -Z config-profile'
 #export CARGO_INCREMENTAL=0
 cargo_wasm() {
     cargo $@ --target=wasm32-unknown-unknown
-}
-cargo_wasi() {
-    cargo $@ --target=wasm32-wasi
 }
 cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }
 cargo_musl() {
     cargo $@ --target=x86_64-unknown-linux-musl
+}
+cargo_aarch64() {
+    cargo $@ --target=aarch64-unknown-linux-gnu
 }
 cargo_musl_aarch64() {
     cargo $@ --target=aarch64-unknown-linux-musl
@@ -101,8 +97,11 @@ http_login() {
     echo $HTTP_JWT_TOKEN
 }
 http_auth() {
-    http --pretty=all $@ Authorization:"Bearer $HTTP_JWT_TOKEN" > /tmp/httpie_res
-    export HTTP_JWT_TOKEN=`cat /tmp/httpie_res | rg Refresh-Token | awk '{print $2}'`
+    http --pretty=all -p hb $@ Authorization:"Bearer $HTTP_JWT_TOKEN" > /tmp/httpie_res
+    NEW_TOKEN=`cat /tmp/httpie_res | rg Refresh-Token | awk '{print $2}'`
+    if [ -n "$NEW_TOKEN" ]; then
+        export HTTP_JWT_TOKEN=$NEW_TOKEN
+    fi
     /usr/bin/cat /tmp/httpie_res
     rm /tmp/httpie_res
 }
@@ -110,6 +109,9 @@ http_auth() {
 # GO
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$PATH
+#export GO111MODULE=on
+#export GOPROXY=https://goproxy.io
+#export GOPRIVATE=gitlab.deepglint.com
 # Python
 export PYTHONPYCACHEPREFIX=$HOME/.cache/python
 

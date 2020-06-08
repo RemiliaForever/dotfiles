@@ -6,3 +6,4 @@ caption string "%{= kG}%-w%{.rW}%n %t%{-}%+w %=%{..G} %H %{..Y} %m/%d %C%a "
 caption always
 termcapinfo xterm* ti@:te@
 term screen-256color
+scrollback 10000

@@ -281,6 +281,7 @@ let g:ale_echo_delay = 20
 let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
+\   'c': ['clangcheck'],
 \   'cpp': ['clangcheck'],
 \   'go': ['gopls'],
 \   'java': ['eclipselsp'],
@@ -427,7 +428,7 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --system-boost --clangd-completer --java-completer --ts-completer' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer --ts-completer' }
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
