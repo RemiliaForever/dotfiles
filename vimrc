@@ -281,8 +281,8 @@ let g:ale_echo_delay = 20
 let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
-\   'c': ['clangcheck'],
-\   'cpp': ['clangcheck'],
+\   'c': ['clangd'],
+\   'cpp': ['clangd'],
 \   'go': ['gopls'],
 \   'java': ['eclipselsp'],
 \   'javascript': ['tsserver'],
@@ -293,6 +293,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'vue': ['eslint'],
 \   }
+let g:ale_java_eclipselsp_path = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/eclipse.jdt.ls'
 let g:ale_cpp_clangcheck_options = '-extra-arg -Xanalyzer -extra-arg -analyzer-output=text'
 let g:ale_rust_cargo_check_all_targets = 1
 let g:ale_rust_cargo_check_tests = 1
@@ -333,6 +334,7 @@ augroup END
 let g:vue_disable_pre_processors = 0
 let g:polyglot_disabled = ['latex']
 " YouCompleteMe
+let g:ycm_clangd_binary_path = "clangd"
 let g:ycm_gopls_binary_path = "gopls"
 let g:ycm_rls_binary_path = "rls"
 let g:ycm_rustc_binary_path = "rustc"
@@ -415,8 +417,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-surround'
 Plug 'lilydjwg/colorizer', {'on': 'ColorHighlight'}
-Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
+Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
 Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'scrooloose/nerdtree'
@@ -435,5 +437,4 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 
 Plug 'aperezdc/vim-template'
-Plug 'cpiger/NeoDebug', {'on': 'NeoDebug'}
 call plug#end()
