@@ -58,7 +58,7 @@ set smartindent
 set nocursorline
 set showcmd
 set mouse=a
-set fillchars=vert:\ ,stl:\ ,stlnc:-
+set fillchars=vert:│,stl:\ ,stlnc:\ 
 set list
 set nospell
 set fdm=syntax
@@ -124,6 +124,7 @@ endfunction
 nnoremap <c-g> :SignifyToggle<CR>
 
 " highlight
+hi VertSplit cterm=nocombine ctermfg=gray ctermbg=none
 hi Visual ctermbg=244
 hi LineNr ctermfg=214
 hi CursorLineNr cterm=bold ctermfg=yellow
@@ -153,7 +154,6 @@ hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
 hi StatusLineGit ctermbg=21 cterm=reverse
 hi StatusLineALE ctermbg=196 cterm=reverse
 hi StatusLineTag ctermbg=226 cterm=reverse
-
 function! ModeStatus() abort
     let l:mode = mode()
     if l:mode == 'n'

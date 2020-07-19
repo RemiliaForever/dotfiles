@@ -1,0 +1,6 @@
+sys-libs/glibc glibc
+
+media-libs/opensubdiv cuda
+#media-libs/opencv cuda
+
+games-emulation/advancemame mame

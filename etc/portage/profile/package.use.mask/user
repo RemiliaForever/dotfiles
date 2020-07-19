@@ -1,5 +1,6 @@
-dev-lang/rust -nightly -system-llvm
+dev-lang/rust -nightly -system-llvm -system-bootstrap
+dev-java/openjdk -gentoo-vm
 
-dev-cpp/eigen -cuda
-media-gfx/blender -cuda
-media-libs/opensubdiv -cuda
+*/* -cuda
+#*/* -python_targets_python3_8
+#*/* -python_single_target_python3_8
