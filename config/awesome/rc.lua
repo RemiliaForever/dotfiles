@@ -9,15 +9,14 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 
-local freedesktop = require("freedesktop")
 local fix_textbox = require("widget/lib/textbox")
 
 -- {{{ AutoRun App
 autorunApps =
 {
-    -- 'compton --config ~/.config/compton/config',
+    'picom --config ~/.config/compton/config',
     'fcitx -D -r',
-    'gnome-keyring-daemon -s',
+    -- 'gnome-keyring-daemon -s',
     -- 'nm-applet',
     -- 'blueman-applet',
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
@@ -118,16 +117,6 @@ myawesomemenu = {
    { "quit", function() awesome.quit() end}
 }
 
-mymainmenu = freedesktop.menu.build({
-    icon_size = 24,
-    before = {
-        { "Awesome", myawesomemenu, beautiful.awesome_icon },
-    },
-    after = {
-        { "Open terminal", terminal, "terminal" },
-    }
-})
-
 -- }}}
 
 -- Keyboard map indicator and switcher
@@ -136,7 +125,7 @@ mykeyboardlayout = awful.widget.keyboardlayout()
 -- {{{ Wibar
 -- Create a textclock widget
 mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
-mytextclock.font = 'Monaco 10'
+mytextclock.font = 'Noto Sans Mono 12'
 
 -- {{{ Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
@@ -234,7 +223,6 @@ awful.screen.connect_for_each_screen(function(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            require("widget/mpd"),
             require("widget/net"),
             require("widget/mem"),
             require("widget/cpu"),
@@ -258,7 +246,7 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
-require("key")
+require("bind")
 -- }}}
 
 -- {{{ Rules

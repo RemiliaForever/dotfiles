@@ -10,9 +10,7 @@ export HISTSIZE=16384
 export PATH=./node_modules/.bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH
 
-#source /usr/share/git/completion/git-completion.bash
 source ~/.git-prompt.sh
-#source ~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/etc/bash_completion.d/*
 source ~/.diesel_completion
 
 export MAKEFLAGS='-j16'
@@ -32,7 +30,7 @@ alias dssh='TERM=xterm-256color docker-machine ssh'
 # replaced utils
 alias ls='/usr/bin/exa'
 alias ll='/usr/bin/exa -bghHliS'
-alias grep='/usr/bin/grep --color=always'
+alias grep='/usr/bin/rg'
 alias ncdu='/usr/bin/ncdu --color=dark'
 alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
@@ -43,7 +41,7 @@ source /usr/share/skim/completion.bash
 export SKIM_DEFAULT_OPTIONS="--no-mouse --preview-window right:70% --bind '?:toggle-preview,ctrl-o:execute-silent(xdg-open {})'"
 export SKIM_CTRL_T_OPTS="--preview 'bat --color always {}'"
 
-source /usr/share/doc/ranger/examples/bash_automatic_cd.sh
+source ~/.ranger-cd.sh
 
 alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'
@@ -109,9 +107,9 @@ http_auth() {
 # GO
 export GOPATH=$HOME/.go
 export PATH=$GOPATH/bin:$PATH
-#export GO111MODULE=on
-#export GOPROXY=https://goproxy.io
-#export GOPRIVATE=gitlab.deepglint.com
+export GO111MODULE=on
+export GOPROXY=https://goproxy.io
+export GOPRIVATE=gitlab.deepglint.com
 # Python
 export PYTHONPYCACHEPREFIX=$HOME/.cache/python
 

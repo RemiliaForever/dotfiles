@@ -1,6 +1,5 @@
 local awful = require("awful")
 local volume_widget = require("widget/volume")
-local mpd_widget = require("widget/mpd")
 
 globalkeys = awful.util.table.join(
     -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -113,10 +112,6 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:volumectl("up") end),
     awful.key({}, "XF86AudioLowerVolume", function() volume_widget:volumectl("down") end),
     awful.key({}, "XF86AudioMute", function() volume_widget:volumectl("mute") end),
-    awful.key({}, "XF86AudioStop", function() mpd_widget:send("stop") end),
-    awful.key({}, "XF86AudioPrev", function() mpd_widget:send("previous") end),
-    awful.key({}, "XF86AudioPlay", function() mpd_widget:send("pause") end),
-    awful.key({}, "XF86AudioNext", function() mpd_widget:send("next") end),
     awful.key({}, "XF86Mail", function() awful.spawn.with_shell("termite -e 'mutt'") end),
     awful.key({}, "XF86HomePage", function() awful.spawn.with_shell("firefox") end),
     awful.key({}, "XF86Calculator", function() awful.spawn.with_shell("termite -e 'ipython'") end),

@@ -9,7 +9,7 @@ local function update_cputemp()
     end
     local temp = 0
     for line in pipe:lines() do
-        local newtemp = line:match('^temp3:%s+%+([0-9.]+)°C')
+        local newtemp = line:match('^Tdie:%s+%+([0-9]+)([0-9.]+)°C')
         if newtemp then
             newtemp = tonumber(newtemp)
             if temp == 0 then
@@ -18,7 +18,13 @@ local function update_cputemp()
         end
     end
     pipe:close()
-    cputemp_widget:set_markup(' CPU <span color="#008000">'..temp..'</span>℃')
+    if temp > 50 then
+        cputemp_widget:set_markup(' CPU <span color="yellow">'..temp..'</span>℃')
+    elseif temp > 70 then
+        cputemp_widget:set_markup(' CPU <span color="orange">'..temp..'</span>℃')
+    else
+        cputemp_widget:set_markup(' CPU <span color="green">'..temp..'</span>℃')
+    end
 end
 cputemp_widget = textbox(' CPU ??℃')
 update_cputemp()
