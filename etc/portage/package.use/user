@@ -41,8 +41,8 @@ media-libs/opencv lapack opencl -python
 media-libs/opencolorio opengl
 media-libs/openimageio color-management
 media-sound/lmms fluidsynth mp3
-media-sound/pulseaudio realtime
-media-sound/pulseaudio-modules-bt fdk ofono-headset
+media-sound/pulseaudio realtime bluetooth native-headset
+#media-sound/pulseaudio-modules-bt fdk ofono-headset
 media-video/ffmpeg bluray mp3 vdpau v4l libv4l opus dav1d x264 openssl
 media-video/obs-studio imagemagick luajit nvenc speex v4l
 net-im/telegram-desktop -alsa
@@ -61,9 +61,10 @@ sys-apps/smartmontools -systemd -daemon
 sys-apps/util-linux static-libs
 sys-boot/grub mount
 sys-devel/binutils multitarget
+sys-devel/gcc graphite
 sys-devel/gdb source-highlight xml xxhash -server
 sys-kernel/gentoo-sources symlink
-www-client/firefox geckodriver hwaccel clang -system-libvpx L10N: zh-CN en-GB
+www-client/firefox geckodriver hwaccel clang L10N: zh-CN en-GB
 x11-drivers/nvidia-drivers gtk3 acpi
 x11-misc/picom opengl
 x11-wm/awesome luajit gnome
@@ -84,7 +85,7 @@ dev-libs/libpcre2 pcre16
 dev-libs/libxml2 python
 dev-libs/xmlsec nss
 dev-python/numpy lapack
-dev-python/PyQt5 gui network opengl sql svg webchannel widgets x11extras xmlpatterns
+dev-python/PyQt5 gui network opengl sql svg webchannel widgets x11extras xmlpatterns printsupport
 dev-qt/qtgui egl
 dev-qt/qtsql mysql
 games-emulation/ppsspp -qt5 sdl
@@ -105,6 +106,7 @@ net-fs/samba client
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
 net-libs/zeromq drafts
+net-misc/curl http2
 sci-libs/flann cuda
 sci-libs/lapack eselect-ldso
 sys-apps/systemd policykit cgroup-hybrid

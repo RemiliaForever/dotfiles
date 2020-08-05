@@ -130,8 +130,8 @@ hi LineNr ctermfg=214
 hi CursorLineNr cterm=bold ctermfg=yellow
 hi Statement ctermfg=yellow
 hi Folded ctermfg=cyan ctermbg=black
-hi Error ctermfg=red ctermbg=gray cterm=bold
-hi Todo ctermfg=yellow ctermbg=gray cterm=bold
+hi Error ctermfg=red ctermbg=none cterm=bold
+hi Todo ctermfg=yellow ctermbg=none cterm=bold
 hi Search ctermfg=black ctermbg=yellow
 hi SpecialKey ctermfg=168
 hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
@@ -145,10 +145,10 @@ hi Pmenu ctermbg=grey ctermfg=black
 hi PmenuSel ctermbg=black ctermfg=white
 let g:cpp_class_scope_highlight = 0
 let g:cpp_experimental_template_highlight = 0
-hi SignColumn ctermbg=darkgray
-hi SignifySignAdd ctermfg=green ctermbg=gray cterm=bold
-hi SignifySignChange ctermfg=yellow ctermbg=gray cterm=bold
-hi SignifySignDelete ctermfg=red ctermbg=gray cterm=bold
+hi SignColumn ctermbg=none
+hi SignifySignAdd ctermfg=green ctermbg=none cterm=bold
+hi SignifySignChange ctermfg=yellow ctermbg=none cterm=bold
+hi SignifySignDelete ctermfg=red ctermbg=none cterm=bold
 
 " statusline
 hi StatusLineGit ctermbg=21 cterm=reverse

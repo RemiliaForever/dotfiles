@@ -2,5 +2,3 @@ dev-lang/rust -nightly -system-llvm -system-bootstrap
 dev-java/openjdk -gentoo-vm
 
 */* -cuda
-#*/* -python_targets_python3_8
-#*/* -python_single_target_python3_8
