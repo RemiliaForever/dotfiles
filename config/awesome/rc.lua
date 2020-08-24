@@ -14,11 +14,11 @@ local fix_textbox = require("widget/lib/textbox")
 -- {{{ AutoRun App
 autorunApps =
 {
-    'picom --config ~/.config/compton/config',
+    'picom --config ~/.config/picom/config',
     'fcitx -D -r',
     -- 'gnome-keyring-daemon -s',
     -- 'nm-applet',
-    -- 'blueman-applet',
+    'blueman-applet',
     -- 'xwinwrap -ni -fs -s -st -sp -a -nf -ov -- mpv -wid WID -ao null /usr/share/backgrounds/background.mp4',
 }
 for app = 1, #autorunApps do
@@ -109,7 +109,7 @@ end
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
-myawesomemenu = {
+mymainmenu = {
    { "hotkeys", function() return false, hotkeys_popup.show_help end},
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awesome.conffile },
@@ -210,9 +210,11 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", height = 28, screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 42, screen = s })
 
     -- Add widgets to the wibox
+    systray = wibox.widget.systray()
+    systray:set_base_size(42)
     s.mywibox:setup {
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
@@ -229,7 +231,7 @@ awful.screen.connect_for_each_screen(function(s)
             require("widget/volume"),
             wibox.container.margin(require("widget/mail"),0,0,3,3),
 --            mykeyboardlayout,
-            wibox.container.margin(wibox.widget.systray(),3,3,3,3),
+            wibox.container.margin(systray,3,3,3,3),
             mytextclock,
             s.mylayoutbox,
         },

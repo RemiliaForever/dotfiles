@@ -1,5 +1,14 @@
 local awful = require("awful")
 local volume_widget = require("widget/volume")
+local menubar = require("menubar")
+
+mymainmenu = {
+   { "hotkeys", function() return false, hotkeys_popup.show_help end},
+   { "manual", terminal .. " -e man awesome" },
+   { "edit config", editor_cmd .. " " .. awesome.conffile },
+   { "restart", awesome.restart },
+   { "quit", function() awesome.quit() end}
+}
 
 globalkeys = awful.util.table.join(
     -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -96,6 +105,8 @@ globalkeys = awful.util.table.join(
                   }
               end,
               {description = "lua execute prompt", group = "awesome"}),
+    awful.key({ modkey }, "p", function () menubar.show() end,
+              {description = "show the menubar", group = "launcher"}),
 
     -- {{{ user bindings
     awful.key({modkey}, "s",
@@ -106,6 +117,7 @@ globalkeys = awful.util.table.join(
             end
         end),
     awful.key({}, "Print", function() awful.spawn.with_shell("spectacle") end),
+    awful.key({modkey}, "Print", function() awful.spawn.with_shell("spectacle -r") end),
     awful.key({modkey}, "Delete", function() awful.spawn.with_shell("slock") end),
     awful.key({}, "XF86Display", function() awful.spawn.with_shell("arandr") end),
     awful.key({}, "XF86Tools", function() awful.spawn.with_shell("mpc") end),

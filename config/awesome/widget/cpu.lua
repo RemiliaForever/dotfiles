@@ -18,7 +18,7 @@ local function update_cputemp()
         end
     end
     pipe:close()
-    if temp > 50 then
+    if temp > 60 then
         cputemp_widget:set_markup(' CPU <span color="yellow">'..temp..'</span>℃')
     elseif temp > 70 then
         cputemp_widget:set_markup(' CPU <span color="orange">'..temp..'</span>℃')

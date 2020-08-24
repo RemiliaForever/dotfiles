@@ -45,8 +45,8 @@ theme.taglist_squares_unsel = "/usr/share/awesome/themes/default/taglist/squarew
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
 theme.menu_submenu_icon = "/usr/share/awesome/themes/default/submenu.png"
-theme.menu_height = 32
-theme.menu_width  = 160
+theme.menu_height = 48
+theme.menu_width  = 240
 
 -- You can add as many variables as
 -- you wish and access them by using
@@ -80,7 +80,7 @@ theme.titlebar_maximized_button_focus_inactive  = "/usr/share/awesome/themes/def
 theme.titlebar_maximized_button_normal_active = "/usr/share/awesome/themes/default/titlebar/maximized_normal_active.png"
 theme.titlebar_maximized_button_focus_active  = "/usr/share/awesome/themes/default/titlebar/maximized_focus_active.png"
 
-theme.wallpaper = "/home/remilia/.config/awesome/background.jpg"
+theme.wallpaper = "/home/remilia/.config/awesome/background.png"
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = "/usr/share/awesome/themes/default/layouts/fairhw.png"
@@ -100,7 +100,7 @@ theme.layout_cornerne = "/usr/share/awesome/themes/default/layouts/cornernew.png
 theme.layout_cornersw = "/usr/share/awesome/themes/default/layouts/cornersww.png"
 theme.layout_cornerse = "/usr/share/awesome/themes/default/layouts/cornersew.png"
 
-theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
+theme.awesome_icon = "/usr/share/awesome/icons/awesome32.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.

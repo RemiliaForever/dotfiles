@@ -20,12 +20,12 @@ function volume_widget:volumectl (mode)
         f:close()
         if muted == 0 then
             if notify_is_mute then
-                volume = ' 🎵' .. volume .. '<span color="green">M</span>'
+                volume = ' 🔉' .. volume .. '<span color="green">M</span>'
             else
-                volume = ' 🎵' .. volume .. '%'
+                volume = ' 🔉' .. volume .. '%'
             end
         else
-            volume = ' 🎵' .. volume .. '<span color="red">M</span>'
+            volume = ' 🔇' .. volume .. '<span color="red">M</span>'
         end
         widget:set_markup(volume .. " ")
     elseif mode == "up" then
