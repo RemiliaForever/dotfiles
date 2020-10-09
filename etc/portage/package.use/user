@@ -22,28 +22,30 @@ app-office/libreoffice-l10n L10N: en zh-CN
 app-text/texlive graphics cjk xetex L10N: zh en
 dev-cpp/eigen c++11 cuda
 dev-db/mariadb -perl
-dev-java/openjdk alsa javafx gentoo-vm source
+dev-java/openjdk alsa gentoo-vm source
+>=dev-java/openjdk-11 javafx
 dev-lang/python sqlite
-dev-lang/rust clippy rls rustfmt system-llvm system-bootstrap nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64
+dev-lang/rust clippy rustfmt system-llvm system-bootstrap miri nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64
 dev-python/ipython matplotlib notebook
 dev-python/matplotlib qt5
 dev-util/ctags json xml yaml
 dev-util/idea-ultimate custom-jdk
+games-roguelike/cataclysm-dda lua luajit sdl xdg
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
-media-gfx/blender cuda openvdb cycles tiff openimageio color-management llvm opensubdiv PYTHON_SINGLE_TARGET: python3_6
+media-gfx/blender cuda openvdb cycles tiff openimageio color-management llvm opensubdiv abi7-compat
 media-gfx/darktable colord geolocation opencl
 media-gfx/digikam calendar marble mediaplayer scanner opengl mysql
-media-gfx/imagemagick raw tiff
+media-gfx/imagemagick graphviz hdri postscript raw svg tiff webp xml
 media-gfx/inkscape cdr exif imagemagick visio
 media-gfx/krita color-management gif
-media-libs/opencv lapack opencl -python
+media-libs/opencv ffmpeg lapack opencl python
 media-libs/opencolorio opengl
 media-libs/openimageio color-management
 media-sound/lmms fluidsynth mp3
-media-sound/pulseaudio realtime bluetooth native-headset
-#media-sound/pulseaudio-modules-bt fdk ofono-headset
-media-video/ffmpeg bluray mp3 vdpau v4l libv4l opus dav1d x264 openssl
+media-sound/pulseaudio realtime -bluetooth
+media-sound/pulseaudio-modules-bt fdk
+media-video/ffmpeg bluray libcaca mp3 openal opencl opengl openh264 vdpau vpx v4l libv4l opus dav1d x264 openssl
 media-video/obs-studio imagemagick luajit nvenc speex v4l
 net-im/telegram-desktop -alsa
 net-libs/gnutls tools
@@ -55,7 +57,6 @@ net-wireless/blueman policykit network
 sci-electronics/kicad -python
 sci-libs/openblas eselect-ldso
 sci-misc/boinc -X cuda
-#sci-libs/pytorch cuda PYTHON_TARGETS: python3_6
 sys-apps/lm-sensors contrib
 sys-apps/smartmontools -systemd -daemon
 sys-apps/util-linux static-libs
@@ -65,12 +66,13 @@ sys-devel/gcc graphite
 sys-devel/gdb source-highlight xml xxhash -server
 sys-kernel/gentoo-sources symlink
 www-client/firefox geckodriver hwaccel clang L10N: zh-CN en-GB
-x11-drivers/nvidia-drivers gtk3 acpi
+x11-drivers/nvidia-drivers gtk3 acpi uvm
 x11-misc/picom opengl
 x11-wm/awesome luajit gnome
 
 # required use
 
+app-arch/brotli python
 app-emulation/libvirt virt-network libssh
 app-text/ghostscript-gpl cups
 app-text/poppler cjk cairo
@@ -78,7 +80,6 @@ app-text/texlive-core cjk xetex
 app-text/xmlto text -sdl
 app-text/zathura synctex
 dev-db/sqlite secure-delete
-dev-java/javatoolkit PYTHON_TARGETS: python2_7
 dev-java/swt opengl cairo
 dev-libs/boost python context
 dev-libs/libpcre2 pcre16
@@ -89,19 +90,19 @@ dev-python/PyQt5 gui network opengl sql svg webchannel widgets x11extras xmlpatt
 dev-qt/qtgui egl
 dev-qt/qtsql mysql
 games-emulation/ppsspp -qt5 sdl
-gnome-base/gconf PYTHON_TARGETS: python2_7
 kde-apps/ark zip
+kde-frameworks/kitemmodels qml
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
 media-libs/libcanberra alsa
 media-libs/libsdl opengl
 media-libs/libpng apng
 media-libs/libvpx postproc
-media-libs/mesa -vulkan wayland
+media-libs/mesa wayland
 media-libs/opensubdiv cuda ptex tbb
 media-sound/mpd flac mpg123
 media-sound/ncmpcpp clock outputs taglib visualizer
 media-video/mpv bluray dvd libcaca luajit vdpau
-media-video/vlc -X -qt5 -jpeg -png flac -ffmpeg mp3 vorbis ogg
+media-video/vlc -X -qt5 -jpeg -png flac ffmpeg mp3 vorbis ogg live
 net-fs/samba client
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
@@ -117,7 +118,6 @@ x11-apps/mesa-progs egl
 x11-base/xorg-server kdrive xephyr xvfb
 
 ### nvidia driver
->=dev-util/pkgconf-1.6.3 abi_x86_32
 >=media-libs/libglvnd-1.3.1 abi_x86_32
 >=net-dns/dnsmasq-2.80-r2 script
 >=net-misc/spice-gtk-0.37-r2 usbredir
@@ -130,25 +130,6 @@ x11-base/xorg-server kdrive xephyr xvfb
 >=x11-libs/libXext-1.3.4 abi_x86_32
 >=x11-libs/libvdpau-1.3 abi_x86_32
 >=x11-libs/libxcb-1.14 abi_x86_32
-
-### blender
->=dev-python/PySocks-1.7.1 python_targets_python3_6
->=dev-python/certifi-2019.11.28 python_targets_python3_6
->=dev-python/cffi-1.14.0 python_targets_python3_6
->=dev-python/chardet-3.0.4 python_targets_python3_6
->=dev-python/cryptography-2.8-r1 python_targets_python3_6
->=dev-python/cython-0.29.15 python_targets_python3_6
->=dev-python/idna-2.8 python_targets_python3_6
->=dev-python/numpy-1.16.5-r1 python_targets_python3_6
->=dev-python/ply-3.11 python_targets_python3_6
->=dev-python/pycparser-2.19-r1 python_targets_python3_6
->=dev-python/pyopenssl-19.1.0 python_targets_python3_6
->=dev-python/requests-2.22.0 python_targets_python3_6
->=dev-python/setuptools-44.0.0 python_targets_python3_6
->=dev-python/six-1.14.0 python_targets_python3_6
->=dev-python/urllib3-1.25.8 python_targets_python3_6
->=media-gfx/openvdb-4.0.2-r3 python_single_target_python3_6 -abi3-compat
->=x11-drivers/nvidia-drivers-440.82 uvm
 
 # digikam
 >=dev-qt/qtwebchannel-5.14.1 qml
@@ -173,10 +154,6 @@ x11-base/xorg-server kdrive xephyr xvfb
 >=x11-libs/libXxf86vm-1.1.4-r1 abi_x86_32
 >=x11-libs/libdrm-2.4.100 abi_x86_32
 >=x11-libs/libxshmfence-1.3-r1 abi_x86_32
-
-# javatoolkit
->=dev-python/certifi-2019.11.28 python_targets_python2_7
->=dev-python/setuptools-44.0.0 python_targets_python2_7
 
 # wine-staging
 >=app-arch/bzip2-1.0.6-r11 abi_x86_32
@@ -290,21 +267,10 @@ x11-base/xorg-server kdrive xephyr xvfb
 >=x11-libs/xcb-util-wm-0.4.1-r2 abi_x86_32
 
 # kdenlive
->=media-libs/libsdl2-2.0.10-r1 opengl
+>=media-libs/libsdl2-2.0.12-r1 opengl
 >=media-libs/mlt-6.20.0 sdl melt ffmpeg xml kdenlive frei0r qt5
->=media-video/ffmpeg-4.2.2 sdl
-
-# pytorch
-#>=dev-cpp/eigen-3.3.7 cuda
-#>=dev-python/cython-0.29.15 python_targets_python3_6
-#>=dev-python/namespace-google-1 python_targets_python3_6
-#>=dev-python/protobuf-python-3.11.4 python_targets_python3_6
-#>=dev-python/pybind11-2.4.3 python_targets_python3_6
-#>=dev-python/pyyaml-5.3.1 python_targets_python3_6
-#>=virtual/python-typing-0-r1 python_targets_python3_6
+>=media-video/ffmpeg-4.2.4 sdl
 
 # android
 >=sys-libs/ncurses-compat-5.9 abi_x86_32
 
-# kicad
->=x11-libs/wxGTK-3.0.4-r302 opengl

@@ -5,23 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export HISTSIZE=16384
-
-export PATH=./node_modules/.bin:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-
 source ~/.git-prompt.sh
-source ~/.diesel_completion
-
-export MAKEFLAGS='-j16'
-export WINEESYNC=1
-
-#export PS1_START='\r'
-export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[32m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
-
-#export PAGER='/usr/bin/less'
-#export EDITOR='/usr/bin/vim'
-#export BROWSER='/usr/bin/firefox'
+export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[36m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
 #export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
@@ -50,6 +35,7 @@ alias disgit='__git_ps1() { echo " (disabled)"; }'
 alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'
 alias vim='/usr/bin/vim --servername VIM'
+alias tig='/usr/bin/tig --date-order --all'
 
 alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'
 alias exegcc='/usr/bin/x86_64-w64-mingw32-gcc'
@@ -57,6 +43,7 @@ alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 # Rust
 #export CARGO_INCREMENTAL=0
+export RUST_SRC_PATH=$HOME/.cargo/src
 cargo_wasm() {
     cargo $@ --target=wasm32-unknown-unknown
 }
@@ -91,7 +78,11 @@ cargo_android_armv7() {
 #export DOCKER_MACHINE_NAME="default"
 
 http_login() {
-    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password=admin123 | jq -r '.data | .token'`
+    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password='' | jq -r '.data | .token'`
+    echo $HTTP_JWT_TOKEN
+}
+http_login_raw() {
+    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password='' | jq -r '.data | .token'`
     echo $HTTP_JWT_TOKEN
 }
 http_auth() {
@@ -100,17 +91,6 @@ http_auth() {
     if [ -n "$NEW_TOKEN" ]; then
         export HTTP_JWT_TOKEN=$NEW_TOKEN
     fi
-    /usr/bin/cat /tmp/httpie_res
+    /bin/cat /tmp/httpie_res
     rm /tmp/httpie_res
 }
-
-# GO
-export GOPATH=$HOME/.go
-export PATH=$GOPATH/bin:$PATH
-export GO111MODULE=on
-export GOPROXY=https://goproxy.io
-export GOPRIVATE=gitlab.deepglint.com
-# Python
-export PYTHONPYCACHEPREFIX=$HOME/.cache/python
-
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'

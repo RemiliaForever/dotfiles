@@ -4,3 +4,7 @@ cross-aarch64-unknown-linux-gnu
 cross-aarch64-unknown-linux-gnu:6.5.0
 cross-aarch64-hi3559a-linux-gnu
 cross-aarch64-himix100-linux
+cross-aarch64-himix100-linux-gnu
+cross-aarch64-unknown-linux-musl
+cross-arm-unknown-linux-musl
+cross-x86_64-pc-linux-musl

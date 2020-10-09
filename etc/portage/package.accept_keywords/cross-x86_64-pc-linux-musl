@@ -1,0 +1,5 @@
+cross-x86_64-pc-linux-musl/binutils amd64 ~amd64
+cross-x86_64-pc-linux-musl/gcc amd64 ~amd64
+cross-x86_64-pc-linux-musl/linux-headers amd64 ~amd64
+cross-x86_64-pc-linux-musl/musl amd64 ~amd64
+cross-x86_64-pc-linux-musl/gdb amd64 ~amd64
