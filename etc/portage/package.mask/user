@@ -1,3 +1,1 @@
-=x11-terms/termite-9999
-dev-lang/python:3.8
->=dev-util/nvidia-cuda-toolkit-11
+#dev-lang/python:3.8

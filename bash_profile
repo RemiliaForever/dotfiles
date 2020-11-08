@@ -25,8 +25,7 @@ export GOPRIVATE=gitlab.deepglint.com
 # Python
 export PYTHONPYCACHEPREFIX=$HOME/.cache/python
 
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
-export CYCLES_CUDA_EXTRA_CFLAGS='-ccbin gcc-8.4.0'
+#export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
 
 . $HOME/.bashrc
 

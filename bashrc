@@ -8,9 +8,8 @@
 source ~/.git-prompt.sh
 export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[36m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
-#export TERM=xterm-termite
+export TERM=xterm-termite
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
-alias dssh='TERM=xterm-256color docker-machine ssh'
 
 # replaced utils
 alias ls='/usr/bin/exa'
@@ -34,7 +33,7 @@ alias disgit='__git_ps1() { echo " (disabled)"; }'
 
 alias py='/usr/bin/ipython'
 alias latexmk='latexmk -interaction=nonstopmode'
-alias vim='/usr/bin/vim --servername VIM'
+alias vims='/usr/bin/vim --servername VIM'
 alias tig='/usr/bin/tig --date-order --all'
 
 alias exeg++='/usr/bin/x86_64-w64-mingw32-g++'

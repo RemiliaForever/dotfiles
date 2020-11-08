@@ -1,8 +1,4 @@
-sys-libs/glibc glibc
-
-media-libs/opensubdiv cuda
-dev-python/cupy cuda
+#media-libs/opensubdiv cuda
+#dev-python/cupy cuda
 #media-libs/opencv cuda
 #sci-libs/pytorch cuda
-
-games-emulation/advancemame mame

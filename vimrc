@@ -229,7 +229,7 @@ let g:NERDTree_title = '[NERD Tree]'
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeIgnore = ['^venv$', '^build$', '^dist$', '^__pycache__$', '^\.git$', '^node_modules$', '\.aux$', '\.fls$', '\.fdb_latexmk$', '\.toc$', '\.xdv$', '\.log$', '\.out$']
 nnoremap <c-n> :NERDTreeToggle<CR>
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "🔧",
     \ "Staged"    : "➕",
     \ "Untracked" : "🔸",
@@ -281,23 +281,18 @@ let g:ale_echo_delay = 20
 let g:ale_lint_delay = 300
 let g:ale_sign_warning = '>>'
 let g:ale_linters = {
-\   'c': ['clangd'],
-\   'cpp': ['clangd'],
-\   'go': ['gopls'],
-\   'java': ['eclipselsp'],
-\   'javascript': ['tsserver'],
+\   'c': [],
+\   'cpp': [],
+\   'go': [],
+\   'java': [],
+\   'javascript': [],
 \   'markdown': ['proselint'],
 \   'python': ['flake8'],
-\   'rust': ['rls'],
+\   'rust': [],
 \   'tex': ['chktex'],
-\   'typescript': ['eslint'],
-\   'vue': ['eslint'],
+\   'typescript': [],
+\   'vue': [],
 \   }
-let g:ale_java_eclipselsp_path = '~/.vim/plugged/YouCompleteMe/third_party/ycmd/third_party/eclipse.jdt.ls'
-let g:ale_cpp_clangcheck_options = '-extra-arg -Xanalyzer -extra-arg -analyzer-output=text'
-let g:ale_rust_cargo_check_all_targets = 1
-let g:ale_rust_cargo_check_tests = 1
-let g:ale_rust_cargo_default_feature_behavior = 'all'
 let g:ale_lint_on_text_changed = 'always'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_fixers = {
@@ -318,8 +313,8 @@ let g:ale_rust_rustfmt_options = '--edition 2018'
 let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_java_google_java_format_options = '--aosp'
 let g:ale_fix_on_save = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 
 augroup FileTypeChecking
     autocmd!
@@ -336,15 +331,23 @@ let g:polyglot_disabled = ['latex']
 " YouCompleteMe
 let g:ycm_clangd_binary_path = "clangd"
 let g:ycm_gopls_binary_path = "gopls"
-let g:ycm_rls_binary_path = "rls"
-let g:ycm_rustc_binary_path = "rustc"
+let g:ycm_rust_toolchain_root = "~/.cargo"
 let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
-let g:ycm_enable_diagnostic_highlighting = 0
-let g:ycm_show_diagnostics_ui = 0
-let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_always_populate_location_list = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_show_diagnostics_ui = 1
+let g:ycm_enable_diagnostic_signs = 1
 set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 " let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
 " let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_language_server = [
+    \   {
+    \     'name': 'rust',
+    \     'cmdline': ['rust-analyzer'],
+    \     'filetypes': ['rust'],
+    \     'project_root_files': ['Cargo.toml']
+    \   }
+    \]
 let g:ycm_semantic_triggers = {
    \   'css': [ 're!^\s{4}', 're!:\s+' ],
    \   'scss': [ 're!^\s{4}', 're!:\s+' ],
@@ -360,11 +363,12 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_collect_identifiers_from_tag_files = 1
 let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_goto_buffer_command = 'split-or-existing-window'
-nnoremap [d :rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap [l :rightbelow vertical YcmCompleter GoTo<CR>
+"nnoremap [d :rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap [d :rightbelow vertical YcmCompleter GoTo<CR>
 nnoremap [t :rightbelow vertical YcmCompleter GetType<CR>
 nnoremap [p :rightbelow vertical YcmCompleter GetParent<CR>
 nnoremap [o :rightbelow vertical YcmCompleter GetDoc<CR>
+nnoremap [g :rightbelow vertical YcmCompleter GoToType<CR>
 nnoremap [c :rightbelow vertical YcmCompleter GoToDeclaration<CR>
 nnoremap [f :rightbelow vertical YcmCompleter GoToDefinition<CR>
 nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
@@ -372,6 +376,11 @@ nnoremap [m :rightbelow vertical YcmCompleter GoToImplementation<CR>
 nnoremap [r :rightbelow vertical YcmCompleter GoToReferences<CR>
 nnoremap [q :close<CR>
 nnoremap ]q :pclose<CR>
+augroup Jump
+    autocmd!
+    au FileType c,cpp,go,java,javascript,typescript,rust,vue nmap <silent> <C-j> :lnext<CR>
+    au FileType c,cpp,go,java,javascript,typescript,rust,vue nmap <silent> <C-k> :lpre<CR>
+augroup END
 
 " fcitx
 augroup FcitxSupport
@@ -383,8 +392,11 @@ augroup END
 let g:signify_vcs_list = ['git']
 
 " latex
+let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode -halt-on-error -synctex=1 $*'
+let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_GotoError = 0
+let g:Tex_IgnoreLevel = 10
 let g:Tex_IgnoredWarnings =
 \"Underfull\n".
 \"Overfull\n".
@@ -396,10 +408,6 @@ let g:Tex_IgnoredWarnings =
 \"Latex Font Warning: %s\n".
 \"Package microtype Warning: %s\n".
 \"Package pgfplots Warning: %s\n"
-let g:Tex_IgnoreLevel = 10
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_UsePython = 0
 augroup TexBiberMapper
     autocmd!
     autocmd FileType tex nmap <Leader>lb :<C-U>exec '!biber '.Tex_GetMainFileName(':p:t:r')<CR>
@@ -430,11 +438,11 @@ Plug 'mhinz/vim-signify', {'on': 'SignifyToggle'}
 Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'vim-latex/vim-latex', {'for': ['tex', 'latex', 'bib']}
-Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --clangd-completer --java-completer --ts-completer' }
+Plug 'ycm-core/YouCompleteMe', { 'do': './install.py --java-completer --ts-completer' }
 Plug 'alvan/vim-closetag', {'for': ['html', 'xml', 'vue']}
 
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'Yggdroot/LeaderF', {'do': './install.sh' }
 
 Plug 'aperezdc/vim-template'
 call plug#end()

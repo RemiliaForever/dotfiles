@@ -1,4 +1,3 @@
-dev-lang/rust -nightly -system-llvm -system-bootstrap
 dev-java/openjdk -gentoo-vm
 
 */* -cuda
