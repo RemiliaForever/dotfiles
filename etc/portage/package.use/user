@@ -14,10 +14,10 @@ app-arch/unzip natspec
 app-arch/zstd ABI_X86: 32
 app-editors/vim python
 app-emulation/dxvk ABI_X86: 32
-app-emulation/libvirt virt-network libssh
-app-emulation/qemu nfs opengl spice usb usbredir virgl virtfs QEMU_USER_TARGETS: aarch64
+app-emulation/libvirt virt-network libssh policykit
+app-emulation/qemu gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_USER_TARGETS: aarch64
 app-emulation/virt-manager gtk
-app-emulation/wine-staging vkd3d osmesa netapi gstreamer ldap vaapi
+app-emulation/wine-staging vkd3d osmesa netapi gstreamer ldap mingw vaapi
 app-i18n/fcitx -table -enchant
 app-office/libreoffice -mariadb
 app-office/libreoffice-l10n L10N: en zh-CN
@@ -50,11 +50,12 @@ dev-util/idea-ultimate custom-jdk
 dev-util/nvidia-cuda-toolkit profiler
 games-emulation/ppsspp -qt5 sdl
 kde-apps/ark zip
+kde-apps/dolphin activities
 kde-apps/kio-extras mtp nfs samba
 kde-frameworks/kitemmodels qml
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
-media-gfx/blender cuda openvdb cycles tiff openimageio color-management llvm opensubdiv abi7-compat PYTHON_SINGLE_TARGET: python3_7
+media-gfx/blender cuda openal openvdb cycles tiff openimageio color-management llvm opensubdiv abi7-compat
 media-gfx/darktable colord geolocation opencl
 media-gfx/digikam calendar marble mediaplayer scanner opengl mysql
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
@@ -69,23 +70,24 @@ media-libs/mesa wayland
 media-libs/openal alsa
 media-libs/opencolorio opengl
 media-libs/opencv ffmpeg lapack opencl python contrib contribdnn cuda -lto
-media-libs/openimageio color-management
+media-libs/openimageio color-management openvdb opengl opencv
 media-libs/opensubdiv cuda ptex tbb
 media-sound/lmms fluidsynth mp3
 media-sound/mpd flac mpg123
 media-sound/ncmpcpp clock outputs taglib visualizer
 media-sound/pulseaudio realtime -bluetooth
 media-sound/pulseaudio-modules-bt fdk
-media-video/ffmpeg alsa bluray libcaca mp3 openal opencl opengl openh264 vdpau vpx v4l libv4l opus dav1d x264 openssl
+media-video/ffmpeg alsa bluray libcaca mp3 openal opencl opengl vdpau vpx v4l libv4l opus dav1d x264 openssl
 media-video/mpv bluray dvd libcaca luajit vdpau
 media-video/obs-studio imagemagick luajit nvenc speex v4l
-media-video/vlc -X -qt5 -jpeg -png flac ffmpeg mp3 vorbis ogg live
+media-video/vlc -X -qt5 -jpeg -png -ncurses flac ffmpeg mp3 vorbis ogg
 net-fs/samba client
 net-libs/gnutls tools
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
+net-libs/nodejs system-icu
 net-libs/zeromq drafts
-net-misc/curl http2
+net-misc/curl http2 samba -imap -pop3 -smtp -tftp
 net-misc/nextcloud-client dolphin
 net-misc/rsync system-zlib xxhash zstd
 net-misc/tigervnc server
@@ -95,7 +97,7 @@ net-wireless/bluez user-session
 net-wireless/blueman policykit network
 sci-electronics/kicad -python
 sci-libs/flann cuda
-sci-libs/lapack eselect-ldso
+sci-libs/lapack eselect-ldso lapacke
 sci-libs/openblas eselect-ldso
 sci-misc/boinc -X cuda
 sys-apps/dbus user-session
@@ -275,20 +277,8 @@ x11-wm/awesome luajit gnome
 # android
 >=sys-libs/ncurses-compat-5.9 abi_x86_32
 
-# blender
->=dev-python/numpy-1.19.1 python_targets_python3_7
->=dev-python/setuptools-46.4.0-r3 python_targets_python3_7
->=dev-python/cython-0.29.21-r1 python_targets_python3_7
->=dev-python/certifi-10001-r1 python_targets_python3_7
->=dev-python/setuptools_scm-4.1.2-r1 python_targets_python3_7
->=dev-python/requests-2.24.0-r1 python_targets_python3_7
->=dev-python/chardet-3.0.4-r1 python_targets_python3_7
->=dev-python/idna-2.10-r1 python_targets_python3_7
->=dev-python/urllib3-1.25.10-r1 python_targets_python3_7
->=dev-python/cryptography-3.0-r1 python_targets_python3_7
->=dev-python/six-1.15.0-r1 python_targets_python3_7
->=dev-python/cffi-1.14.0-r3 python_targets_python3_7
->=dev-python/pycparser-2.20-r1 python_targets_python3_7
->=dev-python/ply-3.11-r1 python_targets_python3_7
->=dev-python/PySocks-1.7.1-r1 python_targets_python3_7
->=dev-python/pyopenssl-19.1.0-r1 python_targets_python3_7
+# qemu
+>=dev-libs/glib-2.64.5 static-libs
+>=sys-libs/zlib-1.2.11-r2 static-libs
+>=sys-apps/attr-2.4.48-r3 static-libs
+>=dev-libs/libpcre-8.44 static-libs

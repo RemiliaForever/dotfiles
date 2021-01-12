@@ -1,1 +1,4 @@
-#dev-lang/python:3.8
+x11-libs/vte::gentoo
+dev-lang/rust::gentoo
+dev-db/mycli::gentoo
+dev-db/pgcli::gentoo

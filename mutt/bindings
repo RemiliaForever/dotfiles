@@ -22,4 +22,4 @@ macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@
 bind index,pager \Cp sidebar-prev
 bind index,pager \Cn sidebar-next
 bind index,pager \Co sidebar-open
-bind index,pager <F5> sidebar-toggle-visible
+bind index,pager \Ch sidebar-toggle-visible

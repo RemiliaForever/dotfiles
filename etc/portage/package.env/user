@@ -1,4 +1,0 @@
-#media-libs/opensubdiv cuda
-#dev-python/cupy cuda
-#media-libs/opencv cuda
-#sci-libs/pytorch cuda

@@ -12,8 +12,6 @@ dev-java/openjdk ~amd64
 dev-lang/go ~amd64
 dev-lang/rust ~amd64
 dev-libs/cudnn ~amd64
-dev-python/yapf ~amd64
-dev-util/android-ndk ~amd64
 dev-util/android-sdk-update-manager ~amd64
 dev-util/idea-ultimate ~amd64
 games-emulation/advancemame ~amd64
@@ -26,12 +24,10 @@ media-gfx/inkscape ~amd64
 media-sound/lmms ~amd64
 media-sound/netease-cloud-music ~amd64
 media-sound/pulseaudio-modules-bt ~amd64
-media-sound/pulsemixer ~amd64
 media-video/obs-studio ~amd64
 net-misc/baidupcs-go ~amd64
 net-proxy/mitmproxy ~amd64
 net-proxy/v2ray ~amd64
-net-wireless/blueman ~amd64
 sci-electronics/kicad ~amd64
 sci-electronics/kicad-footprints ~amd64
 sci-electronics/kicad-i18n ~amd64
@@ -43,53 +39,30 @@ sci-misc/boinc ~amd64
 sys-apps/bat ~amd64
 sys-libs/libnvidia-container ~amd64
 www-client/firefox ~amd64
+x11-misc/picom ~amd64
 
 # required
 dev-cpp/websocketpp ~amd64
-dev-java/ant-core ~amd64
 dev-java/openjfx ~amd64
 dev-java/swt ~amd64
 dev-libs/nss ~amd64
-dev-libs/nspr ~amd64
 dev-python/cli_helpers ~amd64
 dev-python/h11 ~amd64
 dev-python/kaitaistruct ~amd64
-dev-python/pgspecial ~amd64
 dev-python/publicsuffix ~amd64
-dev-python/terminaltables ~amd64
 dev-python/wsproto ~amd64
 dev-qt/qcef ~amd64
-media-gfx/openvdb ~amd64
-media-libs/harfbuzz ~amd64
-media-libs/libvpx ~amd64
-media-libs/opensubdiv ~amd64
 sci-electronics/ngspice ~amd64
 sci-libs/oce ~amd64
-#sci-libs/tensorflow ~amd64
 sci-visualization/xgraph ~amd64
 virtual/rust ~amd64
-x11-libs/vte ~amd64
 
 dev-util/nvidia-cuda-toolkit ~amd64 
-=x11-terms/termite-13 ~amd64
-
-# llvm
-sys-devel/clang ~amd64
-sys-devel/clang-runtime ~amd64
-sys-devel/lld ~amd64
-sys-devel/llvm ~amd64
-sys-devel/llvmgold ~amd64
-sys-libs/compiler-rt ~amd64
-sys-libs/compiler-rt-sanitizers ~amd64
-sys-libs/libomp ~amd64
 
 # TODO
-#app-admin/eclean-kernel ~amd64
-app-emulation/docker-compose ~amd64
-dev-python/PyQtWebEngine ~amd64
-dev-python/ldap3 ~amd64
-dev-python/python-dotenv ~amd64
 dev-vcs/repo ~amd64
-media-gfx/digikam ~amd64
-=media-libs/opencv-4.4* ~amd64
-sys-libs/ncurses-compat ~amd64
+sys-process/htop ~amd64
+
+# ncnn
+dev-libs/ncnn ~amd64
+media-gfx/waifu2x-ncnn-vulkan ~amd64

@@ -51,5 +51,5 @@ set header_cache=   $HOME/.cache/mutt/headers
 set message_cachedir=$HOME/.cache/mutt/bodies
 
 # default account
-source $HOME/.mutt/remilia@koumakan.cc/remilia
-#source $HOME/.mutt/hongzhichen@deepglint.com/hongzhichen
+#source $HOME/.mutt/remilia@koumakan.cc/remilia
+source $HOME/.mutt/hongzhichen@deepglint.com/hongzhichen
