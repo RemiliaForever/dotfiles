@@ -7,14 +7,13 @@ require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
-local hotkeys_popup = require("awful.hotkeys_popup").widget
 
 local fix_textbox = require("widget/lib/textbox")
 
 -- {{{ AutoRun App
 autorunApps =
 {
-    'picom --config ~/.config/picom/config',
+    'picom --experimental-backends --config ~/.config/picom/config',
     'fcitx -D -r',
     -- 'gnome-keyring-daemon -s',
     -- 'nm-applet',
@@ -107,68 +106,57 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-mymainmenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
-}
-
--- }}}
-
 -- Keyboard map indicator and switcher
 mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock(" %Y年%m月%d日 %H:%M:%S %A ", 1)
-mytextclock.font = 'Noto Sans Mono 12'
+mytextclock = wibox.widget.textclock("%Y年%m月%d日 %H:%M:%S %A ", 1)
+mytextclock.font = 'Noto Sans Mono 11'
 
 -- {{{ Create a wibox for each screen and add it
 local taglist_buttons = awful.util.table.join(
     awful.button({ }, 1, function(t) t:view_only() end),
     awful.button({ modkey }, 1, function(t)
-                                    if client.focus then
-                                        client.focus:move_to_tag(t)
-                                    end
-                                end),
+        if client.focus then
+            client.focus:move_to_tag(t)
+        end
+    end),
     awful.button({ }, 3, awful.tag.viewtoggle),
     awful.button({ modkey }, 3, function(t)
-                                    if client.focus then
-                                        client.focus:toggle_tag(t)
-                                    end
-                                end),
+        if client.focus then
+            client.focus:toggle_tag(t)
+        end
+    end),
     awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-)
+    )
 
 local tasklist_buttons = awful.util.table.join(
     awful.button({ }, 1, function (c)
-                             if c == client.focus then
-                                 c.minimized = true
-                             else
-                                 -- Without this, the following
-                                 -- :isvisible() makes no sense
-                                 c.minimized = false
-                                 if not c:isvisible() and c.first_tag then
-                                     c.first_tag:view_only()
-                                 end
-                                 -- This will also un-minimize
-                                 -- the client, if needed
-                                 client.focus = c
-                                 c:raise()
-                             end
-                         end),
+        if c == client.focus then
+            c.minimized = true
+        else
+            -- Without this, the following
+            -- :isvisible() makes no sense
+            c.minimized = false
+            if not c:isvisible() and c.first_tag then
+                c.first_tag:view_only()
+            end
+            -- This will also un-minimize
+            -- the client, if needed
+            client.focus = c
+            c:raise()
+        end
+    end),
     awful.button({ }, 3, client_menu_toggle_fn()),
     awful.button({ }, 4, function ()
-                             awful.client.focus.byidx(1)
-                         end),
+        awful.client.focus.byidx(1)
+    end),
     awful.button({ }, 5, function ()
-                             awful.client.focus.byidx(-1)
-                         end))
+        awful.client.focus.byidx(-1)
+    end)
+    )
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -186,12 +174,18 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+screen_index = 0
+tags = {
+    { "编程0", "编程1", "编程2", "网络", "文档" },
+    { "编程", "聊天", "文档", "音乐" }
+}
 awful.screen.connect_for_each_screen(function(s)
+    screen_index = screen_index + 1
     -- Wallpaper
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "编程", "文档", "网络", "聊天", "音乐" }, s, awful.layout.layouts[1])
+    awful.tag(tags[screen_index], s, awful.layout.layouts[1])
 
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
@@ -199,10 +193,11 @@ awful.screen.connect_for_each_screen(function(s)
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
     s.mylayoutbox:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+            awful.button({ }, 1, function () awful.layout.inc( 1) end),
+            awful.button({ }, 3, function () awful.layout.inc(-1) end),
+            awful.button({ }, 4, function () awful.layout.inc( 1) end),
+        awful.button({ }, 5, function () awful.layout.inc(-1) end))
+        )
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
 
@@ -210,7 +205,7 @@ awful.screen.connect_for_each_screen(function(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", height = 42, screen = s })
+    s.mywibox = awful.wibar({ position = "top", height = 40, screen = s })
 
     -- Add widgets to the wibox
     systray = wibox.widget.systray()
@@ -229,9 +224,9 @@ awful.screen.connect_for_each_screen(function(s)
             require("widget/mem"),
             require("widget/cpu"),
             require("widget/volume"),
-            wibox.container.margin(require("widget/mail"),0,0,3,3),
---            mykeyboardlayout,
-            wibox.container.margin(systray,3,3,3,3),
+            require("widget/mail"),
+            --            mykeyboardlayout,
+            systray,
             mytextclock,
             s.mylayoutbox,
         },
@@ -239,15 +234,7 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 -- }}}
 
--- {{{ Mouse bindings
-root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
--- }}}
-
--- {{{ Key bindings
+-- {{{ Mouse and Key bindings
 require("bind")
 -- }}}
 
@@ -263,8 +250,8 @@ client.connect_signal("manage", function (c)
     -- if not awesome.startup then awful.client.setslave(c) end
 
     if awesome.startup and
-      not c.size_hints.user_position
-      and not c.size_hints.program_position then
+        not c.size_hints.user_position
+        and not c.size_hints.program_position then
         -- Prevent clients from being unreachable after screen count changes.
         awful.placement.no_offscreen(c)
     end
@@ -284,7 +271,7 @@ client.connect_signal("request::titlebars", function(c)
             c:raise()
             awful.mouse.client.resize(c)
         end)
-    )
+        )
 
     awful.titlebar(c) : setup {
         { -- Left

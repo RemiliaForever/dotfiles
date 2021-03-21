@@ -4,10 +4,14 @@ local textbox = require("widget/lib/textbox")
 local function update_netstat()
     local function format_width(num)
         speed = num / 1024
-        if speed > 99 then
-            return string.format('%4dKb', math.floor(speed))
+        if speed > 999 then
+            return string.format('%5dKb', math.floor(speed))
+        elseif speed > 99 then
+            return string.format('%5.1fKb', speed)
+        elseif speed > 9 then
+            return string.format('%5.2fKb', speed)
         else
-            return string.format('%4.1fKb', speed)
+            return string.format('%5.3fKb', speed)
         end
     end
 

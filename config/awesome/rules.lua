@@ -51,15 +51,15 @@ awful.rules.rules = {
 
     -- Set Firefox to always map on the tag named "2" on screen 1.
     { rule = { name = "Steam" },
-       properties = { screen = 1, tag = "文档", maximized = true } },
+       properties = { screen = 2, tag = "文档", maximized = false } },
     { rule = { name = "Firefox" },
        properties = { screen = 1, tag = "网络", maximized = true } },
     { rule = { class = "netease-cloud-music" },
-        properties = { screen = 1, tag = "音乐" } },
+        properties = { screen = 2, tag = "音乐" } },
     { rule = { class = "Deadbeef" },
-        properties = { screen = 1, tag = "音乐", maximized = true } },
+        properties = { screen = 2, tag = "音乐", maximized = true } },
     { rule = { class = "TelegramDesktop" },
-        properties = { screen = 1, tag = "聊天", maximized = true } },
+        properties = { screen = 2, tag = "聊天", maximized = true } },
     { rule = { name = "WeeChat" },
         properties = { screen = 1, tag = "聊天" } },
 }
