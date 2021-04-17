@@ -1,22 +1,23 @@
 # vim: filetype=muttrc
 bind pager h display-toggle-weed
 
-bind index G imap-fetch-mail
-bind pager G imap-fetch-mail
+bind index,pager G imap-fetch-mail
+bind index,pager S check-stats
 
 bind pager j next-line
 bind pager k previous-line
 bind pager z next-page
 bind pager Z previous-page
 
+
 macro attach B "<pipe-message>cat > /tmp/mutt.html;xdg-open /tmp/mutt.html<enter>"
 
 # multi account
 #folder-hook 'remilia@koumakan.cc' 'source ~/.mutt/remilia@koumakan.cc/remilia'
 #folder-hook 'hongzhichen@deepglint.com' 'source ~/.mutt/hongzhichen@deepglint.com/hongzhichen'
-macro index 'c' '<change-folder>?<change-dir><home>^K=<enter>'
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter>'
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@deepglint.com/hongzhichen<enter><change-folder>!<enter>'
+macro index,pager 'c' '<change-folder>?<change-dir><home>^K=<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koumakan.cc/remilia<enter><change-folder>!<enter><check-stats>'
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@deepglint.com/hongzhichen<enter><change-folder>!<enter><check-stats>'
 
 # sidebar
 bind index,pager \Cp sidebar-prev

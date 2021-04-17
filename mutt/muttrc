@@ -22,6 +22,17 @@ set resolve     =   yes
 set pager_index_lines   =   6
 set pager_stop          =   yes
 
+# imap
+set mbox_type           = Maildir
+set sort_alias          = alias
+set mail_check_stats    = yes
+set mail_check_stats_interval = 60
+set ssl_force_tls       = yes
+set imap_keepalive      = 30
+# smtp
+set use_from            = yes
+set envelope_from       = yes
+set crypt_use_gpgme     = yes
 # sidebar
 set sidebar_visible = yes
 set sidebar_width = 30
@@ -29,7 +40,6 @@ set sidebar_new_mail_only = no
 set sidebar_divider_char = '│'
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
 set sidebar_sort_method = 'path'
-
 color sidebar_new green default
 color sidebar_flagged red default
 color sidebar_highlight default color8
@@ -37,19 +47,15 @@ color sidebar_divider color8 default
 color indicator cyan default
 # bind
 source $HOME/.mutt/bindings
-
 # color
 source $HOME/.mutt/colors
-
 # mailcap
-set mailcap_path =  $HOME/.mutt/mailcap
+set mailcap_path = $HOME/.mutt/mailcap
 auto_view text/html
 alternative_order text/plain text/enriched text/plain
-
 # general settings
-set header_cache=   $HOME/.cache/mutt/headers
-set message_cachedir=$HOME/.cache/mutt/bodies
-
+set header_cache = $HOME/.cache/mutt/headers
+set message_cachedir = $HOME/.cache/mutt/bodies
 # default account
 #source $HOME/.mutt/remilia@koumakan.cc/remilia
 source $HOME/.mutt/hongzhichen@deepglint.com/hongzhichen
