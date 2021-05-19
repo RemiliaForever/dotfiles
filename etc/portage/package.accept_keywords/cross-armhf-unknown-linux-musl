@@ -1,0 +1,5 @@
+cross-armhf-unknown-linux-musl/binutils arm -amd64 -~amd64
+cross-armhf-unknown-linux-musl/gcc arm -amd64 -~amd64
+cross-armhf-unknown-linux-musl/linux-headers arm -amd64 -~amd64
+cross-armhf-unknown-linux-musl/musl arm -amd64 -~amd64
+cross-armhf-unknown-linux-musl/gdb arm ~arm -amd64 -~amd64

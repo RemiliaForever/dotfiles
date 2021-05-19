@@ -1,4 +1,4 @@
 cross-x86_64-pc-linux-musl/binutils -multilib
 cross-x86_64-pc-linux-musl/linux-headers -selinux -multilib
-cross-x86_64-pc-linux-musl/musl -selinux -multilib
+cross-x86_64-pc-linux-musl/musl -selinux -libraries -multilib
 cross-x86_64-pc-linux-musl/gcc -sanitize -vtv -selinux -boundschecking -d -gcj -gtk -libffi -mudflap -objc -objc++ -objc-gc -multilib

@@ -1,4 +1,5 @@
-x11-libs/vte::gentoo
 dev-lang/rust::gentoo
 dev-db/mycli::gentoo
 dev-db/pgcli::gentoo
+dev-db/postgresql:13
+sci-electronics/kicad*::vowstar

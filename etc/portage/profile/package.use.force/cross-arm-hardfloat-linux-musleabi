@@ -1,0 +1,5 @@
+cross-arm-hardfloat-linux-musleabi/binutils -multilib
+cross-arm-hardfloat-linux-musleabi/gcc -multilib
+cross-arm-hardfloat-linux-musleabi/linux-headers -multilib
+cross-arm-hardfloat-linux-musleabi/musl -multilib
+cross-arm-hardfloat-linux-musleabi/gdb -multilib

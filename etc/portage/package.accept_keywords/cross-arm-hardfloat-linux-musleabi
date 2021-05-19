@@ -1,0 +1,5 @@
+cross-arm-hardfloat-linux-musleabi/binutils arm -amd64 -~amd64
+cross-arm-hardfloat-linux-musleabi/gcc arm -amd64 -~amd64
+cross-arm-hardfloat-linux-musleabi/linux-headers arm -amd64 -~amd64
+cross-arm-hardfloat-linux-musleabi/musl arm -amd64 -~amd64
+cross-arm-hardfloat-linux-musleabi/gdb arm ~arm -amd64 -~amd64

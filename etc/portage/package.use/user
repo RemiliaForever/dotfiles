@@ -1,62 +1,58 @@
 # global use
 
-*/* -handbook -ibus
-*/* X pulseaudio vim-syntax fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
+*/* -handbook -ibus -doc
+*/* X -wayland pulseaudio vim-syntax fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
 */* lto pgo
-*/* PYTHON_TARGETS: -python2_7 -python3_6 -python3_7 python3_8 -python3_9
-*/* PYTHON_SINGLE_TARGET: -python2_7 -python3_6 -python3_7 python3_8 -python3_9
+*/* PYTHON_TARGETS: -python2_7 -python3_6 -python3_7 -python3_8 python3_9 -python3_10
+*/* PYTHON_SINGLE_TARGET: -python2_7 -python3_6 -python3_7 -python3_8 python3_9 -python3_10
 
 # explict use
-
 app-admin/sysstat lm-sensors
 app-arch/brotli python
 app-arch/unzip natspec
-app-arch/zstd ABI_X86: 32
 app-editors/vim python
 app-emulation/dxvk ABI_X86: 32
 app-emulation/libvirt virt-network libssh policykit
 app-emulation/qemu gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_USER_TARGETS: aarch64
 app-emulation/virt-manager gtk
-app-emulation/wine-staging vkd3d osmesa netapi gstreamer ldap mingw vaapi
+app-emulation/wine-staging gstreamer ldap mingw osmesa vaapi vkd3d
 app-i18n/fcitx -table -enchant
 app-office/libreoffice -mariadb
 app-office/libreoffice-l10n L10N: en zh-CN
 app-text/ghostscript-gpl cups
-app-text/poppler cjk cairo qt5
-app-text/texlive graphics cjk xetex L10N: zh en
+app-text/poppler cjk cairo
+app-text/texlive extra graphics cjk music science xetex L10N: zh en
 app-text/texlive-core cjk xetex
 app-text/xmlto text
 app-text/zathura synctex
 dev-cpp/eigen c++11 cuda
 dev-db/mariadb -perl
-dev-db/sqlite secure-delete
 dev-java/openjdk alsa gentoo-vm source
 >=dev-java/openjdk-11 javafx
 dev-java/swt opengl cairo
 dev-lang/python sqlite
-dev-lang/rust clippy rls rustfmt system-llvm system-bootstrap miri nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64
+dev-lang/rust clippy rls rustfmt system-bootstrap system-llvm miri nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64
 dev-libs/boost python context
 dev-libs/libpcre2 pcre16
-dev-libs/libxml2 python
-dev-libs/xmlsec nss
-dev-python/PyQt5 gui network opengl sql svg webchannel widgets x11extras xmlpatterns printsupport
-dev-python/ipython matplotlib notebook
+dev-python/ipython matplotlib -smp
 dev-python/matplotlib qt5
 dev-python/numpy lapack
+dev-python/PyQt5 gui network opengl printsupport sql svg webchannel widgets x11extras xmlpatterns
 dev-qt/qtgui egl wayland
 dev-qt/qtsql mysql
 dev-util/ctags json xml yaml
-dev-util/idea-ultimate custom-jdk
+dev-util/idea-ultimate -jbr-jcef jbr-vanilla
 dev-util/nvidia-cuda-toolkit profiler
 games-emulation/ppsspp -qt5 sdl
 kde-apps/ark zip
 kde-apps/dolphin activities
 kde-apps/kio-extras mtp nfs samba
 kde-frameworks/kitemmodels qml
+kde-frameworks/prison qml
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
 media-gfx/blender cuda openal openvdb cycles tiff openimageio color-management llvm opensubdiv abi7-compat
-media-gfx/darktable colord geolocation opencl
+media-gfx/darktable colord geolocation opencl LUA_SINGLE_TARGET: lua5-3
 media-gfx/digikam calendar marble mediaplayer scanner opengl mysql
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
 media-gfx/imagemagick graphviz hdri postscript raw svg tiff webp xml
@@ -78,15 +74,14 @@ media-sound/ncmpcpp clock outputs taglib visualizer
 media-sound/pulseaudio realtime -bluetooth
 media-sound/pulseaudio-modules-bt fdk
 media-video/ffmpeg alsa bluray libcaca mp3 openal opencl opengl vdpau vpx v4l libv4l opus dav1d x264 openssl
-media-video/mpv bluray dvd libcaca luajit vdpau
-media-video/obs-studio imagemagick luajit nvenc speex v4l
+media-video/mpv bluray dvd libcaca vdpau
+media-video/obs-studio imagemagick nvenc speex v4l
 media-video/vlc -X -qt5 -jpeg -png -ncurses flac ffmpeg mp3 vorbis ogg
 net-fs/samba client
 net-libs/gnutls tools
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
 net-libs/nodejs system-icu
-net-libs/zeromq drafts
 net-misc/curl http2 samba -imap -pop3 -smtp -tftp
 net-misc/nextcloud-client dolphin
 net-misc/rsync system-zlib xxhash zstd
@@ -94,23 +89,24 @@ net-misc/tigervnc server
 net-p2p/deluge console gtk libnotify
 net-proxy/frp client
 net-wireless/bluez user-session
-net-wireless/blueman policykit network
+net-wireless/blueman policykit
 sci-electronics/kicad -python
 sci-libs/flann cuda
-sci-libs/lapack eselect-ldso lapacke
+sci-libs/lapack eselect-ldso
 sci-libs/openblas eselect-ldso
+sci-libs/pytorch cuda openblas -mkl -mkldnn opencv
+sci-libs/torchvision cuda ffmpeg
 sci-misc/boinc -X cuda
 sys-apps/dbus user-session
 sys-apps/lm-sensors contrib
 sys-apps/smartmontools -systemd -daemon
 sys-apps/systemd policykit cgroup-hybrid
-sys-apps/util-linux static-libs
-sys-devel/binutils multitarget
+sys-devel/binutils default-gold multitarget
+sys-devel/clang xml
 sys-devel/gcc graphite
 sys-devel/gdb source-highlight xml xxhash -server
 sys-devel/llvm gold LLVM_TARGETS: WebAssembly AArch64
 sys-kernel/gentoo-sources symlink
-sys-libs/liburing abi_x86_32
 sys-libs/zlib minizip
 www-client/firefox geckodriver hwaccel clang L10N: zh-CN en-GB
 www-client/w3m imlib
@@ -118,7 +114,55 @@ x11-base/xorg-server kdrive xephyr xvfb
 x11-drivers/nvidia-drivers gtk3 uvm
 x11-libs/wxGTK opengl
 x11-misc/picom opengl
-x11-wm/awesome luajit gnome
+x11-wm/awesome gnome
+
+### python 3.8
+app-admin/eclean-kernel PYTHON_TARGETS: python3_8
+media-gfx/blender PYTHON_SINGLE_TARGET: python3_8
+net-p2p/deluge PYTHON_SINGLE_TARGET: python3_8
+app-editors/vim PYTHON_SINGLE_TARGET: python3_8
+media-gfx/hugin PYTHON_SINGLE_TARGET: python3_8 -python3_9
+>=dev-python/chardet-4.0.0 python_targets_python3_8
+>=dev-python/setuptools-54.2.0 python_targets_python3_8
+>=dev-python/certifi-10001-r1 python_targets_python3_8
+>=dev-python/setuptools_scm-6.0.1 python_targets_python3_8
+>=dev-python/pillow-8.2.0 python_targets_python3_8
+>=dev-python/olefile-0.46-r1 python_targets_python3_8
+>=dev-python/pyopenssl-20.0.1 python_targets_python3_8
+>=dev-python/six-1.15.0-r1 python_targets_python3_8
+>=dev-python/cryptography-3.4.7 python_targets_python3_8
+>=dev-python/cffi-1.14.5 python_targets_python3_8
+>=dev-python/pycparser-2.20-r1 python_targets_python3_8
+>=dev-python/ply-3.11-r1 python_targets_python3_8
+>=dev-python/twisted-21.2.0 python_targets_python3_8
+>=dev-python/attrs-20.3.0 python_targets_python3_8
+>=dev-python/automat-20.2.0 python_targets_python3_8
+>=dev-python/constantly-15.1.0-r1 python_targets_python3_8
+>=dev-python/hyperlink-21.0.0 python_targets_python3_8
+>=dev-python/incremental-21.3.0 python_targets_python3_8
+>=dev-python/pyhamcrest-2.0.2 python_targets_python3_8
+>=dev-python/zope-interface-5.3.0 python_targets_python3_8
+>=dev-python/service_identity-18.1.0-r1 python_targets_python3_8
+>=dev-python/idna-3.1 python_targets_python3_8
+>=dev-python/pyasn1-0.4.8-r1 python_targets_python3_8
+>=dev-python/pyasn1-modules-0.2.8-r1 python_targets_python3_8
+>=dev-python/namespace-zope-1-r1 python_targets_python3_8
+>=dev-python/m2r-0.2.1 python_targets_python3_8
+>=dev-python/docutils-0.16-r1 python_targets_python3_8
+>=dev-python/mistune-0.8.4-r1 python_targets_python3_8
+>=dev-python/pygments-2.8.1 python_targets_python3_8
+>=dev-python/pygobject-3.38.0 python_targets_python3_8
+>=dev-python/pycairo-1.20.0 python_targets_python3_8
+>=dev-python/markupsafe-1.1.1-r1 python_targets_python3_8
+>=dev-libs/boost-1.75.0 python_targets_python3_8
+>=dev-python/numpy-1.20.2 python_targets_python3_8
+>=dev-python/cython-0.29.22 python_targets_python3_8
+>=dev-python/requests-2.25.1-r2 python_targets_python3_8
+>=dev-python/urllib3-1.26.4 python_targets_python3_8
+>=dev-python/PySocks-1.7.1-r1 python_targets_python3_8
+>=dev-python/distro-1.5.0-r1 python_targets_python3_8
+dev-python/mako python_targets_python3_8
+>=dev-python/toml-0.10.2 python_targets_python3_8
 
 ### nvidia driver
 >=media-libs/libglvnd-1.3.1 abi_x86_32
@@ -217,7 +261,6 @@ x11-wm/awesome luajit gnome
 >=media-sound/pulseaudio-13.0 abi_x86_32
 >=net-nds/openldap-2.4.48 abi_x86_32
 >=net-dns/libidn2-2.3.0 abi_x86_32
->=net-fs/samba-4.11.6-r2 abi_x86_32
 >=net-libs/gnutls-3.6.13 abi_x86_32
 >=net-libs/libasyncns-0.8-r4 abi_x86_32
 >=net-libs/libnsl-1.2.0 abi_x86_32
@@ -271,7 +314,6 @@ x11-wm/awesome luajit gnome
 
 # kdenlive
 >=media-libs/libsdl2-2.0.12-r1 opengl
->=media-libs/mlt-6.20.0 sdl melt ffmpeg xml kdenlive frei0r qt5
 >=media-video/ffmpeg-4.2.4 sdl
 
 # android

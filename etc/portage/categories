@@ -1,10 +1,12 @@
 cross-x86_64-w64-mingw32
 cross-i686-w64-mingw32
 cross-aarch64-unknown-linux-gnu
-cross-aarch64-unknown-linux-gnu:6.5.0
-cross-aarch64-hi3559a-linux-gnu
-cross-aarch64-himix100-linux
-cross-aarch64-himix100-linux-gnu
 cross-aarch64-unknown-linux-musl
-cross-arm-unknown-linux-musl
 cross-x86_64-pc-linux-musl
+cross-aarch64-unknown-linux-gnueabihf
+cross-arm-unknown-linux-gnu
+cross-arm-unknown-linux-musl
+cross-armhf-unknown-linux-musl
+cross-arm-unknown-linux-musl-eabi
+cross-armv7a-unknown-linux-musleabi
+cross-arm-hardfloat-linux-musleabi
