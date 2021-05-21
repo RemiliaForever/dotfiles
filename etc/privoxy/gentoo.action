@@ -1,0 +1,4 @@
+{ +forward-override{forward .} }
+goproxy.io
+mirrors.tuna.tsinghua.edu.cn
+mirrors.ustc.edu.cn

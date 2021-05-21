@@ -8,7 +8,7 @@
 source ~/.git-prompt.sh
 export PS1='\[\e[34m\]┌[\[\e[32m\]\u\[\e[35m\]@\[\e[36m\]\H\[\e[34m\]]-[\[\e[35m\]\t\[\e[34m\]]-[\[\e[33m\]\w\[\e[34m\]]\[\e[0m\]$(echo -e "$(__git_ps1)") $DEF_PROXY \n\[\e[34m\]└[\[\e[35m\]\$\[\e[34m\]]\[\e[0m\] '
 
-export TERM=xterm-termite
+export TERM=xterm-256color
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
 
 # replaced utils
@@ -18,6 +18,7 @@ alias grep='/usr/bin/rg'
 alias ncdu='/usr/bin/ncdu --color=dark'
 alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
+alias diff='/usr/bin/delta'
 export BAT_PAGER="less -RF"
 export BAT_THEME=OneHalfDark
 source /usr/share/skim/key-bindings.bash
@@ -41,8 +42,6 @@ alias exegcc='/usr/bin/x86_64-w64-mingw32-gcc'
 alias execmake='/usr/bin/x86_64-w64-mingw32-cmake'
 
 # Rust
-#export CARGO_INCREMENTAL=0
-export RUST_SRC_PATH=$HOME/.cargo/src
 cargo_wasm() {
     cargo $@ --target=wasm32-unknown-unknown
 }
@@ -70,12 +69,7 @@ cargo_android_arm() {
 cargo_android_armv7() {
     cargo $@ --target=armv7-linux-android
 }
-
-#export DOCKER_TLS_VERIFY="1"
-#export DOCKER_HOST="tcp://192.168.99.102:2376"
-#export DOCKER_CERT_PATH="/home/remilia/.docker/machine/machines/default"
-#export DOCKER_MACHINE_NAME="default"
-
+# httpie
 http_login() {
     export HTTP_JWT_TOKEN=`http $@/api/login username=admin password='' | jq -r '.data | .token'`
     echo $HTTP_JWT_TOKEN
@@ -85,11 +79,14 @@ http_login_raw() {
     echo $HTTP_JWT_TOKEN
 }
 http_auth() {
-    http --pretty=all -p hb $@ Authorization:"Bearer $HTTP_JWT_TOKEN" > /tmp/httpie_res
-    NEW_TOKEN=`cat /tmp/httpie_res | rg Refresh-Token | awk '{print $2}'`
+    HTTP_RES=`http --pretty=all -p hb $@ Authorization:"Bearer $HTTP_JWT_TOKEN"`
+    NEW_TOKEN=`echo "$HTTP_RES" | rg Refresh-Token | awk '{print $2}'`
     if [ -n "$NEW_TOKEN" ]; then
         export HTTP_JWT_TOKEN=$NEW_TOKEN
     fi
-    /bin/cat /tmp/httpie_res
-    rm /tmp/httpie_res
+    echo "$HTTP_RES"
+}
+# tool
+set_title() {
+    echo -en "\e]0;$@\a"
 }

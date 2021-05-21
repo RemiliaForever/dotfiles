@@ -41,6 +41,7 @@ sys-apps/bat ~amd64
 sys-libs/libnvidia-container ~amd64
 www-client/firefox ~amd64
 x11-misc/picom ~amd64
+x11-terms/alacritty ~amd64
 
 # required
 dev-cpp/websocketpp ~amd64
@@ -68,7 +69,3 @@ dev-util/nvidia-cuda-toolkit ~amd64
 =sys-process/htop-3.0.5 ~amd64
 =sys-fs/zfs-2.0.4 ~amd64
 =sys-fs/zfs-kmod-2.0.4 ~amd64
-
-# ncnn
-dev-libs/ncnn ~amd64
-media-gfx/waifu2x-ncnn-vulkan ~amd64
