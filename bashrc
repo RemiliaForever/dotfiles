@@ -49,13 +49,24 @@ cargo_linux() {
     cargo $@ --target=x86_64-unknown-linux-gnu
 }
 cargo_musl() {
+    CC=x86_64-pc-linux-musl-gcc \
+    CXX=x86_64-pc-linux-musl-g++ \
     cargo $@ --target=x86_64-unknown-linux-musl
 }
 cargo_aarch64() {
+    CC=aarch64-unknown-linux-gnu-gcc \
+    CXX=aarch64-unknown-linux-gnu-g++ \
     cargo $@ --target=aarch64-unknown-linux-gnu
 }
 cargo_musl_aarch64() {
+    CC=aarch64-unknown-linux-musl-gcc \
+    CXX=aarch64-unknown-linux-musl-g++ \
     cargo $@ --target=aarch64-unknown-linux-musl
+}
+cargo_musl_armhf() {
+    CC=arm-hardfloat-linux-musleabi-gcc \
+    CXX=arm-hardfloat-linux-musleabi-g++ \
+    cargo $@ --target=arm-unknown-linux-musleabihf
 }
 cargo_windows() {
     cargo $@ --target=x86_64-pc-windows-gnu

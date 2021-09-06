@@ -31,15 +31,15 @@ dev-java/openjdk alsa gentoo-vm source
 >=dev-java/openjdk-11 javafx
 dev-java/swt opengl cairo
 dev-lang/python sqlite
-dev-lang/rust clippy rls rustfmt system-bootstrap system-llvm miri nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64 ARM
+dev-lang/rust clippy rls rustfmt system-bootstrap system-llvm nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64 ARM
 dev-libs/boost python context
 dev-libs/libpcre2 pcre16
 dev-libs/xmlsec nss
 dev-python/ipython matplotlib -smp
 dev-python/matplotlib qt5
 dev-python/numpy lapack
-dev-python/PyQt5 gui network opengl printsupport sql svg webchannel widgets x11extras xmlpatterns
-dev-qt/qtgui egl wayland
+dev-python/PyQt5 declarative gui network opengl printsupport sql svg webchannel widgets x11extras xmlpatterns
+dev-qt/qtgui egl
 dev-qt/qtsql mysql
 dev-util/ctags json xml yaml
 dev-util/android-studio custom-jdk
@@ -273,10 +273,14 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=sys-libs/ncurses-compat-5.9 abi_x86_32
 
 # qemu
->=dev-libs/glib-2.64.5 static-libs
->=sys-libs/zlib-1.2.11-r2 static-libs
->=sys-apps/attr-2.4.48-r3 static-libs
->=dev-libs/libpcre-8.44 static-libs
+dev-libs/glib static-libs
+sys-apps/attr static-libs
+sys-apps/systemd static-libs
+sys-libs/zlib static-libs
+virtual/libudev static-libs
 
 # systemd
->=app-arch/zstd-1.5.0 abi_x86_32
+#>=app-arch/zstd-1.5.0 abi_x86_32
+
+# xwayland
+#>=app-crypt/libmd-1.0.3-r2 abi_x86_32

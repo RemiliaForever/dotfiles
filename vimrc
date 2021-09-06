@@ -70,7 +70,7 @@ set timeoutlen=500
 set ttimeoutlen=0
 set diffopt+=vertical
 set fencs=ucs-bom,utf-8,gbk,latin1
-set lcs=trail:▓,tab:\|\-
+set lcs=trail:▒,tab:\|\-
 colorscheme default
 filetype on
 filetype plugin on
@@ -236,10 +236,10 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Renamed"   : "🌀",
     \ "Unmerged"  : "🔱",
     \ "Deleted"   : "❌",
-    \ "Dirty"     : "❗️",
+    \ "Dirty"     : "📍",
     \ "Clean"     : "⭕️",
-    \ 'Ignored'   : "◽️",
-    \ "Unknown"   : "❓"
+    \ 'Ignored'   : "❕",
+    \ "Unknown"   : "❔"
     \ }
 augroup NerdTreeAutoRefresh
     autocmd!
@@ -417,17 +417,19 @@ augroup END
 let g:mkdp_path_to_chrome = 'firefox --new-window'
 " colorizer
 let g:colorizer_hex_alpha_first = 0
+" suda
+let g:suda_smart_edit = 0
 " template
 let g:templates_directory = ['~/.vim/templates']
 
 call plug#begin('~/.vim/plugged')
+Plug 'lambdalisue/suda.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'chaoren/vim-wordmotion'
 Plug 'tpope/vim-surround'
 Plug 'lilydjwg/colorizer', {'on': 'ColorHighlight'}
 Plug 'iamcco/markdown-preview.vim', {'for': ['markdown']}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': ['markdown']}
-Plug 'jszakmeister/vim-togglecursor'
 
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'}

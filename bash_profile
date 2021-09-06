@@ -3,7 +3,7 @@
 #
 
 
-export HISTSIZE=16384
+export HISTSIZE=65535
 
 export PATH=./node_modules/.bin:$PATH
 export PATH=$HOME/.cargo/bin:$PATH

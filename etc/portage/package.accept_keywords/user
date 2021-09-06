@@ -37,13 +37,14 @@ www-client/firefox ~amd64
 
 # required
 app-eselect/eselect-gradle ~amd64
-dev-cpp/websocketpp ~amd64
 dev-java/openjfx ~amd64
 dev-java/swt ~amd64
+dev-libs/nspr ~amd64
 dev-libs/nss ~amd64
 dev-libs/v2ray-domain-list-community-bin ~amd64
 dev-libs/v2ray-geoip-bin ~amd64
 dev-qt/qcef ~amd64
+media-libs/embree ~amd64
 sci-electronics/ngspice ~amd64
 sci-libs/oce ~amd64
 sci-visualization/xgraph ~amd64
@@ -63,10 +64,8 @@ dev-util/nvidia-cuda-toolkit ~amd64
 #sys-libs/libomp ~amd64
 
 # TODO
-=x11-drivers/nvidia-drivers-470.57.02 ~amd64
 =dev-lang/ispc-1.16.0 ~amd64
 =dev-cpp/pystring-1.1.3-r1 ~amd64
-=media-libs/embree-3.13.0 ~amd64
 =media-libs/oidn-1.3.0 ~amd64
 =media-libs/opencolorio-2.0.0 ~amd64
 =media-libs/osl-1.12.0.2 ~amd64

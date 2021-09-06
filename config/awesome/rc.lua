@@ -7,6 +7,9 @@ require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
+local hotkeys_popup = require("awful.hotkeys_popup")
+require("awful.hotkeys_popup.keys")
+
 
 local fix_textbox = require("widget/lib/textbox")
 
@@ -59,7 +62,7 @@ beautiful.init("~/.config/awesome/theme.lua")
 naughty.config.defaults['icon_size'] = 80
 
 -- This is used later as the default terminal and editor to run.
-terminal = "termite"
+terminal = "alacritty"
 editor = "vim"
 editor_cmd = terminal .. " -e " .. editor
 

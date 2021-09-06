@@ -4,7 +4,7 @@ local textbox = require("widget/lib/textbox")
 local function update_cputemp()
     local pipe = io.popen('sensors')
     if not pipe then
-        cputemp_widget:set_markup('CPU <span color="red">ERR</span>℃')
+        cputemp_widget:set_markup('CPU <span color="red">ERR</span>°C')
         return
     end
     local temp = 0
@@ -19,14 +19,14 @@ local function update_cputemp()
     end
     pipe:close()
     if temp > 60 then
-        cputemp_widget:set_markup(' CPU <span color="yellow">'..temp..'</span>℃')
+        cputemp_widget:set_markup(' CPU <span color="yellow">'..temp..'</span>°C')
     elseif temp > 70 then
-        cputemp_widget:set_markup(' CPU <span color="orange">'..temp..'</span>℃')
+        cputemp_widget:set_markup(' CPU <span color="orange">'..temp..'</span>°C')
     else
-        cputemp_widget:set_markup(' CPU <span color="green">'..temp..'</span>℃')
+        cputemp_widget:set_markup(' CPU <span color="lightgreen">'..temp..'</span>°C')
     end
 end
-cputemp_widget = textbox(' CPU ??℃')
+cputemp_widget = textbox(' CPU ??°C')
 update_cputemp()
 cputemp_clock = timer({ timeout = 5 })
 cputemp_clock:connect_signal("timeout", update_cputemp)

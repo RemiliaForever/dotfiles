@@ -1,30 +1,37 @@
 [target.x86_64-unknown-linux-gnu]
-linker = "/usr/bin/gcc"
-rustflags = []
+rustflags = ["-Ctarget-cpu=native"]
 
 [target.x86_64-unknown-linux-musl]
-linker = "/usr/bin/musl-gcc"
+linker = "/usr/bin/x86_64-pc-linux-musl-gcc"
 rustflags = []
+
+[target.aarch64-unknown-linux-gnu]
+linker = "/usr/bin/aarch64-unknown-linux-gnu-gcc"
+rustflags = ["-Ctarget-feature=+aes,+crypto,+neon"]
 
 [target.aarch64-unknown-linux-musl]
-linker = "/usr/bin/aarch64-linux-gnu-musl-gcc"
-rustflags = [ "-C", "target-feature=+crt-static", "-C", "link-arg=-lgcc"
-
-[target.x86_64-pc-windows-gnu]
-linker = "/usr/bin/x86_64-w64-mingw32-gcc"
+linker = "/usr/bin/aarch64-unknown-linux-musl-gcc"
 rustflags = []
 
-[target.aarch64-linux-android]
-linker = "/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-gcc"
-rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm64"]
+#[target.x86_64-pc-windows-gnu]
+#linker = "/usr/bin/x86_64-w64-mingw32-gcc"
+#rustflags = []
 
-[target.arm-linux-androideabi]
-linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
-rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
+[target.arm-unknown-linux-musleabi]
+linker = '/usr/bin/arm-hardfloat-linux-musleabi-gcc'
+rustflags = []
 
-[target.armv7-linux-androideabi]
-linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
-rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
+#[target.aarch64-linux-android]
+#linker = "/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-gcc"
+#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm64"]
+#
+#[target.arm-linux-androideabi]
+#linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
+#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
+#
+#[target.armv7-linux-androideabi]
+#linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
+#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
 
 [build]
 target-dir = "/home/remilia/.cargo/target"
@@ -33,4 +40,4 @@ target-dir = "/home/remilia/.cargo/target"
 lto = true
 
 [http]
-proxy = "http://127.0.0.1:8118"
+proxy = "http://localhost:8118"

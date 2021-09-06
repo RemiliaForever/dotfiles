@@ -45,7 +45,7 @@ mail_widget.forced_height = 48
 mail_widget.forced_width = 48
 mail_widget:buttons(awful.util.table.join(
     awful.button({ }, 3, function () mail_widget_update() end),
-    awful.button({ }, 1, function () awful.util.spawn('termite -e mutt') end)
+    awful.button({ }, 1, function () awful.util.spawn('alacritty -e mutt') end)
 ))
 mail_widget_update()
 mailtimer = timer({ timeout = 60 * 10 })

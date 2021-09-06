@@ -1,0 +1,35 @@
+#!/bin/bash
+
+set -e
+
+VOLUMES=(ryzen/var/lib/docker ryzen/home/remilia ryzen/share ryzen/share/Public)
+
+today=$(date +%y%m%d)
+today_day=$[$(date +%s -d $today) / 86400]
+
+for V in ${VOLUMES[@]}; do
+    # create
+    echo "snapshot $V@auto-$today"
+    zfs snapshot $V@auto-$today || true
+    # clean
+    AUTO_SNAP=$(zfs list -t snapshot $V | grep '@auto-' | awk '{print $1}' | sed "s|$V@auto-||g")
+    for snap in ${AUTO_SNAP[@]}; do
+        snap_day=$[$(date +%s -d $snap) / 86400]
+        since_day=$[$today_day - $snap_day]
+        if [[ $since_day -lt 3 ]]; then
+            echo "skip $V@auto-$snap"
+            continue
+        elif [[ $since_day -gt 16 ]]; then
+            echo "clean $V@auto-$snap"
+            zfs destroy $V@auto-$snap
+            continue
+        elif [[ $(date +%w -d $snap) -eq 0 ]]; then
+            echo "skip $V@auto-$snap"
+            continue
+        else
+            echo "clean $V@auto-$snap"
+            zfs destroy $V@auto-$snap
+            continue
+        fi
+    done
+done

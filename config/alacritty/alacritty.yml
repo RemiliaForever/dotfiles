@@ -28,6 +28,7 @@ scrolling:
 font:
   normal:
     family: MonacoB2
+    #family: Noto Sans Mono
     style: Regular
   #bold:
   #  family: MonacoB2
@@ -55,12 +56,12 @@ colors:
     foreground: "#dcdcdc"
     #dim_foreground: "#828482"
     bright_foreground: "#ebebeb"
-  cursor:
-    text: CellBackground
-    cursor: CellForeground
-  vi_mode_cursor:
-    text: CellBackground
-    cursor: CellForeground
+  #cursor:
+  #  text: CellBackground
+  #  cursor: CellForeground
+  #vi_mode_cursor:
+  #  text: CellBackground
+  #  cursor: CellForeground
   #search:
   #  matches:
   #    foreground: "#000000"

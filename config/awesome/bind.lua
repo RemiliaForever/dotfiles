@@ -29,6 +29,21 @@ root.buttons(gears.table.join(
         awful.button({ }, 5, awful.tag.viewprev)
     ))
 
+clientbuttons = gears.table.join(
+    awful.button({ }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+    end),
+    awful.button({ modkey }, 1, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ modkey }, 3, function (c)
+        c:emit_signal("request::activate", "mouse_click", {raise = true})
+        awful.mouse.client.resize(c)
+    end)
+)
+
+
 -- Key
 globalkeys = awful.util.table.join(
     -- awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
@@ -140,10 +155,10 @@ awful.key({modkey}, "s",
     awful.key({modkey}, "Delete", function() awful.spawn.with_shell("slock") end),
     awful.key({}, "XF86Display", function() awful.spawn.with_shell("arandr") end),
     awful.key({}, "XF86Tools", function() awful.spawn.with_shell("mpc") end),
-    awful.key({}, "XF86Mail", function() awful.spawn.with_shell("termite -e 'mutt'") end),
+    awful.key({}, "XF86Mail", function() awful.spawn.with_shell("alacritty -e 'mutt'") end),
     awful.key({}, "XF86HomePage", function() awful.spawn.with_shell("firefox") end),
-    awful.key({}, "XF86Calculator", function() awful.spawn.with_shell("termite -e 'ipython'") end),
-    awful.key({}, "XF86Search", function() awful.spawn.with_shell("termite") end),
+    awful.key({}, "XF86Calculator", function() awful.spawn.with_shell("alacritty -e 'ipython'") end),
+    awful.key({}, "XF86Search", function() awful.spawn.with_shell("alacritty") end),
     --
     awful.key({}, "XF86AudioRaiseVolume", function() volume_widget:volumectl("up") end),
     awful.key({}, "XF86AudioLowerVolume", function() volume_widget:volumectl("down") end),

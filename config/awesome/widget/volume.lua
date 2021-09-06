@@ -20,9 +20,9 @@ function volume_widget:volumectl (mode)
         f:close()
         if muted == 0 then
             if notify_is_mute then
-                volume = ' 🔉' .. volume .. '<span color="green">M</span>'
+                volume = ' 🔊' .. volume .. '<span color="green">M</span>'
             else
-                volume = ' 🔉' .. volume .. '%'
+                volume = ' 🔊' .. volume .. '%'
             end
         else
             volume = ' 🔇' .. volume .. '<span color="red">M</span>'
@@ -52,7 +52,7 @@ volume_clock:start()
 volume_widget:buttons(awful.util.table.join(
     awful.button({ }, 4, function () volume_widget:volumectl("up") end),
     awful.button({ }, 5, function () volume_widget:volumectl("down") end),
-    awful.button({ }, 3, function () awful.util.spawn("termite -e pulsemixer") end),
+    awful.button({ }, 3, function () awful.util.spawn("alacritty -e pulsemixer") end),
     awful.button({ }, 2, function ()
         notify_is_mute = not notify_is_mute
         volume_widget:volumectl("update")
