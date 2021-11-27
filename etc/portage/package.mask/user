@@ -1,6 +1,6 @@
 dev-db/mycli::gentoo
 dev-db/pgcli::gentoo
-sci-electronics/kicad*::vowstar
-
 dev-libs/ncnn::gentoo
 media-gfx/waif2x-ncnn-vulkan::gentoo
+
+sci-electronics/kicad*::vowstar

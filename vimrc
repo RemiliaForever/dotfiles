@@ -138,7 +138,7 @@ hi DiffText ctermbg=lightgray ctermfg=black cterm=italic
 hi DiffAdd ctermbg=lightgreen ctermfg=black
 hi DiffChange ctermbg=lightmagenta ctermfg=black
 hi DiffDelete ctermbg=lightred ctermfg=black
-hi SpellCap ctermbg=black
+hi SpellCap ctermbg=black ctermfg=white
 hi SpellBad ctermbg=lightred ctermfg=black
 hi MatchParen ctermbg=none cterm=bold,italic
 hi Pmenu ctermbg=grey ctermfg=black
@@ -168,7 +168,7 @@ function! ModeStatus() abort
     elseif l:mode == 'R' || l:mode == 'Rv'
         hi ModeStatus ctermbg=124 cterm=reverse
         let l:mode = 'REPLAC'
-    elseif l:mode == 's' || l:mode == 's' || l:mode == ''
+    elseif l:mode == 's' || l:mode == 'S' || l:mode == ''
         hi ModeStatus ctermbg=076 cterm=reverse
         let l:mode = 'SELECT'
     elseif l:mode == 'cv' || l:mode == 'ce'
@@ -185,22 +185,19 @@ set statusline=%#ModeStatus#
 set statusline+=%{ModeStatus()}
 set statusline+=%*
 set statusline+=%f\ %h%w%m%r
-
 set statusline+=%#StatusLineGit#
 set statusline+=%{FugitiveStatusline()}
-
-augroup StatusLineRefresher
-    autocmd!
-    autocmd User GutentagsUpdating redrawstatus
-    autocmd User GutentagsUpdated redrawstatus
-    autocmd User ALELintPre let g:LinterProgress = '[Lint...]' | redrawstatus
-    autocmd User ALELintPost let g:LinterProgress = '' | redrawstatus
-    autocmd User ALEFixPre let g:FixerProgress = '[Fix...]' | redrawstatus
-    autocmd User ALEFixPost let g:FixerProgress = '' | redrawstatus
-augroup END
 set statusline+=%#StatusLineTag#
 set statusline+=%{gutentags#statusline('[',']')}
+set statusline+=%#StatusLineALE#
+set statusline+=%{LinterProgress}
+set statusline+=%{FixerProgress}
+set statusline+=%{LinterStatus()}
+set statusline+=%*
+set statusline+=%=%(%l,%c%V\ %=\ %P%)
 
+let g:LinterProgress = ''
+let g:FixerProgress = ''
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
     let l:all_errors = l:counts.error + l:counts.style_error
@@ -211,15 +208,16 @@ function! LinterStatus() abort
     \   all_errors
     \)
 endfunction
-let g:LinterProgress = ''
-let g:FixerProgress = ''
-set statusline+=%#StatusLineALE#
-set statusline+=%{LinterProgress}
-set statusline+=%{FixerProgress}
-set statusline+=%{LinterStatus()}
-set statusline+=%*
 
-set statusline+=%=%(%l,%c%V\ %=\ %P%)
+augroup StatusLineRefresher
+    autocmd!
+    autocmd User GutentagsUpdating redrawstatus
+    autocmd User GutentagsUpdated redrawstatus
+    autocmd User ALELintPre let g:LinterProgress = '[Lint...]' | redrawstatus
+    autocmd User ALELintPost let g:LinterProgress = '' | redrawstatus
+    autocmd User ALEFixPre let g:FixerProgress = '[Fix...]' | redrawstatus
+    autocmd User ALEFixPost let g:FixerProgress = '' | redrawstatus
+augroup END
 
 set laststatus=2
 
@@ -310,7 +308,7 @@ let g:ale_fixers = {
 \   }
 let g:ale_c_clangformat_options = '-style="{BasedOnStyle: LLVM, UseTab: Never, ColumnLimit: 120, IndentWidth: 4, BreakBeforeBraces: Linux, AlignConsecutiveAssignments: true, BreakConstructorInitializersBeforeComma: true}"'
 let g:ale_rust_rustfmt_options = '--edition 2018'
-let g:ale_python_flake8_options = '--max-line-length 120'
+"let g:ale_python_flake8_options = '--max-line-length 120'
 let g:ale_java_google_java_format_options = '--aosp'
 let g:ale_fix_on_save = 1
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -331,8 +329,7 @@ let g:polyglot_disabled = ['latex']
 " YouCompleteMe
 let g:ycm_clangd_binary_path = "clangd"
 let g:ycm_gopls_binary_path = "gopls"
-let g:ycm_rust_toolchain_root = "~/.cargo"
-let g:ycm_global_ycm_extra_conf ='~/.vim/ycm_extra_conf.py'
+let g:ycm_rust_toolchain_root = "/home/remilia/.cargo"
 let g:ycm_always_populate_location_list = 1
 let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_show_diagnostics_ui = 1
@@ -341,12 +338,10 @@ set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(�
 " let g:ycm_cache_omnifunc=0    " 禁止缓存匹配项,每次都重新生成匹配项
 " let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_language_server = [
-    \   {
-    \     'name': 'rust',
-    \     'cmdline': ['rust-analyzer'],
-    \     'filetypes': ['rust'],
-    \     'project_root_files': ['Cargo.toml']
-    \   }
+    \   { 'name': 'kotlin',
+    \     'filetypes': [ 'kotlin' ],
+    \     'cmdline': [ 'kotlin-language-server' ],
+    \   },
     \]
 let g:ycm_semantic_triggers = {
    \   'css': [ 're!^\s{4}', 're!:\s+' ],
@@ -365,15 +360,19 @@ let g:ycm_min_num_of_chars_for_completion = 1
 let g:ycm_goto_buffer_command = 'split-or-existing-window'
 "nnoremap [d :rightbelow vertical YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap [d :rightbelow vertical YcmCompleter GoTo<CR>
-nnoremap [t :rightbelow vertical YcmCompleter GetType<CR>
-nnoremap [p :rightbelow vertical YcmCompleter GetParent<CR>
-nnoremap [o :rightbelow vertical YcmCompleter GetDoc<CR>
-nnoremap [g :rightbelow vertical YcmCompleter GoToType<CR>
+nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
 nnoremap [c :rightbelow vertical YcmCompleter GoToDeclaration<CR>
 nnoremap [f :rightbelow vertical YcmCompleter GoToDefinition<CR>
-nnoremap [i :rightbelow vertical YcmCompleter GoToInclude<CR>
-nnoremap [m :rightbelow vertical YcmCompleter GoToImplementation<CR>
 nnoremap [r :rightbelow vertical YcmCompleter GoToReferences<CR>
+nnoremap [m :rightbelow vertical YcmCompleter GoToImplementation<CR>
+nnoremap [t :rightbelow vertical YcmCompleter GoToType<CR>
+nnoremap [b :rightbelow vertical YcmCompleter GoToSymbol 
+nnoremap [y :YcmCompleter GetType<CR>
+nnoremap [p :YcmCompleter GetParent<CR>
+nnoremap [o :YcmCompleter GetDoc<CR>
+nnoremap [x :YcmCompleter FixIt<CR>
+nnoremap [s :YcmCompleter RestartServer<CR>
+nnoremap [n :YcmCompleter RefactorRename 
 nnoremap [q :close<CR>
 nnoremap ]q :pclose<CR>
 augroup Jump

@@ -20,7 +20,7 @@ macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/remilia@koum
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@deepglint.com/hongzhichen<enter><change-folder>!<enter><check-stats>'
 
 # sidebar
-bind index,pager \Cp sidebar-prev
-bind index,pager \Cn sidebar-next
+bind index,pager \Ck sidebar-prev
+bind index,pager \Cj sidebar-next
 bind index,pager \Co sidebar-open
-bind index,pager \Ch sidebar-toggle-visible
+bind index,pager \Cm sidebar-toggle-visible
