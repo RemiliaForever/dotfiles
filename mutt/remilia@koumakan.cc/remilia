@@ -10,20 +10,17 @@ set signature   =   $HOME/.mutt/remilia@koumakan.cc/signature
 
 source "gpg -dq $HOME/.mutt/remilia@koumakan.cc/passwd |"
 # maildir
-set mbox_type   =   Maildir
-set folder      =   imaps://koumakan.cc:8993/
+set folder      =   imaps://imap.exmail.qq.com/
 set spoolfile   =   +INBOX
-set postponed   =   +Draft
-set trash       =   +Trash
+set postponed   =   +Drafts
+set trash       =   +Deleted\ Messages
 set delete      =   yes
-mailboxes +INBOX +2017 +2018 +2019 +2020 +ccsvc +Draft +Junk +Sent +Trash
+mailboxes +INBOX +其他文件夹/2017 +其他文件夹/2018 +其他文件夹/2019 +其他文件夹/2020 +其他文件夹/ccsvc +Drafts +Junk +Sent\ Messages +Deleted\ Messages
 # pop3s
-#set pop_host    =   "pops://$my_name:$my_passwd@koumakan.cc:8196"
-#set pop_delete  =   no
 set imap_user   =   $my_name
 set imap_pass   =   $my_passwd
 # smtps
-set smtp_url    =   "smtps://$my_name:$my_passwd@koumakan.cc:8465"
+set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.exmail.qq.com"
 set record      =   +INBOX
 
 # address

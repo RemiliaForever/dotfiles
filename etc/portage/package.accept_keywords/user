@@ -1,6 +1,7 @@
 # explict
 app-crypt/swtpm ~amd64
 app-crypt/tpm2-tools ~amd64
+app-editors/neovim ~amd64
 app-emulation/dxvk ~amd64
 app-emulation/nvidia-container-toolkit ~amd64
 app-emulation/wine-mono ~amd64
@@ -10,11 +11,13 @@ app-mobilephone/scrcpy ~amd64
 dev-java/gradle-bin ~amd64
 dev-lang/rust ~amd64
 dev-libs/cudnn ~amd64
-dev-util/android-studio ~amd64
+dev-qt/qt-creator ~amd64
+dev-util/nvidia-cuda-toolkit ~amd64
+#dev-util/android-studio ~amd64
 dev-util/git-delta ~amd64
 dev-util/idea-ultimate ~amd64
-games-emulation/advancemame ~amd64
-games-emulation/ppsspp ~amd64
+#games-emulation/advancemame ~amd64
+#games-emulation/ppsspp ~amd64
 games-util/game-device-udev-rules ~amd64
 games-util/joystick ~amd64
 games-util/steam-launcher ~amd64
@@ -24,7 +27,7 @@ media-sound/pulseaudio-modules-bt ~amd64
 media-video/obs-studio ~amd64
 net-misc/baidupcs-go ~amd64
 net-proxy/mitmproxy ~amd64
-net-proxy/v2ray ~amd64
+#net-proxy/v2ray ~amd64
 #sci-electronics/kicad ~amd64
 #sci-electronics/kicad-footprints ~amd64
 #sci-electronics/kicad-i18n ~amd64
@@ -34,24 +37,18 @@ net-proxy/v2ray ~amd64
 sci-libs/onnx ~amd64
 sci-libs/pytorch ~amd64
 sys-apps/bat ~amd64
-sys-libs/libnvidia-container ~amd64
 x11-terms/alacritty **
+x11-drivers/nvidia-drivers ~amd64
 www-client/firefox ~amd64
 
 # required
-app-crypt/tpm2-tss ~amd64
-app-eselect/eselect-gradle ~amd64
-dev-libs/libtpms ~amd64
 dev-libs/nspr ~amd64
 dev-libs/nss ~amd64
-dev-libs/v2ray-domain-list-community-bin ~amd64
-dev-libs/v2ray-geoip-bin ~amd64
-media-libs/embree ~amd64
+dev-qt/qtquicktimeline ~amd64
 sci-electronics/ngspice ~amd64
-sci-visualization/xgraph ~amd64
+sys-libs/libnvidia-container ~amd64
 virtual/rust ~amd64
 
-dev-util/nvidia-cuda-toolkit ~amd64
 
 # llvm
 #dev-util/lldb ~amd64
@@ -67,10 +64,10 @@ dev-util/nvidia-cuda-toolkit ~amd64
 # fcitx5
 x11-libs/xcb-imdkit ~amd64
 app-i18n/libime ~amd64
-app-i18n/fcitx5-chinese-addons **
-app-i18n/fcitx5-configtool **
-app-i18n/fcitx5-gtk **
-app-i18n/fcitx5-qt **
+app-i18n/fcitx5-chinese-addons ~amd64
+app-i18n/fcitx5-configtool ~amd64
+app-i18n/fcitx5-gtk ~amd64
+app-i18n/fcitx5-qt ~amd64
 
 # TODO
 =media-gfx/openvdb-8.0.1 ~amd64

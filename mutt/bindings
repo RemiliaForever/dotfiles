@@ -23,4 +23,4 @@ macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/hongzhichen@
 bind index,pager \Ck sidebar-prev
 bind index,pager \Cj sidebar-next
 bind index,pager \Co sidebar-open
-bind index,pager \Cm sidebar-toggle-visible
+bind index,pager \Cb sidebar-toggle-visible

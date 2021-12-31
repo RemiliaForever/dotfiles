@@ -18,7 +18,7 @@
     d = diff
     f = fetch -p
     fa = "!f(){ for i in `git remote`; do git fetch -p $i; done; };f"
-    pl = pull --ff
+    pl = pull --ff -p
     ps = push
     pa = "!f(){ for i in `git remote`; do git push $i; done; };f"
     s = status
@@ -36,14 +36,16 @@
 [color]
     ui = true
 [diff]
-    tool = vimdiff
-[difftool]
-    prompt = false
+    tool = nvimdiff
 [merge]
     ff = false
-    tool = vimdiff
+    tool = nvimdiff
 [mergetool]
     keepBackup = false
+
+[difftool "nvimdiff"]
+    prompt = false
+    cmd = nvim -d $LOCAL $REMOTE $MERGED
 
 [delta]
     features = side-by-side line-numbers decorations

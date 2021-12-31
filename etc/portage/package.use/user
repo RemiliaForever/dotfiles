@@ -1,10 +1,8 @@
 # global use
 
 */* -handbook -ibus -doc
-*/* X -wayland pulseaudio vim-syntax fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
+*/* X -wayland pulseaudio fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
 */* lto pgo
-*/* PYTHON_TARGETS: -python2_7 -python3_6 -python3_7 -python3_8 python3_9 -python3_10
-*/* PYTHON_SINGLE_TARGET: -python2_7 -python3_6 -python3_7 -python3_8 python3_9 -python3_10
 
 # explict use
 app-admin/sysstat lm-sensors
@@ -13,7 +11,7 @@ app-arch/unzip natspec
 app-editors/vim python
 app-emulation/dxvk ABI_X86: 32
 app-emulation/libvirt virt-network libssh policykit zfs
-app-emulation/qemu gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_SOFTMMU_TARGETS: aarch64 QEMU_USER_TARGETS: aarch64
+app-emulation/qemu io-uring gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_SOFTMMU_TARGETS: aarch64 QEMU_USER_TARGETS: aarch64
 app-emulation/virt-manager gtk
 app-emulation/wine-staging gstreamer ldap mingw osmesa vaapi vkd3d
 app-i18n/fcitx5-qt qt5
@@ -47,8 +45,10 @@ games-emulation/ppsspp -qt5 sdl
 kde-apps/ark zip
 kde-apps/dolphin activities
 kde-apps/kio-extras mtp nfs samba
+kde-apps/thumbnailers raw
 kde-frameworks/kitemmodels qml
 kde-frameworks/prison qml
+kde-frameworks/sonnet qml
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
 media-gfx/blender abi7-compat color-management cuda cycles ffmpeg llvm openal openimageio -opensubdiv openvdb tiff
@@ -114,13 +114,10 @@ virtual/imagemagick-tools tiff
 www-client/firefox geckodriver hwaccel clang L10N: zh-CN en-GB
 www-client/w3m imlib
 x11-base/xorg-server kdrive xephyr xvfb
-x11-drivers/nvidia-drivers gtk3 uvm
+x11-drivers/nvidia-drivers gtk3 uvm ABI_X86: 32
 x11-libs/wxGTK opengl
 x11-misc/picom opengl
 x11-wm/awesome gnome
-
-### lib
-sys-libs/libxcrypt ABI_X86: 32
 
 ### cross
 cross-i686-w64-mingw32/mingw64-runtime libraries
@@ -165,6 +162,7 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 # wine-staging
 >=app-arch/bzip2-1.0.6-r11 ABI_X86: 32
 >=app-arch/lz4-1.9.2 ABI_X86: 32
+>=app-crypt/libmd-1.0.3-r2 ABI_X86: 32
 >=app-crypt/mit-krb5-1.17-r1 ABI_X86: 32
 >=app-emulation/vkd3d-1.1 ABI_X86: 32
 >=app-emulation/wine-gecko-2.47.1 ABI_X86: 32
@@ -216,12 +214,12 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=media-plugins/gst-plugins-meta-1.14.3 ABI_X86: 32
 >=media-plugins/gst-plugins-pulse-1.14.5 ABI_X86: 32
 >=media-sound/pulseaudio-13.0 ABI_X86: 32
->=net-nds/openldap-2.4.48 ABI_X86: 32
 >=net-dns/libidn2-2.3.0 ABI_X86: 32
 >=net-libs/gnutls-3.6.13 ABI_X86: 32
 >=net-libs/libasyncns-0.8-r4 ABI_X86: 32
 >=net-libs/libnsl-1.2.0 ABI_X86: 32
 >=net-libs/libtirpc-1.2.5 ABI_X86: 32
+>=net-nds/openldap-2.4.48 ABI_X86: 32
 >=sys-apps/attr-2.4.48-r3 ABI_X86: 32
 >=sys-apps/dbus-1.12.16 ABI_X86: 32
 >=sys-apps/keyutils-1.6.1 ABI_X86: 32
@@ -249,14 +247,14 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=x11-libs/cairo-1.16.0-r3 ABI_X86: 32
 >=x11-libs/libICE-1.0.10 ABI_X86: 32
 >=x11-libs/libSM-1.2.3 ABI_X86: 32
->=x11-libs/libva-2.5.0-r1 ABI_X86: 32
->=x11-libs/libva-vdpau-driver-0.7.4-r5 ABI_X86: 32
 >=x11-libs/libXcomposite-0.4.5 ABI_X86: 32
 >=x11-libs/libXcursor-1.2.0 ABI_X86: 32
 >=x11-libs/libXft-2.3.3 ABI_X86: 32
 >=x11-libs/libXi-1.7.10 ABI_X86: 32
 >=x11-libs/libXtst-1.2.3-r1 ABI_X86: 32
 >=x11-libs/libXv-1.0.11-r1 ABI_X86: 32
+>=x11-libs/libva-2.5.0-r1 ABI_X86: 32
+>=x11-libs/libva-vdpau-driver-0.7.4-r5 ABI_X86: 32
 >=x11-libs/pango-1.42.4-r2 ABI_X86: 32
 >=x11-libs/pixman-0.38.4 ABI_X86: 32
 >=x11-libs/xcb-util-0.4.0-r1 ABI_X86: 32
@@ -265,14 +263,12 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=x11-libs/xcb-util-keysyms-0.4.0-r1 ABI_X86: 32
 >=x11-libs/xcb-util-renderutil-0.3.9-r2 ABI_X86: 32
 >=x11-libs/xcb-util-wm-0.4.1-r2 ABI_X86: 32
+sys-libs/libxcrypt ABI_X86: 32
 
 # kdenlive
->=media-libs/mlt-6.26.1-r1 xml frei0r sdl qt5 ffmpeg
 >=media-libs/libsdl2-2.0.12-r1 opengl
+>=media-libs/mlt-6.26.1-r1 xml frei0r sdl qt5 ffmpeg
 >=media-video/ffmpeg-4.2.4 sdl
-
-# android
->=sys-libs/ncurses-compat-5.9 ABI_X86: 32
 
 # qemu
 dev-libs/glib static-libs
@@ -281,12 +277,6 @@ sys-apps/systemd static-libs
 sys-libs/zlib static-libs
 virtual/libudev static-libs
 
-# systemd
-#>=app-arch/zstd-1.5.0 ABI_X86: 32
-
-# xwayland
-#>=app-crypt/libmd-1.0.3-r2 ABI_X86: 32
-
 # swtpm
+>=app-crypt/p11-kit-0.23.22 ABI_X86: 32
 >=net-libs/gnutls-3.7.2 pkcs11
->=app-crypt/p11-kit-0.23.22 abi_x86_32
