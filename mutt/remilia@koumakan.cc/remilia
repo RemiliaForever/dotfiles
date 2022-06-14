@@ -15,7 +15,7 @@ set spoolfile   =   +INBOX
 set postponed   =   +Drafts
 set trash       =   +Deleted\ Messages
 set delete      =   yes
-mailboxes +INBOX +其他文件夹/2017 +其他文件夹/2018 +其他文件夹/2019 +其他文件夹/2020 +其他文件夹/ccsvc +Drafts +Junk +Sent\ Messages +Deleted\ Messages
+mailboxes +INBOX +其他文件夹/2017 +其他文件夹/2018 +其他文件夹/2019 +其他文件夹/2020 +其他文件夹/2021 +其他文件夹/ccsvc +Drafts +Junk +Sent\ Messages +Deleted\ Messages
 # pop3s
 set imap_user   =   $my_name
 set imap_pass   =   $my_passwd

@@ -1,20 +1,22 @@
 # global use
 
+*/* clang lto pgo jemalloc
+*/* X wayland vulkan pulseaudio dbus libnotify
+*/* fftw icu fontconfig truetype jpeg png
 */* -handbook -ibus -doc
-*/* X -wayland pulseaudio fftw icu fontconfig truetype dbus vulkan jemalloc jpeg png libnotify
-*/* lto pgo
 
 # explict use
 app-admin/sysstat lm-sensors
 app-arch/brotli python
 app-arch/unzip natspec
 app-editors/vim python
-app-emulation/dxvk ABI_X86: 32
+app-emulation/dxvk crossdev-mingw ABI_X86: 32
 app-emulation/libvirt virt-network libssh policykit zfs
-app-emulation/qemu io-uring gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_SOFTMMU_TARGETS: aarch64 QEMU_USER_TARGETS: aarch64
+app-emulation/qemu io-uring gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_SOFTMMU_TARGETS: aarch64 QEMU_USER_TARGETS: aarch64 arm
 app-emulation/virt-manager gtk
-app-emulation/wine-staging gstreamer ldap mingw osmesa vaapi vkd3d
-app-i18n/fcitx5-qt qt5
+app-emulation/wine-staging crossdev-mingw gstreamer ldap mingw osmesa vaapi vkd3d
+app-i18n/fcitx-gtk -gtk2
+app-i18n/fcitx-qt qt5
 app-office/libreoffice -mariadb
 app-office/libreoffice-l10n L10N: en zh-CN
 app-text/ghostscript-gpl cups
@@ -35,7 +37,7 @@ dev-libs/xmlsec nss
 dev-python/ipython matplotlib -smp
 dev-python/matplotlib qt5
 dev-python/numpy lapack
-dev-python/PyQt5 declarative gui network opengl printsupport sql svg webchannel widgets x11extras xmlpatterns
+dev-python/PyQt5 declarative gui network opengl printsupport sql svg webchannel websocket widgets x11extras xmlpatterns
 dev-qt/qtgui egl
 dev-qt/qtsql mysql
 dev-util/ctags json xml yaml
@@ -47,12 +49,14 @@ kde-apps/dolphin activities
 kde-apps/kio-extras mtp nfs samba
 kde-apps/thumbnailers raw
 kde-frameworks/kitemmodels qml
+kde-frameworks/knotifications phonon
+kde-frameworks/knotifyconfig phonon
 kde-frameworks/prison qml
 kde-frameworks/sonnet qml
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
-media-gfx/blender abi7-compat color-management cuda cycles ffmpeg llvm openal openimageio -opensubdiv openvdb tiff
-media-gfx/darktable colord geolocation opencl LUA_SINGLE_TARGET: lua5-3
+media-gfx/blender abi7-compat color-management cuda cycles ffmpeg llvm openal openimageio -oidn -opensubdiv openvdb tiff
+media-gfx/darktable geolocation opencl
 media-gfx/digikam calendar marble mediaplayer scanner opengl mysql
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
 media-gfx/imagemagick graphviz hdri postscript raw svg tiff webp xml
@@ -60,29 +64,31 @@ media-gfx/inkscape cdr exif imagemagick visio
 media-gfx/krita gif qtmedia
 media-libs/freetype harfbuzz
 media-libs/libcanberra alsa
+media-libs/libsdl2 opengl gles2
 media-libs/libpng apng
 media-libs/libvpx postproc
 media-libs/mesa wayland osmesa
 media-libs/openal alsa
 media-libs/opencolorio opengl
-media-libs/opencv ffmpeg lapack opencl python contrib contribdnn -cuda -lto
+media-libs/opencv ffmpeg lapack opencl python contrib contribdnn
 media-libs/openimageio color-management openvdb opengl opencv
 media-libs/opensubdiv cuda ptex tbb
 media-libs/speexdsp ABI_X86: 32
+media-sound/audacity -lv2
 media-sound/lmms fluidsynth mp3
 media-sound/mpd flac mpg123
 media-sound/ncmpcpp clock outputs taglib visualizer
 media-sound/pulseaudio realtime -bluetooth
 media-sound/pulseaudio-modules-bt fdk
-media-video/ffmpeg alsa bluray dav1d jpeg2k libcaca libv4l mp3 openal opencl opengl openssl opus theora v4l vdpau vpx x264 xvid vorbis
-media-video/mpv bluray dvd libcaca vdpau
+media-video/ffmpeg alsa bluray dav1d jpeg2k libcaca libv4l mp3 nvenc openal opencl opengl openssl opus theora v4l vdpau vpx x264 xvid vorbis
+media-video/mpv bluray dvd libcaca nvenc vdpau
 media-video/obs-studio imagemagick nvenc speex v4l
 media-video/vlc -X -qt5 -jpeg -png -ncurses flac ffmpeg mp3 vorbis ogg taglib
 net-fs/samba client
 net-libs/gnutls tools
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
-net-libs/nodejs system-icu
+net-libs/nodejs system-icu -lto
 net-misc/curl http2 samba -imap -pop3 -smtp -tftp
 net-misc/nextcloud-client dolphin
 net-misc/rsync system-zlib xxhash zstd
@@ -95,26 +101,24 @@ sci-electronics/kicad -python -oce occ
 sci-libs/flann cuda
 sci-libs/lapack eselect-ldso
 sci-libs/openblas eselect-ldso
-sci-libs/pytorch cuda openblas -mkl -mkldnn opencv -gloo
-sci-libs/torchvision cuda ffmpeg
 sci-misc/boinc -X cuda
 sys-apps/dbus user-session
 sys-apps/lm-sensors contrib
 sys-apps/smartmontools -systemd -daemon
 sys-apps/systemd policykit
-sys-devel/binutils default-gold multitarget
+sys-devel/binutils multitarget
 sys-devel/clang xml
 sys-devel/gcc graphite
 sys-devel/gdb source-highlight xml xxhash -server
-sys-devel/llvm gold LLVM_TARGETS: WebAssembly AArch64 ARM
 sys-kernel/gentoo-kernel savedconfig
 sys-kernel/gentoo-sources symlink
 sys-libs/zlib minizip
+sys-process/htop lm-sensors unwind
 virtual/imagemagick-tools tiff
-www-client/firefox geckodriver hwaccel clang L10N: zh-CN en-GB
+www-client/firefox geckodriver hwaccel clang system-png L10N: zh-CN en-GB
 www-client/w3m imlib
 x11-base/xorg-server kdrive xephyr xvfb
-x11-drivers/nvidia-drivers gtk3 uvm ABI_X86: 32
+x11-drivers/nvidia-drivers gtk3 uvm wayland ABI_X86: 32
 x11-libs/wxGTK opengl
 x11-misc/picom opengl
 x11-wm/awesome gnome
@@ -144,20 +148,19 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=media-libs/vigra-1.11.1-r3 openexr
 
 # steam
->=dev-libs/expat-2.2.8 ABI_X86: 32
->=dev-libs/libffi-3.3-r1 ABI_X86: 32
->=dev-libs/wayland-1.18.0 ABI_X86: 32
->=media-libs/mesa-19.3.5 ABI_X86: 32
->=sys-devel/llvm-9.0.1 ABI_X86: 32
->=sys-libs/ncurses-6.1_p20190609 ABI_X86: 32
->=virtual/opengl-7.0-r2 ABI_X86: 32
->=x11-libs/libXdamage-1.1.5 ABI_X86: 32
->=x11-libs/libXfixes-5.0.3-r1 ABI_X86: 32
->=x11-libs/libXrandr-1.5.2 ABI_X86: 32
->=x11-libs/libXrender-0.9.10-r1 ABI_X86: 32
->=x11-libs/libXxf86vm-1.1.4-r1 ABI_X86: 32
->=x11-libs/libdrm-2.4.100 ABI_X86: 32
->=x11-libs/libxshmfence-1.3-r1 ABI_X86: 32
+dev-libs/expat ABI_X86: 32
+dev-libs/libffi ABI_X86: 32
+app-arch/zstd ABI_X86: 32
+dev-libs/wayland ABI_X86: 32
+x11-libs/libXrandr ABI_X86: 32
+media-libs/mesa ABI_X86: 32
+x11-libs/libXxf86vm ABI_X86: 32
+x11-libs/libdrm ABI_X86: 32
+x11-libs/libxshmfence ABI_X86: 32
+sys-devel/llvm ABI_X86: 32
+sys-libs/ncurses ABI_X86: 32
+dev-util/nvidia-cuda-toolkit ABI_X86: 32
+virtual/opengl ABI_X86: 32
 
 # wine-staging
 >=app-arch/bzip2-1.0.6-r11 ABI_X86: 32
@@ -209,10 +212,13 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=media-libs/libsndfile-1.0.29_pre2_p20191024 ABI_X86: 32
 >=media-libs/libvorbis-1.3.6-r1 ABI_X86: 32
 >=media-libs/opus-1.3.1-r1 ABI_X86: 32
+>=media-libs/libpulse-16.0 ABI_X86: 32
 >=media-libs/vulkan-loader-1.1.125 ABI_X86: 32
 >=media-plugins/alsa-plugins-1.2.1 ABI_X86: 32
 >=media-plugins/gst-plugins-meta-1.14.3 ABI_X86: 32
 >=media-plugins/gst-plugins-pulse-1.14.5 ABI_X86: 32
+>=media-sound/lame-3.100-r3 ABI_X86: 32
+>=media-sound/mpg123-1.29.3 ABI_X86: 32
 >=media-sound/pulseaudio-13.0 ABI_X86: 32
 >=net-dns/libidn2-2.3.0 ABI_X86: 32
 >=net-libs/gnutls-3.6.13 ABI_X86: 32
@@ -227,12 +233,13 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=sys-apps/tcp-wrappers-7.6.28 ABI_X86: 32
 >=sys-apps/util-linux-2.33.2 ABI_X86: 32
 >=sys-devel/gettext-0.20.1 ABI_X86: 32
+>=sys-fs/e2fsprogs-1.45.5 ABI_X86: 32
 >=sys-libs/binutils-libs-2.33.1-r1 ABI_X86: 32
 >=sys-libs/db-5.3.28-r2 ABI_X86: 32
->=sys-libs/e2fsprogs-libs-1.45.5 ABI_X86: 32
 >=sys-libs/ldb-2.0.8 ABI_X86: 32
 >=sys-libs/libcap-2.26-r2 ABI_X86: 32
 >=sys-libs/libunwind-1.2.1-r3 ABI_X86: 32
+>=sys-libs/libxcrypt-4.4.20 ABI_X86: 32
 >=sys-libs/pam-1.3.1-r2 ABI_X86: 32
 >=sys-libs/talloc-2.3.1 ABI_X86: 32
 >=sys-libs/tdb-1.4.3 ABI_X86: 32
@@ -255,6 +262,7 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=x11-libs/libXv-1.0.11-r1 ABI_X86: 32
 >=x11-libs/libva-2.5.0-r1 ABI_X86: 32
 >=x11-libs/libva-vdpau-driver-0.7.4-r5 ABI_X86: 32
+>=x11-libs/libxkbcommon-1.3.1 abi_x86_32
 >=x11-libs/pango-1.42.4-r2 ABI_X86: 32
 >=x11-libs/pixman-0.38.4 ABI_X86: 32
 >=x11-libs/xcb-util-0.4.0-r1 ABI_X86: 32
@@ -263,15 +271,14 @@ cross-x86_64-w64-mingw32/mingw64-runtime libraries
 >=x11-libs/xcb-util-keysyms-0.4.0-r1 ABI_X86: 32
 >=x11-libs/xcb-util-renderutil-0.3.9-r2 ABI_X86: 32
 >=x11-libs/xcb-util-wm-0.4.1-r2 ABI_X86: 32
-sys-libs/libxcrypt ABI_X86: 32
 
 # kdenlive
->=media-libs/libsdl2-2.0.12-r1 opengl
 >=media-libs/mlt-6.26.1-r1 xml frei0r sdl qt5 ffmpeg
 >=media-video/ffmpeg-4.2.4 sdl
 
 # qemu
 dev-libs/glib static-libs
+dev-libs/libpcre static-libs
 sys-apps/attr static-libs
 sys-apps/systemd static-libs
 sys-libs/zlib static-libs

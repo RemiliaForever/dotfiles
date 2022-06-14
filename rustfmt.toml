@@ -1,0 +1,7 @@
+reorder_imports = true
+error_on_line_overflow = false
+condense_wildcard_suffixes = true
+merge_derives = false
+imports_granularity="Crate"
+imports_layout = "HorizontalVertical"
+max_width = 140

@@ -1,0 +1,7 @@
+BasedOnStyle: LLVM
+UseTab: Never
+ColumnLimit: 120
+IndentWidth: 4
+BreakBeforeBraces: Linux
+AlignConsecutiveAssignments: true
+BreakConstructorInitializersBeforeComma: true

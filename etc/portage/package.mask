@@ -3,4 +3,4 @@ dev-db/pgcli::gentoo
 dev-libs/ncnn::gentoo
 media-gfx/waif2x-ncnn-vulkan::gentoo
 
-sci-electronics/kicad*::vowstar
+virtual/linux-sources::gentoo-zh

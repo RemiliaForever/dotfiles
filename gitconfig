@@ -2,6 +2,8 @@
     email = remilia@koumakan.cc
     name = RemiliaForever
     signingkey = remilia@koumakan.cc
+[init]
+    defaultBranch = master
 [alias]
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     lgi = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
@@ -25,31 +27,31 @@
 [push]
     default = simple
 [core]
-    editor = vim
+    editor = nvim
     autocrlf = input
     excludesfile = ~/.gitignore
     pager = delta
 [interactive]
     diffFilter = delta --color-only
-[github]
-    user = RemiliaForever
 [color]
     ui = true
 [diff]
     tool = nvimdiff
+    colorMoved = default
 [merge]
     ff = false
+    conflictstyle = diff3
     tool = nvimdiff
 [mergetool]
     keepBackup = false
 
 [difftool "nvimdiff"]
     prompt = false
-    cmd = nvim -d $LOCAL $REMOTE $MERGED
-
+    cmd = nvim -d $LOCAL $MERGED $REMOTE
 [delta]
-    features = side-by-side line-numbers decorations
-    whitespace-error-style = 22 reverse
+    navigate = true
+    syntax-theme = OneHalfDark
+    features = side-by-side decorations
 [delta "decorations"]
     commit-decoration-style = bold box ul
     dark = true
@@ -69,7 +71,6 @@
     minus-style = normal "#330011"
     plus-emph-style = syntax "#003300"
     plus-style = syntax "#001a00"
-    syntax-theme = Vibrant Sunburst
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -78,3 +79,6 @@
     required = true
 [lfs]
     locksverify = true
+
+[github]
+    user = RemiliaForever

@@ -1,4 +1,5 @@
 # vim: filetype=muttrc
+
 unmailboxes *
 # personal
 set realname    =   "陈鸿志"
