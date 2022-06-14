@@ -1,3 +1,5 @@
+local util = require('util')
+
 vim.g.Tex_DefaultTargetFormat = 'pdf'
 vim.g.Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode -halt-on-error -synctex=1 $*'
 vim.g.Tex_ViewRule_pdf = 'zathura'
@@ -15,3 +17,5 @@ vim.g.Tex_IgnoredWarnings = {
 "Package microtype Warning: %s\n",
 "Package pgfplots Warning: %s\n",
 }
+
+util.nmap(']s', ':call Tex_ForwardSearchLaTeX()<CR>')

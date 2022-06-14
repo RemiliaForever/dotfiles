@@ -14,7 +14,9 @@ shadow-offset-y = -10
 shadow-exclude = [
   "_GTK_FRAME_EXTENTS@:c",
   "class_g = 'fcitx'",
-  "class_g = 'TelegramDesktop'"
+  "class_g = 'TelegramDesktop'",
+# for Firefox
+  "class_g = 'firefox' && window_type != 'normal'"
 ]
 
 # shadow-exclude-reg = ""
@@ -24,8 +26,8 @@ shadow-exclude = [
 #           Fading              #
 #################################
 fading = true
-fade-in-step = 0.04
-fade-out-step = 0.04
+fade-in-step = 0.1
+fade-out-step = 0.1
 # fade-delta = 10
 # fade-exclude = []
 # no-fading-openclose = false
@@ -36,7 +38,6 @@ fade-out-step = 0.04
 #################################
 inactive-opacity = 1
 frame-opacity = 1
-menu-opacity = 1.0
 inactive-opacity-override = false
 active-opacity = 1.0
 # inactive-dim = 0.0
@@ -53,19 +54,19 @@ focus-exclude = [ "class_g = 'Cairo-clock'" ]
 # blur-background = false
 # blur-background-frame = false
 # blur-background-fixed = false
-blur-kern = "3x3box"
+# blur-kern = "3x3box"
 # blur-background-exclude = []
-blur-background-exclude = [
-  "window_type = 'dock'",
-  "window_type = 'desktop'",
-  "class_g = 'netease-cloud-music'"
-]
+# blur-background-exclude = [
+#   "window_type = 'dock'",
+#   "window_type = 'desktop'",
+#   "class_g = 'netease-cloud-music'"
+# ]
 
 #################################
 #       General Settings        #
 #################################
 daemon = true
-backend = "xrender"
+backend = "glx"
 vsync = true
 dbus = false
 mark-wmwin-focused = true

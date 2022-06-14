@@ -47,6 +47,9 @@ util.nmap('<C-p>', '"+p')
 util.nmap('<C-h>', ':nohl<CR>')
 
 
+util.nmap('[j', ':cn<CR>')
+util.nmap('[k', ':cp<CR>')
+util.nmap('[x', ':cclose<CR>')
 util.nmap('[q', ':close<CR>')
 util.nmap(']q', ':pclose<CR>')
 
@@ -87,3 +90,10 @@ util.nmap('<F3>', ':call ToggleRelativeNumber()<CR>')
 -- xdg-open
 util.nmap('<F5>', ':!xdg-open %<CR><CR>')
 
+-- fctix5
+vim.cmd([[
+augroup FcitxSupport
+    autocmd!
+    autocmd InsertLeave * call system('fcitx5-remote -c')
+augroup END
+]])
