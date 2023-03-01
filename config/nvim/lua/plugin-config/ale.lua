@@ -34,7 +34,8 @@ vim.g.ale_fixers = {
     vue = {'eslint'},
     yaml = {'prettier'},
 }
--- vim.g.ale_rust_rustfmt_options = '--edition 2021'
+
+vim.g.ale_rust_rustfmt_options = '--edition 2021'
 -- vim.g.ale_java_google_java_format_options = '--aosp'
 vim.g.ale_fix_on_save = 1
 

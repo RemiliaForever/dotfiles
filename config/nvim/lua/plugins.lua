@@ -54,4 +54,5 @@ require('packer').startup(function()
         config = "require('plugin-config/nvim-cmp')"
     }
     use { 'neovim/nvim-lspconfig', config = "require('plugin-config/nvim-lspconfig')" }
+    use { 'arkav/lualine-lsp-progress' }
 end)

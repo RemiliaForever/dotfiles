@@ -13,7 +13,6 @@ require('nvim-tree').setup {
     open_on_setup           = false,
     open_on_tab             = false,
     update_cwd              = false,
-    create_in_closed_folder = true,
     respect_buf_cwd         = true,
     diagnostics = {
         enable = false,
@@ -58,10 +57,8 @@ require('nvim-tree').setup {
     },
     view = {
         width = 34,
-        height = 30,
         hide_root_folder = false,
         side = 'left',
-        auto_resize = false,
         mappings = {
             custom_only = false,
             list = {

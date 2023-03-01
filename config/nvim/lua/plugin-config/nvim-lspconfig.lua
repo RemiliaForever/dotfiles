@@ -44,7 +44,7 @@ local function open_vsplit()
         vim.cmd('vsplit')
 
         if vim.tbl_islist(result) then
-            util.jump_to_location(result[1])
+            util.jump_to_location(result[1], 'utf8')
 
             if #result > 1 then
                 util.set_qflist(util.locations_to_items(result))
@@ -52,7 +52,7 @@ local function open_vsplit()
                 api.nvim_command("wincmd p")
             end
         else
-            util.jump_to_location(result)
+            util.jump_to_location(result, 'utf8')
         end
     end
 
@@ -95,13 +95,10 @@ local on_attach = function(client, bufnr)
     buf_set_keymap('n', '[gl', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local lsps = {
     'clangd',
-    'rust_analyzer',
     'gopls',
     'tsserver',
     'jdtls',
@@ -114,6 +111,19 @@ for _, lsp in ipairs(lsps) do
         on_attach = on_attach,
     }
 end
+
+nvim_lsp.rust_analyzer.setup {
+    cmd = {'bash', '-c', 'CARGO_TARGET_DIR=/home/remilia/.cargo/rust-analyzer rust-analyzer'},
+    capabilities = capabilities,
+    on_attach = on_attach,
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = {
+                features = "all",
+            }
+        }
+    }
+}
 
 nvim_lsp.pyright.setup {
     capabilities = capabilities,
