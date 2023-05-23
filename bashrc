@@ -38,23 +38,6 @@ alias vims='/usr/bin/vim --servername VIM'
 alias tig='/usr/bin/tig --date-order --all'
 alias mutt_remilia='/usr/bin/mutt -F /home/remilia/.mutt/remilia@koumakan.cc/muttrc'
 
-# httpie
-http_login() {
-    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password='' | jq -r '.data | .token'`
-    echo $HTTP_JWT_TOKEN
-}
-http_login_raw() {
-    export HTTP_JWT_TOKEN=`http $@/api/login username=admin password='' | jq -r '.data | .token'`
-    echo $HTTP_JWT_TOKEN
-}
-http_auth() {
-    HTTP_RES=`http --pretty=all -p hb $@ Authorization:"Bearer $HTTP_JWT_TOKEN"`
-    NEW_TOKEN=`echo "$HTTP_RES" | rg Refresh-Token | awk '{print $2}'`
-    if [ -n "$NEW_TOKEN" ]; then
-        export HTTP_JWT_TOKEN=$NEW_TOKEN
-    fi
-    echo "$HTTP_RES"
-}
 # tool
 set_title() {
     echo -en "\e]0;$@\a"

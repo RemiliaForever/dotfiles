@@ -1,14 +1,13 @@
-from libqtile import bar, widget
-from libqtile import layout
+from libqtile import bar, layout, widget
 from libqtile.config import Screen
 
 import widget as w
 
 layouts = [
-    layout.Columns(border_width=0, border_focus='#ff3333'),
-    layout.Matrix(border_width=0),
-    layout.MonadTall(border_width=0),
+    layout.Columns(num_columns=2, border_width=0, border_focus='#ff3333'),
     layout.MonadWide(border_width=0),
+    layout.Matrix(border_width=0),
+    layout.Floating(border_width=0),
     layout.Max(border_width=0),
 ]
 
@@ -21,16 +20,24 @@ screens = [
                 widget.GroupBox(
                     visible_groups=['1', '2', '3', '4'],
                     highlight_method='block',
+                    urgent_alert_method='block',
                     inactive='ffffff',
                 ),
                 widget.Prompt(),
                 widget.WindowTabs(background='333333', margin=50),
+                widget.Mpris2(
+                    width=512,
+                    paused_text='<span color="yellow">{track}</span>',
+                    playing_text='<span color="green">{track}</span>',
+                    no_metadata_text='<span color="grey">unknown</span>',
+                    scroll_fixed_width=True,
+                ),
                 w.Net(),
                 w.Mem(),
                 w.CPU(),
                 w.Volume(),
-                w.Mail(),
-                w.Mail(),
+                w.Mail('','',''),
+                w.Mail('','',''),
                 widget.Systray(icon_size=36, padding=2),
                 widget.Clock(format='%Y-%m-%d %H:%M:%S %a'),
                 widget.CurrentLayoutIcon(padding=10),
@@ -47,10 +54,10 @@ screens = [
                 widget.GroupBox(
                     visible_groups=['5', '6', '7', '8'],
                     highlight_method='block',
+                    urgent_alert_method='block',
                     inactive='ffffff',
-                    padding=5,
                 ),
-                widget.WindowTabs(),
+                widget.WindowTabs(background='333333', margin=50),
                 widget.CurrentLayoutIcon(padding=10),
             ],
             42,

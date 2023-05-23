@@ -12,6 +12,13 @@ class Net(base.InLoopPollText):
         self.send = 0
         self.last = datetime.now().timestamp()
 
+    def format_net(self, num: float) -> str:
+        num = num / 1024
+        if num > 1024:
+            return f'<span weight="bold">{int(num/1024):3} MB</span>'
+        else:
+            return f'{int(num):3} KB'
+
     def netstat(self):
         netif = ''
         for line in open('/proc/net/route').readlines():
@@ -32,8 +39,8 @@ class Net(base.InLoopPollText):
             raise Exception('get data failed')
 
         now = datetime.now().timestamp()
-        down = int((recv - self.recv) / (now - self.last) / 1024)
-        up = int((send - self.send) / (now - self.last) / 1024)
+        down = (recv - self.recv) / (now - self.last)
+        up = (send - self.send) / (now - self.last)
 
         self.recv = recv
         self.send = send
@@ -44,8 +51,8 @@ class Net(base.InLoopPollText):
             raise Exception('first init')
 
         result = ''
-        result += f'🔻<span color="#c2ba62">{down:5} KB</span>'
-        result += f'🔺<span color="#5798d9">{up:5} KB</span>'
+        result += f'🔻<span color="#c2ba62">{self.format_net(down)}</span>'
+        result += f'🔺<span color="#5798d9">{self.format_net(up)}</span>'
         return result
 
     def poll(self):

@@ -65,37 +65,38 @@ vim.lsp.handlers["textDocument/implementation"] = open_vsplit()
 vim.lsp.handlers["textDocument/typeDefinition"] = open_vsplit()
 
 -- binding
-local on_attach = function(client, bufnr)
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        --vim.cmd([[autocmd CursorHold <buffer> lua vim.lsp.buf.hover()]])
 
-    -- Mappings.
-    local opts = { noremap=true, silent=true }
+        local opts = { buffer = ev.buf }
 
-    --vim.cmd([[autocmd CursorHold <buffer> lua vim.lsp.buf.hover()]])
+        vim.keymap.set('n', '[c', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', '[d', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', '[o', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', '[i', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '[t', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '[n', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '[a', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '[r', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', '[h', vim.lsp.buf.signature_help, opts)
 
-    buf_set_keymap('n', '[c', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', '[o', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', '[i', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '[t', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '[n', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '[a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', '[r', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '[h', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        vim.keymap.set('n', '[s', ':LspRestart<CR>', opts)
+        vim.keymap.set('n', '[wa', vim.lsp.buf.add_workspace_folder, opts)
+        vim.keymap.set('n', '[wr', vim.lsp.buf.remove_workspace_folder, opts)
+        vim.keymap.set('n', '[wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, opts)
 
-    buf_set_keymap('n', '[s', ':LspRestart<CR>', opts)
-    buf_set_keymap('n', '[wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '[wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '[wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-
-    buf_set_keymap('n', '<C-j>', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', '[go', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-    buf_set_keymap('n', '[gl', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-end
-
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        vim.keymap.set('n', '<C-j>', vim.diagnostic.goto_next, opts)
+        vim.keymap.set('n', '<C-k>', vim.diagnostic.goto_prev, opts)
+        vim.keymap.set('n', '[go', vim.diagnostic.open_float, opts)
+        vim.keymap.set('n', '[gl', vim.diagnostic.setloclist, opts)
+    end
+})
 
 local lsps = {
     'clangd',
@@ -104,29 +105,29 @@ local lsps = {
     'jdtls',
     'kotlin_language_server',
     'vuels',
+    'openscad_lsp',
 }
 for _, lsp in ipairs(lsps) do
-    nvim_lsp[lsp].setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-    }
+    nvim_lsp[lsp].setup {}
 end
 
 nvim_lsp.rust_analyzer.setup {
     cmd = {'bash', '-c', 'CARGO_TARGET_DIR=/home/remilia/.cargo/rust-analyzer rust-analyzer'},
-    capabilities = capabilities,
-    on_attach = on_attach,
     settings = {
         ['rust-analyzer'] = {
             cargo = {
                 features = "all",
+                buildScrips = {
+                    enable = true
+                }
+            },
+            procMacro = {
+                enable = true
             }
         }
     }
 }
 
 nvim_lsp.pyright.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
     root_dir = nvim_lsp_util.find_git_ancestor,
 }

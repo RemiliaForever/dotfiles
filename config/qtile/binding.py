@@ -32,6 +32,16 @@ def unminimize(qtile):
             return
 
 
+@lazy.function
+def try_layout_cmd(qtile, *functions):
+    layout = qtile.current_layout
+    for f in functions:
+        cmd = 'cmd_' + f
+        if hasattr(layout, cmd):
+            getattr(layout, cmd)()
+            break
+
+
 keys = [
     # Switch between windows
     Key([mod], 'h', lazy.layout.left()),
@@ -53,14 +63,15 @@ keys = [
     Key([mod], 'space', lazy.window.toggle_floating()),
     Key([mod, 'shift'], 'n', unminimize()),
     Key([mod, 'shift'], 'o', move_to_screen()),
-    Key([mod, 'control'], 'h', lazy.layout.grow_left()),
-    Key([mod, 'control'], 'l', lazy.layout.grow_right()),
-    Key([mod, 'control'], 'j', lazy.layout.grow_down()),
-    Key([mod, 'control'], 'k', lazy.layout.grow_up()),
+    Key([mod, 'control'], 'h', try_layout_cmd('grow_left', 'shrink')),
+    Key([mod, 'control'], 'l', try_layout_cmd('grow_right', 'grow')),
+    Key([mod, 'control'], 'j', try_layout_cmd('grow_down', 'grow_main')),
+    Key([mod, 'control'], 'k', try_layout_cmd('grow_up', 'shrink_main')),
     Key([mod, 'control'], 'n', lazy.layout.normalize()),
     # Spawn
     Key([mod], 'Return', lazy.spawn('alacritty')),
     Key([mod], 'r', lazy.spawncmd()),
+    Key([mod], 'p', lazy.spawn('kioclient appmenu')),
     Key([], 'Print', lazy.spawn('spectacle')),
     Key([mod], 'Print', lazy.spawn('spectacle -r')),
     Key([mod], 'Delete', lazy.spawn('slock')),

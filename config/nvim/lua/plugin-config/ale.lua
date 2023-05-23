@@ -28,11 +28,12 @@ vim.g.ale_fixers = {
     java = {'google_java_format'},
     javascript = {'eslint'},
     markdown = {'prettier'},
-    python = {'yapf'},
+    python = {'yapf', 'isort'},
     rust = {'rustfmt'},
     typescript = {'eslint', 'tslint'},
     vue = {'eslint'},
     yaml = {'prettier'},
+    openscad = {'clang-format'},
 }
 
 vim.g.ale_rust_rustfmt_options = '--edition 2021'

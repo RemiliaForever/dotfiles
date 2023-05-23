@@ -1,5 +1,9 @@
 [target.x86_64-unknown-linux-gnu]
-rustflags = ["-Ctarget-cpu=native"]
+linker = "/usr/bin/x86_64-pc-linux-gnu-gcc"
+rustflags = [
+    "-Ctarget-cpu=native",
+    "-Clink-args=-fuse-ld=lld",
+]
 
 [target.x86_64-unknown-linux-musl]
 linker = "/usr/bin/x86_64-pc-linux-musl-gcc"
@@ -7,37 +11,22 @@ rustflags = []
 
 [target.aarch64-unknown-linux-gnu]
 linker = "/usr/bin/aarch64-unknown-linux-gnu-gcc"
-rustflags = ["-Ctarget-feature=+aes,+crypto,+neon"]
+rustflags = []
 
 [target.aarch64-unknown-linux-musl]
 linker = "/usr/bin/aarch64-unknown-linux-musl-gcc"
 rustflags = []
 
-#[target.x86_64-pc-windows-gnu]
-#linker = "/usr/bin/x86_64-w64-mingw32-gcc"
-#rustflags = []
+[target.x86_64-pc-windows-gnu]
+linker = "/usr/bin/x86_64-w64-mingw32-gcc"
+rustflags = []
 
 [target.arm-unknown-linux-musleabi]
 linker = '/usr/bin/arm-hardfloat-linux-musleabi-gcc'
 rustflags = []
-
-#[target.aarch64-linux-android]
-#linker = "/opt/android-ndk/toolchains/aarch64-linux-android-4.9/prebuilt/linux-x86_64/bin/aarch64-linux-android-gcc"
-#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm64"]
-#
-#[target.arm-linux-androideabi]
-#linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
-#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
-#
-#[target.armv7-linux-androideabi]
-#linker = "/opt/android-ndk/toolchains/arm-linux-androideabi-4.9/prebuilt/linux-x86_64/bin/arm-linux-androideabi-gcc"
-#rustflags = ["-Clink-args=--sysroot=/opt/android-ndk/platforms/android-21/arch-arm"]
 
 [build]
 target-dir = "/home/remilia/.cargo/target"
 
 [profile.release]
 lto = true
-
-[http]
-proxy = "http://localhost:8118"

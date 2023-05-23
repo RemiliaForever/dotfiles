@@ -11,7 +11,11 @@ lualine.setup {
     },
     sections = {
         lualine_a = {'mode'},
-        lualine_b = {'branch', 'diagnostics', 'filename'},
+        lualine_b = {'branch', 'filename', {
+            'diagnostics',
+            symbols = { error = " ", warn = " ", hint = " ", info = " " },
+            update_in_insert = true,
+        }},
         lualine_c = {'lsp_progress'},
         -- lualine_x = {'encoding', 'fileformat', 'filetype'},
         lualine_x = {'filetype'},

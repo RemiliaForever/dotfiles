@@ -65,14 +65,14 @@ handle_extension() {
             exit 1;;
 
         ## PDF
-        pdf)
-            ## Preview as text conversion
-            pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | \
-              fmt -w "${PV_WIDTH}" && exit 5
-            mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | \
-              fmt -w "${PV_WIDTH}" && exit 5
-            exiftool "${FILE_PATH}" && exit 5
-            exit 1;;
+        #pdf)
+        #    ## Preview as text conversion
+        #    pdftotext -l 10 -nopgbrk -q -- "${FILE_PATH}" - | \
+        #      fmt -w "${PV_WIDTH}" && exit 5
+        #    mutool draw -F txt -i -- "${FILE_PATH}" 1-10 | \
+        #      fmt -w "${PV_WIDTH}" && exit 5
+        #    exiftool "${FILE_PATH}" && exit 5
+        #    exit 1;;
 
         ## BitTorrent
         torrent)
@@ -128,9 +128,9 @@ handle_image() {
     local mimetype="${1}"
     case "${mimetype}" in
         ## SVG
-        # image/svg+xml|image/svg)
-        #     convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
-        #     exit 1;;
+        image/svg+xml|image/svg)
+            convert -- "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 6
+            exit 1;;
 
         ## DjVu
         # image/vnd.djvu)
@@ -153,21 +153,21 @@ handle_image() {
             ## as above), but might fail for unsupported types.
             exit 7;;
 
-        # Video
-         video/*)
-             # Thumbnail
-             ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
-             exit 1;;
+        ## Video
+        video/*)
+            # Thumbnail
+            ffmpegthumbnailer -i "${FILE_PATH}" -o "${IMAGE_CACHE_PATH}" -s 0 && exit 6
+            exit 1;;
 
-        # PDF
-         application/pdf)
-             pdftoppm -f 1 -l 1 \
-                      -scale-to-x "${DEFAULT_SIZE%x*}" \
-                      -scale-to-y -1 \
-                      -singlefile \
-                      -jpeg -tiffcompression jpeg \
-                      -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
-                 && exit 6 || exit 1;;
+        ## PDF
+        application/pdf)
+            pdftoppm -f 1 -l 1 \
+                     -scale-to-x "${DEFAULT_SIZE%x*}" \
+                     -scale-to-y -1 \
+                     -singlefile \
+                     -jpeg -tiffcompression jpeg \
+                     -- "${FILE_PATH}" "${IMAGE_CACHE_PATH%.*}" \
+                && exit 6 || exit 1;;
 
 
         ## ePub, MOBI, FB2 (using Calibre)
@@ -239,27 +239,27 @@ handle_image() {
         #     ;;
     esac
 
-    # openscad_image() {
-    #     TMPPNG="$(mktemp -t XXXXXX.png)"
-    #     openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
-    #         --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
-    #         -o "${TMPPNG}" "${1}"
-    #     mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
-    # }
+    openscad_image() {
+        TMPPNG="$(mktemp -t XXXXXX.png)"
+        openscad --colorscheme="${OPENSCAD_COLORSCHEME}" \
+            --imgsize="${OPENSCAD_IMGSIZE/x/,}" \
+            -o "${TMPPNG}" "${1}"
+        mv "${TMPPNG}" "${IMAGE_CACHE_PATH}"
+    }
 
-    # case "${FILE_EXTENSION_LOWER}" in
-    #     ## 3D models
-    #     ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
-    #     ## is hardcoded as jpeg. So we make a tempfile.png and just
-    #     ## move/rename it to jpg. This works because image libraries are
-    #     ## smart enough to handle it.
-    #     csg|scad)
-    #         openscad_image "${FILE_PATH}" && exit 6
-    #         ;;
-    #     3mf|amf|dxf|off|stl)
-    #         openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
-    #         ;;
-    # esac
+    case "${FILE_EXTENSION_LOWER}" in
+        ## 3D models
+        ## OpenSCAD only supports png image output, and ${IMAGE_CACHE_PATH}
+        ## is hardcoded as jpeg. So we make a tempfile.png and just
+        ## move/rename it to jpg. This works because image libraries are
+        ## smart enough to handle it.
+        csg|scad)
+            openscad_image "${FILE_PATH}" && exit 6
+            ;;
+        3mf|amf|dxf|off|stl)
+            openscad_image <(echo "import(\"${FILE_PATH}\");") && exit 6
+            ;;
+    esac
 }
 
 handle_mime() {

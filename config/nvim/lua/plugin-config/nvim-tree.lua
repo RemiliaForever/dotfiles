@@ -4,13 +4,23 @@ util.nmap('<C-n>', ':NvimTreeToggle<CR>')
 util.nmap(']r', ':NvimTreeRefresh<CR>')
 util.nmap(']n', ':NvimTreeFindFile<CR>')
 
-local tree_cb = require('nvim-tree.config').nvim_tree_callback
+local function on_attach(bufnr)
+    local api = require('nvim-tree.api')
+
+    api.config.mappings.default_on_attach(bufnr)
+
+    local function opts(desc)
+        return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+
+    vim.keymap.set('n', 's', api.node.open.vertical, opts('Open: Vertical Split'))
+
+end
 
 require('nvim-tree').setup {
     disable_netrw           = false,
     hijack_cursor           = false,
     hijack_netrw            = true,
-    open_on_setup           = false,
     open_on_tab             = false,
     update_cwd              = false,
     respect_buf_cwd         = true,
@@ -32,7 +42,7 @@ require('nvim-tree').setup {
     },
     git = {
         enable = true,
-        ignore = true,
+        ignore = false,
         timeout = 500,
     },
     actions = {
@@ -59,15 +69,10 @@ require('nvim-tree').setup {
         width = 34,
         hide_root_folder = false,
         side = 'left',
-        mappings = {
-            custom_only = false,
-            list = {
-                { key = 's', cb = tree_cb('vsplit') }
-            }
-        },
         number = false,
         relativenumber = false,
-        signcolumn = "yes"
+        signcolumn = "yes",
+        cursorline = true,
     },
     renderer = {
         highlight_git = true,
@@ -95,5 +100,6 @@ require('nvim-tree').setup {
     trash = {
         cmd = "trash",
         require_confirm = true
-    }
+    },
+    on_attach = on_attach,
 }

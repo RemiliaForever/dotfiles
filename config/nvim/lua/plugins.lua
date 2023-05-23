@@ -1,6 +1,5 @@
 local util = require('util')
 
-vim.g.suda_smart_edit = 0
 util.nmap('<C-l>', ':TagbarToggle<CR>')
 util.nmap('<F6>', ':ColorizerToggle<CR>')
 util.nmap('<C-g>', ':SignifyToggle<CR>')
@@ -25,6 +24,7 @@ require('packer').startup(function()
     use { 'nvim-lualine/lualine.nvim',
         requires = {
             'kyazdani42/nvim-web-devicons',
+            'arkav/lualine-lsp-progress',
         },
         config = "require('plugin-config/lualine')",
     }
@@ -54,5 +54,4 @@ require('packer').startup(function()
         config = "require('plugin-config/nvim-cmp')"
     }
     use { 'neovim/nvim-lspconfig', config = "require('plugin-config/nvim-lspconfig')" }
-    use { 'arkav/lualine-lsp-progress' }
 end)

@@ -1,11 +1,11 @@
 I_KNOW_WHAT_I_AM_DOING_CROSS=yes
 RUST_CROSS_TARGETS=(
-    "X86:x86_64-pc-windows-gnu:x86_64-w64-mingw32"
-    "X86:x86_64-unknown-linux-musl:x86_64-pc-linux-musl"
-    "AArch64:aarch64-unknown-linux-musl:aarch64-unknown-linux-musl"
-    "ARM:arm-unknown-linux-musleabihf:arm-hardfloat-linux-musleabi"
 )
 BBBB=(
+    "X86:x86_64-unknown-linux-musl:x86_64-pc-linux-musl"
+    "X86:x86_64-pc-windows-gnu:x86_64-w64-mingw32"
     "X86:i686-pc-windows-gnu:i686-w64-mingw32"
     "AArch64:aarch64-unknown-linux-gnu:aarch64-unknown-linux-gnu"
+    "AArch64:aarch64-unknown-linux-musl:aarch64-unknown-linux-musl"
+    "ARM:arm-unknown-linux-musleabihf:arm-hardfloat-linux-musleabi"
 )

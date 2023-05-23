@@ -1,5 +1,5 @@
-from libqtile.layout.floating import Floating
 from libqtile.config import Match
+from libqtile.layout.floating import Floating
 
 floating_layout = Floating(float_rules=[
     *Floating.default_float_rules,
@@ -12,4 +12,5 @@ floating_layout = Floating(float_rules=[
     Match(wm_class='Animation'),
     Match(wm_class='matplotlib'),
     Match(wm_class='Places'),
+    Match(title='图片'),
 ])

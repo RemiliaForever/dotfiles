@@ -1,4 +1,0 @@
-cross-arm-hardfloat-linux-musleabi/binutils -multilib
-cross-arm-hardfloat-linux-musleabi/linux-headers -selinux -multilib
-cross-arm-hardfloat-linux-musleabi/musl -selinux -libraries -multilib
-cross-arm-hardfloat-linux-musleabi/gcc -sanitize -vtv -selinux -boundschecking -d -gcj -gtk -libffi -mudflap -objc -objc++ -objc-gc -multilib

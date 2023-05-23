@@ -3,8 +3,8 @@ import re
 import subprocess
 import threading
 
-from libqtile.widget import base
 from libqtile.lazy import lazy
+from libqtile.widget import base
 
 
 class Mail(base.ThreadPoolText):
@@ -18,7 +18,7 @@ class Mail(base.ThreadPoolText):
             "",
             update_interval=300,
             mouse_callbacks={
-                'Button1': lazy.spawn('alacritty -e mutt'),
+                'Button1': lazy.spawn(f'alacritty -e mutt -F /home/remilia/.mutt/{self.username}/muttrc'),
                 'Button3': self.force_update(self),
             },
         )
@@ -27,17 +27,24 @@ class Mail(base.ThreadPoolText):
     def force_update(qtile, self):
         threading.Thread(target=self.cmd_force_update).start()
 
-    def mail(self) -> int:
-        M = imaplib.IMAP4_SSL(self.server)
-        M.login(self.username, self.password)
-        M.select(readonly=True)
-        s = M.status('INBOX', '(UNSEEN)')
-        return int(re.search(r'UNSEEN\s+(\d+)', str(s)).group(1))
+    def fetch_mail(self) -> int:
+        e = Exception('Unknown')
+
+        for s in [' ? ', ' ??', '???']:
+            self.update(f'📩{s}')
+            try:
+                M = imaplib.IMAP4_SSL(self.server)
+                M.login(self.username, self.password)
+                M.select(readonly=True)
+                s = M.status('INBOX', '(UNSEEN)')
+                return int(re.search(r'UNSEEN\s+(\d+)', str(s)).group(1))  #type: ignore
+            except Exception as ec:
+                e = ec
+        raise e
 
     def poll(self):
         try:
-            self.update(f'📩 ? ')
-            c = self.mail()
+            c = self.fetch_mail()
             if c > 0:
                 subprocess.Popen(['notify-send', self.username, f'您有 {c} 封新邮件'])
                 return f'📭<span color="yellow">{c:^3}</span>'
