@@ -19,13 +19,13 @@ class Mail(base.ThreadPoolText):
             update_interval=300,
             mouse_callbacks={
                 'Button1': lazy.spawn(f'alacritty -e mutt -F /home/remilia/.mutt/{self.username}/muttrc'),
-                'Button3': self.force_update(self),
+                'Button3': Mail.lazy_force_update(self),
             },
         )
 
     @lazy.function
-    def force_update(qtile, self):
-        threading.Thread(target=self.cmd_force_update).start()
+    def lazy_force_update(qtile, self):
+        threading.Thread(target=self.force_update).start()
 
     def fetch_mail(self) -> int:
         e = Exception('Unknown')

@@ -13,15 +13,15 @@ def toggle_group(qtile, i: int):
 @lazy.function
 def move_to_group(qtile, i: int):
     i += qtile.current_screen.index * 4
-    qtile.current_window.cmd_togroup(str(i), switch_group=True)
+    qtile.current_window.togroup(str(i), switch_group=True)
 
 
 @lazy.function
 def move_to_screen(qtile):
     s = 1 if qtile.current_screen.index == 0 else 0
     g = qtile.screens[s].group.name
-    qtile.current_window.cmd_togroup(g)
-    qtile.cmd_next_screen()
+    qtile.current_window.togroup(g)
+    qtile.next_screen()
 
 
 @lazy.function
@@ -36,9 +36,8 @@ def unminimize(qtile):
 def try_layout_cmd(qtile, *functions):
     layout = qtile.current_layout
     for f in functions:
-        cmd = 'cmd_' + f
-        if hasattr(layout, cmd):
-            getattr(layout, cmd)()
+        if hasattr(layout, f):
+            getattr(layout, f)()
             break
 
 

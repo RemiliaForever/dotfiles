@@ -8,6 +8,8 @@ import group
 import rule
 import screen
 
+#from libqtile.log_utils import logger
+
 keys = binding.keys
 mouse = binding.mouse
 groups = group.groups
@@ -51,14 +53,16 @@ notifier = element.Notifier(
 @hook.subscribe.startup
 def startup():
     if len(qtile.screens) > 1:
-        qtile.groups_map['1'].cmd_toscreen(0, toggle=False)
-        qtile.groups_map['5'].cmd_toscreen(1, toggle=False)
+        qtile.groups_map['1'].toscreen(0, toggle=False)
+        qtile.groups_map['5'].toscreen(1, toggle=False)
 
 
 @hook.subscribe.client_focus
 def client_focus(window):
+    #logger.warn(window.name)
+    #logger.warn(window._wm_class)
     if window.floating:
-        window.cmd_bring_to_front()
+        window.bring_to_front()
 
 
 @hook.subscribe.startup_complete
@@ -66,8 +70,8 @@ def startup_complete():
     subprocess.Popen(['picom', '--config', '/home/remilia/.config/picom/config'])
     subprocess.Popen(['fcitx5', '-D', '-r'])
     subprocess.Popen(['blueman-applet'])
-    if qtile.core.name == 'wayland':
-        subprocess.Popen([
-            'wlr-randr', '--output', 'DP-3', '--on', '--mode', '3840x2160', '--preferred', '--pos', '0,0', '--scale',
-            '2', '--output', 'DP-1', '--on', '--mode', '3840x2160', '--preferred', '--pos', '3840,0', '--scale', '2'
-        ])
+
+    subprocess.Popen(['netease-cloud-music-gtk4'])
+    subprocess.Popen(['feishu'])
+    subprocess.Popen(['qq'])
+    subprocess.Popen(['firefox'])

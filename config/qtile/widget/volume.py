@@ -1,8 +1,8 @@
 import subprocess
 import threading
 
-from libqtile.widget import base
 from libqtile.lazy import lazy
+from libqtile.widget import base
 
 
 class Volume(base.ThreadPoolText):
@@ -12,10 +12,10 @@ class Volume(base.ThreadPoolText):
             '',
             update_interval=10,
             mouse_callbacks={
-                'Button1': self.pulsemixer(self, '--toggle-mute'),
+                'Button1': Volume.pulsemixer(self, '--toggle-mute'),
                 'Button3': lazy.spawn('alacritty -e pulsemixer'),
-                'Button4': self.pulsemixer(self, '--change-volume +5'),
-                'Button5': self.pulsemixer(self, '--change-volume -5'),
+                'Button4': Volume.pulsemixer(self, '--change-volume +5'),
+                'Button5': Volume.pulsemixer(self, '--change-volume -5'),
             },
         )
 

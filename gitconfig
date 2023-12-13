@@ -50,7 +50,6 @@
     cmd = nvim -d $LOCAL $MERGED $REMOTE
 [delta]
     navigate = true
-    syntax-theme = OneHalfDark
     features = side-by-side decorations
 [delta "decorations"]
     commit-decoration-style = bold box ul
