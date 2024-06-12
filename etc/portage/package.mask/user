@@ -1,8 +1,5 @@
-dev-db/mycli::gentoo
+#dev-db/mycli::gentoo
 dev-db/pgcli::gentoo
-dev-libs/ncnn::gentoo
-media-gfx/waif2x-ncnn-vulkan::gentoo
-
-#dev-lang/python:3.11
 
 virtual/linux-sources::gentoo-zh
+

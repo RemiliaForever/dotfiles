@@ -1,290 +1,187 @@
 # global use
 
-*/* clang lto pgo jemalloc
-*/* X wayland vulkan pulseaudio dbus libnotify eselect-ldso
-*/* fftw icu fontconfig truetype jpeg png
-*/* qml phonon
-*/* -handbook -ibus -doc -gtk4
+*/* clang lto pgo jemalloc eselect-ldso # compile
+*/* fftw icu fontconfig truetype jpeg png vaapi cups # lib
+*/* X -wayland vulkan pulseaudio pipewire dbus libnotify kde # desktop
+*/* qml phonon # qt
+*/* -handbook -doc -ibus -gtk4 -vlc -abi_x86_32
 
 # explict use
 app-admin/sysstat lm-sensors
 app-arch/brotli python
+app-arch/p7zip rar wxwidgets
 app-arch/unzip natspec
-app-emulation/dxvk crossdev-mingw ABI_X86: 32
+app-crypt/gcr gtk
+app-crypt/gpgme qt5
+app-emulation/dxvk crossdev-mingw
 app-emulation/libvirt virt-network libssh policykit zfs
 app-emulation/qemu io-uring gtk vte nfs opengl spice usb usbredir virgl virtfs static-user QEMU_SOFTMMU_TARGETS: aarch64 arm mipsel QEMU_USER_TARGETS: aarch64 arm mipsel
 app-emulation/virt-manager gui
-app-emulation/wine-staging crossdev-mingw gstreamer ldap mingw osmesa vaapi vkd3d
 app-i18n/fcitx-gtk -gtk2 gtk4
 app-i18n/fcitx-qt qt5
 app-office/libreoffice -mariadb
 app-office/libreoffice-l10n L10N: en zh-CN
 app-text/ghostscript-gpl cups
 app-text/poppler cjk cairo
-app-text/texlive extra graphics cjk music science xetex L10N: zh en
+app-text/texlive extra graphics cjk music science luatex xetex L10N: zh en ja
 app-text/texlive-core cjk xetex
 app-text/xmlto text
 app-text/zathura synctex
 dev-cpp/eigen c++11 cuda
 dev-db/mariadb -perl
+dev-debug/gdb source-highlight xml xxhash -server
 dev-java/openjdk alsa gentoo-vm source
 dev-java/swt opengl cairo
 dev-lang/python sqlite
-dev-lang/rust clippy rust-src rustfmt rust-analyzer system-bootstrap system-llvm nightly wasm parallel-compiler LLVM_TARGETS: WebAssembly AArch64 ARM
+dev-lang/rust clippy rust-src rustfmt rust-analyzer system-llvm nightly
+dev-libs/appstream qt5
 dev-libs/boost python context
+dev-libs/libgit2 trace
 dev-libs/libpcre2 pcre16 pcre32
+dev-libs/ncnn tools
 dev-libs/xmlsec nss
 dev-python/PyQt5 declarative gui network opengl printsupport sql svg webchannel websocket widgets x11extras xmlpatterns
 dev-python/ipython matplotlib -smp
 dev-python/matplotlib qt5
 dev-python/numpy lapack
-dev-python/pillow webp
-dev-qt/qtgui egl
+dev-python/pillow webp tiff
+dev-qt/qtbase opengl
+dev-qt/qtdeclarative opengl
+dev-qt/qtgui egl accessibility
+dev-qt/qtmultimedia widgets
 dev-qt/qtsql mysql
+dev-qt/qttools opengl
+dev-qt/qtwebengine widgets
 dev-util/ctags json xml yaml
 dev-util/nvidia-cuda-toolkit profiler
-dev-util/xdelta lzma
-gui-libs/wlroots tinywl
 kde-apps/ark zip
 kde-apps/dolphin activities
 kde-apps/kio-extras mtp nfs samba
 kde-apps/thumbnailers raw
+kde-plasma/discover -firmware flatpak
 mail-client/mutt gpgme mbox
 media-fonts/noto cjk -extra
-media-gfx/blender color-management cuda cycles ffmpeg llvm openal openimageio -oidn -opensubdiv openvdb optix tiff
+media-gfx/blender color-management cuda cycles ffmpeg llvm openal openimageio opensubdiv openvdb optix tiff
 media-gfx/darktable geolocation opencl
 media-gfx/digikam calendar marble mediaplayer scanner opengl mysql
 media-gfx/hugin lapack raw L10N: en-GB zh-CN
 media-gfx/imagemagick graphviz hdri postscript raw svg tiff webp xml
 media-gfx/inkscape cdr exif imagemagick visio
 media-gfx/krita gif qtmedia
-media-libs/freetype harfbuzz
+media-libs/freetype harfbuzz brotli
+media-libs/gst-plugins-base opengl
+media-libs/imgui opengl
 media-libs/libcanberra alsa
 media-libs/libpng apng
-media-libs/libsdl2 opengl gles2 haptic
+media-libs/libsdl2 opengl gles2 haptic kms
 media-libs/libvpx postproc
-media-libs/mesa wayland osmesa
+media-libs/mesa osmesa wayland
+media-libs/mlt frei0r ffmpeg qt5 sdl xml
 media-libs/openal alsa
 media-libs/opencolorio opengl
 media-libs/opencv ffmpeg lapack opencl python contrib contribdnn
 media-libs/openimageio color-management openvdb opengl opencv
 media-libs/opensubdiv cuda ptex tbb
+media-libs/vigra openexr
 media-sound/audacity alsa -lv2
 media-sound/lmms fluidsynth mp3
 media-sound/mpd flac mpg123
 media-sound/ncmpcpp clock outputs taglib visualizer
-media-sound/pulseaudio realtime bluetooth
-media-sound/pulseaudio-daemon bluetooth aptx ldac
-media-video/ffmpeg alsa bluray dav1d jpeg2k libass libcaca libv4l mp3 nvenc openal opencl opengl openssl opus theora v4l vaapi vdpau vpx x264 xvid vorbis
-media-video/mpv bluray dvd libcaca nvenc vdpau
+media-video/ffmpeg alsa bluray dav1d sdl jpeg2k libass libcaca libv4l mp3 nvenc openal opencl opengl openssl opus theora v4l vdpau vpx x264 xvid vorbis
+media-video/mpv bluray dvd libcaca nvenc vdpau vapoursynth
 media-video/obs-studio imagemagick nvenc speex v4l
-media-video/vlc -X -qt5 -jpeg -png -ncurses flac ffmpeg mp3 vorbis ogg taglib
+media-video/pipewire bluetooth modemmanager extra pipewire-alsa sound-server
+media-video/wireplumber lua_single_target_lua5-4
 net-analyzer/nmap -nse
+net-dns/dnsmasq script
 net-fs/samba client
-net-libs/gnutls tools
+net-libs/gnutls tools pkcs11
 net-libs/libpcap netlink bluetooth usb
 net-libs/libtorrent-rasterbar python
-net-libs/nodejs system-icu -lto
+net-libs/nodejs system-icu
 net-misc/curl http2 samba -imap -pop3 -smtp -tftp
+net-misc/moonlight -libdrm
+net-misc/nextcloud-client dolphin
 net-misc/rsync system-zlib xxhash zstd
+net-misc/spice-gtk usbredir
 net-misc/tigervnc server
 net-p2p/deluge console gui libnotify
 net-wireless/blueman policykit
 net-wireless/bluez user-session
-sci-electronics/kicad -python -oce occ
 sci-libs/flann cuda
+sci-libs/lapack lapacke
 sys-apps/dbus user-session
 sys-apps/lm-sensors contrib
 sys-apps/smartmontools -systemd -daemon
 sys-apps/systemd policykit
-sys-apps/zram-generator -man
 sys-devel/binutils multitarget
 sys-devel/clang xml
 sys-devel/gcc graphite
-sys-devel/gdb source-highlight xml xxhash -server
 sys-fs/zfs python
 sys-kernel/gentoo-sources symlink
 sys-libs/zlib minizip
-sys-process/bottom -battery
 sys-process/htop lm-sensors unwind
 virtual/imagemagick-tools tiff
-www-client/firefox geckodriver hwaccel clang system-png L10N: zh-CN en-GB
+www-client/firefox geckodriver hwaccel clang system-png -pgo L10N: zh-CN en-GB
 x11-base/xorg-server kdrive xephyr xvfb
-x11-drivers/nvidia-drivers gtk3 uvm wayland ABI_X86: 32
-x11-libs/wxGTK opengl webkit sdl gstreamer tiff
+x11-drivers/nvidia-drivers gtk3 uvm
+x11-libs/wxGTK opengl sdl gstreamer tiff
 x11-misc/picom opengl
-x11-wm/qtile -wayland
 
 ### cross
 cross-i686-w64-mingw32/mingw64-runtime libraries
 cross-x86_64-w64-mingw32/mingw64-runtime libraries
 
-### nvidia driver
->=media-libs/libglvnd-1.3.1 ABI_X86: 32
->=net-dns/dnsmasq-2.80-r2 script
->=net-misc/spice-gtk-0.37-r2 usbredir
->=sys-libs/zlib-1.2.11-r2 ABI_X86: 32
->=virtual/pkgconfig-1 ABI_X86: 32
->=x11-base/xcb-proto-1.14-r1 ABI_X86: 32
->=x11-libs/libX11-1.6.9 ABI_X86: 32
->=x11-libs/libXau-1.0.9 ABI_X86: 32
->=x11-libs/libXdmcp-1.1.3 ABI_X86: 32
->=x11-libs/libXext-1.3.4 ABI_X86: 32
->=x11-libs/libvdpau-1.3 ABI_X86: 32
->=x11-libs/libxcb-1.14 ABI_X86: 32
-
-# digikam
->=dev-qt/qtwebengine-5.14.1 widgets
->=media-libs/libvpx-1.7.0-r1 svc
->=media-libs/vigra-1.11.1-r3 openexr
-
-# steam
-dev-libs/expat ABI_X86: 32
-dev-libs/libffi ABI_X86: 32
-app-arch/zstd ABI_X86: 32
-dev-libs/wayland ABI_X86: 32
-x11-libs/libXrandr ABI_X86: 32
-media-libs/mesa ABI_X86: 32
-x11-libs/libXxf86vm ABI_X86: 32
-x11-libs/libdrm ABI_X86: 32
-x11-libs/libxshmfence ABI_X86: 32
-sys-devel/llvm ABI_X86: 32
-sys-libs/ncurses ABI_X86: 32
-dev-util/nvidia-cuda-toolkit ABI_X86: 32
-virtual/opengl ABI_X86: 32
-
-# wine-staging
->=app-arch/bzip2-1.0.6-r11 ABI_X86: 32
->=app-arch/lz4-1.9.2 ABI_X86: 32
->=app-crypt/libmd-1.0.3-r2 ABI_X86: 32
->=app-crypt/mit-krb5-1.17-r1 ABI_X86: 32
->=app-emulation/vkd3d-1.1 ABI_X86: 32
->=app-emulation/wine-gecko-2.47.1 ABI_X86: 32
->=dev-db/lmdb-0.9.23 ABI_X86: 32
->=dev-lang/orc-0.4.29 ABI_X86: 32
->=dev-libs/check-0.14.0 ABI_X86: 32
->=dev-libs/fribidi-1.0.9 ABI_X86: 32
->=dev-libs/glib-2.62.6 ABI_X86: 32
->=dev-libs/gmp-6.2.0-r1 ABI_X86: 32
->=dev-libs/icu-65.1-r1 ABI_X86: 32
->=dev-libs/libbsd-0.10.0 ABI_X86: 32
->=dev-libs/libev-4.31 ABI_X86: 32
->=dev-libs/libgcrypt-1.8.5 ABI_X86: 32
->=dev-libs/libgpg-error-1.36 ABI_X86: 32
->=dev-libs/libpcre-8.42 ABI_X86: 32
->=dev-libs/libpcre2-10.40 static-libs ABI_X86: 32
->=dev-libs/libtasn1-4.13 ABI_X86: 32
->=dev-libs/libunistring-0.9.10 ABI_X86: 32
->=dev-libs/libverto-0.2.5-r1 ABI_X86: 32
->=dev-libs/libxml2-2.9.9-r3 ABI_X86: 32
->=dev-libs/libxslt-1.1.33-r1 ABI_X86: 32
->=dev-libs/lzo-2.10 ABI_X86: 32
->=dev-libs/nettle-3.4.1 ABI_X86: 32
->=dev-libs/openssl-1.1.1g ABI_X86: 32
->=dev-libs/popt-1.16-r2 ABI_X86: 32
->=dev-python/subunit-1.2.0-r1 ABI_X86: 32
->=dev-util/cmocka-1.1.5 ABI_X86: 32
->=dev-util/cppunit-1.14.0 ABI_X86: 32
->=media-gfx/graphite2-1.3.13 ABI_X86: 32
->=media-libs/alsa-lib-1.2.1.2 ABI_X86: 32
->=media-libs/flac-1.3.3 ABI_X86: 32
->=media-libs/fontconfig-2.13.0-r4 ABI_X86: 32
->=media-libs/freetype-2.9.1-r3 ABI_X86: 32
->=media-libs/glu-9.0.1 ABI_X86: 32
->=media-libs/graphene-1.8.6 ABI_X86: 32
->=media-libs/gst-plugins-base-1.14.5-r1 ABI_X86: 32
->=media-libs/gst-plugins-good-1.14.5 ABI_X86: 32
->=media-libs/gstreamer-1.14.5 ABI_X86: 32
->=media-libs/harfbuzz-2.6.4 ABI_X86: 32
->=media-libs/lcms-2.9 ABI_X86: 32
->=media-libs/libjpeg-turbo-2.0.4 ABI_X86: 32
->=media-libs/libogg-1.3.3 ABI_X86: 32
->=media-libs/libpng-1.6.37 ABI_X86: 32
->=media-libs/libpulse-16.0 ABI_X86: 32
->=media-libs/libsdl2-2.0.10-r1 ABI_X86: 32
->=media-libs/libsndfile-1.0.29_pre2_p20191024 ABI_X86: 32
->=media-libs/libva-2.5.0-r1 ABI_X86: 32
->=media-libs/libvorbis-1.3.6-r1 ABI_X86: 32
->=media-libs/opus-1.3.1-r1 ABI_X86: 32
->=media-libs/vulkan-loader-1.1.125 ABI_X86: 32
->=media-plugins/alsa-plugins-1.2.1 ABI_X86: 32
->=media-plugins/gst-plugins-meta-1.14.3 ABI_X86: 32
->=media-plugins/gst-plugins-pulse-1.14.5 ABI_X86: 32
->=media-sound/lame-3.100-r3 ABI_X86: 32
->=media-sound/mpg123-1.29.3 ABI_X86: 32
->=media-sound/pulseaudio-13.0 ABI_X86: 32
->=net-dns/libidn2-2.3.0 ABI_X86: 32
->=net-libs/gnutls-3.6.13 ABI_X86: 32
->=net-libs/libasyncns-0.8-r4 ABI_X86: 32
->=net-libs/libnsl-1.2.0 ABI_X86: 32
->=net-libs/libtirpc-1.2.5 ABI_X86: 32
->=net-nds/openldap-2.4.48 ABI_X86: 32
->=sys-apps/attr-2.4.48-r3 ABI_X86: 32
->=sys-apps/dbus-1.12.16 ABI_X86: 32
->=sys-apps/keyutils-1.6.1 ABI_X86: 32
->=sys-apps/systemd-244.3 ABI_X86: 32
->=sys-apps/tcp-wrappers-7.6.28 ABI_X86: 32
->=sys-apps/util-linux-2.33.2 ABI_X86: 32
->=sys-devel/gettext-0.20.1 ABI_X86: 32
->=sys-fs/e2fsprogs-1.45.5 ABI_X86: 32
->=sys-libs/binutils-libs-2.33.1-r1 ABI_X86: 32
->=sys-libs/db-5.3.28-r2 ABI_X86: 32
->=sys-libs/ldb-2.0.8 ABI_X86: 32
->=sys-libs/libcap-2.26-r2 ABI_X86: 32
->=sys-libs/libunwind-1.2.1-r3 ABI_X86: 32
->=sys-libs/libxcrypt-4.4.20 ABI_X86: 32
->=sys-libs/pam-1.3.1-r2 ABI_X86: 32
->=sys-libs/talloc-2.3.1 ABI_X86: 32
->=sys-libs/tdb-1.4.3 ABI_X86: 32
->=sys-libs/tevent-0.10.2 ABI_X86: 32
->=virtual/glu-9.0-r2 ABI_X86: 32
->=virtual/jpeg-0-r3 ABI_X86: 32
->=virtual/libcrypt-1 ABI_X86: 32
->=virtual/libffi-3.3_rc0 ABI_X86: 32
->=virtual/libiconv-0-r2 ABI_X86: 32
->=virtual/libintl-0-r2 ABI_X86: 32
->=virtual/libudev-232-r3 ABI_X86: 32
->=x11-libs/cairo-1.16.0-r3 ABI_X86: 32
->=x11-libs/libICE-1.0.10 ABI_X86: 32
->=x11-libs/libSM-1.2.3 ABI_X86: 32
->=x11-libs/libXcomposite-0.4.5 ABI_X86: 32
->=x11-libs/libXcursor-1.2.0 ABI_X86: 32
->=x11-libs/libXfixes-6.0.1 ABI_X86: 32
->=x11-libs/libXft-2.3.3 ABI_X86: 32
->=x11-libs/libXi-1.7.10 ABI_X86: 32
->=x11-libs/libXrender-0.9.11 ABI_X86: 32
->=x11-libs/libXtst-1.2.3-r1 ABI_X86: 32
->=x11-libs/libXv-1.0.11-r1 ABI_X86: 32
->=x11-libs/libva-vdpau-driver-0.7.4-r5 ABI_X86: 32
->=x11-libs/libxkbcommon-1.3.1 abi_x86_32
->=x11-libs/pango-1.42.4-r2 ABI_X86: 32
->=x11-libs/pixman-0.38.4 ABI_X86: 32
->=x11-libs/xcb-util-0.4.0-r1 ABI_X86: 32
->=x11-libs/xcb-util-cursor-0.1.3-r2 ABI_X86: 32
->=x11-libs/xcb-util-image-0.4.0-r1 ABI_X86: 32
->=x11-libs/xcb-util-keysyms-0.4.0-r1 ABI_X86: 32
->=x11-libs/xcb-util-renderutil-0.3.9-r2 ABI_X86: 32
->=x11-libs/xcb-util-wm-0.4.1-r2 ABI_X86: 32
-
-# kdenlive
->=media-libs/mlt-6.26.1-r1 xml frei0r sdl qt5 ffmpeg
->=media-video/ffmpeg-4.2.4 sdl
-
 # qemu
 dev-libs/glib static-libs
-dev-libs/libpcre static-libs
+dev-libs/libpcre2 static-libs
 sys-apps/attr static-libs
-sys-apps/systemd static-libs
 sys-libs/zlib static-libs
-virtual/libudev static-libs
 
-# swtpm
->=app-crypt/p11-kit-0.23.22 ABI_X86: 32
->=net-libs/gnutls-3.7.2 pkcs11
-
-# blender
->=media-libs/freetype-2.12.1-r1 brotli
->=app-arch/brotli-1.0.9-r3 ABI_X86: 32
-
-# audacity
->=media-libs/portaudio-19.07.00-r2 alsa
+# python 3_11
+#net-proxy/mitmproxy PYTHON_TARGETS: python3_11
+#sci-electronics/kicad PYTHON_SINGLE_TARGET: python3_11
+#
+#dev-python/pynvim PYTHON_TARGETS: python3_11
+#media-libs/lensfun PYTHON_SINGLE_TARGET: python3_11
+#media-libs/vigra PYTHON_TARGETS: python3_11
+#net-libs/gupnp PYTHON_SINGLE_TARGET: python3_11
+#net-p2p/deluge PYTHON_SINGLE_TARGET: python3_11
+#
+#>=dev-python/certifi-3021.3.16-r4 python_targets_python3_11
+#>=dev-python/cython-3.0.10 python_targets_python3_11
+#>=dev-python/editables-0.5 python_targets_python3_11
+#>=dev-python/flit-core-3.9.0 python_targets_python3_11
+#>=dev-python/gpep517-15 python_targets_python3_11
+#>=dev-python/hatchling-1.24.2 python_targets_python3_11
+#>=dev-python/idna-3.7 python_targets_python3_11
+#>=dev-python/installer-0.7.0 python_targets_python3_11
+#>=dev-python/jaraco-context-5.3.0 python_targets_python3_11
+#>=dev-python/jaraco-functools-4.0.1 python_targets_python3_11
+#>=dev-python/jaraco-text-3.12.0 python_targets_python3_11
+#>=dev-python/meson-python-0.16.0-r1 python_targets_python3_11
+#>=dev-python/more-itertools-10.2.0 python_targets_python3_11
+#>=dev-python/numpy-1.26.4 python_targets_python3_11
+#>=dev-python/ordered-set-4.1.0 python_targets_python3_11
+#>=dev-python/packaging-24.0 python_targets_python3_11
+#>=dev-python/pathspec-0.12.1 python_targets_python3_11
+#>=dev-python/platformdirs-4.2.1 python_targets_python3_11
+#>=dev-python/pluggy-1.5.0 python_targets_python3_11
+#>=dev-python/pyproject-metadata-0.8.0 python_targets_python3_11
+#>=dev-python/setuptools-69.5.1-r1 python_targets_python3_11
+#>=dev-python/setuptools-scm-8.0.4 python_targets_python3_11
+#>=dev-python/trove-classifiers-2024.4.10 python_targets_python3_11
+#>=dev-python/typing-extensions-4.11.0 python_targets_python3_11
+#>=dev-python/wheel-0.43.0 python_targets_python3_11
+#>=dev-python/cffi-1.16.0 python_targets_python3_11
+#>=dev-python/ply-3.11-r2 python_targets_python3_11
+#>=dev-python/pycparser-2.22 python_targets_python3_11
+#>=dev-python/requests-2.31.0 python_targets_python3_11
+#>=dev-python/PySocks-1.7.1-r2 python_targets_python3_11
+#>=dev-python/urllib3-2.2.1 python_targets_python3_11
+#>=dev-python/charset-normalizer-3.3.2 python_targets_python3_11
+#>=dev-python/jinja-3.1.3 python_targets_python3_11
+#>=dev-python/markupsafe-2.1.5 python_targets_python3_11
+#>=dev-python/pygobject-3.46.0 python_targets_python3_11
+#>=dev-python/pycairo-1.26.0 python_targets_python3_11
+#>=dev-python/pillow-10.3.0 python_targets_python3_11

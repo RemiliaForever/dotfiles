@@ -12,4 +12,10 @@ sync-type = git
 sync-uri = https://github.com/gentoo-mirror/steam-overlay.git
 priority = 255
 
+[src_prepare-overlay]
+location = /var/db/repos/src_prepare-overlay
+sync-type = git
+sync-uri = https://github.com/gentoo-mirror/src_prepare-overlay.git
+priority = 255
+
 

@@ -1,7 +1,7 @@
 #################################
 #             Shadows           #
 #################################
-shadow = true
+shadow = false
 shadow-radius = 10
 shadow-opacity = 0.5
 shadow-offset-x = -10
@@ -102,7 +102,7 @@ log-level = "warn"
 wintypes:
 {
   tooltip = { fade = true; shadow = true; opacity = 0.7; focus = true; }
-  dock = { fade = true; shadow = true; }
+  dock = { fade = true; shadow = false; }
   dnd = { fade = true; shadow = true; }
   popup_menu = { fade = true; shadow = true; }
   dropdown_menu = { fade = true; shadow = true; }

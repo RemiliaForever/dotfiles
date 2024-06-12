@@ -12,18 +12,35 @@ export TERM=xterm-256color
 alias ssh='TERM=xterm-256color /usr/bin/ssh'
 
 # replaced utils
-alias ls='/usr/bin/eza'
-alias ll='/usr/bin/eza -bghHliS'
+alias ls='/usr/bin/eza --icons=auto'
+alias ll='/usr/bin/eza -bghHliS --icons=auto'
 alias grep='/usr/bin/rg'
 alias ncdu='/usr/bin/ncdu --color=dark'
 alias ping='/usr/bin/prettyping'
 alias cat='/usr/bin/bat'
-alias diff='/usr/bin/delta'
+alias diff='delta'
+# bat
 export BAT_PAGER="less -RF"
 export BAT_THEME=OneHalfDark
+# fzf
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'
+  --bind 'enter:become(vim {})'"
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}' --preview-window up:3:hidden:wrap
+  --bind 'ctrl-/:toggle-preview'
+  --color header:italic"
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
 # extend utils
 source ~/.ranger-cd.sh
-source ~/.local/share/bash-completion/*
+for c in $(ls ~/.local/share/bash-completion/*); do
+    source $c
+done
+
 
 alias ssp='source setproxy.sh'
 alias bmpv='/usr/local/bin/xwinwrap -ni -fs -s -st -sp -b -nf -ov -- mpv -wid WID'

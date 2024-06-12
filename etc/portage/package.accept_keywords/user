@@ -1,21 +1,12 @@
 # explict
-#games-emulation/advancemame ~amd64
-#games-emulation/ppsspp ~amd64
-#net-proxy/v2ray ~amd64
-#sci-electronics/kicad ~amd64
-#sci-electronics/kicad-footprints ~amd64
-#sci-electronics/kicad-packages3d ~amd64
-#sci-electronics/kicad-symbols ~amd64
-#sci-electronics/kicad-templates ~amd64
 app-containers/nvidia-container-toolkit ~amd64
 app-crypt/swtpm ~amd64
 app-crypt/tpm2-tools ~amd64
 app-editors/neovim ~amd64
-app-emulation/wine-staging ~amd64
 app-i18n/fcitx ~amd64
 app-office/bytedance-feishu ~amd64
-dev-java/gradle-bin ~amd64
-dev-lang/rust ~amd64
+app-shells/fzf ~amd64
+#dev-lang/rust ~amd64
 dev-libs/cudnn ~amd64
 dev-libs/optix ~amd64
 dev-util/android-studio ~amd64
@@ -25,30 +16,54 @@ games-util/game-device-udev-rules ~amd64
 games-util/joystick ~amd64
 games-util/mangohud ~amd64
 games-util/steam-launcher ~amd64
+games-util/xboxdrv ~amd64
 media-gfx/blender ~amd64
+media-gfx/digikam ~amd64
 media-gfx/krita ~amd64
+media-libs/nvidia-vaapi-driver ~amd64
+media-sound/audacity ~amd64
 media-sound/netease-cloud-music-gtk ~amd64
 media-video/obs-studio ~amd64
-net-im/weixin-uos ~amd64
+media-video/mpv ~amd64
+net-im/tencent-qq ~amd64
+net-im/wechat-universal-bwrap ~amd64
+net-misc/baidunetdisk ~amd64
 sys-apps/bat ~amd64
-sys-apps/zram-generator ~amd64
-sys-boot/rpi-imager ~amd64
+sys-apps/eza ~amd64
 www-client/firefox ~amd64
-x11-libs/libva-nvdec-driver ~amd64
 x11-drivers/nvidia-drivers ~amd64
 x11-terms/alacritty ~amd64
+x11-terms/wezterm ~amd64
 x11-wm/qtile ~amd64
 
 # required
-app-emulation/wine-gecko ~amd64
-dev-python/xkbcommon ~amd64
-dev-python/pywayland ~amd64
-dev-python/pywlroots ~amd64
+app-emulation/virtiofsd ~amd64
 dev-libs/tree-sitter ~amd64
-virtual/rust ~amd64
+dev-python/sqlglot ~amd64
+dev-python/pywlroots ~amd64
+media-gfx/hugin ~amd64
+sys-libs/libudev-compat ~amd64
+#virtual/rust ~amd64
+
+# llvm
+#sys-devel/clang ~amd64
+#sys-devel/clang-common ~amd64
+#sys-devel/clang-runtime ~amd64
+#sys-devel/clang-toolchain-symlinks ~amd64
+#sys-devel/lld ~amd64
+#sys-devel/lld-toolchain-symlinks ~amd64
+#sys-devel/llvm ~amd64
+#sys-devel/llvmgold ~amd64
+#sys-devel/llvm-toolchain-symlinks ~amd64
+#sys-libs/compiler-rt ~amd64
+#sys-libs/compiler-rt-sanitizers ~amd64
+#sys-libs/libomp ~amd64
 
 # blender
-#media-gfx/openvdb ~amd64
+media-gfx/openvdb ~amd64
+media-libs/oidn ~amd64
+media-libs/openexr ~amd64
+media-libs/openimageio ~amd64
 
 # fcitx5
 app-i18n/libime ~amd64
@@ -62,6 +77,11 @@ x11-themes/fcitx-breeze ~amd64
 # firefox
 dev-libs/nss ~amd64
 media-libs/dav1d ~amd64
+dev-util/cbindgen ~amd64
 
-# steam
-sys-libs/libudev-compat ~amd64
+# qq - TODO: remove
+=x11-misc/snapd-xdg-open-20170401 ~amd64
+=x11-misc/flatpak-xdg-utils-1.0.5 ~amd64
+=media-libs/openslide-20230904 ~amd64
+=dev-python/libcst-1.3.1 ~amd64
+
