@@ -1,6 +1,6 @@
-build := nixos-rebuild switch --flake . --use-remote-sudo
-#build := nixos-rebuild switch --upgrade-all --flake . --use-remote-sudo
-#build := nixos-rebuild switch --upgrade-all --flake . --use-remote-sudo --option substituters ""
+build := nixos-rebuild switch --flake path:. --use-remote-sudo
+#build := nixos-rebuild switch --upgrade-all --flake path:. --use-remote-sudo
+#build := nixos-rebuild switch --upgrade-all --flake path:. --use-remote-sudo --option substituters ""
 
 .PHONY: local surface vm
 

@@ -32,8 +32,6 @@
             pkgs.pyright
             pkgs.isort
             pkgs.yapf
-            pkgs-unstable.python312Packages.qtile
-            pkgs-unstable.python312Packages.qtile-extras
 
             pkgs.taplo
 
