@@ -1,0 +1,7 @@
+keys:
+  - &remilia 6382326ae6fd8356030396ad624434a577907d82
+creation_rules:
+  - path_regex: ^sops.yaml$
+    key_groups:
+    - pgp:
+      - *remilia
