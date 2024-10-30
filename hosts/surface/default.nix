@@ -14,9 +14,12 @@
 
   zramSwap.enable = true;
 
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [ intel-media-driver ];
+  hardware = {
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [ intel-media-driver ];
+    };
+    intel-gpu-tools.enable = true;
   };
 
   services.keyd = {

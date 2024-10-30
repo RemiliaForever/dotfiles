@@ -1,6 +1,6 @@
-{ pkgs-unstable, ... }:
+{ pkgs, ... }:
 
 {
-  home.packages = with pkgs-unstable; [ flameshot ];
+  home.packages = with pkgs; [ flameshot ];
 
 }

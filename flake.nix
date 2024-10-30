@@ -2,18 +2,16 @@
   description = "RemiliaForever's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    #nixpkgs-compact.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     #nur.url = "github:nix-community/nur";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
-      inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     wezterm = {
@@ -26,7 +24,6 @@
     inputs@{
       self,
       nixpkgs,
-      nixpkgs-unstable,
       nixos-hardware,
       sops-nix,
       home-manager,
@@ -41,10 +38,6 @@
         inherit system;
         config.allowUnfree = true;
       };
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
     in
     {
       nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs.lib.nixosSystem {
@@ -53,7 +46,6 @@
         specialArgs = {
           inherit hostname;
           inherit pkgs;
-          inherit pkgs-unstable;
           inherit nixos-hardware;
         };
 
@@ -68,7 +60,6 @@
             home-manager.users.remilia = import ./hosts/${hostname.hostname}/home.nix;
             home-manager.extraSpecialArgs = {
               inherit pkgs;
-              inherit pkgs-unstable;
               inherit wezterm;
             };
           }

@@ -12,7 +12,7 @@
   # boot = { kernelParams = [ ]; };
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = false;
-  hardware.opengl = {
+  hardware.graphics = {
     enable = false;
     driSupport = true;
     extraPackages = with pkgs; [
