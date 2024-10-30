@@ -4,6 +4,7 @@
   imports = [
     ./hardware.nix
 
+    ../../nixos/common
     #../../nixos/gui
     ../../nixos/virtualisation.nix
   ];

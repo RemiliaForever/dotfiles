@@ -2,7 +2,7 @@
 
 {
   programs.wezterm = {
-    enable = true;
+    enable = false;
     package = wezterm.packages.${pkgs.system}.default;
     enableBashIntegration = true;
     extraConfig = ''

@@ -33,7 +33,7 @@
     hyprpaper
 
     #baidunetdisk
-    wpsoffice-cn
+    #wpsoffice-cn
     #deluge
     discord
     feishu

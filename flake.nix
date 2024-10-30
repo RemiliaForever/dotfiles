@@ -7,17 +7,23 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     #nur.url = "github:nix-community/nur";
 
-    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    wezterm.url = "github:wez/wezterm?dir=nix";
+    wezterm = {
+      url = "github:wez/wezterm?dir=nix";
+      #inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       nixpkgs-unstable,
@@ -26,7 +32,7 @@
       home-manager,
       wezterm,
       ...
-    }@inputs:
+    }:
 
     let
       system = "${hostname.arch}";
@@ -42,6 +48,7 @@
     in
     {
       nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs.lib.nixosSystem {
+        inherit system;
 
         specialArgs = {
           inherit hostname;
@@ -51,10 +58,8 @@
         };
 
         modules = [
-          ./nixos
           ./hosts/${hostname.hostname}
           sops-nix.nixosModules.sops
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
