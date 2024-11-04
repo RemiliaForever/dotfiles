@@ -2,28 +2,23 @@
   description = "RemiliaForever's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-compact.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
     #nur.url = "github:nix-community/nur";
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    wezterm = {
-      url = "github:wez/wezterm?dir=nix";
-      #inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    sops-nix.url = "github:Mic92/sops-nix";
+    wezterm.url = "github:wez/wezterm?dir=nix";
   };
 
   outputs =
     inputs@{
       self,
-      nixpkgs,
+      nixpkgs-unstable,
       nixos-hardware,
       sops-nix,
       home-manager,
@@ -34,13 +29,13 @@
     let
       system = "${hostname.arch}";
       hostname = import ./hostname.nix;
-      pkgs = import nixpkgs {
+      pkgs = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
       };
     in
     {
-      nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
 
         specialArgs = {
@@ -59,7 +54,6 @@
             home-manager.backupFileExtension = "bak";
             home-manager.users.remilia = import ./hosts/${hostname.hostname}/home.nix;
             home-manager.extraSpecialArgs = {
-              inherit pkgs;
               inherit wezterm;
             };
           }

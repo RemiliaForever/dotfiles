@@ -9,7 +9,7 @@
 
   # inputMethod
   i18n.inputMethod = {
-    enabled = true;
+    enable = true;
     type = "fcitx5";
     fcitx5 = {
       waylandFrontend = true;

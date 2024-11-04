@@ -2,8 +2,8 @@
 
 {
   programs.wezterm = {
-    enable = false;
-    package = wezterm.packages.${pkgs.system}.default;
+    enable = true;
+    package = wezterm.packages.x86_64-linux.default;
     enableBashIntegration = true;
     extraConfig = ''
       local config = wezterm.config_builder()

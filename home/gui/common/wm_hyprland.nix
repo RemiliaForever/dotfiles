@@ -17,9 +17,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd = {
-      enable = true;
-    };
+    systemd.enable = true;
     settings = {
       monitor = ",preferred,auto,auto";
       xwayland.force_zero_scaling = false;
@@ -35,8 +33,8 @@
         "fcitx5"
         "nm-applet"
 
-        "nextcloud"
-        "flameshot"
+        #"nextcloud"
+        #"flameshot"
       ];
 
       env = [ ];
