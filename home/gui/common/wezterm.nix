@@ -6,6 +6,7 @@
     package = wezterm.packages.x86_64-linux.default;
     enableBashIntegration = true;
     extraConfig = ''
+      local wezterm = require 'wezterm'
       local config = wezterm.config_builder()
 
       config.front_end = 'WebGpu'
@@ -14,39 +15,19 @@
       config.window_close_confirmation = 'NeverPrompt'
 
       config.font = wezterm.font_with_fallback {
-          { family = 'VictorMono Nerd Font', weight = 'Medium' },
-          { family = 'Noto Sans Mono CJK SC', weight = 'Medium' },
+          { family = 'VictorMono Nerd Font', weight = 'Regular' },
+          { family = 'Noto Sans Mono CJK SC', weight = 'Regular' },
           'Noto Color Emoji',
       }
-      -- config.font_rules = {
-      --     {
-      --         intensity = 'Normal',
-      --         italic = true,
-      --         font = wezterm.font_with_fallback { -- sdaf
-      --             { family = 'VictorMono Nerd Font', weight = 'Medium', style = 'Oblique' },
-      --             { family = 'Noto Sans Mono CJK SC', weight = 'Medium' },
-      --             'Noto Color Emoji',
-      --         },
-      --     },
-      --     {
-      --         intensity = 'Bold',
-      --         italic = true,
-      --         font = wezterm.font_with_fallback {
-      --             { family = 'VictorMono Nerd Font', weight = 'Medium', style = 'Oblique' },
-      --             { family = 'Noto Sans Mono CJK SC', weight = 'Medium' },
-      --             'Noto Color Emoji',
-      --         },
-      --     },
-      -- }
+
       config.font_size = 11
       config.line_height = 0.9
       config.window_padding = {
           left = 5,
-          right = 0,
+          right = 5,
           top = 5,
-          bottom = 0,
+          bottom = 5,
       }
-
 
       config.background = {
           {
@@ -61,6 +42,21 @@
       scheme.brights[1] = '#555555'
       config.color_schemes = { ['One Half Black (Gogh)'] = scheme }
       config.color_scheme = 'One Half Black (Gogh)'
+
+
+      -- Change mouse scroll amount
+      config.mouse_bindings = {
+          {
+              event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+              mods = 'NONE',
+              action = wezterm.action.ScrollByLine(-3),
+          },
+          {
+              event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+              mods = 'NONE',
+              action = wezterm.action.ScrollByLine(3),
+          },
+      }
 
       return config
     '';

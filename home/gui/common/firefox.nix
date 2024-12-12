@@ -7,7 +7,10 @@
       HardwareAcceleration = true;
     };
     profiles.remilia = {
-      #search.default = "DuckDuckGo";
+      search = {
+        force = true;
+        default = "DuckDuckGo";
+      };
       userChrome = ''
         #webrtcIndicator {
             display: none;
@@ -23,10 +26,15 @@
         "browser.newtabpage.activity-stream.system.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
 
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
         "media.ffmpeg.vaapi.enabled" = true;
         "media.ffvpx.enabled" = true;
         "gfx.webrender.all" = true;
       };
     };
+  };
+  home.sessionVariables = {
+    MOZ_DISABLE_RDD_SANDBOX = "1";
   };
 }

@@ -5,7 +5,6 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-compact.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    #nur.url = "github:nix-community/nur";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -20,8 +19,8 @@
       self,
       nixpkgs-unstable,
       nixos-hardware,
-      sops-nix,
       home-manager,
+      sops-nix,
       wezterm,
       ...
     }:
@@ -32,6 +31,9 @@
       pkgs = import nixpkgs-unstable {
         inherit system;
         config.allowUnfree = true;
+      };
+      mypkgs = import ./pkgs {
+        inherit pkgs;
       };
     in
     {
@@ -55,6 +57,7 @@
             home-manager.users.remilia = import ./hosts/${hostname.hostname}/home.nix;
             home-manager.extraSpecialArgs = {
               inherit wezterm;
+              inherit mypkgs;
             };
           }
         ];

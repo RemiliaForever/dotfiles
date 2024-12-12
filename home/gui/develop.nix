@@ -5,7 +5,10 @@
     kcachegrind
     kicad
     openscad
-    texliveFull
+    tig
+
     virt-manager
+
+    texliveFull
   ];
 }

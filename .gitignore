@@ -1,2 +1,4 @@
 .direnv/
 /hostname.nix
+
+!.shell/

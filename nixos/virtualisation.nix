@@ -1,14 +1,16 @@
 { pkgs, ... }:
 {
   virtualisation = {
-    containers.enable = true;
     libvirtd.enable = true;
 
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
+    docker.enable = true;
   };
+  environment.systemPackages = with pkgs; [
+    docker-compose
+  ];
+
+  users.users.remilia.extraGroups = [
+    "libvirtd"
+    "docker"
+  ];
 }

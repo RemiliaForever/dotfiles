@@ -44,7 +44,7 @@ local function open_vsplit()
         vim.cmd('vsplit')
 
         if vim.tbl_islist(result) then
-            util.jump_to_location(result[1], 'utf8')
+            util.jump_to_location(result[1], 'utf-8')
 
             if #result > 1 then
                 util.set_qflist(util.locations_to_items(result))
@@ -52,7 +52,7 @@ local function open_vsplit()
                 api.nvim_command("wincmd p")
             end
         else
-            util.jump_to_location(result, 'utf8')
+            util.jump_to_location(result, 'utf-8')
         end
     end
 

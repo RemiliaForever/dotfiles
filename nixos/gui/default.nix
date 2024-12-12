@@ -5,26 +5,9 @@
   imports = [
     ./display.nix
     ./audio.nix
+    ./bluetooth.nix
+    ./fcitx5.nix
   ];
-
-  # inputMethod
-  i18n.inputMethod = {
-    enable = true;
-    type = "fcitx5";
-    fcitx5 = {
-      waylandFrontend = true;
-      plasma6Support = true;
-      addons = with pkgs; [
-        fcitx5-gtk
-        kdePackages.fcitx5-qt
-        kdePackages.fcitx5-chinese-addons
-        fcitx5-material-color
-      ];
-      settings = {
-        inputMethod = { };
-      };
-    };
-  };
 
   # font
   fonts = {
@@ -33,8 +16,9 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
-      victor-mono
-      (nerdfonts.override { fonts = [ "VictorMono" ]; })
+      nerd-fonts.victor-mono
+      #victor-mono
+      #(nerdfonts.override { fonts = [ "VictorMono" ]; })
     ];
     fontconfig = {
       enable = true;
@@ -66,5 +50,8 @@
     "/share/applications"
   ];
 
-  services.udisks2.enable = true;
+  services = {
+    udisks2.enable = true;
+    thermald.enable = false;
+  };
 }

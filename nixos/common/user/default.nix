@@ -21,13 +21,9 @@
     hashedPasswordFile = config.sops.secrets.hashedPassword.path;
     extraGroups = [
       "wheel"
-      "keys"
+      #"keys"
       "video"
       "audio"
-      "networkmanager"
-
-      "podman"
-      "libvirtd"
     ];
   };
 

@@ -6,7 +6,7 @@
     settings = {
       show = "drun";
       sort_order = "alphabetical";
-      matching = "fuzzy";
+      matching = "contains";
       no_actions = true;
       always_parse_args = true;
       show_all = true;

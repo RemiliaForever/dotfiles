@@ -14,7 +14,6 @@
   services.spice-vdagentd.enable = false;
   hardware.graphics = {
     enable = false;
-    driSupport = true;
     extraPackages = with pkgs; [
       mesa_drivers
       xorg.xf86videoqxl

@@ -7,16 +7,14 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 24;
         modules-left = [
           "hyprland/workspaces"
-          "hyprland/mode"
-          "wlr/taskbar"
+          "hyprland/window"
         ];
-        modules-center = [ "hyprland/window" ];
+        modules-center = [ ];
         modules-right = [
           "tray"
-          "pulseaudio"
+          "wireplumber"
           "network"
           "cpu"
           "memeory"
@@ -27,166 +25,118 @@
 
         "hyprland/workspaces" = {
           disable-scroll = true;
-          all-outputs = true;
           format = "{icon}";
           format-icons = {
-            "1" = "";
-            "2" = "";
-            "3" = "";
-            "10" = "";
-            "4" = "";
-            "5" = "";
-            "focused" = "";
-            "default" = "";
+            "active" = " ";
+            "default" = " ";
           };
         };
-        "hyprland/mode" = {
-          format = "<span style=\"italic\">{}</span>";
+        "hyprland/window" = {
+          separate-outputs = true;
+          format = "{title:.48}";
         };
-        "wlr/taskbar" = {
-          all-workspaces = false;
+        "tray" = {
+          icon-size = 14;
+          spacing = 5;
         };
       };
     };
     style = ''
       * {
-          border: none;
-          border-radius: 0;
-          font-family: Roboto,'Font Awesome 5', 'SFNS Display',  Helvetica, Arial, sans-serif;
-          font-size: 13px;
           min-height: 0;
+          font-family: monospace;
+          font-size: 13px;
+          margin: 0;
+          padding: 0;
       }
 
       window#waybar {
-          background: rgba(43, 48, 59, 0.5);
-          border-bottom: 3px solid rgba(100, 114, 125, 0.5);
-          color: #ffffff;
-      }
-
-      window#waybar.hidden {
-          opacity: 0.0;
-      }
-      /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-      #workspaces button {
-          padding: 0 5px;
           background: transparent;
-          color: #ffffff;
-          border-bottom: 3px solid transparent;
       }
 
-      #workspaces button.focused {
-          background: #64727D;
-          border-bottom: 3px solid #ffffff;
+      tooltip {
+          border: 2px solid rgba(89, 89, 89, 0.85);
+          border-radius: 8px;
+          background: rgba(33, 33, 33, 0.85);
       }
 
+      tooltip label {
+          color: #f5e0dc;
+      }
+
+      #workspaces, #window, #mpris, #tray, #wireplumber, #network, #cpu, #memory, #temperature, #battery, #clock {
+          border: 2px solid rgba(89, 89, 89, 0.85);
+          border-radius: 8px;
+          margin-top: 5px;
+          margin-right: 5px;
+          padding: 0px 5px 0px 5px;
+          background: rgba(33, 33, 33, 0.85);
+      }
+
+      #workspaces {
+          margin-left: 5px;
+      }
+      #workspaces button {
+          color: #f5e0dc;
+      }
+      #workspaces button.active {
+          color: #89b4fa;
+      }
       #workspaces button.urgent {
-          background-color: #eb4d4b;
+          color: #f38ba8;
       }
 
-      #mode {
-          background: #64727D;
-          border-bottom: 3px solid #ffffff;
+      #window {
+          color: #cba6f7;
+      }
+      window#waybar.empty #window {
+          opacity: 0;
+          margin: 0;
+          padding: 0;
+          border: none;
       }
 
-      #clock, #battery, #cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #custom-media, #tray, #mode, #idle_inhibitor {
-          padding: 0 10px;
-          margin: 0 5px;
-      }
-
-      #clock {
-          background-color: #64727D;
-      }
-
-      #battery {
-          background-color: #ffffff;
-          color: #000000;
-      }
-
-      #battery.charging {
-          color: #ffffff;
-          background-color: #26A65B;
-      }
-
-      @keyframes blink {
-          to {
-              background-color: #ffffff;
-              color: #000000;
-          }
-      }
-
-      #battery.critical:not(.charging) {
-          background: #f53c3c;
-          color: #ffffff;
-          animation-name: blink;
-          animation-duration: 0.5s;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          animation-direction: alternate;
-      }
-
-      #cpu {
-          background: #2ecc71;
-          color: #000000;
-      }
-
-      #memory {
-          background: #9b59b6;
-      }
-
-      #backlight {
-          background: #90b1b1;
-      }
-
-      #network {
-          background: #2980b9;
-      }
-
-      #network.disconnected {
-          background: #f53c3c;
-      }
-
-      #pulseaudio {
-          background: #f1c40f;
-          color: #000000;
-      }
-
-      #pulseaudio.muted {
-          background: #90b1b1;
-          color: #2a5c45;
-      }
-
-      #custom-media {
-          background: #66cc99;
-          color: #2a5c45;
-      }
-
-      .custom-spotify {
-          background: #66cc99;
-      }
-
-      .custom-vlc {
-          background: #ffa000;
-      }
-
-      #temperature {
-          background: #f0932b;
-      }
-
-      #temperature.critical {
-          background: #eb4d4b;
+      #mpris {
+          color: #fab387;
       }
 
       #tray {
-          background-color: #2980b9;
+          color: #cba6f7;
+      }
+      #tray * {
+          margin: unset;
+          padding: unset;
+          font-family: unset;
+          font-size: unset;
       }
 
-      #idle_inhibitor {
-          background-color: #2d3436;
+      #wireplumber {
+          color: #94e2d5;
       }
 
-      #idle_inhibitor.activated {
-          background-color: #ecf0f1;
-          color: #2d3436;
+      #network {
+          color: #89b4fa;
+      }
+
+      #cpu {
+          color: #f2cdcd;
+      }
+
+      #memory {
+          color: #f38ba8;
+      }
+
+      #temperature{
+          color: #f9e2af;
+      }
+
+      #battery {
+          color: #89dceb;
+      }
+
+      #clock {
+          margin-right: 5px;
+          color: #b4befe;
       }
     '';
   };

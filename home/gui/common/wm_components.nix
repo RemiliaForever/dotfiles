@@ -1,30 +1,9 @@
 { pkgs, ... }:
 
-let
-  swww-control = pkgs.writers.writePython3Bin "swww-control" { } ''
-    import os
-    import time
-
-    if __name__ == '__main__':
-        dir = os.path.expanduser('~/.background')
-        for root, dirs, files in os.walk(dir, followlinks=True):
-            for file in files:
-                os.system(' '.join([
-                    f'swww img "{root}/{file}"',
-                    '--transition-type fade',
-                    '--transition-fps 30',
-                    '--transition-duration 1',
-                ]))
-                time.sleep(10 * 60)
-  '';
-in
 {
   home.packages = with pkgs; [
     hypridle
     hyprlock
-    mako
-    swww
-    swww-control
   ];
 
   home.file = {
@@ -36,16 +15,21 @@ in
             after_sleep_cmd = hyprctl dispatch dpms on
         }
 
+        #listener {
+        #    timeout = 600
+        #    on-timeout = loginctl lock-session
+        #}
+
         listener {
-            timeout = 600
+            timeout = 1800
             on-timeout = hyprctl dispatch dpms off
             on-resume = hyprctl dispatch dpms on
         }
 
-        listener {
-            timeout = 1800
-            on-timeout = systemctl suspend
-        }
+        #listener {
+        #    timeout = 7200
+        #    on-timeout = systemctl suspend
+        #}
       '';
     };
 

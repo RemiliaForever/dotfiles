@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ mypkgs, pkgs, ... }:
 
 {
 
@@ -6,40 +6,40 @@
     ./theme.nix
     ./wm_hyprland.nix
     ./wm_components.nix
+    ./wm_swww.nix
+    ./wm_mako.nix
     ./wm_waybar.nix
     ./wm_wofi.nix
 
-    ./flameshot.nix
     ./wezterm.nix
     ./firefox.nix
+    ./mpv.nix
   ];
 
   home.packages = with pkgs; [
-    glxinfo
-    vulkan-tools
-    wayland-utils
-    wl-clipboard-rs
     dconf
+    glxinfo
     kdePackages.qtsvg
     kdePackages.qtwayland
     libnotify
+    vulkan-tools
+    wayland-utils
+    wl-clipboard-rs
+    xdg-user-dirs
+
+    networkmanagerapplet
 
     ark
     gwenview
     kdePackages.dolphin
-    mpv
-    xdg-user-dirs
-    networkmanagerapplet
-    hyprpaper
-
-    #baidunetdisk
-    #wpsoffice-cn
-    #deluge
-    discord
-    feishu
     netease-cloud-music-gtk
     nextcloud-client
-    #wechat-uos
+    #baidunetdisk
+    wpsoffice-cn
+
+    discord
+    mypkgs.feishu
+    mypkgs.wechat
     qq
   ];
 

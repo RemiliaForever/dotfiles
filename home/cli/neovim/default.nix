@@ -11,6 +11,9 @@
       cmake
       python3
       universal-ctags
+
+      pkgs.nixfmt-rfc-style
+
     ];
   };
 

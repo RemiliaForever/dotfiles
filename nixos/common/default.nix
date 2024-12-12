@@ -7,6 +7,7 @@
     ./config.nix
     ./network.nix
     ./nix.nix
+    ./nix_gc_env.nix
     ./services.nix
     ./user
   ];

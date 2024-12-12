@@ -17,7 +17,7 @@ mailboxes +INBOX +其他文件夹/Confluence +其他文件夹/JIRA +其他文件
 source "cat /run/secrets/mail/deepglint/address | awk '{ print \"set imap_user=\"$1 }' |"
 source "cat /run/secrets/mail/deepglint/password | awk '{ print \"set imap_pass=\"$1 }' |"
 # smtps
-set smtp_url    =   "smtps://$my_name:$my_passwd@smtp.exmail.qq.com"
+set smtp_url    =   "smtps://$imap_user:$imap_pass@smtp.exmail.qq.com"
 set record      =   +INBOX
 
 # address

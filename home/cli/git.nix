@@ -1,6 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [ tig ];
   programs = {
     git = {
       enable = true;
@@ -9,12 +10,9 @@
       signing.key = "remilia@koumakan.cc";
 
       aliases = {
-        lg =
-          "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        lgi =
-          "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
-        lgs =
-          "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --show-signature";
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        lgi = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        lgs = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --show-signature";
         cs = "commit -S -m";
         cas = "commit -S -a -m";
         ca = "commit -a -m";
@@ -72,6 +70,12 @@
         };
       };
       lfs.enable = true;
+      ignores = [
+        ".envrc"
+        ".direnv"
+        ".shell"
+        ".shell.nix"
+      ];
     };
   };
 }

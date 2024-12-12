@@ -1,10 +1,10 @@
-# qtile
-- widget
-- touchpad
-- flameshot
-
-
-# other
-- fcitx
-- notify
-- systray
+- [ ] fcitx config
+- [*] swww
+- [ ] vim
+  - [ ] migrate to nix package
+- [ ] waybar
+- [ ] notify
+- [ ] ranger
+- [ ] mpv
+- [ ] hyprland
+  - [ ] 重新打开显示器后显存泄漏

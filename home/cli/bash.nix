@@ -20,7 +20,9 @@
       vims = "vim --servername VIM";
       tig = "tig --date-order --all";
     };
-    bashrcExtra = '''';
+    bashrcExtra = ''
+      # extra
+    '';
   };
 
   programs.starship = {

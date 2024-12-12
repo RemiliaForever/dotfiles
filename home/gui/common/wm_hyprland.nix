@@ -2,7 +2,7 @@
 
 {
   programs.bash.profileExtra = ''
-    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && hyprland
+    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec Hyprland
   '';
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -18,23 +18,29 @@
     enable = true;
     xwayland.enable = true;
     systemd.enable = true;
+    plugins = with pkgs.hyprlandPlugins; [
+      hyprsplit
+      hyprspace
+      hyprgrass
+      hyprwinwrap
+    ];
     settings = {
-      monitor = ",preferred,auto,auto";
-      xwayland.force_zero_scaling = false;
+      monitor = [ ",preferred,auto,2" ];
+      xwayland.force_zero_scaling = true;
 
       exec-once = [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP LC_ALL"
         "swww-daemon"
         "swww-control"
         "waybar"
         "mako"
         "hypridle"
 
-        "fcitx5"
+        "fcitx5 -r"
         "nm-applet"
+        "blueman-applet"
 
         #"nextcloud"
-        #"flameshot"
       ];
 
       env = [ ];
@@ -55,15 +61,21 @@
         active_opacity = 1.0;
         inactive_opacity = 1.0;
 
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
+        };
         blur.enabled = false;
       };
 
       animations = {
         enabled = true;
+      };
+
+      cursor = {
+        no_hardware_cursors = 2;
       };
 
       input = {
@@ -93,6 +105,8 @@
         "SUPER, return, exec, wezterm"
         "SUPER CONTROL, r, exit"
         "SUPER CONTROL, q, exit"
+        "SUPER, tab, overview:toggle, toggle"
+        "SUPER, delete, exec, loginctl lock-session "
 
         "SUPER, w, killactive"
         "SUPER, p, pseudo"
@@ -104,42 +118,43 @@
         "SUPER, j, movefocus, d"
         "SUPER, h, movefocus, l"
         "SUPER, l, movefocus, r"
-        "SUPER_CONTROL, k, resizeactive, 0 -20"
-        "SUPER_CONTROL, j, resizeactive, 0 20"
-        "SUPER_CONTROL, h, resizeactive, -20 0"
-        "SUPER_CONTROL, l, resizeactive, 20 0"
-        "SUPER_SHIFT, k, swapwindow, u"
-        "SUPER_SHIFT, j, swapwindow, d"
-        "SUPER_SHIFT, h, swapwindow, l"
-        "SUPER_SHIFT, l, swapwindow, r"
+        "SUPER, o, focusmonitor, +1"
+        "SUPER_SHIFT, k, movewindow, u"
+        "SUPER_SHIFT, j, movewindow, d"
+        "SUPER_SHIFT, h, movewindow, l"
+        "SUPER_SHIFT, l, movewindow, r"
+        "SUPER_SHIFT_CONTROL, k, swapwindow, u"
+        "SUPER_SHIFT_CONTROL, j, swapwindow, d"
+        "SUPER_SHIFT_CONTROL, h, swapwindow, l"
+        "SUPER_SHIFT_CONTROL, l, swapwindow, r"
 
         "SUPER, f, cyclenext, floating"
         "SUPER, b, cyclenext, pre floating"
         "SUPER, f, alterzorder, top"
         "SUPER, b, alterzorder, top"
 
-        "SUPER, 1, workspace, 1"
-        "SUPER, 2, workspace, 2"
-        "SUPER, 3, workspace, 3"
-        "SUPER, 4, workspace, 4"
-        "SUPER, 5, workspace, 5"
-        "SUPER, 6, workspace, 6"
-        "SUPER, 7, workspace, 7"
-        "SUPER, 8, workspace, 8"
-        "SUPER, 9, workspace, 9"
-        "SUPER, 0, workspace, 0"
-        "SUPER_SHIFT, 1, movetoworkspace, 1"
-        "SUPER_SHIFT, 2, movetoworkspace, 2"
-        "SUPER_SHIFT, 3, movetoworkspace, 3"
-        "SUPER_SHIFT, 4, movetoworkspace, 4"
-        "SUPER_SHIFT, 5, movetoworkspace, 5"
-        "SUPER_SHIFT, 6, movetoworkspace, 6"
-        "SUPER_SHIFT, 7, movetoworkspace, 7"
-        "SUPER_SHIFT, 8, movetoworkspace, 8"
-        "SUPER_SHIFT, 9, movetoworkspace, 9"
-        "SUPER_SHIFT, 0, movetoworkspace, 0"
-        "SUPER, mouse_down, workspace, e+1"
-        "SUPER, mouse_up, workspace, e-1"
+        "SUPER, 1, split:workspace, 1"
+        "SUPER, 2, split:workspace, 2"
+        "SUPER, 3, split:workspace, 3"
+        "SUPER, 4, split:workspace, 4"
+        "SUPER, 5, split:workspace, 5"
+        "SUPER, mouse_down, split:workspace, e-1"
+        "SUPER, mouse_up, split:workspace, e+1"
+
+        "SUPER_SHIFT, 1, split:movetoworkspace, 1"
+        "SUPER_SHIFT, 2, split:movetoworkspace, 2"
+        "SUPER_SHIFT, 3, split:movetoworkspace, 3"
+        "SUPER_SHIFT, 4, split:movetoworkspace, 4"
+        "SUPER_SHIFT, 5, split:movetoworkspace, 5"
+        "SUPER_SHIFT, o, movewindow, mon:+1"
+        "SUPER_SHIFT_CONTROl, o, split:swapactiveworkspaces, current +1"
+        "SUPER_SHIFT, g, split:grabroguewindows"
+      ];
+      binde = [
+        "SUPER_CONTROL, k, resizeactive, 0 -20"
+        "SUPER_CONTROL, j, resizeactive, 0 20"
+        "SUPER_CONTROL, h, resizeactive, -20 0"
+        "SUPER_CONTROL, l, resizeactive, 20 0"
       ];
       bindm = [
         "SUPER, mouse:272, movewindow"
@@ -151,7 +166,47 @@
         ", switch:off:Lid Switch, dpms, on"
       ];
 
-      windowrulev2 = [ ];
+      windowrulev2 = [
+        "float, class:(Bytedance-feishu), title:(图片)"
+        "float, class:(wechat), title:(预览)"
+      ];
+
+      workspace = [ ];
+
+      plugin = {
+        hyprsplit = {
+          num_workspaces = 5;
+          persistent_workspaces = true;
+        };
+
+        overview = {
+          workspaceActiveBorder = "rgba(33ccffee)";
+          workspaceInactiveBorder = "rgba(595959aa)";
+          disableBlur = true;
+
+          panelHeight = 180;
+          reservedArea = 32;
+          workspaceBorderSize = 2;
+          overrideGaps = false;
+
+          hideRealLayers = false;
+          showNewWorkspace = false;
+          exitOnSwitch = true;
+        };
+
+        touch_gestures = {
+          sensitivity = 8.0;
+          workspace_swipe_fingers = 3;
+          workspace_swipe_edge = "d";
+          long_press_delay = 400;
+          resize_on_border_long_press = true;
+          edge_margin = 10;
+        };
+
+        hyprwinwrap = {
+          class = "winwrap";
+        };
+      };
     };
   };
 }

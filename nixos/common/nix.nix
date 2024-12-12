@@ -27,7 +27,8 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 30d";
+      delete_generations = "+5";
     };
   };
 }

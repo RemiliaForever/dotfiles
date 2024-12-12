@@ -4,12 +4,15 @@
   home.packages = with pkgs; [
     audacity
     bambu-studio
-    blender
+    #blender
     darktable
-    digikam
     kdenlive
     krita
     lmms
     pitivi
+
+    (digikam.overrideAttrs (old: {
+      buildInputs = old.buildInputs ++ [ pkgs.mariadb ];
+    }))
   ];
 }
