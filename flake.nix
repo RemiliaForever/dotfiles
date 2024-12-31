@@ -47,14 +47,14 @@
         };
 
         modules = [
-          ./hosts/${hostname.hostname}
+          ./hosts/${hostname.hostname}/os
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
-            home-manager.users.remilia = import ./hosts/${hostname.hostname}/home.nix;
+            home-manager.users.remilia = import ./hosts/${hostname.hostname}/home;
             home-manager.extraSpecialArgs = {
               inherit wezterm;
               inherit mypkgs;

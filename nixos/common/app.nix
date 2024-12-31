@@ -3,8 +3,9 @@
   environment.systemPackages = with pkgs; [
     nfs-utils
     cifs-utils
+    usbutils
+    pciutils
 
-    dhex
     file
     htop
     iftop
@@ -14,11 +15,11 @@
     ncdu
     nethogs
     p7zip
-    pciutils
     pigz
     sysstat
     tree
     unrar
+    (unzip.override { enableNLS = true; })
     wget
 
     nix-tree

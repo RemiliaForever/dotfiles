@@ -2,9 +2,13 @@
 - [*] swww
 - [ ] vim
   - [ ] migrate to nix package
+  - [ ] dd neo-scroll
 - [ ] waybar
-- [ ] notify
-- [ ] ranger
+- [*] notify
+- [*] ranger
 - [ ] mpv
 - [ ] hyprland
+  - [*] Hyprshot
   - [ ] 重新打开显示器后显存泄漏
+- [ ] wezterm
+  - [ ] 内存/显存泄漏

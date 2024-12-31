@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, mypkgs, ... }:
 
 {
   home.packages = with pkgs; [
     hypridle
     hyprlock
+    mypkgs.hyprshot
   ];
 
   home.file = {

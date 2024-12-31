@@ -11,13 +11,13 @@
           "hyprland/workspaces"
           "hyprland/window"
         ];
-        modules-center = [ ];
+        modules-center = [ "mpris" ];
         modules-right = [
           "tray"
           "wireplumber"
           "network"
           "cpu"
-          "memeory"
+          "memory"
           "temperature"
           "battery"
           "clock"
@@ -35,9 +35,50 @@
           separate-outputs = true;
           format = "{title:.48}";
         };
-        "tray" = {
+        mpris = {
+          player = "NeteaseCloudMusicGtk4";
+          format = "{status_icon} - {title} - {position}/{length}";
+          tooltip-format = ''
+            {player}
+            status: {status_icon} {position}/{length}
+            title:  {title}
+            artist: {artist}
+            album:  {album}'';
+          status-icons = {
+            playing = "";
+            paused = "";
+            stopped = "";
+          };
+          interval = 1;
+          on-scroll-up = "playerctl previous";
+          on-scroll-down = "playerctl next";
+        };
+        tray = {
           icon-size = 14;
           spacing = 5;
+        };
+        clock = {
+          locale = "en_GB.UTF-8";
+          format = " {:%H:%M}";
+          tooltip-format = "<tt><span size='11pt'>{calendar}</span></tt>";
+          calendar = {
+            mode = "month";
+            mode-mon-col = 4;
+            weeks-pos = "left";
+            on-scroll = 1;
+            format = {
+              months = "<span color='#ffead3'>{}</span>";
+              days = "<span color='#ecc6d9'>{}</span>";
+              weeks = "<span color='#99ffdd'>W{:%W}</span>";
+              weekdays = "<span color='#ffcc66'>{}</span>";
+              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+            };
+          };
+          actions = {
+            on-click-right = "mode";
+            on-scroll-up = "shift_down";
+            on-scroll-down = "shift_up";
+          };
         };
       };
     };

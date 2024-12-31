@@ -1,6 +1,7 @@
 { mypkgs, pkgs, ... }:
 
 {
+  xdg.mimeApps.enable = true;
 
   imports = [
     ./theme.nix
@@ -14,6 +15,7 @@
     ./wezterm.nix
     ./firefox.nix
     ./mpv.nix
+    ./zathura.nix
   ];
 
   home.packages = with pkgs; [
@@ -22,12 +24,12 @@
     kdePackages.qtsvg
     kdePackages.qtwayland
     libnotify
+    networkmanagerapplet
+    playerctl
     vulkan-tools
     wayland-utils
     wl-clipboard-rs
     xdg-user-dirs
-
-    networkmanagerapplet
 
     ark
     gwenview
@@ -36,23 +38,13 @@
     nextcloud-client
     #baidunetdisk
     wpsoffice-cn
+    virt-manager
 
     discord
     mypkgs.feishu
     mypkgs.wechat
     qq
   ];
-
-  programs = {
-    zathura = {
-      enable = true;
-      options = {
-        synctex = true;
-        synctex-editor-command = "vim --remote-silent +%{line} %{input}";
-        #highlight-transparency = 0.1;
-      };
-    };
-  };
 
   home.sessionVariables = {
     LANG = "zh_CN.UTF-8";

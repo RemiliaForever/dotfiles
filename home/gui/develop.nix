@@ -7,8 +7,6 @@
     openscad
     tig
 
-    virt-manager
-
     texliveFull
   ];
 }

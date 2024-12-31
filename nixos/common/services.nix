@@ -12,5 +12,7 @@
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "ignore";
     };
+
+    speechd.enable = false;
   };
 }

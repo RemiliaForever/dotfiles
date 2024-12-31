@@ -39,8 +39,7 @@
         "fcitx5 -r"
         "nm-applet"
         "blueman-applet"
-
-        #"nextcloud"
+        "nextcloud"
       ];
 
       env = [ ];
@@ -98,40 +97,43 @@
         focus_on_activate = true;
         key_press_enables_dpms = true;
         mouse_move_enables_dpms = true;
+        allow_session_lock_restore = true;
       };
 
+      render.explicit_sync = 0;
+
       bind = [
-        "SUPER, r, exec, wofi"
-        "SUPER, return, exec, wezterm"
-        "SUPER CONTROL, r, exit"
-        "SUPER CONTROL, q, exit"
-        "SUPER, tab, overview:toggle, toggle"
-        "SUPER, delete, exec, loginctl lock-session "
+        "SUPER, R, exec, wofi"
+        "SUPER, Return, exec, wezterm"
+        "SUPER CONTROL, R, exit"
+        "SUPER CONTROL, Q, exit"
+        "SUPER, Tab, overview:toggle, toggle"
+        "SUPER, Delete, exec, loginctl lock-session "
 
-        "SUPER, w, killactive"
-        "SUPER, p, pseudo"
-        "SUPER, s, fullscreen, 0"
-        "SUPER, m, fullscreen, 1"
-        "SUPER, space, togglefloating"
+        "SUPER, W, killactive"
+        "SUPER, P, pseudo"
+        "SUPER, S, fullscreen, 0"
+        "SUPER, M, fullscreen, 1"
+        "SUPER, Space, togglefloating"
 
-        "SUPER, k, movefocus, u"
-        "SUPER, j, movefocus, d"
-        "SUPER, h, movefocus, l"
-        "SUPER, l, movefocus, r"
-        "SUPER, o, focusmonitor, +1"
-        "SUPER_SHIFT, k, movewindow, u"
-        "SUPER_SHIFT, j, movewindow, d"
-        "SUPER_SHIFT, h, movewindow, l"
-        "SUPER_SHIFT, l, movewindow, r"
-        "SUPER_SHIFT_CONTROL, k, swapwindow, u"
-        "SUPER_SHIFT_CONTROL, j, swapwindow, d"
-        "SUPER_SHIFT_CONTROL, h, swapwindow, l"
-        "SUPER_SHIFT_CONTROL, l, swapwindow, r"
+        "SUPER, K, movefocus, u"
+        "SUPER, J, movefocus, d"
+        "SUPER, H, movefocus, l"
+        "SUPER, L, movefocus, r"
+        "SUPER, O, focusmonitor, +1"
+        "SUPER_SHIFT, K, movewindow, u"
+        "SUPER_SHIFT, J, movewindow, d"
+        "SUPER_SHIFT, H, movewindow, l"
+        "SUPER_SHIFT, L, movewindow, r"
+        "SUPER_SHIFT_CONTROL, K, swapwindow, u"
+        "SUPER_SHIFT_CONTROL, J, swapwindow, d"
+        "SUPER_SHIFT_CONTROL, H, swapwindow, l"
+        "SUPER_SHIFT_CONTROL, L, swapwindow, r"
 
-        "SUPER, f, cyclenext, floating"
-        "SUPER, b, cyclenext, pre floating"
-        "SUPER, f, alterzorder, top"
-        "SUPER, b, alterzorder, top"
+        "SUPER, F, cyclenext, floating"
+        "SUPER, B, cyclenext, pre floating"
+        "SUPER, F, alterzorder, top"
+        "SUPER, B, alterzorder, top"
 
         "SUPER, 1, split:workspace, 1"
         "SUPER, 2, split:workspace, 2"
@@ -147,20 +149,36 @@
         "SUPER_SHIFT, 4, split:movetoworkspace, 4"
         "SUPER_SHIFT, 5, split:movetoworkspace, 5"
         "SUPER_SHIFT, o, movewindow, mon:+1"
-        "SUPER_SHIFT_CONTROl, o, split:swapactiveworkspaces, current +1"
-        "SUPER_SHIFT, g, split:grabroguewindows"
+        "SUPER_SHIFT_CONTROl, O, split:swapactiveworkspaces, current +1"
+        "SUPER_SHIFT, G, split:grabroguewindows"
+
+        ", Print, exec, Hyprshot region"
+        "SUPER, Print, exec, Hyprshot region save"
+        "SUPER_CONTROL, Print, exec, Hyprshot window save"
+        "SUPER_SHIFT, Print, exec, Hyprshot output save"
+        "SUPER_SHIFT_CONTROl, Print, exec, Hyprshot all save"
+
       ];
       binde = [
-        "SUPER_CONTROL, k, resizeactive, 0 -20"
-        "SUPER_CONTROL, j, resizeactive, 0 20"
-        "SUPER_CONTROL, h, resizeactive, -20 0"
-        "SUPER_CONTROL, l, resizeactive, 20 0"
+        "SUPER_CONTROL, K, resizeactive, 0 -20"
+        "SUPER_CONTROL, J, resizeactive, 0 20"
+        "SUPER_CONTROL, H, resizeactive, -20 0"
+        "SUPER_CONTROL, L, resizeactive, 20 0"
       ];
       bindm = [
         "SUPER, mouse:272, movewindow"
         "SUPER, mouse:273, resizewindow"
       ];
       bindl = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioStop, exec, playerctl stop"
+
         ", switch:on:Lid Switch, exec, loginctl lock-session"
         ", switch:on:Lid Switch, dpms, off"
         ", switch:off:Lid Switch, dpms, on"

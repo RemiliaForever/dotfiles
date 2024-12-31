@@ -1,6 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
+  imports = [
+    ./option.nix
+  ];
+
   home.sessionVariables = { };
 
   home = {

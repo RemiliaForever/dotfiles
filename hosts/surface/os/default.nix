@@ -5,9 +5,9 @@
     ./hardware.nix
     nixos-hardware.nixosModules.microsoft-surface-pro-intel
 
-    ../../nixos/common
-    ../../nixos/gui
-    ../../nixos/steam
+    ../../../nixos/common
+    ../../../nixos/gui
+    ../../../nixos/steam
   ];
 
   # boot = { kernelParams = [ ]; };

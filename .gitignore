@@ -1,4 +1,5 @@
 .direnv/
 /hostname.nix
 
-!.shell/
+!.shell/flake.nix
+!.shell/flake.lock

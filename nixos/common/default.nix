@@ -9,7 +9,9 @@
     ./nix.nix
     ./nix_gc_env.nix
     ./services.nix
-    ./user
+    ./user.nix
+
+    ./sops
   ];
 
   system.stateVersion = "24.05";

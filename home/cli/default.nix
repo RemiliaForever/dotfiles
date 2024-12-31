@@ -8,5 +8,6 @@
     ./neomutt
     ./neovim
     ./tool.nix
+    ./yazi.nix
   ];
 }

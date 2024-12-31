@@ -15,15 +15,21 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          packages = [
-            pkgs.pyright
-            pkgs.isort
-            pkgs.yapf
+          packages = with pkgs; [
+            go
 
-            pkgs.taplo
+            bash-language-server
+            gopls
+            isort
+            pyright
+            yapf
 
-            pkgs.sops
+            taplo
+            sops
           ];
+          shellHook = ''
+            export GOPATH=$PWD/.shell/go
+          '';
         };
       }
     );

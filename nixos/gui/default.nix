@@ -17,8 +17,6 @@
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
       nerd-fonts.victor-mono
-      #victor-mono
-      #(nerdfonts.override { fonts = [ "VictorMono" ]; })
     ];
     fontconfig = {
       enable = true;
@@ -38,7 +36,6 @@
   };
 
   environment.etc."xdg/user-dirs.defaults".text = ''
-    DESKTOP=Desktop
     DOWNLOAD=Downloads
     DOCUMENTS=Documents
     MUSIC=Music
