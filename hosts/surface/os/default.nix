@@ -8,12 +8,10 @@
     ../../../nixos/common
     ../../../nixos/gui
     ../../../nixos/steam
+    ../../../nixos/wireshark.nix
   ];
 
-  # boot = { kernelParams = [ ]; };
-
-  zramSwap.enable = true;
-
+  # gpu
   hardware = {
     graphics = {
       enable = true;
@@ -22,6 +20,7 @@
     intel-gpu-tools.enable = true;
   };
 
+  # keyd
   services.keyd = {
     enable = true;
     keyboards.default = {
@@ -33,5 +32,9 @@
         };
       };
     };
+
   };
+
+  # steam
+  jovian.steam.autoStart = true;
 }

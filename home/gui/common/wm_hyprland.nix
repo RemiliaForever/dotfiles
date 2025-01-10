@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  programs.bash.profileExtra = ''
-    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec Hyprland
-  '';
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   xdg.portal = {
@@ -32,12 +29,12 @@
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP LC_ALL"
         "swww-daemon"
         "swww-control"
+        "waybar-email-daemon"
         "waybar"
         "mako"
         "hypridle"
 
         "fcitx5 -r"
-        "nm-applet"
         "blueman-applet"
         "nextcloud"
       ];
@@ -153,6 +150,9 @@
         "SUPER_SHIFT, G, split:grabroguewindows"
 
         ", Print, exec, Hyprshot region"
+        "CONTROL, Print, exec, Hyprshot window"
+        "SHIFT, Print, exec, Hyprshot output"
+        "SHIFT_CONTROl, Print, exec, Hyprshot all"
         "SUPER, Print, exec, Hyprshot region save"
         "SUPER_CONTROL, Print, exec, Hyprshot window save"
         "SUPER_SHIFT, Print, exec, Hyprshot output save"
@@ -187,6 +187,8 @@
       windowrulev2 = [
         "float, class:(Bytedance-feishu), title:(图片)"
         "float, class:(wechat), title:(预览)"
+        "float, class:(nm-connection-editor)"
+        "float, class:(.blueman-manager-wrapped)"
       ];
 
       workspace = [ ];

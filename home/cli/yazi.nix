@@ -7,6 +7,7 @@
       manager = {
         sort_by = "natural";
         linemode = "size";
+        show_hidden = true;
       };
       preview = {
         max_width = 1920;

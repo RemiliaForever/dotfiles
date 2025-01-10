@@ -1,6 +1,8 @@
 { ... }:
 
 {
+  systemd.coredump.extraConfig = "Storage=none";
+
   services = {
     openssh.enable = true;
     fstrim.enable = true;

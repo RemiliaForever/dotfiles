@@ -13,7 +13,6 @@
       universal-ctags
 
       pkgs.nixfmt-rfc-style
-
     ];
   };
 

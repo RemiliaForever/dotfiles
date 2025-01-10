@@ -1,4 +1,4 @@
-COMMAND := switch
+COMMAND := switch --show-trace
 build := nice -n 19 nixos-rebuild $(COMMAND) --flake path:$(shell pwd)
 
 .PHONY: local surface vm
@@ -13,6 +13,12 @@ surface:
 	rm -f hostname.nix
 	ln -s ./hosts/surface/hostname.nix ./
 	$(build) --use-remote-sudo --target-host remilia@172.17.10.4
+	rm hostname.nix
+
+deck:
+	rm -f hostname.nix
+	ln -s ./hosts/deck/hostname.nix ./
+	$(build) --use-remote-sudo --target-host remilia@172.17.10.6
 	rm hostname.nix
 
 vm:

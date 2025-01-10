@@ -1,6 +1,70 @@
 { pkgs, ... }:
 
+let
+  waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
+    import imaplib
+    import os
+    import re
+    import shutil
+    import signal
+    import subprocess
+    import threading
+    import time
+
+    uid = 0
+    pid = 0
+    event = threading.Event()
+
+
+    def update(index: int, name: str, msg: str):
+        open(f'/run/user/{uid}/email/{name}', 'w').write(msg)
+        os.kill(pid, signal.SIGRTMIN + index)
+
+
+    def fetch_mail(index: int, name: str):
+        update(index, name, '󱋈 ?')
+
+        username = open(f'/run/secrets/mail/{name}/address').read()
+        password = open(f'/run/secrets/mail/{name}/password').read()
+        try:
+            M = imaplib.IMAP4_SSL('imap.exmail.qq.com')
+            M.login(username, password)
+            M.select(readonly=True)
+            s = M.status('INBOX', '(UNSEEN)')
+            n = int(re.search(r'UNSEEN\s+(\d+)', str(s)).group(1))  # type: ignore
+            if n > 0:
+                update(index, name, f'󰇮 {n}')
+                subprocess.call(
+                    ['notify-send', 'New email', f'[{name}] has {n} new emails'])
+            else:
+                update(index, name, '󰇰 0')
+        except Exception as ec:
+            update(index, name, '!!!')
+            subprocess.call(['notify-send', 'Email check failed', str(ec)])
+
+
+    def sig_update(_signum, _sig_frame):
+        event.set()
+
+
+    if __name__ == '__main__':
+        uid = os.getuid()
+        shutil.rmtree(f'/run/user/{uid}/email', ignore_errors=True)
+        os.makedirs(f'/run/user/{uid}/email', exist_ok=True)
+        time.sleep(3)
+        pid = int(subprocess.check_output(['pidof', '-s', 'waybar']))
+
+        signal.signal(signal.SIGRTMIN + 1, sig_update)
+        event.set()
+        while True:
+            event.wait(timeout=300)
+            for i, m in enumerate(['koumakan', 'deepglint']):
+                fetch_mail(i + 1, m)
+            event.clear()
+  '';
+in
 {
+  home.packages = [ waybar-email-daemon ];
   programs.waybar = {
     enable = true;
     settings = {
@@ -14,11 +78,12 @@
         modules-center = [ "mpris" ];
         modules-right = [
           "tray"
-          "wireplumber"
+          "custom/email#koumakan"
+          "custom/email#deepglint"
           "network"
-          "cpu"
-          "memory"
+          "wireplumber"
           "temperature"
+          "memory"
           "battery"
           "clock"
         ];
@@ -56,6 +121,90 @@
         tray = {
           icon-size = 14;
           spacing = 5;
+        };
+        "custom/email#koumakan" = {
+          exec = "cat /run/user/1000/email/koumakan";
+          signal = 1;
+          format = " {}";
+          tooltip-format = "koumakan";
+          on-click = "wezterm -e neomutt -e 'source ~/.config/neomutt/koumakan'";
+          on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
+        };
+        "custom/email#deepglint" = {
+          exec = "cat /run/user/1000/email/deepglint";
+          signal = 2;
+          format = " {}";
+          tooltip-format = "deepglint";
+          on-click = "wezterm -e neomutt -e 'source ~/.config/neomutt/deepglint'";
+          on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
+        };
+        network = {
+          format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
+          format-ethernet = "  {bandwidthUpBytes:>} {bandwidthDownBytes:>}";
+          format-wifi = "{icon} {bandwidthUpBytes:>} {bandwidthDownBytes:>}";
+          format-linked = " ";
+          format-disconnected = " ";
+          format-disabled = " ";
+          format-icons = [
+            "󰤯 "
+            "󰤟 "
+            "󰤢 "
+            "󰤥 "
+            "󰤨 "
+          ];
+          tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
+          tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
+          interval = 1;
+          on-click = "wezterm -e nmtui";
+          on-click-right = "nm-connection-editor";
+        };
+        wireplumber = {
+          format = " {volume}%";
+          format-muted = "<span color='red'> {volume}%</span>";
+          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-right = "wezterm -e pulsemixer";
+        };
+        temperature = {
+          format = " {temperatureC}°C";
+          format-critical = "<span color='red'> {temperatureC}°C</span>";
+          critical-threshold = 70;
+          tooltip = false;
+          interval = 3;
+        };
+        memory = {
+          format = "  {percentage}%";
+          tooltip-format = ''
+            mem:  {percentage}%
+            {used:0.1f}G/{total:0.1f}G
+
+            swap: {swapPercentage}%
+            {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
+          interval = 3;
+          on-click = "wezterm -e htop";
+        };
+        battery = {
+          format-discharging = "{icon} {time}";
+          format-charging = "{icon}󱐋 {time}";
+          format-full = "󰁹󱐥";
+          format-icons = [
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
+          format-time = "{H}:{m}";
+          tooltip-format = ''
+            Cap:    {capacity}%
+            Power:  {power}W
+            Cycles: {cycles}
+            Health: {health}%'';
+          interval = 5;
         };
         clock = {
           locale = "en_GB.UTF-8";
@@ -105,7 +254,7 @@
           color: #f5e0dc;
       }
 
-      #workspaces, #window, #mpris, #tray, #wireplumber, #network, #cpu, #memory, #temperature, #battery, #clock {
+      #workspaces, #window, #mpris, #tray, #custom-email, #network, #wireplumber, #temperature, #memory, #battery, #clock {
           border: 2px solid rgba(89, 89, 89, 0.85);
           border-radius: 8px;
           margin-top: 5px;
@@ -141,9 +290,6 @@
           color: #fab387;
       }
 
-      #tray {
-          color: #cba6f7;
-      }
       #tray * {
           margin: unset;
           padding: unset;
@@ -151,7 +297,7 @@
           font-size: unset;
       }
 
-      #wireplumber {
+      #custom-email {
           color: #94e2d5;
       }
 
@@ -159,15 +305,15 @@
           color: #89b4fa;
       }
 
-      #cpu {
+      #wireplumber {
           color: #f2cdcd;
       }
 
-      #memory {
+      #temperature {
           color: #f38ba8;
       }
 
-      #temperature{
+      #memory {
           color: #f9e2af;
       }
 

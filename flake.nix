@@ -12,6 +12,10 @@
     };
     sops-nix.url = "github:Mic92/sops-nix";
     wezterm.url = "github:wez/wezterm?dir=nix";
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -22,18 +26,18 @@
       home-manager,
       sops-nix,
       wezterm,
+      jovian,
       ...
     }:
 
     let
       system = "${hostname.arch}";
       hostname = import ./hostname.nix;
-      pkgs = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
       mypkgs = import ./pkgs {
-        inherit pkgs;
+        pkgs = import nixpkgs-unstable {
+          inherit system;
+          config.allowUnfree = true;
+        };
       };
     in
     {
@@ -42,7 +46,6 @@
 
         specialArgs = {
           inherit hostname;
-          inherit pkgs;
           inherit nixos-hardware;
         };
 
@@ -60,6 +63,7 @@
               inherit mypkgs;
             };
           }
+          jovian.nixosModules.jovian
         ];
       };
     };

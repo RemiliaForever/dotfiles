@@ -18,6 +18,10 @@
     deluge
   ];
 
+  # wayland
+  programs.bash.profileExtra = ''
+    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec Hyprland
+  '';
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [
@@ -32,5 +36,9 @@
         "[workspace 5 silent] netease-cloud-music-gtk4"
       ];
     };
+  };
+  programs.waybar.settings.mainBar.temperature = {
+    hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
+    input-filename = "temp1_input";
   };
 }

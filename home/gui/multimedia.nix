@@ -16,7 +16,7 @@
     #(digikam.override { enableCuda = config.remilia.cuda; })
     kdenlive
     krita
-    lmms
+    #lmms
     pitivi
   ];
 }

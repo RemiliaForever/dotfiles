@@ -8,7 +8,10 @@
         "flakes"
       ];
       substituters = [
-        "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
+        #"https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://cache.nixos.org/"
+
         "https://wezterm.cachix.org"
       ];
       trusted-public-keys = [ "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0=" ];
@@ -31,4 +34,6 @@
       delete_generations = "+5";
     };
   };
+
+  nixpkgs.config.allowUnfree = true;
 }

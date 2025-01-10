@@ -24,5 +24,9 @@
       "net.ipv4.tcp_fastopen" = 3;
       "net.ipv4.tcp_congestion_control" = "bbr";
     };
+
+    tmp.useTmpfs = true;
   };
+
+  zramSwap.enable = true;
 }

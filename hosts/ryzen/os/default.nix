@@ -11,10 +11,6 @@
     ../../../nixos/gui
     ../../../nixos/steam
     ../../../nixos/virtualisation.nix
+    ../../../nixos/wireshark.nix
   ];
-
-  boot = {
-    kernelParams = [ ];
-    tmp.useTmpfs = true;
-  };
 }

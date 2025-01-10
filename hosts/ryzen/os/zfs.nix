@@ -25,7 +25,7 @@ in
       zfs = true;
     };
     extraModprobeConfig = ''
-      options zfs zfs_arc_max=103079215104 zfs_dirty_data_max=8589934592
+      options zfs zfs_arc_max=34359738368 zfs_dirty_data_max=8589934592
     '';
     zfs.extraPools = [ "ryzen" ];
   };
@@ -63,6 +63,11 @@ in
         serviceConfig = {
           Type = "oneshot";
         };
+        path = with pkgs; [
+          gawk
+          zfs
+          openssh
+        ];
         script = builtins.readFile ./zfs_download_snapshot.sh;
       };
     };

@@ -8,9 +8,10 @@ let
     import signal
     import subprocess
     import time
+    import threading
 
     images = []
-    count = 3000
+    event = threading.Event()
 
 
     def change():
@@ -26,18 +27,14 @@ let
         subprocess.call(cmd)
 
 
-    def siguser1(_signum, _sig_frame):
-        global count
-        count = 3000
+    def sig_change(_signum, _sig_frame):
+        event.set()
 
 
     if __name__ == '__main__':
         uid = os.getuid()
-        display = os.environ.get('WAYLAND_DISPLAY')
-        f = open(f'/run/user/{uid}/swww-control-{display}.pid', 'w')
+        f = open(f'/run/user/{uid}/swww-control.lock', 'w')
         fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        f.write(str(os.getpid()))
-        f.flush()
 
         dir = os.path.expanduser('~/.background')
         for root, dirs, files in os.walk(dir, followlinks=True):
@@ -46,15 +43,13 @@ let
 
         # fix swww first call no effect
         change()
-        signal.signal(signal.SIGUSR1, siguser1)
+        signal.signal(signal.SIGRTMIN+1, sig_change)
+        event.set()
         while True:
-            if count >= 3000:
-                count = 0
-                change()
-                time.sleep(0.8)
-            else:
-                count += 1
-            time.sleep(0.1)
+            event.wait(timeout=300)
+            change()
+            event.clear()
+            time.sleep(1)
   '';
 in
 {

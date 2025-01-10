@@ -4,12 +4,8 @@ function freeze() {
     hyprpicker -r -z &
     sleep 0.2
     picker_pid=$!
-    if ! "$@"; then
-        kill $picker_pid
-        exit 255
-    else
-        kill $picker_pid
-    fi
+    "$@"
+    kill $picker_pid
 }
 
 function grab_region() {
@@ -29,15 +25,15 @@ function grab_output() {
 }
 
 function grab_and_save() {
-    local geometry
-    if [[ "$1" != "" ]]; then
-        geometry="-g $1"
+    local geometry=""
+    if [[ "$1" != "all" ]]; then
+        geometry="-g '$1'"
     fi
 
     save_path="$HOME/Pictures/ScreenShot"
     file_name=$(date +'%Y%m%d_%H%M%S.png')
     mkdir -p "$save_path"
-    grim "$geometry" "$save_path/$file_name"
+    eval "grim $geometry" "$save_path/$file_name"
     wl-copy --type image/png < "$save_path/$file_name"
     notify-send \
         -a Hyprshot \
@@ -47,12 +43,12 @@ function grab_and_save() {
 }
 
 function grab_and_copy() {
-    local geometry
-    if [[ "$1" != "" ]]; then
-        geometry="-g $1"
+    local geometry=""
+    if [[ "$1" != "all" ]]; then
+        geometry="-g '$1'"
     fi
 
-    wl-copy --type image/png < <(grim "$geometry" -)
+    wl-copy --type image/png < <(eval "grim $geometry" -)
     notify-send \
         -a Hyprshot \
         "Screenshot created" \
@@ -73,14 +69,18 @@ function main() {
             geometry=$(grab_output)
             ;;
         all)
-            geometry=""
+            geometry="all"
             ;;
         *)
             return
             ;;
     esac
+    if [[ "$geometry" == "" ]]; then
+        return
+    fi
 
     echo "main: grab -> $geometry"
+
     case "${2:-copy}" in
         save)
             grab_and_save "$geometry"

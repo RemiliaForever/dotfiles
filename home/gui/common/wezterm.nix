@@ -6,10 +6,9 @@
     package = wezterm.packages.x86_64-linux.default;
     enableBashIntegration = true;
     extraConfig = ''
-      local wezterm = require 'wezterm'
       local config = wezterm.config_builder()
 
-      config.front_end = 'WebGpu'
+      config.front_end = 'OpenGL'
       config.use_ime = true
       config.enable_tab_bar = false
       config.window_close_confirmation = 'NeverPrompt'

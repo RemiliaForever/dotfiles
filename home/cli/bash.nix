@@ -6,7 +6,6 @@
     enableVteIntegration = true;
     sessionVariables = { };
     shellAliases = {
-      ls = "eza";
       ll = "eza -bghHliS";
       grep = "rg";
       ncdu = "ncdu --color=dark";
@@ -15,7 +14,6 @@
       diff = "delta";
       mutt = "neomutt";
 
-      py = "ipython";
       latexmk = "latexmk -interaction=nonstopmode";
       vims = "vim --servername VIM";
       tig = "tig --date-order --all";
