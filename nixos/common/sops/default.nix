@@ -13,6 +13,9 @@
       "mail/koumakan/password".owner = config.users.users.remilia.name;
       "mail/deepglint/address".owner = config.users.users.remilia.name;
       "mail/deepglint/password".owner = config.users.users.remilia.name;
+      "singbox/server" = { };
+      "singbox/server_name" = { };
+      "singbox/uuid" = { };
     };
   };
 }

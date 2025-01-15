@@ -3,9 +3,8 @@
 {
   home.packages = with pkgs; [
     freerdp3
-    kcachegrind
-    kicad
-    openscad
+    #kicad
+    #openscad
     texliveFull
   ];
 }

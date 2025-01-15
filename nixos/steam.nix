@@ -1,7 +1,17 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 
 {
-  programs.steam.fontPackages = config.fonts.packages;
+  hardware.steam-hardware.enable = true;
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+  };
+
   jovian = {
     decky-loader = {
       #enable
@@ -31,20 +41,20 @@
       #amd.gpu.enableEarlyModesetting
     };
     steam = {
-      enable = true;
+      #enable
       #autoStart
-      desktopSession = "hyprland";
+      desktopSession = "hyprland-uwsm";
       #environment
       #updater.splash
       user = "remilia";
     };
     steamos = {
-      useSteamOSConfig = false;
-      enableAutoMountUdevRules = true;
-      enableBluetoothConfig = true;
+      #useSteamOSConfig
+      #enableAutoMountUdevRules
+      #enableBluetoothConfig
       #enableDefaultCmdlineConfig
       #enableEarlyOOM
-      enableMesaPatches = true;
+      enableMesaPatches = false; # TODO: fix patch upstream
       #enableProductSerialAccess
       #enableSysctlConfig
       #enableVendorRadv

@@ -19,7 +19,6 @@
   ];
 
   home.packages = with pkgs; [
-    dconf
     glxinfo
     kdePackages.qtsvg
     kdePackages.qtwayland
@@ -40,7 +39,7 @@
     wpsoffice-cn
     virt-manager
 
-    discord
+    #discord
     mypkgs.feishu
     mypkgs.wechat
     qq
@@ -61,5 +60,13 @@
     LC_MEASUREMENT = "zh_CN.UTF-8";
     LC_IDENTIFICATION = "zh_CN.UTF-8";
     LC_ALL = "zh_CN.UTF-8";
+  };
+
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    desktop = null;
+    publicShare = null;
+    templates = null;
   };
 }

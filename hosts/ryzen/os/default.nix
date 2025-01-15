@@ -9,7 +9,7 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam
+    ../../../nixos/steam.nix
     ../../../nixos/virtualisation.nix
     ../../../nixos/wireshark.nix
   ];

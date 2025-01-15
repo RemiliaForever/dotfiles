@@ -6,7 +6,7 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam
+    ../../../nixos/steam.nix
   ];
 
   # gpu
@@ -19,14 +19,7 @@
   # steam
   jovian = {
     devices.steamdeck.enable = true;
+    steam.enable = true;
     steam.autoStart = true;
-    steamos = {
-      enableDefaultCmdlineConfig = true;
-      enableEarlyOOM = true;
-      enableProductSerialAccess = true;
-      enableSysctlConfig = true;
-      enableVendorRadv = true;
-      enableZram = true;
-    };
   };
 }

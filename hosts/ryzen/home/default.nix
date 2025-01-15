@@ -20,7 +20,9 @@
 
   # wayland
   programs.bash.profileExtra = ''
-    [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec Hyprland
+    if uwsm check may-start -q; then
+        exec uwsm start hyprland-uwsm.desktop
+    fi
   '';
   wayland.windowManager.hyprland = {
     settings = {
@@ -34,6 +36,7 @@
         "[workspace 1 silent] bytedance-feishu"
         "[workspace 1 silent] wechat-uos"
         "[workspace 5 silent] netease-cloud-music-gtk4"
+        "nextcloud"
       ];
     };
   };

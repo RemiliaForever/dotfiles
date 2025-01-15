@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -10,11 +10,14 @@
       common.default = "hyprland";
     };
   };
+  home.activation.hyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.systemd}/bin/systemctl --user mask xdg-desktop-autostart.target
+  '';
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd.enable = true;
+
     plugins = with pkgs.hyprlandPlugins; [
       hyprsplit
       hyprspace
@@ -22,21 +25,19 @@
       hyprwinwrap
     ];
     settings = {
-      monitor = [ ",preferred,auto,2" ];
+      # monitor = [ ",preferred,auto,2" ];
       xwayland.force_zero_scaling = true;
 
       exec-once = [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP LC_ALL"
         "swww-daemon"
         "swww-control"
-        "waybar-email-daemon"
-        "waybar"
         "mako"
         "hypridle"
+        "sleep 1 && waybar"
+        "sleep 1 && waybar-email-daemon"
 
         "fcitx5 -r"
         "blueman-applet"
-        "nextcloud"
       ];
 
       env = [ ];
@@ -102,10 +103,9 @@
       bind = [
         "SUPER, R, exec, wofi"
         "SUPER, Return, exec, wezterm"
-        "SUPER CONTROL, R, exit"
         "SUPER CONTROL, Q, exit"
         "SUPER, Tab, overview:toggle, toggle"
-        "SUPER, Delete, exec, loginctl lock-session "
+        "SUPER, Delete, exec, loginctl lock-session"
 
         "SUPER, W, killactive"
         "SUPER, P, pseudo"
@@ -192,6 +192,10 @@
       ];
 
       workspace = [ ];
+
+      dwindle = {
+        preserve_split = true;
+      };
 
       plugin = {
         hyprsplit = {

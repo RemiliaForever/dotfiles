@@ -13,7 +13,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     wezterm.url = "github:wez/wezterm?dir=nix";
     jovian = {
-      url = "github:Jovian-Experiments/Jovian-NixOS";
+      url = "github:bigsaltyfishes/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };

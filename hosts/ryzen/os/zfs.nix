@@ -50,7 +50,7 @@ in
         wantedBy = [ "timers.target" ];
         after = [ "multi-user.target" ];
         timerConfig = {
-          OnCalendar = "Sun 02:30";
+          OnCalendar = "Mon 02:30";
           Persistent = true;
         };
       };

@@ -6,7 +6,7 @@
     ./display.nix
     ./audio.nix
     ./bluetooth.nix
-    ./fcitx5.nix
+    ./input_method.nix
   ];
 
   # font
@@ -35,18 +35,12 @@
     };
   };
 
-  environment.etc."xdg/user-dirs.defaults".text = ''
-    DOWNLOAD=Downloads
-    DOCUMENTS=Documents
-    MUSIC=Music
-    PICTURES=Pictures
-    VIDEOS=Videos
-  '';
+  xdg.menus.enable = true;
   environment.pathsToLink = [
-    "/share/xdg-desktop-portal"
-    "/share/applications"
+    #"/share/xdg-desktop-portal"
   ];
 
+  programs.dconf.enable = true;
   services = {
     udisks2.enable = true;
     thermald.enable = false;

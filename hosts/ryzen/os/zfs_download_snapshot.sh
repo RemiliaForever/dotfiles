@@ -6,7 +6,7 @@ DATASET=(
     "gitlab/var/lib/postgresql"
 )
 
-new=$(date -d "last sunday" +%y%m%d)
+new=$(date -d "next sunday - 1 week" +%y%m%d)
 for ds in "${DATASET[@]}"; do
     old=$(zfs list -H -t snapshot "ryzen/$ds" | awk '{print $1}' | awk -F '@auto-' '{print $2}')
     echo "$ds: backup from $old to $new"

@@ -6,6 +6,7 @@
     policies = {
       HardwareAcceleration = true;
     };
+    languagePacks = [ "zh-CN" ];
     profiles.remilia = {
       search = {
         force = true;
@@ -31,8 +32,6 @@
         "media.ffmpeg.vaapi.enabled" = true;
         "media.ffvpx.enabled" = true;
         "gfx.webrender.all" = true;
-
-        "network.trr.mode" = 2;
       };
     };
   };

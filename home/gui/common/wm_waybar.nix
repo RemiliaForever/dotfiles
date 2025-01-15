@@ -9,7 +9,6 @@ let
     import signal
     import subprocess
     import threading
-    import time
 
     uid = 0
     pid = 0
@@ -51,7 +50,6 @@ let
         uid = os.getuid()
         shutil.rmtree(f'/run/user/{uid}/email', ignore_errors=True)
         os.makedirs(f'/run/user/{uid}/email', exist_ok=True)
-        time.sleep(3)
         pid = int(subprocess.check_output(['pidof', '-s', 'waybar']))
 
         signal.signal(signal.SIGRTMIN + 1, sig_update)
@@ -87,7 +85,6 @@ in
           "battery"
           "clock"
         ];
-
         "hyprland/workspaces" = {
           disable-scroll = true;
           format = "{icon}";
@@ -166,7 +163,6 @@ in
         };
         temperature = {
           format = " {temperatureC}°C";
-          format-critical = "<span color='red'> {temperatureC}°C</span>";
           critical-threshold = 70;
           tooltip = false;
           interval = 3;
@@ -185,18 +181,13 @@ in
         battery = {
           format-discharging = "{icon} {time}";
           format-charging = "{icon}󱐋 {time}";
-          format-full = "󰁹󱐥";
+          format-full = "{icon}󱐥";
           format-icons = [
-            "󰁺"
-            "󰁻"
-            "󰁼"
-            "󰁽"
-            "󰁾"
-            "󰁿"
-            "󰂀"
-            "󰂁"
-            "󰂂"
-            "󰁹"
+            " "
+            " "
+            " "
+            " "
+            " "
           ];
           format-time = "{H}:{m}";
           tooltip-format = ''
@@ -204,7 +195,12 @@ in
             Power:  {power}W
             Cycles: {cycles}
             Health: {health}%'';
+          states = {
+            warning = 30;
+            critical = 15;
+          };
           interval = 5;
+          on-triple-click-right = "hyprctl dispatch exit";
         };
         clock = {
           locale = "en_GB.UTF-8";
@@ -312,6 +308,9 @@ in
       #temperature {
           color: #f38ba8;
       }
+      #temperature.critical {
+          color: #ffa500;
+      }
 
       #memory {
           color: #f9e2af;
@@ -319,6 +318,12 @@ in
 
       #battery {
           color: #89dceb;
+      }
+      #battery.discharging.warning {
+          color: #ffa500;
+      }
+      #battery.discharging.critical {
+          color: #ff0000;
       }
 
       #clock {

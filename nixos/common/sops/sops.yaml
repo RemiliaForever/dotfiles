@@ -9,6 +9,10 @@ mail:
     deepglint:
         address: ENC[AES256_GCM,data:3qxkpH2ZmOhRBIpKhmFyfaXYz8P1pkVp8Q==,iv:LSlpbCBLYsZwvSgPm3o2zIM/8Q1TeTiqQMao2EQSkIE=,tag:ChigO4EKxkXItWc8MYWGyw==,type:str]
         password: ENC[AES256_GCM,data:xx89IqjKNYvHrA==,iv:CIUq7Buw1mCYThh9I2VCG++VRKDRBVK4/VKIJoBqDm4=,tag:daiZKU+ysG/n6gI3hhMUmA==,type:str]
+singbox:
+    server: ENC[AES256_GCM,data:2rpbtTwHIyTqG5xvPLtNrw/kpQ==,iv:q5J3Jb/7iVPcbJPt9ah4XRQv1+gwboCHg+/mrIF85fM=,tag:53rgvMJkhd5P9VyIzn2X1A==,type:str]
+    server_name: ENC[AES256_GCM,data:FWTNp1XjWzBNw3U=,iv:dKboYEkXaQ7TDOHs4SavaCol0pFxrsZXXwqA+OhTU4s=,tag:CQAr/bzXw5Zk1e6u4o9cWg==,type:str]
+    uuid: ENC[AES256_GCM,data:7y2qQjL5jZACLjmeu3dX4oImSlj9tQVfIoUU/veknzxQCD+/,iv:nS015iUASZ4cq7kxSdcIojCq8HQGMtWGKzdr/jD1/xg=,tag:NVRtf4Tuejof0BWgm9lHCQ==,type:str]
 ssh: null
 sops:
     kms: []
@@ -16,8 +20,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-12-31T09:44:37Z"
-    mac: ENC[AES256_GCM,data:Muls+Xukuhaad9bZCN/ZsDxnpQSLJOhITWW9tEdgX0znVM2GvDuusB7F828485gQ43pYoIhghYMMhgLh7My99B6iwNMvi6uTc40xtXAArbn5WOSL3LBWaNFkn6Lz8ENQJfbanVOVTb3/pibCIKZwtpyGP081oP3Ce8v0RjKRfhE=,iv:EQ5IMWKh8IGFdHhX1lopPw4XbYWatWYCPrkZA4Dw6kY=,tag:F8EwbeKpnAFCX0UgamGLBw==,type:str]
+    lastmodified: "2025-01-14T16:09:49Z"
+    mac: ENC[AES256_GCM,data:Pj+FNyCnoW+JERjYrorV/RSR8vW4mQo+AWlMkhdj0XXYibkghw9VKOnNRZZ072X2wWw/FWek57ytYpHVzxWVbNrt8IzKlCa5nXK1ZGnqUoZNraAFZvYOineYBAa/awdBB1zjJu9Tm5PSX7dDdnju7DbbSXo2VD90r7Ytr+bg2uM=,iv:rXYd89GLA4uT+4/0RlC7MbW3rYLOO+X/Lj0GP1L24EI=,tag:IPOHePJR09aWnqrACePeEQ==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-

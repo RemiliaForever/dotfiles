@@ -7,9 +7,11 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam
+    ../../../nixos/steam.nix
     ../../../nixos/wireshark.nix
   ];
+
+  services.power-profiles-daemon.enable = true;
 
   # gpu
   hardware = {
@@ -32,9 +34,5 @@
         };
       };
     };
-
   };
-
-  # steam
-  jovian.steam.autoStart = true;
 }

@@ -2,3 +2,4 @@
   - [ ] migrate to nix package
   - [ ] dd neo-scroll
 - [ ] texlive
+- [*] zfs_download_backup
