@@ -6,17 +6,18 @@
     enableVteIntegration = true;
     sessionVariables = { };
     shellAliases = {
-      ll = "eza -bghHliS";
-      grep = "rg";
-      ncdu = "ncdu --color=dark";
-      ping = "prettyping";
       cat = "bat";
       diff = "delta";
+      grep = "rg";
+      ll = "eza -bghHliS";
       mutt = "neomutt";
+      ping = "prettyping";
+      py = "ipython";
 
       latexmk = "latexmk -interaction=nonstopmode";
-      vims = "vim --servername VIM";
+      ncdu = "ncdu --color=dark";
       tig = "tig --date-order --all";
+      vims = "vim --servername VIM";
     };
     bashrcExtra = ''
       # extra

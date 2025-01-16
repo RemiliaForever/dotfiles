@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   programs.neovim = {
@@ -14,20 +14,16 @@
       universal-ctags
       xxd
 
-      clang
+      clang-tools
       go
+      isort
       nixfmt-rfc-style
       nodePackages.prettier
       rustfmt
       stylua
       taplo
+      yapf
     ];
-
-    extraPython3Packages =
-      pyPkgs: with pyPkgs; [
-        yapf
-        isort
-      ];
   };
 
   home.file = {
@@ -35,4 +31,8 @@
     ".config/nvim/lua".source = ./lua;
     ".config/nvim/init.lua".source = ./init.lua;
   };
+
+  home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    ${pkgs.coreutils}/bin/mkdir -p $HOME/.cache/nvim/tags
+  '';
 }

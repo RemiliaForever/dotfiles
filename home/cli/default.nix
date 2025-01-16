@@ -7,6 +7,7 @@
     ./git.nix
     ./neomutt
     ./neovim
+    ./python.nix
     ./tool.nix
     ./yazi.nix
   ];

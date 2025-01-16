@@ -20,11 +20,8 @@
 
             bash-language-server
             gopls
-            isort
             pyright
-            yapf
 
-            taplo
             sops
           ];
           shellHook = ''

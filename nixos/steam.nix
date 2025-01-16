@@ -15,11 +15,12 @@
   jovian = {
     decky-loader = {
       #enable
+      enableFHSEnvironment = true;
+      #package
       #extraPackages
       #extraPythonPackages
-      #package
       #stateDir
-      #user
+      user = "remilia";
     };
     devices.steamdeck = {
       #enable

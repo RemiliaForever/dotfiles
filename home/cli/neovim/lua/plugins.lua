@@ -7,10 +7,6 @@ require("lazy").setup({
 		opts = { "*" },
 		keys = { { "<F6>", ":ColorizerToggle<CR>" } },
 	},
-	{
-		"karb94/neoscroll.nvim",
-		opts = { mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>" }, duration_multiplier = 0.5 },
-	},
 
 	{
 		"kyazdani42/nvim-tree.lua",
@@ -64,20 +60,13 @@ require("lazy").setup({
 		ft = { "markdown" },
 		cmd = "MarkdownPreview",
 	},
-	{
-		"dense-analysis/ale",
-		config = function()
-			require("plugin-config/ale")
-		end,
-	},
-	-- use { 'vim-latex/vim-latex', ft = { 'tex', 'latex', 'bib' }, config = function() require('plugin-config/vim-latex') end },
-	{
-		"lervag/vimtex",
-		init = function()
-			require("plugin-config/vimtex")
-		end,
-	},
 
+	{
+		"stevearc/conform.nvim",
+		config = function()
+			require("plugin-config/conform")
+		end,
+	},
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {

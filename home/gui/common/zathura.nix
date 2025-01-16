@@ -7,7 +7,7 @@
       options = {
         synctex = true;
         synctex-editor-command = "vim --remote-silent +%{line} %{input}";
-        #highlight-transparency = 0.1;
+        highlight-transparency = 0.1;
       };
     };
   };

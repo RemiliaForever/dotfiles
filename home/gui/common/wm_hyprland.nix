@@ -1,7 +1,6 @@
 { pkgs, lib, ... }:
 
 {
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   xdg.portal = {
     enable = true;
@@ -10,9 +9,16 @@
       common.default = "hyprland";
     };
   };
+  # disable xdg autostart
   home.activation.hyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.systemd}/bin/systemctl --user mask xdg-desktop-autostart.target
   '';
+  # fix uwsm leak python
+  programs.bash.bashrcExtra = ''
+    # Hyprland
+    export PATH="/run/wrappers/bin:$HOME/.nix-profile/bin:$XDG_STATE_HOME/nix/profile/bin:$HOME/.local/state/nix/profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+  '';
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   wayland.windowManager.hyprland = {
     enable = true;

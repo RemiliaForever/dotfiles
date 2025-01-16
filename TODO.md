@@ -1,5 +1,4 @@
 - [ ] neovim
-  - [ ] migrate to nix package
-  - [ ] dd neo-scroll
+  - [ ] texlab
 - [ ] texlive
-- [*] zfs_download_backup
+  - [ ] modercv
