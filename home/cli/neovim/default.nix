@@ -6,14 +6,28 @@
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+
     extraPackages = with pkgs; [
       gcc
       cmake
-      python3
-      universal-ctags
 
-      pkgs.nixfmt-rfc-style
+      universal-ctags
+      xxd
+
+      clang
+      go
+      nixfmt-rfc-style
+      nodePackages.prettier
+      rustfmt
+      stylua
+      taplo
     ];
+
+    extraPython3Packages =
+      pyPkgs: with pyPkgs; [
+        yapf
+        isort
+      ];
   };
 
   home.file = {

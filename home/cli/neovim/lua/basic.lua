@@ -75,19 +75,19 @@ endfunction
 util.nmap('<F3>', ':call ToggleRelativeNumber()<CR>')
 
 -- -- hex
--- vim.g.current_hex_mode = 0
--- vim.api.nvim_command([[
--- function ToggleHex()
---     if g:current_hex_mode == 1
---         let g:current_hex_mode = 0
---         %!xxd -r
---     else
---         let g:current_hex_mode = 1
---         %!xxd
---     endif
--- endfunction
--- ]])
--- util.nmap('<F4>', ':call ToggleHex()<CR>')
+vim.g.current_hex_mode = 0
+vim.api.nvim_command([[
+function ToggleHex()
+    if g:current_hex_mode == 1
+        let g:current_hex_mode = 0
+        %!xxd -r
+    else
+        let g:current_hex_mode = 1
+        %!xxd
+    endif
+endfunction
+]])
+util.nmap('<F4>', ':call ToggleHex()<CR>')
 
 -- xdg-open
 util.nmap('<F5>', ':!xdg-open %<CR><CR>')
