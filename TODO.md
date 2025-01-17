@@ -1,4 +1,0 @@
-- [ ] neovim
-  - [ ] texlab
-- [ ] texlive
-  - [ ] modercv

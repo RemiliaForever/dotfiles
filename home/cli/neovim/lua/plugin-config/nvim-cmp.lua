@@ -1,4 +1,5 @@
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
@@ -33,15 +34,32 @@ local kind_icons = {
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			require("luasnip").lsp_expand(args.body)
+			luasnip.lsp_expand(args.body)
 		end,
 	},
 	mapping = {
-		["<tab>"] = cmp.mapping.select_next_item(),
-		["<S-tab>"] = cmp.mapping.select_prev_item(),
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+		["<C-Space>"] = cmp.mapping.complete(),
 		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-		["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
+		["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
 		["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
 	},
 	sources = cmp.config.sources({
@@ -53,12 +71,6 @@ cmp.setup({
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
-			-- vim_item.menu = ({
-			--     buffer = "[Buffer]",
-			--     nvim_lsp = "[LSP]",
-			--     luasnip = "[LuaSnip]",
-			--     path = "[Path]",
-			-- })[entry.source.name]
 			return vim_item
 		end,
 	},

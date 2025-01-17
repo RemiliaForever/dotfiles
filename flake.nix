@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    #nixpkgs-compact.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    #nixpkgs-16facaed.url = "github:nixos/nixpkgs/16facaed1bda622e07aa534017bf0b6735071cd1";
 
+    nixos-hardware.url = "github:nixos/nixos-hardware";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -14,6 +14,10 @@
     wezterm.url = "github:wez/wezterm?dir=nix";
     jovian = {
       url = "github:bigsaltyfishes/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
@@ -27,6 +31,7 @@
       sops-nix,
       wezterm,
       jovian,
+      aagl,
       ...
     }:
 
@@ -47,6 +52,7 @@
         specialArgs = {
           inherit hostname;
           inherit nixos-hardware;
+          inherit aagl;
         };
 
         modules = [

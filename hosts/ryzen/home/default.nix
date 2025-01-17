@@ -44,4 +44,7 @@
     hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
     input-filename = "temp1_input";
   };
+  home.sessionVariables = {
+    STEAM_FORCE_DESKTOPUI_SCALING = "2.0";
+  };
 }

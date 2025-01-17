@@ -14,9 +14,8 @@
 
   jovian = {
     decky-loader = {
-      #enable
-      enableFHSEnvironment = true;
-      #package
+      #enable = true;
+      #enableFHSEnvironment = false;
       #extraPackages
       #extraPythonPackages
       #stateDir

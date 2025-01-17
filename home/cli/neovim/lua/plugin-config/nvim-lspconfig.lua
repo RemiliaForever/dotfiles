@@ -68,10 +68,6 @@ vim.lsp.handlers["textDocument/typeDefinition"] = open_vsplit()
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-		--vim.cmd([[autocmd CursorHold <buffer> lua vim.lsp.buf.hover()]])
-
 		local opts = { buffer = ev.buf }
 
 		vim.keymap.set("n", "[c", vim.lsp.buf.declaration, opts)
@@ -98,6 +94,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "<C-k>", vim.diagnostic.goto_prev, opts)
 		vim.keymap.set("n", "[go", vim.diagnostic.open_float, opts)
 		vim.keymap.set("n", "[gl", vim.diagnostic.setloclist, opts)
+
+		vim.keymap.set("n", "[gf", ":TexlabForward<CR>", opts)
 	end,
 })
 
@@ -105,31 +103,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local lsps = {
 	"bashls",
 	"clangd",
+	"cssls",
 	"docker_compose_language_service",
 	"dockerls",
 	"gopls",
+	"html",
 	"jdtls",
+	"jsonls",
 	"kotlin_language_server",
 	"neocmake",
 	"openscad_lsp",
 	"pyright",
 	"taplo",
-	"texlab",
 }
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 for _, lsp in ipairs(lsps) do
-	nvim_lsp[lsp].setup({})
-end
-
--- cap
-local cap_lsps = {
-	"cssls",
-	"html",
-	"jsonls",
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-for _, lsp in ipairs(cap_lsps) do
 	nvim_lsp[lsp].setup({
 		capabilities = capabilities,
 	})
@@ -137,6 +126,7 @@ end
 
 -- custom
 nvim_lsp.rust_analyzer.setup({
+	capabilities = capabilities,
 	cmd = { "bash", "-c", "CARGO_TARGET_DIR=/home/remilia/.cargo/rust-analyzer rust-analyzer" },
 	settings = {
 		["rust-analyzer"] = {
@@ -153,6 +143,18 @@ nvim_lsp.rust_analyzer.setup({
 	},
 })
 nvim_lsp.volar.setup({
+	capabilities = capabilities,
 	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
 	root_dir = nvim_lsp_util.root_pattern("tsconfig.json", ".git"),
+})
+nvim_lsp.texlab.setup({
+	capabilities = capabilities,
+	settings = {
+		texlab = {
+			forwardSearch = {
+				executable = "zathura",
+				args = { "--synctex-forward", "%l:1:%f", "%p" },
+			},
+		},
+	},
 })

@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs = {
@@ -6,7 +6,7 @@
       enable = true;
       options = {
         synctex = true;
-        synctex-editor-command = "vim --remote-silent +%{line} %{input}";
+        synctex-editor-command = "${pkgs.texlab}/bin/texlab inverse-search -i %{input} -l %{line}";
         highlight-transparency = 0.1;
       };
     };
