@@ -15,6 +15,5 @@
     ignoreTimeout = false;
     layer = "overlay";
     sort = "-time";
-
   };
 }

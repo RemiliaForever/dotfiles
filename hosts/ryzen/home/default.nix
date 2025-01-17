@@ -32,11 +32,11 @@
       ];
 
       exec-once = [
-        "[workspace 8 silent] firefox"
-        "[workspace 1 silent] bytedance-feishu"
-        "[workspace 1 silent] wechat-uos"
-        "[workspace 5 silent] netease-cloud-music-gtk4"
-        "nextcloud"
+        "[workspace 8 silent] sleep 5 && firefox"
+        "[workspace 1 silent] sleep 5 && bytedance-feishu"
+        "[workspace 1 silent] sleep 5 && wechat-uos"
+        "[workspace 5 silent] sleep 5 && netease-cloud-music-gtk4"
+        "sleep 5 && nextcloud"
       ];
     };
   };

@@ -22,8 +22,8 @@
   };
 
   home.pointerCursor = {
-    name = "Breeze_Light";
-    package = pkgs.kdePackages.breeze;
+    name = "capitaine-cursors-white";
+    package = pkgs.capitaine-cursors;
     size = 24;
     gtk.enable = true;
     x11.enable = true;

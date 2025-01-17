@@ -15,7 +15,7 @@
   '';
   wayland.windowManager.hyprland = {
     settings.exec-once = [
-      "nextcloud"
+      "sleep 5 && nextcloud"
     ];
   };
   programs.waybar.settings.mainBar.temperature = {

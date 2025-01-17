@@ -34,16 +34,16 @@
       xwayland.force_zero_scaling = true;
 
       exec-once = [
-        "sleep 1 && mako"
-        "sleep 1 && hypridle"
-        "sleep 1 && swww-daemon"
+        "mako"
+        "hypridle"
+        "swww clear-cache && swww-daemon"
 
-        "sleep 2 && swww-control"
-        "sleep 2 && waybar"
+        "sleep 1 && swww-control"
+        "sleep 1 && waybar"
 
-        "sleep 3 && waybar-email-daemon"
-        "sleep 3 && fcitx5 -r"
-        "sleep 3 && blueman-applet"
+        "sleep 2 && waybar-email-daemon"
+        "sleep 2 && fcitx5 -r"
+        "sleep 2 && blueman-applet"
       ];
 
       env = [ ];
