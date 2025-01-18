@@ -1,4 +1,5 @@
-COMMAND := switch --show-trace --offline
+COMMAND := switch --show-trace
+# --offline
 build := nice -n 19 nixos-rebuild $(COMMAND) --flake path:$(shell pwd)
 
 .PHONY: local surface deck vm

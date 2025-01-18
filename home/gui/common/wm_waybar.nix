@@ -179,9 +179,9 @@ in
           on-click = "wezterm -e htop";
         };
         battery = {
+          format = "{icon}󱐥";
           format-discharging = "{icon} {time}";
           format-charging = "{icon}󱐋 {time}";
-          format-full = "{icon}󱐥";
           format-icons = [
             " "
             " "
