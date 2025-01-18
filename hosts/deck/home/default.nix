@@ -16,6 +16,12 @@
       monitor = [
         "eDP-1, preferred, auto, 1, transform, 3"
       ];
+      device = [
+        {
+          name = "fts3528:00-2808:1015";
+          transform = 3;
+        }
+      ];
     };
   };
 

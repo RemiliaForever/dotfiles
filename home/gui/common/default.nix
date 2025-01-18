@@ -11,6 +11,7 @@
     ./wm_mako.nix
     ./wm_waybar.nix
     ./wm_wofi.nix
+    #./wm_wpaperd.nix
 
     ./wezterm.nix
     ./firefox.nix

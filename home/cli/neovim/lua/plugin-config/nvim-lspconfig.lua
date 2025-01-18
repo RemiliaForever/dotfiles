@@ -125,6 +125,27 @@ for _, lsp in ipairs(lsps) do
 end
 
 -- custom
+nvim_lsp.lua_ls.setup({
+	on_init = function(client)
+		if client.workspace_folders then
+			local path = client.workspace_folders[1].name
+			if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+				return
+			end
+		end
+
+		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+			runtime = { version = "LuaJIT" },
+			workspace = {
+				checkThirdParty = false,
+				library = { vim.env.VIMRUNTIME },
+			},
+		})
+	end,
+	settings = {
+		Lua = {},
+	},
+})
 nvim_lsp.rust_analyzer.setup({
 	capabilities = capabilities,
 	cmd = { "bash", "-c", "CARGO_TARGET_DIR=/home/remilia/.cargo/rust-analyzer rust-analyzer" },
@@ -142,11 +163,6 @@ nvim_lsp.rust_analyzer.setup({
 		},
 	},
 })
-nvim_lsp.volar.setup({
-	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
-	root_dir = nvim_lsp_util.root_pattern("tsconfig.json", ".git"),
-})
 nvim_lsp.texlab.setup({
 	capabilities = capabilities,
 	settings = {
@@ -157,4 +173,9 @@ nvim_lsp.texlab.setup({
 			},
 		},
 	},
+})
+nvim_lsp.volar.setup({
+	capabilities = capabilities,
+	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+	root_dir = nvim_lsp_util.root_pattern("tsconfig.json", ".git"),
 })

@@ -18,6 +18,7 @@
           packages = with pkgs; [
             go
 
+            lua-language-server
             bash-language-server
             gopls
             pyright

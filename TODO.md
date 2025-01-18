@@ -1,4 +1,3 @@
-- deck
-  - input device transform
 - common
   - wpaperd
+    - still have bugs
