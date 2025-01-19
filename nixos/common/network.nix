@@ -76,14 +76,13 @@ in
             server = "dns-local";
           }
           {
+            domain_suffix = proxy_domain;
+            server = "dns-proxy";
+          }
+          {
             rule_set = "geosite-cn";
             domain_suffix = direct_domain;
             server = "dns-local";
-          }
-          {
-            rule_set = "geosite-!cn";
-            domain_suffix = proxy_domain;
-            server = "dns-proxy";
           }
         ];
       };
@@ -133,13 +132,13 @@ in
             url = "https://file.koumakan.cc/singbox/geosite-cn.srs";
             download_detour = "direct-out";
           }
-          {
-            type = "remote";
-            tag = "geosite-!cn";
-            format = "binary";
-            url = "https://file.koumakan.cc/singbox/geosite-geolocation-!cn.srs";
-            download_detour = "direct-out";
-          }
+          # {
+          #   type = "remote";
+          #   tag = "geosite-!cn";
+          #   format = "binary";
+          #   url = "https://file.koumakan.cc/singbox/geosite-geolocation-!cn.srs";
+          #   download_detour = "direct-out";
+          # }
           {
             type = "remote";
             tag = "geoip-cn";
@@ -155,7 +154,7 @@ in
             outbound = "dns-out";
           }
           {
-            rule_set = [ "geosite-!cn" ];
+            rule_set = [ ];
             domain_suffix = proxy_domain;
             ip_cidr = proxy_ip;
             outbound = "vless-out";
