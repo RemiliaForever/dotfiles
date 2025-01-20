@@ -6,7 +6,6 @@
 }:
 
 {
-  hardware.steam-hardware.enable = true;
   programs.steam = {
     enable = true;
     protontricks.enable = true;
@@ -14,52 +13,23 @@
 
   jovian = {
     decky-loader = {
-      #enable = true;
-      #enableFHSEnvironment = false;
-      #extraPackages
-      #extraPythonPackages
-      #stateDir
       user = "remilia";
-    };
-    devices.steamdeck = {
-      #enable
-      #autoUpdate
-      #enableControllerUdevRules
-      #enableDefaultCmdlineConfig
-      #enableDefaultStage1Modules
-      #enableFwupdBiosUpdates
-      #enableGyroDsuService
-      #enableKernelPatches
-      #enableOsFanControl
-      #enablePerfControlUdevRules
-      #enableSoundSupport
-      #enableXorgRotation
-    };
-    hardware = {
-      #has.amd.gpu
-      #amd.gpu.enableBacklightControl
-      #amd.gpu.enableEarlyModesetting
     };
     steam = {
-      #enable
-      #autoStart
       desktopSession = "hyprland-uwsm";
-      #environment
-      #updater.splash
       user = "remilia";
     };
-    steamos = {
-      #useSteamOSConfig
-      #enableAutoMountUdevRules
-      #enableBluetoothConfig
-      #enableDefaultCmdlineConfig
-      #enableEarlyOOM
-      enableMesaPatches = false; # TODO: fix patch upstream
-      #enableProductSerialAccess
-      #enableSysctlConfig
-      #enableVendorRadv
-      #enableZram
-    };
-    #workarounds.ignoreMissingKernelModules
   };
+
+  # fix gamescope-session steam cjk fonts
+  nixpkgs.overlays = [
+    (final: prev: {
+      gamescope-session = prev.gamescope-session.override {
+        steam = prev.steam.override (old: {
+          extraPkgs =
+            pkgs: config.programs.steam.extraPackages ++ lib.optionals (old ? extraPkgs) (pkgs: [ pkgs ]);
+        });
+      };
+    })
+  ];
 }

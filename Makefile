@@ -1,8 +1,14 @@
-COMMAND := switch --show-trace
-# --offline
-build := nice -n 19 nixos-rebuild $(COMMAND) --flake path:$(shell pwd)
+command ?= switch
+online ?= 0
 
-.PHONY: local surface deck vm
+remotes := surface deck vm
+.PHONY: local $(remotes)
+
+ifneq ($(online), 1)
+	command := $(command) --offline
+endif
+build := nice -n 19 nixos-rebuild $(command) --flake path:$(shell pwd)
+
 
 local:
 	rm -f hostname.nix
@@ -10,24 +16,11 @@ local:
 	sudo $(build)
 	rm hostname.nix
 
-surface:
+$(remotes):
 	rm -f hostname.nix
-	ln -s ./hosts/surface/hostname.nix ./
-	$(build) --use-remote-sudo --target-host remilia@172.17.10.4
+	ln -s ./hosts/$@/hostname.nix ./
+	$(build) --use-remote-sudo --target-host $@
 	rm hostname.nix
-
-deck:
-	rm -f hostname.nix
-	ln -s ./hosts/deck/hostname.nix ./
-	$(build) --use-remote-sudo --target-host remilia@10.13.13.2
-	rm hostname.nix
-
-vm:
-	rm -f hostname.nix
-	ln -s ./hosts/vm/hostname.nix ./
-	$(build) --use-remote-sudo --target-host remilia@172.17.8.134
-	rm hostname.nix
-
 
 update:
 	nix flake update

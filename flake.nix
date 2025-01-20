@@ -4,16 +4,19 @@
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     #nixpkgs-16facaed.url = "github:nixos/nixpkgs/16facaed1bda622e07aa534017bf0b6735071cd1";
-
     nixos-hardware.url = "github:nixos/nixos-hardware";
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
-    wezterm.url = "github:wez/wezterm?dir=nix";
     jovian = {
-      url = "github:bigsaltyfishes/Jovian-NixOS";
+      #url = "github:bigsaltyfishes/Jovian-NixOS";
+      url = "github:Jovian-Experiments/Jovian-NixOS";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     aagl = {
@@ -29,7 +32,6 @@
       nixos-hardware,
       home-manager,
       sops-nix,
-      wezterm,
       jovian,
       aagl,
       ...
@@ -65,7 +67,6 @@
             home-manager.backupFileExtension = "bak";
             home-manager.users.remilia = import ./hosts/${hostname.hostname}/home;
             home-manager.extraSpecialArgs = {
-              inherit wezterm;
               inherit mypkgs;
             };
           }
