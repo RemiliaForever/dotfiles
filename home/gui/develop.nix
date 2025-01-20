@@ -11,6 +11,9 @@
         ctex
         fontawesome5
         moderncv
+        pgf-umlsd
+        xargs
+        standalone
         ;
     })
   ];

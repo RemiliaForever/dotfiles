@@ -91,9 +91,9 @@ in
     scriptOpts = {
       modernx = {
         vidscale = false;
-        scalewindowed = 2.0;
-        scalefullscreen = 2.0;
-        scaleforcedwindow = 2.0;
+        scale_windowed = 2.0;
+        scale_fullscreen = 2.0;
+        scale_forcedwindow = 2.0;
       };
     };
   };
