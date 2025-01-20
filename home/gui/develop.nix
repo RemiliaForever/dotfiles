@@ -5,6 +5,13 @@
     freerdp3
     #kicad
     #openscad
-    texliveFull
+    (pkgs.texlive.combine {
+      inherit (pkgs.texlive)
+        scheme-medium
+        ctex
+        fontawesome5
+        moderncv
+        ;
+    })
   ];
 }
