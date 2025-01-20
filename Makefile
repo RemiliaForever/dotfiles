@@ -1,11 +1,11 @@
-command ?= switch
 online ?= 0
 
 remotes := surface deck vm
 .PHONY: local $(remotes)
 
+command = switch
 ifneq ($(online), 1)
-	command := $(command) --offline
+	command += --offline
 endif
 build := nice -n 19 nixos-rebuild $(command) --flake path:$(shell pwd)
 
