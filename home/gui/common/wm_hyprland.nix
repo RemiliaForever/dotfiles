@@ -16,7 +16,9 @@
   # fix uwsm leak python
   programs.bash.bashrcExtra = ''
     # Hyprland
-    export PATH="/run/wrappers/bin:$HOME/.nix-profile/bin:$XDG_STATE_HOME/nix/profile/bin:$HOME/.local/state/nix/profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+    if [ -n "$DESKTOP_SESSION" ] && [ "$SHLVL" -eq 2 ] || [ "$SHLVL" -eq 1 ]; then
+        export PATH="/run/wrappers/bin:$HOME/.nix-profile/bin:$XDG_STATE_HOME/nix/profile/bin:$HOME/.local/state/nix/profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
+    fi
   '';
   home.sessionVariables.NIXOS_OZONE_WL = "1";
 
