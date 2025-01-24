@@ -13,11 +13,6 @@
         exec uwsm start hyprland-uwsm.desktop
     fi
   '';
-  wayland.windowManager.hyprland = {
-    settings.exec-once = [
-      "sleep 5 && nextcloud"
-    ];
-  };
   programs.waybar.settings.mainBar.temperature = {
     hwmon-path-abs = [ "/sys/devices/platform/coretemp.0/hwmon" ];
     input-filename = "temp1_input";
