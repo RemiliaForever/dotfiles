@@ -1,68 +1,85 @@
 require("lazy").setup({
-	{ "lambdalisue/suda.vim", cmd = "SudaWrite" },
-	{ "chaoren/vim-wordmotion" },
-	{ "tpope/vim-surround" },
+	-- simple tools
+	{ "chaoren/vim-wordmotion", event = "VeryLazy" },
+	{ "lambdalisue/suda.vim", event = "VeryLazy" },
+	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{
-		"norcalli/nvim-colorizer.lua",
-		opts = { "*" },
-		keys = { { "<F6>", ":ColorizerToggle<CR>" } },
+		"echasnovski/mini.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("mini.comment").setup({})
+			require("mini.move").setup({})
+			require("mini.operators").setup({})
+			require("mini.pairs").setup({})
+			require("mini.surround").setup({})
+			-- require("mini.tabline").setup({})
+		end,
 	},
-
+	-- powerful tools
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		event = "VeryLazy",
+		config = function()
+			require("plugin-config/nvim-treesitter")
+		end,
+	},
+	{
+		"Yggdroot/LeaderF",
+		build = ":LeaderfInstallCExtension",
+		keys = {
+			{ "<F1>", "<cmd>Leaderf file<cr>" },
+			{ "<F2>", "<cmd>Leaderf rg<cr>" },
+		},
+		config = function()
+			vim.g.Lf_WindowPosition = "popup"
+		end,
+	},
+	-- ui components
 	{
 		"kyazdani42/nvim-tree.lua",
-		dependencies = {
-			"kyazdani42/nvim-web-devicons",
-		},
+		dependencies = { "kyazdani42/nvim-web-devicons" },
+		event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-tree")
 		end,
 	},
-	{ "preservim/tagbar", keys = { { "<C-l>", ":TagbarToggle<CR>" } } },
+	{
+		"folke/trouble.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("plugin-config/trouble")
+		end,
+	},
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
 			"kyazdani42/nvim-web-devicons",
 			"arkav/lualine-lsp-progress",
 		},
+		event = "VeryLazy",
 		config = function()
 			require("plugin-config/lualine")
 		end,
 	},
 	{ "mhinz/vim-signify", keys = { { "<C-g>", ":SignifyToggle<CR>" } } },
-	{ "tpope/vim-fugitive" },
-
+	-- render enhance
 	{
-		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"windwp/nvim-ts-autotag",
+		"norcalli/nvim-colorizer.lua",
+		keys = { { "<F6>", ":ColorizerToggle<CR>" } },
+		opts = { "*" },
+	},
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		opts = {
+			file_types = { "markdown", "Avante" },
 		},
-		build = ":TSUpdate",
-		config = function()
-			require("plugin-config/nvim-treesitter")
-		end,
+		ft = { "markdown", "Avante" },
 	},
-	{
-		"ludovicchabant/vim-gutentags",
-		config = function()
-			require("plugin-config/gutentags")
-		end,
-	},
-	{
-		"Yggdroot/LeaderF",
-		build = ":LeaderfInstallCExtension",
-		config = function()
-			require("plugin-config/LeaderF")
-		end,
-	},
-	{
-		"iamcco/markdown-preview.nvim",
-		build = "cd app && npm install; git reset --hard",
-		ft = { "markdown" },
-		cmd = "MarkdownPreview",
-	},
-
+	-- completion, format
 	{
 		"stevearc/conform.nvim",
+		event = "VeryLazy",
 		config = function()
 			require("plugin-config/conform")
 		end,
@@ -77,12 +94,14 @@ require("lazy").setup({
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 		},
+		event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-cmp")
 		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
 			require("plugin-config/nvim-lspconfig")
 		end,

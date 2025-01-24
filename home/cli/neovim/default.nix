@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   programs.neovim = {
@@ -11,8 +11,9 @@
       gcc
       cmake
 
-      universal-ctags
+      #universal-ctags
       xxd
+      fzf
 
       clang-tools
       go
@@ -31,8 +32,4 @@
     ".config/nvim/lua".source = ./lua;
     ".config/nvim/init.lua".source = ./init.lua;
   };
-
-  home.activation.neovim = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.coreutils}/bin/mkdir -p $HOME/.cache/nvim/tags
-  '';
 }

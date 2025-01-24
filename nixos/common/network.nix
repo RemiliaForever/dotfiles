@@ -1,5 +1,4 @@
 {
-  pkgs,
   hostname,
   config,
   ...
@@ -7,14 +6,16 @@
 
 let
   direct_domain = [
+    # common
     ".cn"
-
+    # self
     "dmit.io"
     "koumakan.cc"
-
+    # work
     "ipify.org"
     "fmsh.com"
-
+    "deepseek.com"
+    # game
     "steamcontent.com"
   ];
   direct_ip = [

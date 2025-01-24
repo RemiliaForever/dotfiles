@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.wpaperd = {
@@ -6,10 +6,12 @@
     settings = {
       default = {
         path = "/home/remilia/.background";
-        duration = "15min";
         sorting = "random";
-        mode = "stretch";
+        queue-size = 3;
+        mode = "center";
+        duration = "10min";
         transition-time = 1000;
+        group = 1;
       };
     };
   };

@@ -112,6 +112,7 @@ local lsps = {
 	"jsonls",
 	"kotlin_language_server",
 	"neocmake",
+	"nixd",
 	"openscad_lsp",
 	"pyright",
 	"taplo",

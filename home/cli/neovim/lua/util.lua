@@ -1,7 +1,7 @@
 local util = {}
 
-function map(mode, key, func)
-	vim.api.nvim_set_keymap(mode, key, func, { noremap = true })
+local function map(mode, key, func)
+	vim.keymap.set(mode, key, func, { noremap = true })
 end
 
 function util.map(key, func)

@@ -151,71 +151,26 @@ call  s:h("Error",           s:red,         s:gutter_bg,  s:trans)
 call  s:h("Todo",            s:purple,      s:trans,      s:trans)
 
 "" Nvim
-call  s:h("DiagnosticVirtualTextHint",     s:comment_fg,  s:trans,       'italic')
-call  s:h("DiagnosticVirtualTextInfo",     s:blue,        s:trans,       'italic')
-call  s:h("DiagnosticVirtualTextWarning",  s:yellow,      s:trans,       'italic')
-call  s:h("DiagnosticVirtualTextError",    s:red,         s:trans,       'italic')
-call  s:h("DiagnosticUnderlineHint",       '',            s:gutter_bg,   '')
-call  s:h("DiagnosticUnderlineInfo",       '',            s:gutter_bg,   '')
-call  s:h("DiagnosticUnderlineWarning",    '',            s:gutter_bg,   '')
-call  s:h("DiagnosticUnderlineError",      '',            s:gutter_bg,   '')
+call  s:h("DiagnosticVirtualTextHint",     s:comment_fg,  s:trans,       "italic")
+call  s:h("DiagnosticVirtualTextInfo",     s:blue,        s:trans,       "italic")
+call  s:h("DiagnosticVirtualTextWarning",  s:yellow,      s:trans,       "italic")
+call  s:h("DiagnosticVirtualTextError",    s:red,         s:trans,       "italic")
+call  s:h("DiagnosticUnderlineHint",       "",            s:gutter_bg,   "")
+call  s:h("DiagnosticUnderlineInfo",       "",            s:gutter_bg,   "")
+call  s:h("DiagnosticUnderlineWarning",    "",            s:gutter_bg,   "")
+call  s:h("DiagnosticUnderlineError",      "",            s:gutter_bg,   "")
 
-call  s:h("NormalFloat",     '',            s:gutter_bg,   '')
-call  s:h("FloatBorder",     '',            s:gutter_bg,   '')
+call  s:h("NormalFloat",     "",            s:gutter_bg,   "")
+call  s:h("FloatBorder",     "",            s:gutter_bg,   "")
 
-"" Plugins {
-    "" GitGutter
-    "call s:h("GitGutterAdd", s:green, s:gutter_bg, "")
-    "call s:h("GitGutterDelete", s:red, s:gutter_bg, "")
-    "call s:h("GitGutterChange", s:yellow, s:gutter_bg, "")
-    "call s:h("GitGutterChangeDelete", s:red, s:gutter_bg, "")
-    "" Fugitive
-    "call s:h("diffAdded", s:green, "", "")
-    "call s:h("diffRemoved", s:red, "", "")
-    "" }
-    "
-    "
-    "" Git {
-        "call s:h("gitcommitComment", s:comment_fg, "", "")
-        "call s:h("gitcommitUnmerged", s:red, "", "")
-        "call s:h("gitcommitOnBranch", s:fg, "", "")
-        "call s:h("gitcommitBranch", s:purple, "", "")
-        "call s:h("gitcommitDiscardedType", s:red, "", "")
-        "call s:h("gitcommitSelectedType", s:green, "", "")
-        "call s:h("gitcommitHeader", s:fg, "", "")
-        "call s:h("gitcommitUntrackedFile", s:cyan, "", "")
-        "call s:h("gitcommitDiscardedFile", s:red, "", "")
-        "call s:h("gitcommitSelectedFile", s:green, "", "")
-        "call s:h("gitcommitUnmergedFile", s:yellow, "", "")
-        "call s:h("gitcommitFile", s:fg, "", "")
-        "hi link gitcommitNoBranch gitcommitBranch
-        "hi link gitcommitUntracked gitcommitComment
-        "hi link gitcommitDiscarded gitcommitComment
-        "hi link gitcommitSelected gitcommitComment
-        "hi link gitcommitDiscardedArrow gitcommitDiscardedFile
-        "hi link gitcommitSelectedArrow gitcommitSelectedFile
-        "hi link gitcommitUnmergedArrow gitcommitUnmergedFile
-        "" }
-        "
-        "" Fix colors in neovim terminal buffers {
-            "  if has('nvim')
-            "    let g:terminal_color_0 = s:black.gui
-            "    let g:terminal_color_1 = s:red.gui
-            "    let g:terminal_color_2 = s:green.gui
-            "    let g:terminal_color_3 = s:yellow.gui
-            "    let g:terminal_color_4 = s:blue.gui
-            "    let g:terminal_color_5 = s:purple.gui
-            "    let g:terminal_color_6 = s:cyan.gui
-            "    let g:terminal_color_7 = s:white.gui
-            "    let g:terminal_color_8 = s:black.gui
-            "    let g:terminal_color_9 = s:red.gui
-            "    let g:terminal_color_10 = s:green.gui
-            "    let g:terminal_color_11 = s:yellow.gui
-            "    let g:terminal_color_12 = s:blue.gui
-            "    let g:terminal_color_13 = s:purple.gui
-            "    let g:terminal_color_14 = s:cyan.gui
-            "    let g:terminal_color_15 = s:white.gui
-            "    let g:terminal_color_background = s:bg.gui
-            "    let g:terminal_color_foreground = s:fg.gui
-            "  endif
-            "" }
+" Signify
+call  s:h("SignifySignAdd", s:green, s:trans, "")
+call  s:h("SignifySignChange", s:yellow, s:trans, "")
+call  s:h("SignifySignDelete", s:red, s:trans, "")
+call  s:h("SignifySignDeleteFirstLine", s:red, s:trans, "")
+
+" Trouble
+call  s:h("TroubleNormal", s:fg, s:trans, "")
+call  s:h("TroubleNormalNC", s:fg, s:trans, "")
+"call  s:h("TroublePreview", s:fg, s:trans, "")
+call  s:h("TroubleCount", s:fg, s:trans, "")

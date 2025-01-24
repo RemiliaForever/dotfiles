@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
 
@@ -22,7 +22,7 @@
       enable = true;
       defaultFonts = {
         serif = [ "Noto Serif CJK SC" ];
-        sansSerif = [ "Noto Sans Serif CJK SC" ];
+        sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
           "VictorMono Nerd Font"
           "Noto Color Emoji"
@@ -36,9 +36,7 @@
   };
 
   xdg.menus.enable = true;
-  environment.pathsToLink = [
-    #"/share/xdg-desktop-portal"
-  ];
+  environment.pathsToLink = [ ];
 
   programs.dconf.enable = true;
   services = {

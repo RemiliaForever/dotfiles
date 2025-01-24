@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.firefox = {
@@ -11,6 +11,37 @@
       search = {
         force = true;
         default = "DuckDuckGo";
+        engines = {
+          "NixOS Packages" = {
+            urls = [ { template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}"; } ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@np" ];
+          };
+
+          "NixOS Options" = {
+            urls = [ { template = "https://search.nixos.org/options?channel=unstable&query={searchTerms}"; } ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@no" ];
+          };
+
+          "HomeManager Options" = {
+            urls = [
+              { template = "https://home-manager-options.extranix.com?release=master&query={searchTerms}"; }
+            ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@ho" ];
+          };
+
+          "NixOS Wiki" = {
+            urls = [ { template = "https://wiki.nixos.org/w/index.php?search={searchTerms}"; } ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = [ "@nw" ];
+          };
+
+          "百度".metaData.hidden = true;
+          "Bing".metaData.hidden = true;
+          "Google".metaData.hidden = true;
+        };
       };
       userChrome = ''
         #webrtcIndicator {

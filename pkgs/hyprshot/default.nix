@@ -7,7 +7,7 @@ pkgs.writeShellApplication {
     jq
     grim
     slurp
-    wl-clipboard
+    wl-clipboard-rs
     libnotify
     hyprpicker
   ];

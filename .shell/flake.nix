@@ -20,6 +20,7 @@
 
             lua-language-server
             bash-language-server
+            nixd
             gopls
             pyright
 
