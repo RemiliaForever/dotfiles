@@ -27,9 +27,9 @@
     ];
   };
 
-  home.file = {
-    ".config/nvim/colors".source = ./colors;
-    ".config/nvim/lua".source = ./lua;
-    ".config/nvim/init.lua".source = ./init.lua;
+  xdg.configFile = {
+    "nvim/colors".source = ./colors;
+    "nvim/lua".source = ./lua;
+    "nvim/init.lua".source = ./init.lua;
   };
 }
