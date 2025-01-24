@@ -50,7 +50,7 @@ util.nmap("<C-h>", "<cmd>nohl<cr>")
 -- util.nmap("[k", "<cmd>cp<CR>")
 -- util.nmap("[x", "<cmd>cclose<CR>")
 util.nmap("[q", "<cmd>close<cr>")
-util.nmap("]q", "<cmd>pclose<cr>")
+-- util.nmap("]q", "<cmd>pclose<cr>")
 
 -- filetype
 vim.filetype.add({ extension = { wgsl = "wgsl" } })
@@ -59,11 +59,9 @@ vim.filetype.add({ extension = { wgsl = "wgsl" } })
 vim.cmd.colorscheme("onehalfdark")
 
 -- relative number
-local current_relative = true
-vim.opt.relativenumber = current_relative
+vim.opt.relativenumber = true
 util.nmap("<F3>", function()
-	current_relative = not current_relative
-	vim.opt.relativenumber = current_relative
+	vim.wo.relativenumber = not vim.wo.relativenumber
 end)
 
 -- -- hex
