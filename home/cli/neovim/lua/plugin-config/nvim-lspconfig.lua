@@ -43,11 +43,11 @@ local function open_vsplit()
 
 		vim.cmd("vsplit")
 
-		if vim.tbl_islist(result) then
+		if vim.islist(result) then
 			util.jump_to_location(result[1], "utf-8")
 
 			if #result > 1 then
-				util.set_qflist(util.locations_to_items(result))
+				util.set_qflist(util.locations_to_items(result, "utf-8"))
 				api.nvim_command("copen")
 				api.nvim_command("wincmd p")
 			end
@@ -77,13 +77,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "[t", vim.lsp.buf.type_definition, opts)
 		vim.keymap.set("n", "[n", vim.lsp.buf.rename, opts)
 		vim.keymap.set("n", "[a", vim.lsp.buf.code_action, opts)
-		vim.keymap.set("n", "[r", vim.lsp.buf.references, opts)
+		-- vim.keymap.set("n", "[r", vim.lsp.buf.references, opts)
 		vim.keymap.set("n", "[h", vim.lsp.buf.signature_help, opts)
 		vim.keymap.set("n", "[f", function()
 			vim.lsp.buf.format({ async = true })
 		end, opts)
 
-		vim.keymap.set("n", "[s", ":LspRestart<CR>", opts)
+		vim.keymap.set("n", "[s", "<cmd>LspRestart<cr>", opts)
 		vim.keymap.set("n", "[wa", vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set("n", "[wr", vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set("n", "[wl", function()
@@ -95,7 +95,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		vim.keymap.set("n", "[go", vim.diagnostic.open_float, opts)
 		vim.keymap.set("n", "[gl", vim.diagnostic.setloclist, opts)
 
-		vim.keymap.set("n", "[gf", ":TexlabForward<CR>", opts)
+		vim.keymap.set("n", "[gf", "<cmd>TexlabForward<cr>", opts)
 	end,
 })
 
@@ -130,7 +130,7 @@ nvim_lsp.lua_ls.setup({
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
-			if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+			if vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc") then
 				return
 			end
 		end

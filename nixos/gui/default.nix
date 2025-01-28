@@ -24,8 +24,8 @@
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
-          "VictorMono Nerd Font"
           "Noto Color Emoji"
+          "VictorMono Nerd Font"
         ];
         monospace = [
           "VictorMono Nerd Font"

@@ -50,7 +50,7 @@ let s:color_col   = "#313640"
 
 let s:selection   = "#474e5d"
 "let s:selection   = "#5c6370"
-let s:vertsplit   = "#313640"
+"let s:vertsplit   = "#313640"
 
 
 function! s:h(group, fg, bg, attr)

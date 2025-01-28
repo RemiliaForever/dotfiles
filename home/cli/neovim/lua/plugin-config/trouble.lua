@@ -26,7 +26,7 @@ local function toggle_mode()
 end
 
 util.nmap("<C-l>", toggle_open)
-util.nmap("<C-m>", toggle_mode)
+util.nmap("[l", toggle_mode)
 
 require("trouble").setup({
 	open_no_results = true,

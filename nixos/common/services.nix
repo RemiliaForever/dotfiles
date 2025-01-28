@@ -7,6 +7,8 @@
     openssh.enable = true;
     fstrim.enable = true;
 
+    speechd.enable = false;
+
     logind = {
       powerKey = "suspend";
       powerKeyLongPress = "ignore";
@@ -15,6 +17,11 @@
       lidSwitchExternalPower = "ignore";
     };
 
-    speechd.enable = false;
+    journald = {
+      extraConfig = ''
+        SystemMaxUse=1G
+        RuntimeMaxUse=512M
+      '';
+    };
   };
 }
