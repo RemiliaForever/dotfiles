@@ -36,6 +36,15 @@
     ];
   };
 
+  fileSystems."/mnt/sdcard" = {
+    device = "/dev/disk/by-uuid/8152-A4A1";
+    fsType = "exfat";
+    options = [
+      "uid=1000"
+      "gid=100"
+    ];
+  };
+
   swapDevices = [ { device = "/dev/disk/by-uuid/ceb4e4ba-dcd4-4e50-bf70-f0fa2be67a52"; } ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

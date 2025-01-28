@@ -111,7 +111,7 @@
 
       bind = [
         "SUPER, R, exec, wofi"
-        "SUPER, Return, exec, wezterm"
+        "SUPER, Return, exec, alacritty"
         "SUPER CONTROL, Q, exit"
         "SUPER, Tab, overview:toggle, toggle"
         "SUPER, Delete, exec, loginctl lock-session"

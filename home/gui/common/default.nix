@@ -27,7 +27,7 @@ in
     #./wm_swww.nix
     ./wm_wpaperd.nix
 
-    ./wezterm.nix
+    ./alacritty.nix
     ./firefox.nix
     ./mpv.nix
     ./zathura.nix
@@ -35,15 +35,13 @@ in
 
   home.packages = with pkgs; [
     glxinfo
-    #kdePackages.qtsvg
-    #kdePackages.qtwayland
     libnotify
-    networkmanagerapplet
     playerctl
     vulkan-tools
     wayland-utils
     wl-clipboard-rs
     xdg-user-dirs
+    ueberzugpp
 
     ark
     gwenview
@@ -61,11 +59,11 @@ in
 
   xdg = {
     desktopEntries = {
-      "yazi-wezterm" = {
-        name = "Yazi (Wezterm)";
+      "yazi-alacritty" = {
+        name = "Yazi (Alacritty)";
         icon = "yazi";
         comment = "Blazing fast terminal file manager written in Rust, based on async I/O";
-        exec = "wezterm -e yazi";
+        exec = "alacritty -e yazi";
         type = "Application";
         mimeType = [ "inode/directory" ];
         categories = [
@@ -76,11 +74,11 @@ in
           "FileManager"
         ];
       };
-      "neovim-wezterm" = {
-        name = "Neovim (Wezterm)";
+      "neovim-alacritty" = {
+        name = "Neovim (Alacritty)";
         icon = "nvim";
         comment = "Edit text files";
-        exec = "wezterm -e nvim %F";
+        exec = "alacritty -e nvim %F";
         type = "Application";
         mimeType = [
           "text/english"
@@ -111,8 +109,8 @@ in
     mimeApps = {
       enable = true;
       defaultApplications = genMimeMap {
-        "yazi-wezterm.desktop" = [ "inode/directory" ];
-        "neovim-wezterm.desktop" = [
+        "yazi-alacritty.desktop" = [ "inode/directory" ];
+        "neovim-alacritty.desktop" = [
           "text/english"
           "text/plain"
           "text/markdown"

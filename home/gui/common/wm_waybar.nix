@@ -98,7 +98,6 @@ in
           format = "{title:.48}";
         };
         mpris = {
-          player = "NeteaseCloudMusicGtk4";
           format = "{status_icon} - {title} - {position}/{length}";
           tooltip-format = ''
             {player}
@@ -111,6 +110,7 @@ in
             paused = "";
             stopped = "";
           };
+          title-len = 32;
           interval = 1;
           on-scroll-up = "playerctl previous";
           on-scroll-down = "playerctl next";
@@ -124,7 +124,7 @@ in
           signal = 1;
           format = " {}";
           tooltip-format = "koumakan";
-          on-click = "wezterm -e neomutt -e 'source ~/.config/neomutt/koumakan'";
+          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
         };
         "custom/email#deepglint" = {
@@ -132,7 +132,7 @@ in
           signal = 2;
           format = " {}";
           tooltip-format = "deepglint";
-          on-click = "wezterm -e neomutt -e 'source ~/.config/neomutt/deepglint'";
+          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/deepglint'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
         };
         network = {
@@ -152,14 +152,13 @@ in
           tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
           tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
           interval = 1;
-          on-click = "wezterm -e nmtui";
-          on-click-right = "nm-connection-editor";
+          on-click = "alacritty -e nmtui";
         };
         wireplumber = {
           format = " {volume}%";
           format-muted = "<span color='red'> {volume}%</span>";
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-right = "wezterm -e pulsemixer";
+          on-click-right = "alacritty -e pulsemixer";
         };
         temperature = {
           format = " {temperatureC}°C";
@@ -176,7 +175,7 @@ in
             swap: {swapPercentage}%
             {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
           interval = 3;
-          on-click = "wezterm -e htop";
+          on-click = "alacritty -e htop";
         };
         battery = {
           format = "{icon}󱐥";
