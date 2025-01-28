@@ -15,6 +15,7 @@
       in
       {
         devShells.default = pkgs.mkShell {
+          name = "dotfiles";
           packages = with pkgs; [
             go
 

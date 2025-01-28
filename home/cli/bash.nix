@@ -68,9 +68,20 @@
       directory = {
         format = "[$path]($style)[$read_only]($read_only_style)";
         style = "yellow";
+        truncation_length = 2;
+        fish_style_pwd_dir_length = 1;
       };
       git_branch = {
-        format = "\([$symbol$branch(:$remote_branch)]($style)\)";
+        format = "[$symbol$branch(:$remote_branch)]($style) ";
+      };
+      nix_shell = {
+        format = "[$state$name]($style) ";
+        heuristic = true;
+        impure_msg = "󰼩 ";
+        pure_msg = "󰜗 ";
+      };
+      cmd_duration = {
+        format = "[ $duration]($style) ";
       };
     };
   };
