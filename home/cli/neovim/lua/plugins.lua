@@ -25,20 +25,18 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"Yggdroot/LeaderF",
-		build = ":LeaderfInstallCExtension",
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		keys = {
-			{ "<F1>", "<cmd>Leaderf file<cr>" },
-			{ "<F2>", "<cmd>Leaderf rg<cr>" },
+			{ "<F1>", "<cmd>FzfLua files<cr>" },
+			{ "<F2>", "<cmd>FzfLua live_grep_native<cr>" },
 		},
-		config = function()
-			vim.g.Lf_WindowPosition = "popup"
-		end,
+		opts = {},
 	},
 	-- ui components
 	{
-		"kyazdani42/nvim-tree.lua",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		"nvim-tree/nvim-tree.lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-tree")
@@ -54,7 +52,7 @@ require("lazy").setup({
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			"arkav/lualine-lsp-progress",
 		},
 		event = "VeryLazy",

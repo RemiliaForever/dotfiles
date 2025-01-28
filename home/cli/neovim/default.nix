@@ -11,9 +11,7 @@
       gcc
       cmake
 
-      #universal-ctags
       xxd
-      fzf
 
       clang-tools
       go
