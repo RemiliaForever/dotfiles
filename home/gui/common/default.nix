@@ -1,4 +1,4 @@
-{ mypkgs, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   genMimeMap = (
@@ -24,7 +24,6 @@ in
     ./wm_mako.nix
     ./wm_waybar.nix
     ./wm_wofi.nix
-    #./wm_swww.nix
     ./wm_wpaperd.nix
 
     ./alacritty.nix
@@ -44,17 +43,11 @@ in
     ueberzugpp
 
     ark
-    gwenview
+    kdePackages.gwenview
     netease-cloud-music-gtk
     nextcloud-client
-    #baidunetdisk
     wpsoffice-cn
     virt-manager
-
-    #discord
-    mypkgs.feishu
-    mypkgs.wechat
-    qq
   ];
 
   xdg = {

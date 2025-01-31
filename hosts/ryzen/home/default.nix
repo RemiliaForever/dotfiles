@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, mypkgs, ... }:
 
 {
   imports = [
@@ -16,6 +16,12 @@
 
   home.packages = with pkgs; [
     deluge
+    #baidunetdisk
+
+    mypkgs.feishu
+    mypkgs.wechat
+    #qq
+    #discord
   ];
 
   # wayland

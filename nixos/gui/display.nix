@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   services.xserver = {
@@ -12,5 +12,4 @@
     enable = true;
     withUWSM = true;
   };
-  environment.systemPackages = with pkgs; [ ];
 }

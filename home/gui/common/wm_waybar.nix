@@ -70,6 +70,7 @@ in
         layer = "top";
         position = "top";
         modules-left = [
+          "custom/starter"
           "hyprland/workspaces"
           "hyprland/window"
         ];
@@ -85,6 +86,14 @@ in
           "battery"
           "clock"
         ];
+        "custom/starter" = {
+          format = "{}";
+          exec = "echo ' '";
+          tooltip = false;
+          on-click = "wofi";
+          on-click-right = "wpaperctl next";
+          on-triple-click-right = "hyprctl dispatch exit";
+        };
         "hyprland/workspaces" = {
           disable-scroll = true;
           format = "{icon}";
@@ -122,7 +131,7 @@ in
         "custom/email#koumakan" = {
           exec = "cat /run/user/1000/email/koumakan";
           signal = 1;
-          format = " {}";
+          format = "{}";
           tooltip-format = "koumakan";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
@@ -130,7 +139,7 @@ in
         "custom/email#deepglint" = {
           exec = "cat /run/user/1000/email/deepglint";
           signal = 2;
-          format = " {}";
+          format = "{}";
           tooltip-format = "deepglint";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/deepglint'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
@@ -199,7 +208,6 @@ in
             critical = 15;
           };
           interval = 5;
-          on-triple-click-right = "hyprctl dispatch exit";
         };
         clock = {
           locale = "en_GB.UTF-8";
@@ -249,7 +257,7 @@ in
           color: #f5e0dc;
       }
 
-      #workspaces, #window, #mpris, #tray, #custom-email, #network, #wireplumber, #temperature, #memory, #battery, #clock {
+      #custom-starter, #workspaces, #window, #mpris, #tray, #custom-email, #network, #wireplumber, #temperature, #memory, #battery, #clock {
           border: 2px solid rgba(89, 89, 89, 0.85);
           border-radius: 8px;
           margin-top: 5px;
@@ -258,9 +266,11 @@ in
           background: rgba(33, 33, 33, 0.85);
       }
 
-      #workspaces {
+      #custom-starter {
           margin-left: 5px;
+          color: #94e2d5;
       }
+
       #workspaces button {
           color: #f5e0dc;
       }

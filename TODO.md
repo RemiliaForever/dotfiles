@@ -1,5 +1,0 @@
-- common
-  - wpaperd
-    - still have bugs
-  - wofi
-    - theme

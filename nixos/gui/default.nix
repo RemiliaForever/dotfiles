@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-
   imports = [
     ./display.nix
     ./audio.nix
@@ -34,9 +33,6 @@
       };
     };
   };
-
-  xdg.menus.enable = true;
-  environment.pathsToLink = [ ];
 
   programs.dconf.enable = true;
   services = {
