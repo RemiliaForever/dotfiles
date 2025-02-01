@@ -1,5 +1,8 @@
+# do NOT use direnv
+
 {
-  description = "nix flake shell";
+  description = "A basic flake for nix-direnv";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
@@ -13,19 +16,24 @@
       {
         devShells.default =
           (pkgs.buildFHSEnv {
-            name = "FHS Env";
+            name = "FHS";
             targetPkgs =
               pkgs:
               (with pkgs; [
-                glibc
+                glib
                 libz
-                libgcrypt
                 libssh2
+                libgcrypt
                 libGL
-                libpng16
-                libharfbuzz
+                libpng
+                harfbuzz
+                libgcrypt
+                libsForQt5.qt5.qtbase
+                libsForQt5.qt5.qtdeclarative
+                libsForQt5.qt5.qtwebsockets
+                libsForQt5.qt5.qtquickcontrols
+                libsForQt5.qt5.qtquickcontrols2
               ]);
-            runScript = "bash";
           }).env;
       }
     );

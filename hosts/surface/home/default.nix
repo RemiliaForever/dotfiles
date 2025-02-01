@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ mypkgs, ... }:
 
 {
   imports = [
@@ -7,6 +7,11 @@
     ../../../home/gui/common
     ../../../home/gui/develop.nix
   ];
+
+  home.packages = [
+    mypkgs.feishu
+  ];
+
   # wayland
   programs.bash.profileExtra = ''
     if uwsm check may-start -q; then

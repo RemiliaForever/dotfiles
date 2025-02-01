@@ -6,7 +6,8 @@
 
 {
   home.packages = with pkgs; [
-    audacity
+    kdePackages.elisa
+    kdePackages.kwave
     bambu-studio
     (blender.override {
       cudaSupport = config.remilia.cuda;
@@ -14,9 +15,8 @@
     })
     darktable
     #(digikam.override { enableCuda = config.remilia.cuda; })
-    kdenlive
+    kdePackages.kdenlive
     krita
-    #lmms
-    pitivi
+    lmms
   ];
 }

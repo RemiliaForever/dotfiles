@@ -39,9 +39,7 @@
         "mako"
         "hypridle"
         "wpaperd"
-        #"swww clear-cache && swww-daemon"
 
-        #"sleep 1 && swww-control"
         "sleep 1 && waybar"
 
         "sleep 2 && waybar-email-daemon"

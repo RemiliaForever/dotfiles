@@ -41,8 +41,9 @@ in
     wl-clipboard-rs
     xdg-user-dirs
     ueberzugpp
+    kdePackages.qtsvg
 
-    ark
+    kdePackages.ark
     kdePackages.gwenview
     netease-cloud-music-gtk
     nextcloud-client
