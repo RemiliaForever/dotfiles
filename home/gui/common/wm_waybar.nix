@@ -210,7 +210,7 @@ in
           interval = 5;
         };
         clock = {
-          locale = "en_GB.UTF-8";
+          locale = "en_US.UTF-8";
           format = " {:%H:%M}";
           tooltip-format = "<tt><span size='11pt'>{calendar}</span></tt>";
           calendar = {
