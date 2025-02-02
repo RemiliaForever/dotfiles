@@ -33,22 +33,26 @@ in
   ];
 
   home.packages = with pkgs; [
-    glxinfo
+    # lib
+    kdePackages.qtsvg
+    # info
+    #glxinfo
+    #vulkan-tools
+    #wayland-utils
+    # tool
+    brightnessctl
     libnotify
     playerctl
-    vulkan-tools
-    wayland-utils
+    ueberzugpp
     wl-clipboard-rs
     xdg-user-dirs
-    ueberzugpp
-    kdePackages.qtsvg
-
+    # app
     kdePackages.ark
     kdePackages.gwenview
     netease-cloud-music-gtk
     nextcloud-client
-    wpsoffice-cn
     virt-manager
+    wpsoffice-cn
   ];
 
   xdg = {
