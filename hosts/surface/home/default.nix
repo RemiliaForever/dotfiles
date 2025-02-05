@@ -12,6 +12,9 @@
     mypkgs.feishu
   ];
 
+  # cli
+  programs.starship.settings.hostname.style = "green";
+
   # wayland
   programs.bash.profileExtra = ''
     if uwsm check may-start -q; then

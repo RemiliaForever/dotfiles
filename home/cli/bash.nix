@@ -57,7 +57,7 @@
       };
       hostname = {
         format = "[$ssh_symbol$hostname]($style)";
-        style = "";
+        # style = "";
         ssh_only = true;
         ssh_symbol = " 🌐 ";
       };
@@ -69,6 +69,7 @@
       directory = {
         format = "[$path]($style)[$read_only]($read_only_style)";
         style = "yellow";
+        read_only = "";
         truncation_length = 2;
         fish_style_pwd_dir_length = 1;
       };
@@ -76,7 +77,7 @@
         format = "[$symbol$branch(:$remote_branch)]($style) ";
       };
       nix_shell = {
-        format = "[$state$name]($style) ";
+        format = "[$state]($style) ";
         heuristic = true;
         impure_msg = "󰼩 ";
         pure_msg = "󱩰 ";

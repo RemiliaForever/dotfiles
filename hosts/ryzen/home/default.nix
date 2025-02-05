@@ -9,11 +9,6 @@
     ../../../home/gui/multimedia.nix
   ];
 
-  remilia = {
-    cuda = true;
-    rocm = true;
-  };
-
   home.packages = with pkgs; [
     deluge
     #baidunetdisk
@@ -23,6 +18,14 @@
     #qq
     #discord
   ];
+
+  remilia = {
+    cuda = true;
+    rocm = true;
+  };
+
+  # cli
+  programs.starship.settings.hostname.style = "yellow";
 
   # wayland
   programs.bash.profileExtra = ''

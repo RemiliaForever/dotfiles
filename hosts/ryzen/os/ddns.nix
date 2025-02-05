@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 let
-  ddns = pkgs.buildGoModule rec {
+  ddns = pkgs.buildGoModule {
     name = "ddns";
     src = ./ddns;
     vendorHash = "sha256-fdXoyKmY+RwMFMQU2KlF3cc28sZV7E+ab+QMcG1NMqc=";

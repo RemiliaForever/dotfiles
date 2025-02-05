@@ -7,6 +7,9 @@
     ../../../home/gui/common
   ];
 
+  # cli
+  programs.starship.settings.hostname.style = "blue";
+
   # wayland
   wayland.windowManager.hyprland = {
     settings = {

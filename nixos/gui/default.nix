@@ -23,8 +23,8 @@
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
-          "Noto Color Emoji"
           "VictorMono Nerd Font"
+          "Noto Color Emoji"
         ];
         monospace = [
           "VictorMono Nerd Font"
