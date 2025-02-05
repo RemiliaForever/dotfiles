@@ -28,14 +28,15 @@
     enable = true;
     settings = {
       format = lib.concatStrings [
-        "[┌\\[](blue)"
+        "[┌](bold green)"
+        "[\\[](blue)"
         "$username"
         "$hostname"
         "[\\]-\\[](blue)"
         "$time"
         "[\\]-\\[](blue)"
         "$directory"
-        "[\\] ](blue)"
+        "[\\]](blue) "
         "$git_branch"
         "$git_commit$git_state"
         "$git_metrics"
@@ -78,7 +79,8 @@
         format = "[$state$name]($style) ";
         heuristic = true;
         impure_msg = "󰼩 ";
-        pure_msg = "󰜗 ";
+        pure_msg = "󱩰 ";
+        unknown_msg = "󰜗 ";
       };
       cmd_duration = {
         format = "[ $duration]($style) ";
