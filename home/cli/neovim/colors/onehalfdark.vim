@@ -160,8 +160,8 @@ call  s:h("DiagnosticUnderlineInfo",       "",            s:gutter_bg,   "")
 call  s:h("DiagnosticUnderlineWarning",    "",            s:gutter_bg,   "")
 call  s:h("DiagnosticUnderlineError",      "",            s:gutter_bg,   "")
 
-call  s:h("NormalFloat",     "",            s:gutter_bg,   "")
-call  s:h("FloatBorder",     "",            s:gutter_bg,   "")
+call  s:h("NormalFloat",     "",            s:trans,   "")
+call  s:h("FloatBorder",     "",            s:trans,   "")
 
 " Signify
 call  s:h("SignifySignAdd", s:green, s:trans, "")

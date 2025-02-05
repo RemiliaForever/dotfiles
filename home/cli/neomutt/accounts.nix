@@ -27,6 +27,7 @@
         showDefaultMailbox = false;
       };
     };
+
     "koumakan" = {
       address = "remilia@koumakan.cc";
       passwordCommand = "cat /run/secrets/mail/koumakan/password";
