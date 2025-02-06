@@ -15,6 +15,11 @@
     docker-compose
   ];
 
+  boot.binfmt = {
+    preferStaticEmulators = true;
+    emulatedSystems = [ "aarch64-linux" ];
+  };
+
   users.users.remilia.extraGroups = [
     "libvirtd"
     "docker"

@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ config, ... }:
 
 {
   users.mutableUsers = false;
@@ -19,7 +19,5 @@
   systemd.user.extraConfig = "DefaultLimitNOFILE=65535";
 
   security.sudo.wheelNeedsPassword = false;
-  security.polkit.enable = true;
-  security.pam.services.Hyprland.kwallet.enable = true;
-  security.pam.services.Hyprland.kwallet.package = pkgs.kdePackages.kwallet-pam;
+  #security.polkit.enable = true;
 }

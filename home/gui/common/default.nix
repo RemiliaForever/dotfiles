@@ -41,6 +41,7 @@ in
     #wayland-utils
     # tool
     brightnessctl
+    kdePackages.kwallet
     libnotify
     playerctl
     ueberzugpp
