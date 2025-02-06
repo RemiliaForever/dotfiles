@@ -1,39 +1,34 @@
 local util = require("util")
 
-local modes = { "symbols", "lsp", "diagnostics" }
-local current_mode = 1
 local is_open = false
+local current_mode = ""
 
-local function toggle_open()
-	local cmode = modes[current_mode]
-	if is_open then
-		vim.cmd("Trouble " .. cmode .. " close")
-	else
-		vim.cmd("Trouble " .. cmode .. " open")
+local function toggle_modes(mode)
+	return function()
+		if is_open then
+			vim.cmd("Trouble " .. current_mode .. " close")
+		end
+		if current_mode ~= mode then
+			vim.cmd("Trouble " .. mode .. " open")
+			current_mode = mode
+			is_open = true
+		else
+			current_mode = ""
+			is_open = false
+		end
 	end
-	is_open = not is_open
 end
 
-local function toggle_mode()
-	if is_open then
-		toggle_open()
-		current_mode = current_mode % #modes + 1
-		toggle_open()
-	else
-		current_mode = current_mode % #modes + 1
-	end
-	vim.notify("Change Trouble mode to " .. modes[current_mode])
-end
-
-util.nmap("<C-l>", toggle_open)
-util.nmap("[l", toggle_mode)
+util.nmap("<C-l>", toggle_modes("symbols"))
+util.nmap("[r", toggle_modes("lsp"))
 
 require("trouble").setup({
 	open_no_results = true,
+	focus = true,
 	win = {
 		type = "split",
 		relative = "editor",
 		position = "right",
-		size = { width = 34, height = 8 },
+		size = { width = 40, height = 8 },
 	},
 })

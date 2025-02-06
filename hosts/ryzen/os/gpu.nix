@@ -1,13 +1,12 @@
 { pkgs, ... }:
 
 {
-  # nvidia
   hardware = {
-    nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
-    };
+    #nvidia = {
+    #  modesetting.enable = true;
+    #  open = false;
+    #  nvidiaSettings = true;
+    #};
     amdgpu = {
       opencl.enable = true;
     };
@@ -19,7 +18,6 @@
   };
   services.xserver.videoDrivers = [
     "amdgpu"
-    "nvidia"
   ];
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"

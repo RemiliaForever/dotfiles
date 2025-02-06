@@ -14,19 +14,23 @@
       in
       {
         devShells.default = pkgs.mkShell {
-
           packages = with pkgs; [
+            taplo
+
             go
             gopls
-            taplo
+
+            cargo
+            clippy
+            rust-analyzer
+            rustc
+            rustfmt
           ];
 
-          inputsFrom = with pkgs; [ ];
-
           shellHook = ''
-            export GOPATH=$PWD/.shell/go
+            GOPATH=$PWD/.shell/go
+            CARGO_HOME=$PWD/.shell/cargo
           '';
-
         };
       }
     );

@@ -116,8 +116,7 @@
 
         "SUPER, W, killactive"
         "SUPER, P, pseudo"
-        "SUPER, S, fullscreen, 0"
-        "SUPER, M, fullscreen, 1"
+        "SUPER, M, fullscreen, 0"
         "SUPER, Space, togglefloating"
 
         "SUPER, K, movefocus, u"
