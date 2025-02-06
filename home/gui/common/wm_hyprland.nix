@@ -28,7 +28,7 @@
 
     plugins = with pkgs.hyprlandPlugins; [
       hyprsplit
-      hyprspace
+      hyprspace # FIX: broken on hyprland 0.47.0
       hyprgrass
       hyprwinwrap
     ];
@@ -36,6 +36,7 @@
       xwayland.force_zero_scaling = true;
 
       exec-once = [
+        "kwalletd6"
         "mako"
         "hypridle"
         "wpaperd"
@@ -45,6 +46,8 @@
         "sleep 2 && waybar-email-daemon"
         "sleep 2 && fcitx5 -r"
         "sleep 2 && blueman-applet"
+
+        "sleep 5 && nextcloud"
       ];
 
       env = [ ];

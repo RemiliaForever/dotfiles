@@ -44,7 +44,6 @@
         "[workspace 1 silent] sleep 5 && bytedance-feishu"
         "[workspace 1 silent] sleep 5 && wechat-uos"
         "[workspace 5 silent] sleep 5 && netease-cloud-music-gtk4"
-        "[workspace 8 silent] sleep 5 && nextcloud"
       ];
     };
   };
