@@ -37,12 +37,6 @@
     let
       system = "${hostname.arch}";
       hostname = import ./hostname.nix;
-      mypkgs = import ./pkgs {
-        pkgs = import nixpkgs-unstable {
-          inherit system;
-          config.allowUnfree = true;
-        };
-      };
     in
     {
       nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs-unstable.lib.nixosSystem {
@@ -55,19 +49,18 @@
         };
 
         modules = [
-          ./hosts/${hostname.hostname}/os
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
+          jovian.nixosModules.jovian
+
+          ./hosts/${hostname.hostname}/os
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "bak";
             home-manager.users.remilia = import ./hosts/${hostname.hostname}/home;
-            home-manager.extraSpecialArgs = {
-              inherit mypkgs;
-            };
           }
-          jovian.nixosModules.jovian
+          ./overlays
         ];
       };
     };

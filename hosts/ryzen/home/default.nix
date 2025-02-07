@@ -1,4 +1,4 @@
-{ pkgs, mypkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -13,8 +13,8 @@
     deluge
     #baidunetdisk
 
-    mypkgs.feishu
-    mypkgs.wechat
+    feishu
+    wechat-uos
     #qq
     #discord
   ];

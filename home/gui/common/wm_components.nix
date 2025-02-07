@@ -1,6 +1,5 @@
 {
   pkgs,
-  mypkgs,
   lib,
   ...
 }:
@@ -9,7 +8,7 @@
   home.packages = with pkgs; [
     hypridle
     hyprlock
-    mypkgs.hyprshot
+    hyprshot
     #hyprpolkitagent # FIX: new nixpkgs
   ];
 

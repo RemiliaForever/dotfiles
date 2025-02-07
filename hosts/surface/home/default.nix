@@ -1,4 +1,4 @@
-{ mypkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -8,8 +8,8 @@
     ../../../home/gui/develop.nix
   ];
 
-  home.packages = [
-    mypkgs.feishu
+  home.packages = with pkgs; [
+    feishu
   ];
 
   # cli

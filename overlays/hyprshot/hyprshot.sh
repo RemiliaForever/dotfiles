@@ -4,7 +4,7 @@ function freeze() {
     hyprpicker -r -z &
     sleep 0.2
     picker_pid=$!
-    "$@"
+    "$@" || true
     kill $picker_pid
 }
 
@@ -58,7 +58,7 @@ function grab_and_copy() {
 # Usage: Hyprshot MODE [copy|save]
 function main() {
     local geometry
-    case "$1" in
+    case "${1:-region}" in
         region)
             geometry=$(grab_region)
             ;;

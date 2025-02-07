@@ -52,8 +52,6 @@ in
     kdePackages.gwenview
     netease-cloud-music-gtk
     nextcloud-client
-    virt-manager
-    wpsoffice-cn
   ];
 
   xdg = {

@@ -16,5 +16,7 @@
         standalone
         ;
     })
+    virt-manager
+    libreoffice-qt6-fresh
   ];
 }
