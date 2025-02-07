@@ -19,7 +19,7 @@
       };
       font = {
         size = 11;
-        offset.y = -2;
+        offset.y = -4;
       };
       colors = {
         primary = {

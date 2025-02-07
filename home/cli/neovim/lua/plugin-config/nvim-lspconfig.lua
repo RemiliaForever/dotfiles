@@ -149,7 +149,7 @@ nvim_lsp.lua_ls.setup({
 })
 nvim_lsp.rust_analyzer.setup({
 	capabilities = capabilities,
-	cmd = { "bash", "-c", "CARGO_TARGET_DIR=$CARGO_HOME/../rust-analyzer rust-analyzer" },
+	cmd = { "bash", "-c", "CARGO_TARGET_DIR=target/rust-analyzer rust-analyzer" },
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {

@@ -4,26 +4,34 @@
   description = "nix flake shell";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.rust-overlay.url = "github:oxalica/rust-overlay";
 
   outputs =
-    { nixpkgs, flake-utils, ... }:
+    {
+      nixpkgs,
+      flake-utils,
+      rust-overlay,
+      ...
+    }:
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        overlays = [ (import rust-overlay) ];
+        pkgs = import nixpkgs {
+          inherit system overlays;
+        };
       in
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             taplo
 
-            go
-            gopls
+            (rust-bin.beta.latest.default.override {
+              extensions = [ "rust-analyzer" ];
+            })
           ];
 
-          shellHook = ''
-            GOPATH=$PWD/.shell/go
-          '';
+          shellHook = '''';
         };
       }
     );
