@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  home.packages = with pkgs; [ tig ];
+  home.packages = [ ];
   programs = {
     git = {
       enable = true;
@@ -76,6 +76,26 @@
         ".shell"
         ".shell.nix"
       ];
+    };
+    lazygit = {
+      enable = true;
+      settings = {
+        gui = {
+          nerdFontsVersion = "3";
+          showBranchCommitHash = true;
+          commandLogSize = 6;
+          switchTabsWithPanelJumpKeys = true;
+        };
+        git = {
+          paging = {
+            colorArg = "always";
+            parseEmoji = true;
+          };
+          log = {
+            showWholeGraph = true;
+          };
+        };
+      };
     };
   };
 }

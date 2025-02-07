@@ -8,15 +8,14 @@
     shellAliases = {
       cat = "bat";
       diff = "delta";
-      grep = "rg";
       ll = "eza -bghHliS";
       mutt = "neomutt";
       ping = "prettyping";
       py = "ipython";
+      lg = "lazygit";
 
       latexmk = "latexmk -interaction=nonstopmode";
       ncdu = "ncdu --color=dark";
-      tig = "tig --date-order --all";
       vims = "vim --servername VIM";
     };
     bashrcExtra = ''
