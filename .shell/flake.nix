@@ -28,7 +28,7 @@
             sops
           ];
           shellHook = ''
-            export GOPATH=$PWD/.shell/go
+            export GOPATH=$HOME/.go
           '';
         };
       }

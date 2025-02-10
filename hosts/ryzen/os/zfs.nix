@@ -24,6 +24,7 @@ in
     supportedFilesystems = {
       zfs = true;
     };
+    extraModulePackages = with latestKernelPackage; [ nct6687d ];
     extraModprobeConfig = ''
       options zfs zfs_arc_max=34359738368 zfs_dirty_data_max=8589934592
     '';
