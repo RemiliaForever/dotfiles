@@ -24,4 +24,16 @@ final: prev:
       };
     });
   };
+
+  #380449
+  python311 = prev.python311.override {
+    packageOverrides = final: prev: {
+      materialx = final.callPackage ./materialx.nix { };
+    };
+  };
+
+  #376159
+  bambu-studio = prev.bambu-studio.override {
+    boost = final.boost186;
+  };
 }

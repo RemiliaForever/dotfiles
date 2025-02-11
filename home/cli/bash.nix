@@ -27,8 +27,7 @@
     enable = true;
     settings = {
       format = lib.concatStrings [
-        "[┌](bold green)"
-        "[\\[](blue)"
+        "[┌\\[](blue)"
         "$username"
         "$hostname"
         "[\\]-\\[](blue)"
@@ -45,13 +44,14 @@
         "$cmd_duration"
         "$jobs"
         "$status\n"
-        "[└$character](bold green)"
+        "[└](blue)"
+        "$character"
       ];
       scan_timeout = 1000;
       command_timeout = 1000;
       username = {
         format = "[$user]($style)";
-        style_user = "yellow";
+        style_user = "green";
         show_always = true;
       };
       hostname = {
