@@ -6,5 +6,6 @@
     (final: prev: {
       hyprshot = import ./hyprshot { pkgs = final; };
     })
+    (import ./patch.nix)
   ];
 }

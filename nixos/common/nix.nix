@@ -29,7 +29,7 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
-      delete_generations = "+5";
+      delete_generations = "+1";
     };
   };
 

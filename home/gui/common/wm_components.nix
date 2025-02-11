@@ -9,7 +9,6 @@
     hypridle
     hyprlock
     hyprshot
-    #hyprpolkitagent # FIX: new nixpkgs
   ];
 
   xdg.configFile = {

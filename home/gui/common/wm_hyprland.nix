@@ -11,7 +11,7 @@
   };
   # disable xdg autostart
   home.activation.hyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ${pkgs.systemd}/bin/systemctl --user mask xdg-desktop-autostart.target
+    ln -sf /dev/null /home/remilia/.config/systemd/user/xdg-desktop-autostart.target
   '';
   # fix uwsm leak python
   programs.bash.bashrcExtra = ''
@@ -28,7 +28,7 @@
 
     plugins = with pkgs.hyprlandPlugins; [
       hyprsplit
-      hyprspace # FIX: broken on hyprland 0.47.0
+      hyprspace
       hyprgrass
       hyprwinwrap
     ];
@@ -190,7 +190,9 @@
 
         ", switch:on:Lid Switch, exec, loginctl lock-session"
         ", switch:on:Lid Switch, dpms, off"
+        ", switch:on:Lid Switch, exec, wpaperctl pause"
         ", switch:off:Lid Switch, dpms, on"
+        ", switch:off:Lid Switch, exec, wpaperctl resume"
       ];
 
       windowrulev2 = [

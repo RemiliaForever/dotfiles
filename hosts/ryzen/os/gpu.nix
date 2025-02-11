@@ -1,6 +1,11 @@
 { pkgs, ... }:
 
 {
+  environment.systemPackages = with pkgs; [
+    amdgpu_top
+    lact
+  ];
+
   hardware = {
     #nvidia = {
     #  modesetting.enable = true;
@@ -19,10 +24,11 @@
   services.xserver.videoDrivers = [
     "amdgpu"
   ];
+
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
-  environment.systemPackages = with pkgs; [
-    amdgpu_top
-  ];
+
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lact.enable = true;
 }
