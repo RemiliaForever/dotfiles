@@ -69,10 +69,10 @@ require("lazy").setup({
 	},
 	{
 		"MeanderingProgrammer/render-markdown.nvim",
-		opts = {
-			file_types = { "markdown", "Avante" },
-		},
 		ft = { "markdown", "Avante" },
+		config = function()
+			require("plugin-config.render-markdown")
+		end,
 	},
 	-- completion, format
 	{
