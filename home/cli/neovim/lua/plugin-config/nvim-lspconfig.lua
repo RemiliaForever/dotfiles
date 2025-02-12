@@ -47,7 +47,7 @@ local function open_vsplit()
 			util.jump_to_location(result[1], "utf-8")
 
 			if #result > 1 then
-				util.set_qflist(util.locations_to_items(result, "utf-8"))
+				vim.fn.setqflist(util.locations_to_items(result, "utf-8"))
 				api.nvim_command("copen")
 				api.nvim_command("wincmd p")
 			end
@@ -108,14 +108,15 @@ local lsps = {
 	"dockerls",
 	"gopls",
 	"html",
-	"jdtls",
+	--"jdtls",
 	"jsonls",
-	"kotlin_language_server",
+	--"kotlin_language_server",
 	"neocmake",
 	"nixd",
 	"openscad_lsp",
 	"pyright",
 	"taplo",
+	"ts_ls",
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -177,6 +178,10 @@ nvim_lsp.texlab.setup({
 })
 nvim_lsp.volar.setup({
 	capabilities = capabilities,
-	filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact", "vue", "json" },
+	filetypes = { "javascriptreact", "typescriptreact", "vue", "json" },
+	init_options = {
+		typescript = { tsdk = "/path/to/node_modules/typescript/lib" }, -- TODO
+		vue = { hybridMode = false },
+	},
 	root_dir = nvim_lsp_util.root_pattern("tsconfig.json", ".git"),
 })

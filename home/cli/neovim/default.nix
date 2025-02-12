@@ -8,11 +8,12 @@
     vimAlias = true;
 
     extraPackages = with pkgs; [
+      # tool
+      xxd
+      # plugin
       gcc
       cmake
-
-      xxd
-
+      # conform
       clang-tools
       go
       isort
@@ -22,7 +23,25 @@
       stylua
       taplo
       yapf
+      # lsp
+      bash-language-server
+      vscode-langservers-extracted
+      dockerfile-language-server-nodejs
+      docker-compose-language-service
+      gopls
+      neocmakelsp
+      nixd
+      openscad-lsp
+      pyright
+      typescript-language-server
+      lua-language-server
+      rust-analyzer
+      texlab
+      vue-language-server
     ];
+  };
+  home.sessionVariables = {
+    GOPATH = "$HOME/.go";
   };
 
   xdg.configFile = {

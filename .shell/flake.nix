@@ -18,18 +18,9 @@
           name = "dotfiles";
           packages = with pkgs; [
             go
-
-            lua-language-server
-            bash-language-server
-            nixd
-            gopls
-            pyright
-
             sops
           ];
-          shellHook = ''
-            export GOPATH=$HOME/.go
-          '';
+          shellHook = '''';
         };
       }
     );

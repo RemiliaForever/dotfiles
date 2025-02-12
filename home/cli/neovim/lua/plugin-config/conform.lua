@@ -17,7 +17,7 @@ conform.setup({
 		cpp = { "clang-format" },
 		cuda = { "clang-format" },
 		go = { "gofmt" },
-		java = { "google_java_format" },
+		--java = { "google_java_format" },
 		javascript = { "prettier" },
 		json = { "prettier" },
 		lua = { "stylua" },

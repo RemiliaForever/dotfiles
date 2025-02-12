@@ -2,7 +2,7 @@
 
 {
   description = "nix flake shell";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.rust-overlay.url = "github:oxalica/rust-overlay";
 
@@ -24,8 +24,6 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
-            taplo
-
             (rust-bin.beta.latest.default.override {
               extensions = [ "rust-analyzer" ];
             })
