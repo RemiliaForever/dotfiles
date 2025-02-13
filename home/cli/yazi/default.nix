@@ -15,7 +15,21 @@
         cache_dir = "~/.cache/yazi";
       };
     };
-    initLua = ./init.lua;
+    keymap = {
+      manager.prepend_keymap = [
+        {
+          on = "<C-c>";
+          run = "plugin clipboard";
+        }
+      ];
+    };
+    initLua = ''
+      require("ui"):setup()
+    '';
+    plugins = {
+      clipboard = ./clipboard.yazi;
+      ui = ./ui.yazi;
+    };
   };
 
   programs.bash.bashrcExtra = ''
