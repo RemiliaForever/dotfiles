@@ -7,11 +7,6 @@
   ];
 
   hardware = {
-    #nvidia = {
-    #  modesetting.enable = true;
-    #  open = false;
-    #  nvidiaSettings = true;
-    #};
     amdgpu = {
       opencl.enable = true;
     };

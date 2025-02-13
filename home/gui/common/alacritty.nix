@@ -19,7 +19,8 @@
       };
       font = {
         size = 11;
-        offset.y = -4;
+        offset.y = -6;
+        glyph_offset.y = -3;
       };
       colors = {
         primary = {

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.yazi = {
@@ -15,6 +15,7 @@
         cache_dir = "~/.cache/yazi";
       };
     };
+    initLua = ./init.lua;
   };
 
   programs.bash.bashrcExtra = ''

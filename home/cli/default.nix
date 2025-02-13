@@ -9,6 +9,6 @@
     ./neovim
     ./python.nix
     ./tool.nix
-    ./yazi.nix
+    ./yazi
   ];
 }
