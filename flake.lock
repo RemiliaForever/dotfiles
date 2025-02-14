@@ -37,6 +37,24 @@
         "type": "github"
       }
     },
+    "grub2-themes": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1734412921,
+        "narHash": "sha256-JeMqc7lLowKn6klrCcOkcOg38yNqF7MPbN4Elh6Xvq0=",
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "rev": "f6ab2438e124f60a340a526543e498e5e33b3c53",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -115,6 +133,22 @@
         "type": "github"
       }
     },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1739522961,
+        "narHash": "sha256-SGb+aimuu8gwk6aNP04KKDKMsz3MdVjxlEzA8Q02bRE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ae0e9af7a46a71834e8215932a11f24eaaa27a4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1739214665,
@@ -134,6 +168,7 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
+        "grub2-themes": "grub2-themes",
         "home-manager": "home-manager",
         "jovian": "jovian",
         "nixos-hardware": "nixos-hardware",

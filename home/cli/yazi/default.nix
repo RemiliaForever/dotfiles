@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.yazi = {
@@ -34,14 +34,6 @@
 
   programs.bash.bashrcExtra = ''
     # yazi
-    function yazi-cd() {
-        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-            builtin cd -- "$cwd"
-        fi
-        rm -f -- "$tmp"
-    }
-    [[ $- == *i* ]] && bind '"\C-o":"\C-u yazi-cd\C-m"'
+    [[ $- == *i* ]] && bind '"\C-o":"\C-u${config.programs.yazi.shellWrapperName}\C-m"'
   '';
 }

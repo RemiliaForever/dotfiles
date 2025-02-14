@@ -14,6 +14,11 @@
         fontSize = 32;
         configurationLimit = 8;
       };
+      grub2-theme = {
+        enable = true;
+        theme = "vimix";
+        footer = true;
+      };
     };
 
     kernelModules = [ "tcp_bbr" ];

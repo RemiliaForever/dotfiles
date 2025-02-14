@@ -5,6 +5,7 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
+    grub2-themes.url = "github:vinceliuice/grub2-themes";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -27,6 +28,7 @@
     inputs@{
       nixpkgs-unstable,
       nixos-hardware,
+      grub2-themes,
       home-manager,
       sops-nix,
       jovian,
@@ -49,6 +51,7 @@
         };
 
         modules = [
+          grub2-themes.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           jovian.nixosModules.jovian
