@@ -24,6 +24,9 @@
     "nct6775"
   ];
   boot.extraModulePackages = [ ];
+  boot.extraModprobeConfig = ''
+    options iwlwifi power_save=0 swcrypto=1
+  '';
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/a0386433-6c03-4d0b-945c-492f2683647e";

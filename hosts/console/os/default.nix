@@ -29,10 +29,25 @@
     "nvidia"
   ];
 
+  # keyd
+  services.keyd = {
+    enable = true;
+    keyboards.default = {
+      ids = [ "*" ];
+      settings = {
+        main = {
+          capslock = "leftcontrol";
+          leftcontrol = "capslock";
+        };
+      };
+    };
+  };
+
   # steam
   jovian = {
     steam.enable = true;
     steam.autoStart = true;
+    steamos.enableDefaultCmdlineConfig = false;
     steamos.enableMesaPatches = false;
   };
 
