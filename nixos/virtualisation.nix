@@ -6,6 +6,7 @@
     docker = {
       enable = true;
       daemon.settings = {
+        bip = "172.19.0.1/16";
         insecure-registries = [ "172.17.0.5:5050" ];
         userland-proxy = false;
       };
