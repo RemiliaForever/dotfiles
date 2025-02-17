@@ -26,6 +26,14 @@ let
     "dmhy.org"
   ];
   proxy_ip = [ ];
+
+  planet = ''
+    AQAAAAAI6skKAAABbOPiOVWEb/heo5RtscoWY0eIJLzOM+hK9nV61UCa5wIqpIOgTUiiDNRtzQqY
+    Nh1TqZkJ6+JFj+7aSc91xSjux5rYmFeGFh/6GN2WUMCzfbZ5iZiBU5coYRE+jOceDJn9mAwW4Tgk
+    6esCSS05TqbCLsK5nITSUDHh/E1OpEHtLoyKFDgXCXWMCszmIiMZrLIGpYqg3lIuurfphyJVCgKr
+    +/4yDQ/eASC42WVLACml+LxB1QZZ4/kTAIVu2cN6Go0G2eLVXvCRNelw7Kgf2DeWUJZeF82j8NfW
+    c57poxmn54yaL+RbqzmiyY0V8SMAAgSaEQ3FhkAGJgVSwAACAvk4n6D//o6Pw4ZA
+  '';
 in
 {
   networking = {
@@ -36,6 +44,18 @@ in
   };
 
   users.users.remilia.extraGroups = [ "networkmanager" ];
+
+  services.zerotierone = {
+    enable = true;
+    port = 29993;
+    joinNetworks = [
+      "20b8d9654bcba50f" # remilia
+      "20b8d9654b7800af" # koumakan
+    ];
+  };
+  systemd.services.zerotierone.preStart = ''
+    echo "${planet}" | base64 -d > /var/lib/zerotier-one/planet
+  '';
 
   services.sing-box = {
     enable = true;

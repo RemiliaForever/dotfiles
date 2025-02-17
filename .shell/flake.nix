@@ -19,6 +19,7 @@
           packages = with pkgs; [
             go
             sops
+            pinentry-curses
           ];
           shellHook = '''';
         };
