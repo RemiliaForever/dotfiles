@@ -49,7 +49,6 @@ in
     enable = true;
     port = 29993;
     joinNetworks = [
-      "20b8d9654bcba50f" # remilia
       "20b8d9654b7800af" # koumakan
     ];
   };
