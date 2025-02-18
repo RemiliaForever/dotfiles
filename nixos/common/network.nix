@@ -34,6 +34,7 @@ let
     +/4yDQ/eASC42WVLACml+LxB1QZZ4/kTAIVu2cN6Go0G2eLVXvCRNelw7Kgf2DeWUJZeF82j8NfW
     c57poxmn54yaL+RbqzmiyY0V8SMAAgSaEQ3FhkAGJgVSwAACAvk4n6D//o6Pw4ZA
   '';
+  networkid = "20b8d9654b7800af";
 in
 {
   networking = {
@@ -45,17 +46,29 @@ in
 
   users.users.remilia.extraGroups = [ "networkmanager" ];
 
+  # zerotier
   services.zerotierone = {
     enable = true;
     port = 29993;
     joinNetworks = [
-      "20b8d9654b7800af" # koumakan
+      "${networkid}" # koumakan
     ];
   };
   systemd.services.zerotierone.preStart = ''
     echo "${planet}" | base64 -d > /var/lib/zerotier-one/planet
   '';
+  programs.bash.shellAliases = {
+    zerotier-peers = " sudo zerotier-cli peers";
+    zerotier-refresh = " sudo zerotier-cli leave ${networkid} && sudo zerotier-cli join ${networkid}";
+  };
+  networking.hosts = {
+    "172.18.10.1" = [ "ryzen" ];
+    "172.18.10.2" = [ "console" ];
+    "172.18.10.3" = [ "surface" ];
+    "172.18.10.4" = [ "deck" ];
+  };
 
+  # sing-box
   services.sing-box = {
     enable = true;
     settings = {

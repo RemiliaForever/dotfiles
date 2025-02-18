@@ -1,24 +1,13 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   programs.ssh = {
     enable = true;
     extraConfig = ''
-      Host ryzen
-          HostName 172.18.10.1
-          User remilia
-
-      Host console
-          HostName 172.18.10.2
-          User remilia
-
-      Host surface
-          HostName 172.18.10.3
-          User remilia
-
-      Host deck
-          HostName 172.18.10.4
-          User remilia
+      Host dmit
+          HostName koumakan.cc
+          Port 121
+          User root
     '';
   };
   home.file = {
