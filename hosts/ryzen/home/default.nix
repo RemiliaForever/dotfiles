@@ -28,8 +28,8 @@
 
   # wayland
   programs.bash.profileExtra = ''
-    if uwsm check may-start -q; then
-        exec uwsm start hyprland-uwsm.desktop
+    if uwsm check may-start -q && uwsm select; then
+        exec uwsm start default
     fi
   '';
   wayland.windowManager.hyprland = {

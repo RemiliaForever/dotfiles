@@ -62,7 +62,11 @@ in
     zerotier-refresh = " sudo zerotier-cli leave ${networkid} && sudo zerotier-cli join ${networkid}";
   };
   networking.hosts = {
-    "172.18.10.1" = [ "ryzen" ];
+    "172.18.10.1" = [
+      "ryzen"
+      "nextcloud.koumakan.cc"
+      "gitlab.koumakan.cc"
+    ];
     "172.18.10.2" = [ "console" ];
     "172.18.10.3" = [ "surface" ];
     "172.18.10.4" = [ "deck" ];
