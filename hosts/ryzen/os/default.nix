@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./ddns.nix
     ./hardware.nix
     ./gpu.nix
     ./zfs.nix

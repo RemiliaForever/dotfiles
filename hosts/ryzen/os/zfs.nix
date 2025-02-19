@@ -42,34 +42,4 @@ in
     # zfs set com.sun:auto-snapshot:weekly=false DATASET
     autoSnapshot.enable = true;
   };
-
-  systemd = {
-    timers = {
-      zfs_download_snapshot = {
-        description = "Download snapshot from server";
-        wantedBy = [ "timers.target" ];
-        after = [ "multi-user.target" ];
-        timerConfig = {
-          OnCalendar = "Mon 02:30";
-          Persistent = true;
-        };
-      };
-    };
-    services = {
-      zfs_download_snapshot = {
-        description = "Download snapshot from server";
-        restartIfChanged = false;
-        after = [ "zfs-import.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-        };
-        path = with pkgs; [
-          gawk
-          zfs
-          openssh
-        ];
-        script = builtins.readFile ./zfs_download_snapshot.sh;
-      };
-    };
-  };
 }
