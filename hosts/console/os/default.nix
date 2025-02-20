@@ -1,4 +1,4 @@
-{ aagl, ... }:
+{ config, aagl, ... }:
 
 {
   imports = [
@@ -15,33 +15,19 @@
   # gpu
   hardware = {
     nvidia = {
-      modesetting.enable = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       open = false;
+      modesetting.enable = true;
       nvidiaSettings = true;
     };
     graphics = {
       enable = true;
       enable32Bit = true;
-      #extraPackages = with pkgs; [ ];
     };
   };
   services.xserver.videoDrivers = [
     "nvidia"
   ];
-
-  # keyd
-  services.keyd = {
-    enable = true;
-    keyboards.default = {
-      ids = [ "*" ];
-      settings = {
-        main = {
-          capslock = "leftcontrol";
-          leftcontrol = "capslock";
-        };
-      };
-    };
-  };
 
   # steam
   jovian = {

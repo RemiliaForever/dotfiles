@@ -1,6 +1,6 @@
 online ?= 0
 
-remotes := surface deck console vm
+remotes := ryzen surface deck console vm
 .PHONY: local $(remotes)
 
 command = switch
