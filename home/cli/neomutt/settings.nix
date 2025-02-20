@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home.packages = with pkgs; [ w3m ];
@@ -34,7 +34,7 @@
       sidebar_sort_method = "path";
 
       # mailcap
-      mailcap_path = toString ./mailcap;
+      mailcap_path = "${config.xdg.configHome}/neomutt/mailcap";
     };
     extraConfig = ''
       ignore *
@@ -46,4 +46,6 @@
       alternative_order text/plain text/enriched text/plain
     '';
   };
+
+  xdg.configFile."neomutt/mailcap".source = ./mailcap;
 }
