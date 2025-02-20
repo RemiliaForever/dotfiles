@@ -80,14 +80,6 @@
         key = "<F2>";
         action = "<sync-mailbox><enter-command>source ~/.config/neomutt/koumakan<enter><change-folder>!<enter><check-stats>";
       }
-      {
-        map = [
-          "index"
-          "pager"
-        ];
-        key = "<F3>";
-        action = "<sync-mailbox><enter-command>source ~/.config/neomutt/deepglint<enter><change-folder>!<enter><check-stats>";
-      }
     ];
   };
 }

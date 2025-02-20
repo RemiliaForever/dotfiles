@@ -56,7 +56,7 @@ let
         event.set()
         while True:
             event.wait(timeout=300)
-            for i, m in enumerate(['koumakan', 'deepglint']):
+            for i, m in enumerate(['koumakan']):
                 fetch_mail(i + 1, m)
             event.clear()
   '';
@@ -78,7 +78,6 @@ in
         modules-right = [
           "tray"
           "custom/email#koumakan"
-          "custom/email#deepglint"
           "network"
           "wireplumber"
           "temperature"
@@ -134,14 +133,6 @@ in
           format = "{}";
           tooltip-format = "koumakan";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
-          on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
-        };
-        "custom/email#deepglint" = {
-          exec = "cat /run/user/1000/email/deepglint";
-          signal = 2;
-          format = "{}";
-          tooltip-format = "deepglint";
-          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/deepglint'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
         };
         network = {
