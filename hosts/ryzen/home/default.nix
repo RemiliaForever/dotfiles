@@ -15,12 +15,15 @@
 
     feishu
     wechat-uos
-    #qq
-    #discord
+    qq
+    discord
+
+    wiliwili
+    ollama-cuda
   ];
 
   remilia = {
-    rocm = true;
+    cuda = true;
   };
 
   # cli
@@ -35,14 +38,13 @@
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [
-        "DP-1, 3840x2160, 1920x0, 2"
-        "DP-2, 3840x2160, 0x0, 2"
+        "HDMI-A-1, 3840x2160, 0x0, 2"
       ];
 
       exec-once = [
-        "[workspace 8 silent] sleep 5 && firefox"
-        "[workspace 1 silent] sleep 5 && bytedance-feishu"
-        "[workspace 1 silent] sleep 5 && wechat-uos"
+        "[workspace 3 silent] sleep 5 && firefox"
+        "[workspace 4 silent] sleep 5 && bytedance-feishu"
+        "[workspace 4 silent] sleep 5 && wechat-uos"
         "[workspace 5 silent] sleep 5 && netease-cloud-music-gtk4"
       ];
     };

@@ -1,29 +1,19 @@
-{ pkgs, ... }:
+{ config, ... }:
 
 {
-  environment.systemPackages = with pkgs; [
-    amdgpu_top
-    lact
-  ];
-
   hardware = {
-    amdgpu = {
-      opencl.enable = true;
+    nvidia = {
+      open = false;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      modesetting.enable = true;
+      nvidiaSettings = true;
     };
     graphics = {
       enable = true;
       enable32Bit = true;
-      extraPackages = with pkgs; [ ];
     };
   };
   services.xserver.videoDrivers = [
-    "amdgpu"
+    "nvidia"
   ];
-
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
-
-  systemd.packages = with pkgs; [ lact ];
-  systemd.services.lact.enable = true;
 }

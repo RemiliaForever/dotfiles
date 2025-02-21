@@ -14,7 +14,6 @@
       hipSupport = config.remilia.rocm;
     })
     darktable
-    #(digikam.override { enableCuda = config.remilia.cuda; })
     kdePackages.kdenlive
     krita
     lmms

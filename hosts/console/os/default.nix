@@ -1,4 +1,4 @@
-{ config, aagl, ... }:
+{ pkgs, aagl, ... }:
 
 {
   imports = [
@@ -14,11 +14,8 @@
 
   # gpu
   hardware = {
-    nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
-      open = false;
-      modesetting.enable = true;
-      nvidiaSettings = true;
+    amdgpu = {
+      opencl.enable = true;
     };
     graphics = {
       enable = true;
@@ -26,7 +23,11 @@
     };
   };
   services.xserver.videoDrivers = [
-    "nvidia"
+    "amdgpu"
+  ];
+
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
   # steam

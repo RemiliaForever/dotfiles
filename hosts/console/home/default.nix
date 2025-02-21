@@ -8,7 +8,7 @@
   ];
 
   remilia = {
-    cuda = true;
+    rocm = true;
   };
 
   # cli

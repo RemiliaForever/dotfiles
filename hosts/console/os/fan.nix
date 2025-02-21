@@ -1,6 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+
   hardware.fancontrol = {
     enable = true;
     config = ''
@@ -19,4 +20,11 @@
       MAXPWM=hwmon2/pwm1=255 hwmon2/pwm2=255 hwmon2/pwm6=255
     '';
   };
+
+  environment.systemPackages = with pkgs; [
+    amdgpu_top
+    lact
+  ];
+  systemd.packages = with pkgs; [ lact ];
+  systemd.services.lact.enable = true;
 }

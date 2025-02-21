@@ -10,6 +10,8 @@
 
   home.packages = with pkgs; [
     feishu
+    wechat-uos
+    qq
   ];
 
   # cli
