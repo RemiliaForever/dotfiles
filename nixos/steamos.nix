@@ -26,7 +26,7 @@
     };
   };
 
-  # fix gamescope-session steam cjk fonts
+  # https://github.com/Jovian-Experiments/Jovian-NixOS/pull/376
   nixpkgs.overlays = [
     (final: prev: {
       gamescope-session = prev.gamescope-session.override {

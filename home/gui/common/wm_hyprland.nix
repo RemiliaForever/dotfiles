@@ -100,12 +100,16 @@
       };
 
       misc = {
-        disable_autoreload = false;
         disable_hyprland_logo = true;
-        focus_on_activate = true;
-        key_press_enables_dpms = true;
+        vrr = 1;
         mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        disable_autoreload = false;
+        focus_on_activate = true;
         allow_session_lock_restore = true;
+        render_unfocused_fps = 60;
+        disable_xdg_env_checks = true;
+        disable_hyprland_qtutils_check = true;
       };
 
       render.explicit_sync = 0;
