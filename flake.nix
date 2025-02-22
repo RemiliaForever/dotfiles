@@ -47,6 +47,7 @@
         specialArgs = {
           inherit hostname;
           inherit nixos-hardware;
+          inherit jovian;
           inherit aagl;
         };
 
@@ -54,7 +55,6 @@
           grub2-themes.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
-          jovian.nixosModules.jovian
 
           ./hosts/${hostname.hostname}/os
           {

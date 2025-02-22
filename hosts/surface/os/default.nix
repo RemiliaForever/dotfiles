@@ -7,9 +7,14 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam.nix
     ../../../nixos/wireshark.nix
   ];
+
+  # steam
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+  };
 
   services.power-profiles-daemon.enable = true;
 

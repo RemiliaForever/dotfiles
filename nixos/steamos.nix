@@ -1,6 +1,16 @@
-{ config, lib, ... }:
+{
+  jovian,
+  config,
+  lib,
+  ...
+}:
 
 {
+
+  imports = [
+    jovian.nixosModules.jovian
+  ];
+
   programs.steam = {
     enable = true;
     protontricks.enable = true;

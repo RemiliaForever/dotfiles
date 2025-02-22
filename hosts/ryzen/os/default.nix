@@ -8,12 +8,17 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam.nix
     ../../../nixos/virtualisation.nix
     ../../../nixos/wireshark.nix
 
     aagl.nixosModules.default
   ];
+
+  # steam
+  programs.steam = {
+    enable = true;
+    protontricks.enable = true;
+  };
 
   # aaglx
   nix.settings = aagl.nixConfig;

@@ -37,20 +37,6 @@
       "dmask=0022"
     ];
   };
-  fileSystems."/mnt/share" = {
-    device = "//172.17.0.5/share";
-    fsType = "cifs";
-    options = [
-      "x-systemd.automount"
-      "noauto"
-      "x-systemd.idle-timeout=60"
-      "x-systemd.device-timeout=5s"
-      "x-systemd.mount-timeout=5s"
-      "username=guest"
-      "password="
-      "uid=${toString config.users.users.remilia.uid}"
-    ];
-  };
 
   swapDevices = [ ];
 

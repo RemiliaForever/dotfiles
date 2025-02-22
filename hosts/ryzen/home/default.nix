@@ -11,7 +11,7 @@
 
   home.packages = with pkgs; [
     deluge
-    #baidunetdisk
+    baidupcs-go
 
     feishu
     wechat-uos

@@ -6,7 +6,7 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/steam.nix
+    ../../../nixos/steamos.nix
 
     aagl.nixosModules.default
   ];
