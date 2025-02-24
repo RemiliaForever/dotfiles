@@ -204,8 +204,6 @@
         "float, class:(wechat), title:(预览)"
         "float, class:(nm-connection-editor)"
         "float, class:(.blueman-manager-wrapped)"
-
-        "renderunfocused, class:(starrail.exe)" # fix fps limit
       ];
 
       workspace = [ ];
