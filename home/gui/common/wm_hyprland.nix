@@ -107,7 +107,6 @@
         disable_autoreload = false;
         focus_on_activate = true;
         allow_session_lock_restore = true;
-        render_unfocused_fps = 60;
         disable_xdg_env_checks = true;
         disable_hyprland_qtutils_check = true;
       };
@@ -204,6 +203,9 @@
         "float, class:(wechat), title:(预览)"
         "float, class:(nm-connection-editor)"
         "float, class:(.blueman-manager-wrapped)"
+
+        "renderunfocused, class:(starrail.exe)" # fix fps limit
+        "tile, class:(starrail.exe)"
       ];
 
       workspace = [ ];
