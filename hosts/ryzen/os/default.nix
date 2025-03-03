@@ -1,4 +1,4 @@
-{ aagl, ... }:
+{ ... }:
 
 {
   imports = [
@@ -8,10 +8,10 @@
 
     ../../../nixos/common
     ../../../nixos/gui
+    ../../../nixos/aagl.nix
     ../../../nixos/virtualisation.nix
     ../../../nixos/wireshark.nix
 
-    aagl.nixosModules.default
   ];
 
   # steam
@@ -19,8 +19,4 @@
     enable = true;
     protontricks.enable = true;
   };
-
-  # aaglx
-  nix.settings = aagl.nixConfig;
-  programs.honkers-railway-launcher.enable = true;
 }

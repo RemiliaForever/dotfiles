@@ -12,6 +12,8 @@
     feishu
     wechat-uos
     qq
+
+    krita
   ];
 
   # cli

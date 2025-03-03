@@ -1,4 +1,4 @@
-{ pkgs, aagl, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -6,9 +6,8 @@
 
     ../../../nixos/common
     ../../../nixos/gui
+    ../../../nixos/aagl.nix
     ../../../nixos/steamos.nix
-
-    aagl.nixosModules.default
   ];
 
   # gpu
@@ -24,8 +23,4 @@
     steam.enable = true;
     steam.autoStart = true;
   };
-
-  # aaglx
-  nix.settings = aagl.nixConfig;
-  programs.honkers-railway-launcher.enable = true;
 }
