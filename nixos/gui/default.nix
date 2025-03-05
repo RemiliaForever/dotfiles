@@ -6,6 +6,7 @@
     ./audio.nix
     ./bluetooth.nix
     ./input_method.nix
+    ./printing.nix
   ];
 
   # font
