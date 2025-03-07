@@ -35,10 +35,6 @@ in
   home.packages = with pkgs; [
     # lib
     kdePackages.qtsvg
-    # info
-    #glxinfo
-    #vulkan-tools
-    #wayland-utils
     # tool
     brightnessctl
     kdePackages.kwallet
@@ -49,6 +45,7 @@ in
     xdg-user-dirs
     # app
     kdePackages.ark
+    kdePackages.dolphin
     kdePackages.gwenview
     netease-cloud-music-gtk
     nextcloud-client
@@ -101,12 +98,13 @@ in
           "TextEditor"
         ];
       };
+
     };
 
     mimeApps = {
       enable = true;
       defaultApplications = genMimeMap {
-        "yazi-alacritty.desktop" = [ "inode/directory" ];
+        #"yazi-alacritty.desktop" = [ "inode/directory" ];
         "neovim-alacritty.desktop" = [
           "text/english"
           "text/plain"
@@ -176,6 +174,10 @@ in
         ];
       };
     };
+
+    # fix kde menu
+    configFile."menus/applications.menu".source =
+      "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   };
 
   home.sessionVariables = {
