@@ -35,6 +35,9 @@ in
   home.packages = with pkgs; [
     # lib
     kdePackages.qtsvg
+    kdePackages.qtwayland
+    kdePackages.kdegraphics-thumbnailers
+    kdePackages.ffmpegthumbs
     # tool
     brightnessctl
     kdePackages.kwallet
