@@ -1,6 +1,6 @@
 online ?= 0
 
-remotes := ryzen surface deck console vm
+remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
 
 command = switch
