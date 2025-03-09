@@ -5,7 +5,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
 
-    grub2-themes.url = "github:vinceliuice/grub2-themes";
+    grub2-themes = {
+      url = "github:vinceliuice/grub2-themes";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -37,34 +40,45 @@
     }:
 
     let
-      system = "${hostname.arch}";
-      hostname = import ./hostname.nix;
+      fs = nixpkgs-unstable.lib.fileset;
+      hostnames = fs.toList (fs.fileFilter (file: file.name == "hostname.nix") ./hosts);
+
+      hosts = builtins.listToAttrs (
+        builtins.map (hostname: {
+          name = builtins.baseNameOf (builtins.dirOf hostname);
+          value = import /${hostname};
+        }) hostnames
+      );
     in
     {
-      nixosConfigurations."koumakan-${hostname.hostname}" = nixpkgs-unstable.lib.nixosSystem {
-        inherit system;
+      nixosConfigurations = nixpkgs-unstable.lib.attrsets.mapAttrs' (_: host: {
+        name = "koumakan-${host.hostname}";
+        value = nixpkgs-unstable.lib.nixosSystem {
+          system = "${host.arch}";
 
-        specialArgs = {
-          inherit hostname;
-          inherit nixos-hardware;
-          inherit jovian;
-          inherit aagl;
+          specialArgs = {
+            hostname = host;
+            inherit nixos-hardware;
+            inherit jovian;
+            inherit aagl;
+          };
+
+          modules = [
+            grub2-themes.nixosModules.default
+            sops-nix.nixosModules.sops
+            home-manager.nixosModules.home-manager
+
+            ./hosts/${host.hostname}/os
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "bak";
+              home-manager.users.remilia = import ./hosts/${host.hostname}/home;
+            }
+            ./overlays
+          ];
         };
 
-        modules = [
-          grub2-themes.nixosModules.default
-          sops-nix.nixosModules.sops
-          home-manager.nixosModules.home-manager
-
-          ./hosts/${hostname.hostname}/os
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "bak";
-            home-manager.users.remilia = import ./hosts/${hostname.hostname}/home;
-          }
-          ./overlays
-        ];
-      };
+      }) hosts;
     };
 }
