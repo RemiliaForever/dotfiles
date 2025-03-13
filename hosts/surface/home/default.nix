@@ -13,7 +13,9 @@
     wechat-uos
     qq
 
-    krita
+    wiliwili
+
+    krita # from multimedia
   ];
 
   # cli

@@ -37,6 +37,13 @@
       "dmask=0022"
     ];
   };
+  fileSystems."/mnt/zhitai" = {
+    device = "/dev/disk/by-uuid/ee61a06f-df2e-40e5-91c4-74e3fb9ccdb2";
+    fsType = "ext4";
+    options = [
+      "noatime"
+    ];
+  };
 
   swapDevices = [ ];
 

@@ -19,6 +19,7 @@
     discord
 
     wiliwili
+    obs-studio
   ];
 
   remilia = {
