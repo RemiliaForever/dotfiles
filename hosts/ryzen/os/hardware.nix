@@ -42,6 +42,7 @@
     fsType = "ext4";
     options = [
       "noatime"
+      "nofail"
     ];
   };
 
