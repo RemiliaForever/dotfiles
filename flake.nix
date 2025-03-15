@@ -30,12 +30,7 @@
   outputs =
     inputs@{
       nixpkgs-unstable,
-      nixos-hardware,
-      grub2-themes,
       home-manager,
-      sops-nix,
-      jovian,
-      aagl,
       ...
     }:
 
@@ -58,14 +53,14 @@
 
           specialArgs = {
             hostname = host;
-            inherit nixos-hardware;
-            inherit jovian;
-            inherit aagl;
+            nixos-hardware = inputs.nixos-hardware;
+            jovian = inputs.jovian;
+            aagl = inputs.aagl;
           };
 
           modules = [
-            grub2-themes.nixosModules.default
-            sops-nix.nixosModules.sops
+            inputs.grub2-themes.nixosModules.default
+            inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager
 
             ./hosts/${host.hostname}/os

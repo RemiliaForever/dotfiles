@@ -20,7 +20,6 @@
         export PATH="/run/wrappers/bin:$HOME/.nix-profile/bin:$XDG_STATE_HOME/nix/profile/bin:$HOME/.local/state/nix/profile/bin:/etc/profiles/per-user/$USER/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin"
     fi
   '';
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -101,7 +100,7 @@
 
       misc = {
         disable_hyprland_logo = true;
-        vrr = 1;
+        vrr = 2;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
         disable_autoreload = false;

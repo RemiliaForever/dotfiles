@@ -50,8 +50,8 @@ in
     kdePackages.ark
     kdePackages.dolphin
     kdePackages.gwenview
-    netease-cloud-music-gtk
     nextcloud-client
+    spotify
   ];
 
   xdg = {
@@ -198,6 +198,8 @@ in
     LC_MEASUREMENT = "zh_CN.UTF-8";
     LC_IDENTIFICATION = "zh_CN.UTF-8";
     LC_ALL = "zh_CN.UTF-8";
+
+    NIXOS_OZONE_WL = "1";
   };
 
   xdg.userDirs = {
