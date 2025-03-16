@@ -25,6 +25,10 @@
       url = "github:ezKEa/aagl-gtk-on-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    spicetify = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
   };
 
   outputs =
@@ -56,6 +60,7 @@
             nixos-hardware = inputs.nixos-hardware;
             jovian = inputs.jovian;
             aagl = inputs.aagl;
+            spicetify = inputs.spicetify;
           };
 
           modules = [

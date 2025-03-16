@@ -51,7 +51,6 @@ in
     kdePackages.dolphin
     kdePackages.gwenview
     nextcloud-client
-    spotify
   ];
 
   xdg = {
