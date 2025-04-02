@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -23,4 +23,6 @@
     steam.enable = true;
     steam.autoStart = true;
   };
+  # https://github.com/Jovian-Experiments/Jovian-NixOS/issues/497
+  services.xserver.displayManager.startx.enable = lib.mkForce false;
 }
