@@ -108,6 +108,7 @@
         allow_session_lock_restore = true;
         disable_xdg_env_checks = true;
         disable_hyprland_qtutils_check = true;
+        enable_anr_dialog = false;
       };
 
       render.explicit_sync = 0;
@@ -197,7 +198,7 @@
         ", switch:off:Lid Switch, exec, wpaperctl resume"
       ];
 
-      windowrulev2 = [
+      windowrule = [
         "float, class:(Bytedance-feishu), title:(图片)"
         "float, class:(wechat), title:(预览)"
         "float, class:(nm-connection-editor)"
@@ -205,6 +206,7 @@
 
         "renderunfocused, class:(starrail.exe)" # fix fps limit
         "tile, class:(starrail.exe)"
+        "renderunfocused, title:(魔兽世界)"
       ];
 
       workspace = [ ];
