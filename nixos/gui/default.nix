@@ -41,4 +41,9 @@
     udisks2.enable = true;
     thermald.enable = false;
   };
+
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
 }
