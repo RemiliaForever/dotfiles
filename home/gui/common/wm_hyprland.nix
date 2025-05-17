@@ -100,7 +100,7 @@
 
       misc = {
         disable_hyprland_logo = true;
-        vrr = 2;
+        vrr = 0;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
         disable_autoreload = false;
@@ -110,8 +110,6 @@
         disable_hyprland_qtutils_check = true;
         enable_anr_dialog = false;
       };
-
-      render.explicit_sync = 0;
 
       bind = [
         "SUPER, R, exec, wofi"
@@ -237,7 +235,7 @@
         };
 
         touch_gestures = {
-          sensitivity = 8.0;
+          sensitivity = 16.0;
           workspace_swipe_fingers = 3;
           workspace_swipe_edge = "d";
           long_press_delay = 400;

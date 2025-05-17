@@ -5,6 +5,7 @@
 }:
 
 let
+  # sing-box
   direct_domain = [
     # common
     ".cn"
@@ -27,6 +28,7 @@ let
   ];
   proxy_ip = [ ];
 
+  # zerotier
   planet = ''
     AQAAAAAI6skKAAABbOPiOVWEb/heo5RtscoWY0eIJLzOM+hK9nV61UCa5wIqpIOgTUiiDNRtzQqY
     Nh1TqZkJ6+JFj+7aSc91xSjux5rYmFeGFh/6GN2WUMCzfbZ5iZiBU5coYRE+jOceDJn9mAwW4Tgk
@@ -62,6 +64,7 @@ in
     zerotier-refresh = " sudo zerotier-cli leave ${networkid} && sudo zerotier-cli join ${networkid}";
   };
   networking.hosts = {
+    "127.0.0.1" = [ "koumakan-${hostname.hostname}" ];
     "172.18.10.1" = [
       "ryzen"
       "nextcloud.koumakan.cc"
@@ -87,8 +90,6 @@ in
           ];
           auto_route = true;
           strict_route = true;
-          sniff = true;
-          sniff_timeout = "1s";
         }
       ];
       dns = {
@@ -125,10 +126,6 @@ in
       };
       outbounds = [
         {
-          type = "dns";
-          tag = "dns-out";
-        }
-        {
           type = "direct";
           tag = "direct-out";
           tcp_fast_open = true;
@@ -159,36 +156,28 @@ in
       ];
       route = {
         auto_detect_interface = true;
-        geoip.path = "/dev/null";
-        geosite.path = "/dev/null";
         rule_set = [
           {
             type = "remote";
             tag = "geosite-cn";
             format = "binary";
-            url = "https://file.koumakan.cc/singbox/geosite-cn.srs";
-            download_detour = "direct-out";
+            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs";
+            download_detour = "vless-out";
           }
-          # {
-          #   type = "remote";
-          #   tag = "geosite-!cn";
-          #   format = "binary";
-          #   url = "https://file.koumakan.cc/singbox/geosite-geolocation-!cn.srs";
-          #   download_detour = "direct-out";
-          # }
           {
             type = "remote";
             tag = "geoip-cn";
             format = "binary";
-            url = "https://file.koumakan.cc/singbox/geoip-cn.srs";
-            download_detour = "direct-out";
+            url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs";
+            download_detour = "vless-out";
           }
         ];
         final = "vless-out";
         rules = [
+          { action = "sniff"; }
           {
             protocol = "dns";
-            outbound = "dns-out";
+            action = "hijack-dns";
           }
           {
             rule_set = [ ];

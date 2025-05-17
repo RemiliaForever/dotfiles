@@ -19,8 +19,10 @@
         theme = "vimix";
         footer = true;
       };
+
     };
 
+    kernelParams = [ "split_lock_detect=off" ];
     kernelModules = [ "tcp_bbr" ];
 
     kernel.sysctl = {
