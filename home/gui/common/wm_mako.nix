@@ -5,17 +5,17 @@
     enable = true;
 
     settings = {
-      actions = true;
-      backgroundColor = "#595959aa";
-      borderColor = "#33ccffee";
-      borderRadius = 8;
-      borderSize = 2;
-      defaultTimeout = 10000;
-
-      icons = true;
-      ignoreTimeout = false;
+      actions = 1;
+      default-timeout = 10000;
+      ignore-timeout = 0;
       layer = "overlay";
       sort = "-time";
+
+      icons = 1;
+      background-color = "#595959aa";
+      border-color = "#33ccffee";
+      border-radius = 8;
+      border-size = 2;
     };
   };
 }
