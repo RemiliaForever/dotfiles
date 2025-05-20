@@ -7,7 +7,8 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/wireshark.nix
+    ../../../nixos/opt/spotify.nix
+    ../../../nixos/opt/wireshark.nix
   ];
 
   # steam

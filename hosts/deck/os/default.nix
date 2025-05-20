@@ -6,8 +6,9 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/aagl.nix
-    ../../../nixos/steamos.nix
+    ../../../nixos/opt/aagl.nix
+    ../../../nixos/opt/spotify.nix
+    ../../../nixos/opt/steamos.nix
   ];
 
   # gpu

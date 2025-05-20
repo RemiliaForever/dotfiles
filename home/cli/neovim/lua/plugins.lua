@@ -7,11 +7,11 @@ require("lazy").setup({
 		"echasnovski/mini.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("mini.comment").setup({})
-			require("mini.move").setup({})
-			require("mini.operators").setup({})
+			require("mini.comment").setup({}) -- gc
+			require("mini.move").setup({}) -- alt + hjkl
+			require("mini.operators").setup({}) -- g + =xmrs
 			require("mini.pairs").setup({})
-			require("mini.surround").setup({})
+			require("mini.surround").setup({}) -- s + adrfh
 			-- require("mini.tabline").setup({})
 		end,
 	},

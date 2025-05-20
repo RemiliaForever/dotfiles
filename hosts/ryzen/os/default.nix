@@ -8,10 +8,10 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/aagl.nix
-    ../../../nixos/virtualisation.nix
-    ../../../nixos/wireshark.nix
-
+    ../../../nixos/opt/aagl.nix
+    ../../../nixos/opt/spotify.nix
+    ../../../nixos/opt/virtualisation.nix
+    ../../../nixos/opt/wireshark.nix
   ];
 
   # steam

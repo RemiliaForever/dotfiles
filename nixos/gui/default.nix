@@ -7,7 +7,6 @@
     ./bluetooth.nix
     ./input_method.nix
     ./printing.nix
-    ./spicetify.nix
   ];
 
   # font

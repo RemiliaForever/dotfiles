@@ -1,68 +1,58 @@
 local nvim_lsp = require("lspconfig")
 local nvim_lsp_util = require("lspconfig.util")
 
--- hover
-local border = {
-	{ "╭", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╮", "FloatBorder" },
-	{ "│", "FloatBorder" },
-	{ "╯", "FloatBorder" },
-	{ "─", "FloatBorder" },
-	{ "╰", "FloatBorder" },
-	{ "│", "FloatBorder" },
-}
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border })
+-- float
+local orig_open_floating_preview = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+	opts = opts or {}
+	opts.border = {
+		{ "╭", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╮", "FloatBorder" },
+		{ "│", "FloatBorder" },
+		{ "╯", "FloatBorder" },
+		{ "─", "FloatBorder" },
+		{ "╰", "FloatBorder" },
+		{ "│", "FloatBorder" },
+	}
+	return orig_open_floating_preview(contents, syntax, opts, ...)
+end
 
 -- sign
 vim.diagnostic.config({
 	virtual_text = true,
-	signs = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "󰅚 ",
+			[vim.diagnostic.severity.WARN] = "󰀪 ",
+			[vim.diagnostic.severity.HINT] = "󰌶 ",
+			[vim.diagnostic.severity.INFO] = "󰋽 ",
+		},
+	},
 	underline = true,
 	update_in_insert = false,
-	severity_sort = false,
+	severity_sort = true,
 })
-local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = "󰋽 " }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
 
--- goto
-local function open_vsplit()
-	local util = vim.lsp.util
-	local log = require("vim.lsp.log")
-	local api = vim.api
-
-	local handler = function(_, result, ctx)
-		if result == nil or vim.tbl_isempty(result) then
-			local _ = log.info() and log.info(ctx.method, "No location found")
-			return nil
-		end
-
-		vim.cmd("vsplit")
-
-		if vim.islist(result) then
-			util.jump_to_location(result[1], "utf-8")
-
-			if #result > 1 then
-				vim.fn.setqflist(util.locations_to_items(result, "utf-8"))
-				api.nvim_command("copen")
-				api.nvim_command("wincmd p")
-			end
-		else
-			util.jump_to_location(result, "utf-8")
-		end
+-- jump
+local function open_vsplit(f)
+	local function handler()
+		f({
+			on_list = function(options)
+				vim.fn.setqflist({}, " ", options)
+				if #options.items == 1 then
+					vim.cmd("vsplit")
+					vim.cmd.cfirst()
+				else
+					vim.api.nvim_command("copen")
+					vim.api.nvim_command("wincmd p")
+				end
+			end,
+		})
 	end
-
 	return handler
 end
-
-vim.lsp.handlers["textDocument/declaration"] = open_vsplit()
-vim.lsp.handlers["textDocument/definition"] = open_vsplit()
-vim.lsp.handlers["textDocument/implementation"] = open_vsplit()
-vim.lsp.handlers["textDocument/typeDefinition"] = open_vsplit()
 
 -- binding
 vim.api.nvim_create_autocmd("LspAttach", {
@@ -70,11 +60,11 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(ev)
 		local opts = { buffer = ev.buf }
 
-		vim.keymap.set("n", "[c", vim.lsp.buf.declaration, opts)
-		vim.keymap.set("n", "[d", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "[c", open_vsplit(vim.lsp.buf.declaration), opts)
+		vim.keymap.set("n", "[d", open_vsplit(vim.lsp.buf.definition), opts)
 		vim.keymap.set("n", "[o", vim.lsp.buf.hover, opts)
-		vim.keymap.set("n", "[i", vim.lsp.buf.implementation, opts)
-		vim.keymap.set("n", "[t", vim.lsp.buf.type_definition, opts)
+		vim.keymap.set("n", "[i", open_vsplit(vim.lsp.buf.implementation), opts)
+		vim.keymap.set("n", "[t", open_vsplit(vim.lsp.buf.type_definition), opts)
 		vim.keymap.set("n", "[n", vim.lsp.buf.rename, opts)
 		vim.keymap.set("n", "[a", vim.lsp.buf.code_action, opts)
 		-- vim.keymap.set("n", "[r", vim.lsp.buf.references, opts)
@@ -90,8 +80,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, opts)
 
-		vim.keymap.set("n", "<C-j>", vim.diagnostic.goto_next, opts)
-		vim.keymap.set("n", "<C-k>", vim.diagnostic.goto_prev, opts)
+		vim.keymap.set("n", "<C-j>", function()
+			vim.diagnostic.jump({ count = 1, float = true })
+		end, opts)
+		vim.keymap.set("n", "<C-k>", function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end, opts)
 		vim.keymap.set("n", "[go", vim.diagnostic.open_float, opts)
 		vim.keymap.set("n", "[gl", vim.diagnostic.setloclist, opts)
 
@@ -140,7 +134,7 @@ nvim_lsp.lua_ls.setup({
 			runtime = { version = "LuaJIT" },
 			workspace = {
 				checkThirdParty = false,
-				library = { vim.env.VIMRUNTIME },
+				library = { vim.env.VIMRUNTIME, "${3rd}/luv/library" },
 			},
 		})
 	end,

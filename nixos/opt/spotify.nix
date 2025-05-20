@@ -9,8 +9,9 @@ in
   programs.spicetify = {
     enable = true;
     enabledExtensions = with spicePkgs.extensions; [
-      adblock
-      copyToClipboard
+      keyboardShortcut
+      #adblock
+      #copyToClipboard
       betterGenres
       beautifulLyrics
     ];
