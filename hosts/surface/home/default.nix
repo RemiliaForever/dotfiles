@@ -23,7 +23,7 @@
 
   # wayland
   programs.bash.profileExtra = ''
-    if uwsm check may-start -q && uwsm select; then
+    if [[ -z "$SSH_CLIENT" ]] && uwsm check may-start -q && uwsm select; then
         exec uwsm start default
     fi
   '';

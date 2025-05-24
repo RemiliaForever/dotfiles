@@ -153,6 +153,9 @@ nvim_lsp.rust_analyzer.setup({
 					enable = true,
 				},
 			},
+			check = {
+				command = "clippy",
+			},
 			procMacro = {
 				enable = true,
 			},

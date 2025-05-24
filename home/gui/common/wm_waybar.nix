@@ -67,7 +67,7 @@ in
     enable = true;
     settings = {
       mainBar = {
-        layer = "bottom";
+        layer = "top";
         position = "top";
         modules-left = [
           "custom/starter"

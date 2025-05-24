@@ -11,6 +11,7 @@
       "wheel"
       "video"
       "audio"
+      "input"
       "dialout"
     ];
   };
