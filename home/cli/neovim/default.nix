@@ -12,6 +12,7 @@
       xxd
       # plugin
       gcc
+      gnumake
       cmake
       # conform
       clang-tools

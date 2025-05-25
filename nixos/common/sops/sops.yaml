@@ -7,14 +7,12 @@ singbox:
     server: ENC[AES256_GCM,data:2rpbtTwHIyTqG5xvPLtNrw/kpQ==,iv:q5J3Jb/7iVPcbJPt9ah4XRQv1+gwboCHg+/mrIF85fM=,tag:53rgvMJkhd5P9VyIzn2X1A==,type:str]
     server_name: ENC[AES256_GCM,data:FWTNp1XjWzBNw3U=,iv:dKboYEkXaQ7TDOHs4SavaCol0pFxrsZXXwqA+OhTU4s=,tag:CQAr/bzXw5Zk1e6u4o9cWg==,type:str]
     uuid: ENC[AES256_GCM,data:7y2qQjL5jZACLjmeu3dX4oImSlj9tQVfIoUU/veknzxQCD+/,iv:nS015iUASZ4cq7kxSdcIojCq8HQGMtWGKzdr/jD1/xg=,tag:NVRtf4Tuejof0BWgm9lHCQ==,type:str]
+api:
+    deepseek: ENC[AES256_GCM,data:Fu9vv0pQzWI6gwVLIpQNZ6zVMp38l7Rm3njyORlhHqxr+4o=,iv:UCcSKdrzSRhOEg1FwCts3XM0EHJOOOLApLEXawTf2kg=,tag:xhnkm4FX5geJbL5qDV+YmQ==,type:str]
+    anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
-    age: []
-    lastmodified: "2025-03-29T11:26:23Z"
-    mac: ENC[AES256_GCM,data:jmxwrqfBuljaRAiHXwpt1S0BgDHyIZlu9CY7yQ3DRbNli3ob2BqBeyqam00mzLZlKmV7NFH1Vh2W2gF55weplp743cm5NSKmijp9xyrVLJpCXVPPyAMUXLAsAQtfqJcv8y3Uk6M8zcjtTlBgHuEMgKo68cbOOwjz89RUw3CjsKs=,iv:mnGPoWBz1POJza2+uyW/9D1GisQRZd25uEBMRNhbIFs=,tag:+ZTi73xgfNGSoQnc8VCIyA==,type:str]
+    lastmodified: "2025-05-25T09:53:43Z"
+    mac: ENC[AES256_GCM,data:K55o+L8ZX4Bt34HOCqAgeMZIWjEEtmW3jePMbfxlgZJHyVKwMuAQ50iFUgSgCXWSWb0Qlan+OIKv7pd/cKdwRzm6AzZ9T4ohEDjhX8bqv9ERq230WOsAsrCF+GZcMJJC5Zg6Bq4g5lVfbbBnIWhJY9NSrGnIls67wo6YeMusmcQ=,iv:o4mjvW4QyyJavBiNT6+gVU3hLmwMMS/VK/x28GoVPu0=,tag:dPFyr/QScQwp6TiMivZbbg==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-
@@ -37,4 +35,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6382326ae6fd8356030396ad624434a577907d82
     unencrypted_suffix: _unencrypted
-    version: 3.9.2
+    version: 3.10.2

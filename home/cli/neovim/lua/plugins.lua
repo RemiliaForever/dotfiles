@@ -33,6 +33,20 @@ require("lazy").setup({
 		},
 		opts = {},
 	},
+	{
+		"yetone/avante.nvim",
+		dependencies = {
+			"stevearc/dressing.nvim",
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+		},
+		event = "VeryLazy",
+		version = false,
+		build = "make",
+		config = function()
+			require("plugin-config.avante")
+		end,
+	},
 	-- ui components
 	{
 		"nvim-tree/nvim-tree.lua",
@@ -62,6 +76,7 @@ require("lazy").setup({
 	},
 	{ "mhinz/vim-signify", keys = { { "<C-g>", ":SignifyToggle<CR>" } } },
 	-- render enhance
+	{ "sphamba/smear-cursor.nvim", opts = {} },
 	{
 		"norcalli/nvim-colorizer.lua",
 		keys = { { "<F6>", ":ColorizerToggle<CR>" } },
