@@ -22,6 +22,8 @@
         "root"
       ];
       auto-optimise-store = true;
+
+      download-buffer-size = 268435456;
     };
 
     optimise = {

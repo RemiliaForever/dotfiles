@@ -12,6 +12,7 @@
     feishu
     wechat-uos
     qq
+    discord
 
     wiliwili
 

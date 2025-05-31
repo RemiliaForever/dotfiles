@@ -32,7 +32,59 @@
       hyprwinwrap
     ];
     settings = {
+      general = {
+        border_size = 2;
+        gaps_in = 3;
+        gaps_out = 6;
+        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        "col.inactive_border" = "rgba(595959aa)";
+        layout = "dwindle";
+        resize_on_border = false;
+        allow_tearing = false;
+      };
+      decoration = {
+        rounding = 8;
+        active_opacity = 1.0;
+        inactive_opacity = 1.0;
+
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
+        };
+        blur.enabled = false;
+      };
+      animations = {
+        enabled = true;
+      };
+      input = {
+        kb_layout = "us";
+        follow_mouse = 1;
+        sensitivity = 0;
+        touchpad = {
+          natural_scroll = false;
+        };
+      };
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_touch = true;
+      };
+      misc = {
+        disable_hyprland_logo = true;
+        vrr = 0;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        disable_autoreload = false;
+        focus_on_activate = true;
+        allow_session_lock_restore = true;
+        disable_xdg_env_checks = true;
+        disable_hyprland_qtutils_check = true;
+        enable_anr_dialog = false;
+      };
       xwayland.force_zero_scaling = true;
+      render.expand_undersized_textures = false;
+      cursor.no_hardware_cursors = 2;
 
       exec-once = [
         "kwalletd6"
@@ -48,68 +100,7 @@
 
         "sleep 5 && nextcloud"
       ];
-
       env = [ ];
-
-      general = {
-        border_size = 2;
-        gaps_in = 3;
-        gaps_out = 6;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
-        layout = "dwindle";
-        resize_on_border = false;
-        allow_tearing = false;
-      };
-
-      decoration = {
-        rounding = 8;
-        active_opacity = 1.0;
-        inactive_opacity = 1.0;
-
-        shadow = {
-          enabled = true;
-          range = 4;
-          render_power = 3;
-          color = "rgba(1a1a1aee)";
-        };
-        blur.enabled = false;
-      };
-
-      animations = {
-        enabled = true;
-      };
-
-      cursor = {
-        no_hardware_cursors = 2;
-      };
-
-      input = {
-        kb_layout = "us";
-        follow_mouse = 1;
-        sensitivity = 0;
-        touchpad = {
-          natural_scroll = false;
-        };
-      };
-
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_touch = true;
-      };
-
-      misc = {
-        disable_hyprland_logo = true;
-        vrr = 0;
-        mouse_move_enables_dpms = true;
-        key_press_enables_dpms = true;
-        disable_autoreload = false;
-        focus_on_activate = true;
-        allow_session_lock_restore = true;
-        disable_xdg_env_checks = true;
-        disable_hyprland_qtutils_check = true;
-        enable_anr_dialog = false;
-      };
 
       bind = [
         "SUPER, R, exec, wofi"
@@ -209,9 +200,7 @@
 
       workspace = [ ];
 
-      dwindle = {
-        preserve_split = true;
-      };
+      dwindle.preserve_split = true;
 
       plugin = {
         hyprsplit = {

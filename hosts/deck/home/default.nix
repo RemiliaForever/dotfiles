@@ -22,6 +22,10 @@
           transform = 3;
         }
       ];
+
+      exec-once = [
+        "sleep 5 && pkill hypridle"
+      ];
     };
   };
 
