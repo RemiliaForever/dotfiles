@@ -35,7 +35,7 @@
       automatic = true;
       dates = "weekly";
       options = "--delete-older-than 30d";
-      delete_generations = "+1";
+      delete_generations = "+3";
     };
   };
 

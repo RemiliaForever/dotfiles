@@ -19,4 +19,6 @@
     enable = true;
     protontricks.enable = true;
   };
+
+  services.flatpak.enable = true;
 }

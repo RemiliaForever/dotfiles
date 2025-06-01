@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -7,8 +7,9 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/aagl.nix
-    ../../../nixos/steamos.nix
+    ../../../nixos/opt/aagl.nix
+    ../../../nixos/opt/spotify.nix
+    ../../../nixos/opt/steamos.nix
   ];
 
   # gpu
@@ -36,4 +37,6 @@
     steamos.enableDefaultCmdlineConfig = false;
     steamos.enableMesaPatches = false;
   };
+  # https://github.com/Jovian-Experiments/Jovian-NixOS/issues/497
+  services.xserver.displayManager.startx.enable = lib.mkForce false;
 }
