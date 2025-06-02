@@ -13,8 +13,11 @@ let
     && (!kernelPackages.${config.boot.zfs.package.kernelModuleAttribute}.meta.broken)
   ) pkgs.linuxKernel.packages;
   latestKernelPackage = lib.last (
-    lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
-      builtins.attrValues zfsCompatibleKernelPackages
+    # FIX: bluetooth
+    lib.init (
+      lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+        builtins.attrValues zfsCompatibleKernelPackages
+      )
     )
   );
 in
