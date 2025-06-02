@@ -60,6 +60,7 @@
         "browser.compactmode.show" = true;
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
+        "media.hardware-video-decoding.force-enabled" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "media.ffvpx.enabled" = true;
         "gfx.webrender.all" = true;
