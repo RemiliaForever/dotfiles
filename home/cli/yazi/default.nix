@@ -4,7 +4,7 @@
   programs.yazi = {
     enable = true;
     settings = {
-      manager = {
+      mgr = {
         sort_by = "natural";
         linemode = "size";
         show_hidden = true;
@@ -16,7 +16,7 @@
       };
     };
     keymap = {
-      manager.prepend_keymap = [
+      mgr.prepend_keymap = [
         {
           on = "<C-c>";
           run = "plugin clipboard";

@@ -2,7 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    freerdp3
+    wayvnc
+    kdePackages.krdc
     #kicad
     #openscad
     virt-manager
