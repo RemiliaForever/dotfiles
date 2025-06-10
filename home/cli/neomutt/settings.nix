@@ -10,7 +10,7 @@
     settings = {
       sort = "threads";
       sort_aux = "date";
-      date_format = "'%Y-%m-%d,%a│%H:%M:%S'";
+      date_format = "'!%Y-%m-%d,%a,%H:%M:%S'";
       index_format = "'%4C│%Z│%D│%-30.30L│%4c│%s'";
       status_format = "'[%f] %r [Msgs:%?M?%M/?%m%?n? New:%n?%?o? Old:%o?%?d? Del:%d?%?F? Flag:%F?%?t? Tag:%t?%?p? Post:%p?%?b? Inc:%b?%?l? %l?] (%s/%S) %> [%m](%P)'";
       folder_format = "'%2C %t %N %8s %d %f'";
@@ -34,7 +34,7 @@
       sidebar_sort_method = "path";
 
       # mailcap
-      mailcap_path = "${config.xdg.configHome}/neomutt/mailcap";
+      mailcap_path = "'${config.xdg.configHome}/neomutt/mailcap'";
     };
     extraConfig = ''
       ignore *
