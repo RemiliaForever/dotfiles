@@ -13,7 +13,7 @@
     deluge
     baidupcs-go
 
-    feishu
+    lark
     wechat-uos
     qq
     discord

@@ -9,7 +9,7 @@
   ];
 
   home.packages = with pkgs; [
-    feishu
+    lark
     wechat-uos
     qq
     discord
