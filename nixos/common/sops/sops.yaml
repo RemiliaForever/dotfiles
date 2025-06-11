@@ -3,6 +3,9 @@ mail:
     koumakan:
         address: ENC[AES256_GCM,data:WoOaOsjS78bcE5QibUQDHmCj9w==,iv:zXdfdE2QCCzsB4oiBW0fiY5dJiTrlsHW+QOOuHGglqk=,tag:0qcWog5fP3/enUinsmMBpQ==,type:str]
         password: ENC[AES256_GCM,data:WLL5o72+iIRFzXTYHBqPvQ==,iv:yl5gjJFIe9MW+c348QWL418kQjJAIVenbIOBvkrWYhU=,tag:mfvtwyzIpbH27jmyAKzJmA==,type:str]
+    nexa4ai:
+        address: ENC[AES256_GCM,data:mrOu5XhTx8UwfW1/Xv9uHpveI67MAuI=,iv:B3IuZDQWPpJ4NRSPEdkZR14JYU7eqi6IsEJp255LXuM=,tag:qiad12sCj9fIEOWRcq72mA==,type:str]
+        password: ENC[AES256_GCM,data:oUHHdMMvRpKyY3LtTsa2aA==,iv:PYLnniIqXJnENDmTVoxxmInuWpk5RMLUMWuhB6ZEgJA=,tag:IR4jwp4875ZyY5pbeLFyFg==,type:str]
 singbox:
     server: ENC[AES256_GCM,data:2rpbtTwHIyTqG5xvPLtNrw/kpQ==,iv:q5J3Jb/7iVPcbJPt9ah4XRQv1+gwboCHg+/mrIF85fM=,tag:53rgvMJkhd5P9VyIzn2X1A==,type:str]
     server_name: ENC[AES256_GCM,data:FWTNp1XjWzBNw3U=,iv:dKboYEkXaQ7TDOHs4SavaCol0pFxrsZXXwqA+OhTU4s=,tag:CQAr/bzXw5Zk1e6u4o9cWg==,type:str]
@@ -11,8 +14,8 @@ api:
     deepseek: ENC[AES256_GCM,data:Fu9vv0pQzWI6gwVLIpQNZ6zVMp38l7Rm3njyORlhHqxr+4o=,iv:UCcSKdrzSRhOEg1FwCts3XM0EHJOOOLApLEXawTf2kg=,tag:xhnkm4FX5geJbL5qDV+YmQ==,type:str]
     anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
 sops:
-    lastmodified: "2025-05-25T09:53:43Z"
-    mac: ENC[AES256_GCM,data:K55o+L8ZX4Bt34HOCqAgeMZIWjEEtmW3jePMbfxlgZJHyVKwMuAQ50iFUgSgCXWSWb0Qlan+OIKv7pd/cKdwRzm6AzZ9T4ohEDjhX8bqv9ERq230WOsAsrCF+GZcMJJC5Zg6Bq4g5lVfbbBnIWhJY9NSrGnIls67wo6YeMusmcQ=,iv:o4mjvW4QyyJavBiNT6+gVU3hLmwMMS/VK/x28GoVPu0=,tag:dPFyr/QScQwp6TiMivZbbg==,type:str]
+    lastmodified: "2025-06-11T09:16:02Z"
+    mac: ENC[AES256_GCM,data:RXrpTJ3+M2YTbPDud7nqztlmep2t202O4KmPA6Vhzc7AyRo41XWmHi2NkKLbV1fhh4wdyaom6aXc8S2etTIjKIsjEsaAAuw8jwR+TkaI43fX9YDCKhckFP05DMF6GWu3btfZwDO4D8ln5wn5dSG09qawGfBWIwxOgJz5t4apsRE=,iv:hH/m3pmapD+wnKXItZ2KPS2HQEyxO8VEvCzb9x56DbA=,tag:qa9dFvXZtWw+7pIRl5s6zQ==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-

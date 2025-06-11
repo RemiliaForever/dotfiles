@@ -20,13 +20,13 @@ let
         os.kill(pid, signal.SIGRTMIN + index)
 
 
-    def fetch_mail(index: int, name: str):
+    def fetch_mail(index: int, name: str, server: str):
         update(index, name, '󱋈 ?')
 
         username = open(f'/run/secrets/mail/{name}/address').read()
         password = open(f'/run/secrets/mail/{name}/password').read()
         try:
-            M = imaplib.IMAP4_SSL('imap.exmail.qq.com')
+            M = imaplib.IMAP4_SSL(server)
             M.login(username, password)
             M.select(readonly=True)
             s = M.status('INBOX', '(UNSEEN)')
@@ -56,8 +56,11 @@ let
         event.set()
         while True:
             event.wait(timeout=300)
-            for i, m in enumerate(['koumakan']):
-                fetch_mail(i + 1, m)
+            for i, m, s in [
+                (1, 'koumakan', 'imap.exmail.qq.com'),
+                (2, 'nexa4ai', 'imap.gmail.com'),
+            ]:
+                fetch_mail(i, m, s)
             event.clear()
   '';
 in
@@ -78,6 +81,7 @@ in
         modules-right = [
           "tray"
           "custom/email#koumakan"
+          "custom/email#nexa4ai"
           "network"
           "wireplumber"
           "temperature"
@@ -135,6 +139,14 @@ in
           tooltip-format = "koumakan";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
           on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
+        };
+        "custom/email#nexa4ai" = {
+          exec = "cat /run/user/1000/email/nexa4ai";
+          signal = 2;
+          format = "{}";
+          tooltip-format = "nexa4ai";
+          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
+          on-click-right = "pkill -SIGRTMIN+2 waybar-email-da";
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";

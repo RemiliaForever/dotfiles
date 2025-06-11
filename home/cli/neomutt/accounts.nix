@@ -27,5 +27,31 @@
         showDefaultMailbox = false;
       };
     };
+    "nexa4ai" = {
+      address = "hongzhichen@nexa4ai.com";
+      passwordCommand = "cat /run/secrets/mail/nexa4ai/password";
+      userName = "hongzhichen@nexa4ai.com";
+      realName = "Hongzhi Chen";
+
+      imap = {
+        tls.enable = true;
+        host = "imap.gmail.com";
+      };
+      smtp = {
+        tls.enable = true;
+        host = "smtp.gmail.com";
+      };
+
+      folders = {
+        drafts = "[Gmail]/Drafts";
+        sent = "[Gmail]/Sent Mail";
+        trash = "[Gmail]/Trash";
+      };
+      neomutt = {
+        enable = true;
+        mailboxType = "imap";
+        showDefaultMailbox = false;
+      };
+    };
   };
 }

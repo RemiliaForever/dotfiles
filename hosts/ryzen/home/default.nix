@@ -45,6 +45,7 @@
         "[workspace 3 silent] sleep 5 && firefox"
         "[workspace 4 silent] sleep 5 && wechat-uos"
         "[workspace 4 silent] sleep 5 && qq"
+        "[workspace 4 silent] sleep 5 && bytedance-lark"
         "[workspace 5 silent] sleep 5 && spotify"
         "[workspace 5 silent] sleep 5 && steam"
 

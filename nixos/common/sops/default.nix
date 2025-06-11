@@ -14,6 +14,8 @@ in
       "hashedPassword".neededForUsers = true;
       "mail/koumakan/address" = user;
       "mail/koumakan/password" = user;
+      "mail/nexa4ai/address" = user;
+      "mail/nexa4ai/password" = user;
       "api/deepseek" = user;
       "api/anthropic" = user;
       "singbox/server" = { };
