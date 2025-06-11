@@ -56,7 +56,6 @@
   systemd,
   wayland,
   xdg-utils,
-  writeScript,
 
   # for custom command line arguments, e.g. "--use-gl=desktop"
   commandLineArgs ? "",
@@ -192,31 +191,6 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     ln -s $out/opt/bytedance/lark/bytedance-lark $out/bin/bytedance-lark
   '';
-
-  passthru = {
-    inherit sources;
-    updateScript = writeScript "update-lark.sh" ''
-      #!/usr/bin/env nix-shell
-      #!nix-shell -i bash -p curl jq common-updater-scripts
-
-      for platform in ${lib.escapeShellArgs supportedPlatforms}; do
-        if [ $platform = "x86_64-linux" ]; then
-          platform_id=10
-        elif [ $platform = "aarch64-linux" ]; then
-          platform_id=12
-        else
-          echo "Unsupported platform: $platform"
-          exit 1
-        fi
-        package_info=$(curl -sf "https://www.lark.cn/api/package_info?platform=$platform_id")
-        update_link=$(echo $package_info | jq -r '.data.download_link' | sed 's/lf[0-9]*-ug-sign.larkcdn.com/sf3-cn.larkcdn.com\/obj/;s/?.*$//')
-        new_version=$(echo $package_info | jq -r '.data.version_number' | sed -n 's/.*@V//p')
-        sha256_hash=$(nix-prefetch-url $update_link)
-        sri_hash=$(nix hash to-sri --type sha256 $sha256_hash)
-        update-source-version lark $new_version $sri_hash $update_link --system=$platform --ignore-same-version --source-key="sources.$platform"
-      done
-    '';
-  };
 
   meta = {
     description = "All-in-one collaboration suite";

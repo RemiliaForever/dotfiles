@@ -14,6 +14,7 @@
     baidupcs-go
 
     lark
+    drata-agent
     wechat-uos
     qq
     discord
