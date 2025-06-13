@@ -16,14 +16,16 @@ require("avante").setup({
 	behaviour = {
 		enable_cursor_planning_mode = true,
 	},
-	claude = {
-		endpoint = "https://api.anthropic.com",
-		model = "claude-3-7-sonnet-20250219",
-		timeout = 30000, -- Timeout in milliseconds
-		temperature = 0,
-		max_tokens = 20480,
-	},
-	vendors = {
+	providers = {
+		claude = {
+			endpoint = "https://api.anthropic.com",
+			model = "claude-3-7-sonnet-20250219",
+			timeout = 30000, -- Timeout in milliseconds
+			extra_request_body = {
+				temperature = 0,
+				max_tokens = 20480,
+			},
+		},
 		deepseek = {
 			__inherited_from = "openai",
 			api_key_name = "DEEPSEEK_API_KEY",
@@ -31,8 +33,10 @@ require("avante").setup({
 			model = "deepseek-coder",
 			--reasoning_effort = "medium",
 			timeout = 30000,
-			temperature = 0,
-			max_completion_tokens = 8192,
+			extra_request_body = {
+				temperature = 0,
+				max_completion_tokens = 8192,
+			},
 		},
 	},
 })
