@@ -1,10 +1,14 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ../../../home/user
     ../../../home/cli
     ../../../home/gui/common
+  ];
+
+  home.packages = with pkgs; [
+    waypipe
   ];
 
   remilia = {
