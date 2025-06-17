@@ -3,18 +3,19 @@ online ?= 0
 remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
 
-command = switch
+param =
 ifneq ($(online), 1)
-	command += --offline
+	param += --offline --no-net
 endif
-build := nixos-rebuild $(command) --flake path:$(shell pwd)
+param += --flake path:$(shell pwd)
+param_remote = $(param) --use-remote-sudo --target-host $@
 
 
 local:
-	sudo $(build)
+	sudo nixos-rebuild switch $(param)
 
 $(remotes):
-	$(build) --use-remote-sudo --target-host $@
+	nixos-rebuild switch $(param_remote)
 
 renice:
 	for i in $$(seq 1 32); do sudo renice 20 --pid `ps --no-heading -o tid --user nixbld$$i`; done

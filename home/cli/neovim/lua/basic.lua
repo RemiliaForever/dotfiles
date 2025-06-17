@@ -41,10 +41,12 @@ vim.cmd("filetype plugin on")
 vim.cmd("filetype indent on")
 
 util.map("q:", "<nop>")
+util.nmap("<C-h>", "<cmd>nohl<cr>")
+
+vim.g.clipboard = "osc52"
 util.vmap("<C-c>", '"+y')
 util.vmap("<C-x>", '"+c')
 util.nmap("<C-p>", '"+p')
-util.nmap("<C-h>", "<cmd>nohl<cr>")
 
 -- util.nmap("[j", "<cmd>cn<CR>")
 -- util.nmap("[k", "<cmd>cp<CR>")
