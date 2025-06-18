@@ -30,7 +30,7 @@ end
 
 util.nmap("<C-l>", toggle_tab("symbols"))
 util.nmap("[r", open_tab("lsp"))
-util.nmap("[s", open_tab("symbols"))
+--util.nmap("[s", open_tab("symbols"))
 
 require("trouble").setup({
 	open_no_results = true,
