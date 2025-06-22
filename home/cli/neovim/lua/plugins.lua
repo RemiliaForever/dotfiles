@@ -79,7 +79,7 @@ require("lazy").setup({
 		end,
 	},
 	---- render enhance
-	{ "sphamba/smear-cursor.nvim", event = "VeryLazy" },
+	{ "sphamba/smear-cursor.nvim", event = "VeryLazy", opts = {} },
 	{
 		"folke/snacks.nvim",
 		dependencies = {
