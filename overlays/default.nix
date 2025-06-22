@@ -3,11 +3,11 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      hyprshot = import ./hyprshot { pkgs = final; };
-      lark = final.callPackage ./lark { };
-      drata-agent = final.callPackage ./drata { };
+      hyprshot = import ./app/hyprshot { pkgs = final; };
+      lark = final.callPackage ./app/lark { };
+      drata-agent = final.callPackage ./app/drata { };
     })
-    (import ./hdpi.nix)
-    (import ./patch)
+    (import ./patch/pr.nix)
+    (import ./patch/hdpi.nix)
   ];
 }
