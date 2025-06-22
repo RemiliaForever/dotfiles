@@ -11,7 +11,16 @@ snacks.setup({
 		enabled = true,
 		timeout = 5000,
 	},
-	picker = { enabled = true },
+	picker = {
+		enabled = true,
+		win = {
+			input = {
+				keys = {
+					["<Esc>"] = { "close", mode = { "n", "i" } },
+				},
+			},
+		},
+	},
 	quickfile = { enabled = true },
 	-- scope = { enabled = true },
 	-- scroll = { enabled = true, animate = { } },
@@ -19,6 +28,13 @@ snacks.setup({
 	words = { enabled = true },
 
 	styles = {
+		input = {
+			relative = "cursor",
+			width = 48,
+			keys = {
+				i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+			},
+		},
 		lazygit = {
 			width = 0,
 			height = 0,
