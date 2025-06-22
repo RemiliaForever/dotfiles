@@ -1,4 +1,3 @@
-local nvim_lsp = require("lspconfig")
 local nvim_lsp_util = require("lspconfig.util")
 
 -- float
@@ -73,7 +72,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.buf.format({ async = true })
 		end, opts)
 
-		vim.keymap.set("n", "[s", "<cmd>LspRestart", opts)
+		vim.keymap.set("n", "[s", "<cmd>LspRestart<cr>", opts)
 		vim.keymap.set("n", "[wa", vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set("n", "[wr", vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set("n", "[wl", function()
@@ -105,23 +104,27 @@ local lsps = {
 	--"jdtls",
 	"jsonls",
 	--"kotlin_language_server",
+	"lua_ls",
 	"neocmake",
 	"nixd",
 	"openscad_lsp",
 	"pyright",
+	"rust_analyzer",
 	"taplo",
+	"texlab",
 	"ts_ls",
+	"vue_ls",
 }
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+vim.lsp.config("*", { capabilities = capabilities })
+
 for _, lsp in ipairs(lsps) do
-	nvim_lsp[lsp].setup({
-		capabilities = capabilities,
-	})
+	vim.lsp.enable(lsp)
 end
 
 -- custom
-nvim_lsp.lua_ls.setup({
+vim.lsp.config("lua_ls", {
 	on_init = function(client)
 		if client.workspace_folders then
 			local path = client.workspace_folders[1].name
@@ -142,8 +145,7 @@ nvim_lsp.lua_ls.setup({
 		Lua = {},
 	},
 })
-nvim_lsp.rust_analyzer.setup({
-	capabilities = capabilities,
+vim.lsp.config("rust_analyzer", {
 	cmd = { "bash", "-c", "CARGO_TARGET_DIR=target/rust-analyzer rust-analyzer" },
 	settings = {
 		["rust-analyzer"] = {
@@ -162,8 +164,7 @@ nvim_lsp.rust_analyzer.setup({
 		},
 	},
 })
-nvim_lsp.texlab.setup({
-	capabilities = capabilities,
+vim.lsp.config("texlab", {
 	settings = {
 		texlab = {
 			forwardSearch = {
@@ -173,8 +174,7 @@ nvim_lsp.texlab.setup({
 		},
 	},
 })
-nvim_lsp.volar.setup({
-	capabilities = capabilities,
+vim.lsp.config("vue_ls", {
 	filetypes = { "javascriptreact", "typescriptreact", "vue", "json" },
 	init_options = {
 		typescript = { tsdk = "/path/to/node_modules/typescript/lib" }, -- TODO

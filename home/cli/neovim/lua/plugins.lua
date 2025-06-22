@@ -2,7 +2,6 @@ require("lazy").setup({
 	-- simple tools
 	{ "chaoren/vim-wordmotion", event = "VeryLazy" },
 	{ "lambdalisue/suda.vim", event = "VeryLazy" },
-	{ "tpope/vim-fugitive", event = "VeryLazy" },
 	{
 		"echasnovski/mini.nvim",
 		event = "VeryLazy",
@@ -19,7 +18,7 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		event = "VeryLazy",
+		event = "FileType",
 		config = function()
 			require("plugin-config/nvim-treesitter")
 		end,
@@ -36,9 +35,14 @@ require("lazy").setup({
 	{
 		"yetone/avante.nvim",
 		dependencies = {
-			"stevearc/dressing.nvim",
+			"nvim-treesitter/nvim-treesitter",
 			"nvim-lua/plenary.nvim",
 			"MunifTanjim/nui.nvim",
+			-- option
+			"hrsh7th/nvim-cmp",
+			"ibhagwan/fzf-lua",
+			"folke/snacks.nvim",
+			"nvim-tree/nvim-web-devicons",
 		},
 		event = "VeryLazy",
 		version = false,
@@ -74,9 +78,18 @@ require("lazy").setup({
 			require("plugin-config/lualine")
 		end,
 	},
-	{ "mhinz/vim-signify", keys = { { "<C-g>", ":SignifyToggle<CR>" } } },
-	-- render enhance
-	{ "sphamba/smear-cursor.nvim", opts = {} },
+	---- render enhance
+	{ "sphamba/smear-cursor.nvim", event = "VeryLazy" },
+	{
+		"folke/snacks.nvim",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		},
+		event = "VeryLazy",
+		config = function()
+			require("plugin-config.snacks")
+		end,
+	},
 	{
 		"norcalli/nvim-colorizer.lua",
 		keys = { { "<F6>", ":ColorizerToggle<CR>" } },
@@ -114,7 +127,7 @@ require("lazy").setup({
 	},
 	{
 		"neovim/nvim-lspconfig",
-		event = { "BufReadPost", "BufNewFile" },
+		event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-lspconfig")
 		end,

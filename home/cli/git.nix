@@ -85,12 +85,19 @@
           showBranchCommitHash = true;
           commandLogSize = 6;
           switchTabsWithPanelJumpKeys = true;
+          statusPanelView = "allBranchesLog";
         };
         git = {
           paging = {
             colorArg = "always";
             parseEmoji = true;
           };
+          branchLogCmd = "git lg {{branchName}}";
+          allBranchesLogCmds = [
+            "git lg --all"
+            "git lgi --all"
+            "git lgs --all"
+          ];
           log = {
             showWholeGraph = true;
           };

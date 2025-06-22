@@ -35,10 +35,11 @@ vim.opt.timeoutlen = 500
 vim.opt.ttimeoutlen = 0
 vim.opt.diffopt:append("vertical")
 vim.opt.fencs = "ucs-bom,utf-8,gbk,latin1"
-vim.opt.lcs = "trail:▒,tab:├─"
+vim.opt.lcs = "trail:▒,tab:┆┄"
 vim.cmd("filetype on")
 vim.cmd("filetype plugin on")
 vim.cmd("filetype indent on")
+vim.cmd("syntax enable")
 
 util.map("q:", "<nop>")
 util.nmap("<C-h>", "<cmd>nohl<cr>")

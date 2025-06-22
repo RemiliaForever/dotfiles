@@ -37,6 +37,10 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
+	},
 	mapping = {
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
@@ -56,7 +60,7 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }),
+		["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
 		["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
 		["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
 		["<C-b>"] = cmp.mapping.complete(),
@@ -70,7 +74,7 @@ cmp.setup({
 	}),
 	formatting = {
 		format = function(entry, vim_item)
-			vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
+			vim_item.kind = string.format("%s [%s]", kind_icons[vim_item.kind], entry.source.name)
 			return vim_item
 		end,
 	},
@@ -78,6 +82,7 @@ cmp.setup({
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline("/", {
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
 		{ name = "buffer" },
 	},
@@ -85,8 +90,10 @@ cmp.setup.cmdline("/", {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "cmdline" },
 	}),
+	matching = { disallow_symbol_nonprefix_matching = false },
 })

@@ -61,6 +61,7 @@
       input = {
         kb_layout = "us";
         follow_mouse = 1;
+        follow_mouse_threshold = 32;
         sensitivity = 0;
         touchpad = {
           natural_scroll = false;
@@ -189,6 +190,9 @@
 
       windowrule = [
         "float, class:(Bytedance-feishu), title:(图片)"
+        "float, class:(Bytedance-lark), title:(图片)"
+        "float, class:(Meeting)"
+        "float, title:(MainPicker)"
         "float, class:(wechat), title:(预览)"
         "float, class:(nm-connection-editor)"
         "float, class:(.blueman-manager-wrapped)"
@@ -199,6 +203,11 @@
       ];
 
       workspace = [ ];
+
+      animation = [
+        "windows, 1, 3, default"
+        "workspaces, 1, 5, default"
+      ];
 
       dwindle.preserve_split = true;
 
