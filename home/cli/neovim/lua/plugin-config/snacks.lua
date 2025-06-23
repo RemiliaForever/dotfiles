@@ -44,3 +44,4 @@ snacks.setup({
 })
 
 util.nmap("[g", snacks.lazygit.open)
+util.nmap("<C-t>", snacks.terminal.open)

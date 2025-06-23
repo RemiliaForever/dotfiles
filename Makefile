@@ -5,7 +5,7 @@ remotes := $(notdir $(wildcard ./hosts/*))
 
 param =
 ifneq ($(online), 1)
-	param += --offline --no-net
+	param += --option substitute false
 endif
 param += --flake path:$(shell pwd)
 param_remote = $(param) --use-remote-sudo --target-host $@
