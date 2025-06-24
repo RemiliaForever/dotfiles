@@ -48,13 +48,16 @@ require("lazy").setup({
 		version = false,
 		build = "make",
 		config = function()
-			require("plugin-config.avante")
+			require("plugin-config/avante")
 		end,
 	},
 	-- ui components
 	{
 		"nvim-tree/nvim-tree.lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+			"folke/snacks.nvim",
+		},
 		event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-tree")
@@ -87,7 +90,7 @@ require("lazy").setup({
 		},
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config.snacks")
+			require("plugin-config/snacks")
 		end,
 	},
 	{
@@ -99,7 +102,7 @@ require("lazy").setup({
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "Avante" },
 		config = function()
-			require("plugin-config.render-markdown")
+			require("plugin-config/render-markdown")
 		end,
 	},
 	-- completion, format

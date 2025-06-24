@@ -31,13 +31,18 @@
       dates = [ "daily" ];
     };
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 30d";
-      delete_generations = "+3";
-    };
+    #gc = {
+    #  automatic = true;
+    #  dates = "weekly";
+    #  delete_generations = "+3";
+    #};
   };
 
   nixpkgs.config.allowUnfree = true;
+
+  programs.nh = {
+    enable = true;
+    clean.enable = true;
+    clean.extraArgs = "--keep 5 --keep-since 1w";
+  };
 }

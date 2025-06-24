@@ -1,0 +1,5 @@
+- home
+  - cli
+    - neovim git status column
+  - gui
+    - refactor waybar email daemon

@@ -59,13 +59,9 @@
         enabled = true;
       };
       input = {
-        kb_layout = "us";
         follow_mouse = 1;
         follow_mouse_threshold = 32;
-        sensitivity = 0;
-        touchpad = {
-          natural_scroll = false;
-        };
+        scroll_method = "2fg";
       };
       gestures = {
         workspace_swipe = true;
