@@ -4,7 +4,10 @@
   programs.bash = {
     enable = true;
     enableVteIntegration = true;
-    sessionVariables = { };
+    sessionVariables = {
+      HISTSIZE = 65536;
+      HISTCONTROL = "erasedups";
+    };
     shellAliases = {
       cat = "bat";
       diff = "delta";

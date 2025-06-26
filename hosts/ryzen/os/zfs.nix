@@ -15,8 +15,10 @@ let
   latestKernelPackage = lib.last (
     # FIX: bluetooth
     lib.init (
-      lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
-        builtins.attrValues zfsCompatibleKernelPackages
+      lib.init (
+        lib.sort (a: b: (lib.versionOlder a.kernel.version b.kernel.version)) (
+          builtins.attrValues zfsCompatibleKernelPackages
+        )
       )
     )
   );

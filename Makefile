@@ -1,14 +1,8 @@
-online ?= 0
-
 remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
 
-param = -a -H koumakan-$@ --build-host ryzen path:$(shell pwd)
-#ifneq ($(online), 1)
-#	param += -- --option substitute false
-#endif
-param_remote = --target-host $@ -o build/$@ $(param)
-
+param = -a --build-host ryzen . $(args)
+param_remote = -H koumakan-$@ --target-host $@ -o build/$@ $(param)
 
 local:
 	nh os switch $(param)

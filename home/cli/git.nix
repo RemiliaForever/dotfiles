@@ -71,7 +71,9 @@
       };
       lfs.enable = true;
       ignores = [
+        ".env"
         ".envrc"
+        ".secrets"
         ".direnv"
         ".shell"
         ".shell.nix"

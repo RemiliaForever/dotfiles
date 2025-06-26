@@ -1,5 +1,6 @@
 - home
   - cli
     - neovim git status column
+    - neovim nvim-tree edit status
   - gui
     - refactor waybar email daemon

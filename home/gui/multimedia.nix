@@ -16,6 +16,6 @@
     darktable
     kdePackages.kdenlive
     krita
-    lmms
+    #lmms
   ];
 }
