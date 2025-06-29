@@ -58,7 +58,7 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 			"folke/snacks.nvim",
 		},
-		event = "VeryLazy",
+		-- event = "VeryLazy",
 		config = function()
 			require("plugin-config/nvim-tree")
 		end,

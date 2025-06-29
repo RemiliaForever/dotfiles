@@ -52,6 +52,7 @@ require("nvim-tree").setup({
 		group_empty = true,
 		highlight_git = "name",
 		highlight_diagnostics = "name",
+		highlight_modified = "name",
 		indent_markers = { enable = true },
 		icons = {
 			show = {
@@ -61,15 +62,18 @@ require("nvim-tree").setup({
 				git = true,
 			},
 			git_placement = "right_align",
+			modified_placement = "signcolumn",
 			glyphs = {
 				default = "",
 				symlink = "",
+				modified = "",
+				hidden = "",
 				git = {
 					unstaged = "",
 					staged = "",
 					unmerged = "",
-					renamed = "",
-					untracked = "",
+					renamed = "",
+					untracked = "",
 					deleted = "",
 					ignored = "",
 				},
@@ -77,6 +81,11 @@ require("nvim-tree").setup({
 		},
 	},
 	diagnostics = {
+		enable = true,
+		show_on_dirs = true,
+		show_on_open_dirs = false,
+	},
+	modified = {
 		enable = true,
 		show_on_dirs = true,
 		show_on_open_dirs = false,
@@ -90,3 +99,6 @@ require("nvim-tree").setup({
 		},
 	},
 })
+
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

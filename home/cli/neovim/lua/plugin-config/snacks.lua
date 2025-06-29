@@ -10,6 +10,7 @@ snacks.setup({
 	notifier = {
 		enabled = true,
 		timeout = 5000,
+		width = { min = 32, max = 0.8 },
 	},
 	picker = {
 		enabled = true,
@@ -24,7 +25,7 @@ snacks.setup({
 	quickfile = { enabled = true },
 	-- scope = { enabled = true },
 	-- scroll = { enabled = true, animate = { } },
-	statuscolumn = { enabled = true },
+	statuscolumn = { enabled = false },
 	words = { enabled = true },
 
 	styles = {
