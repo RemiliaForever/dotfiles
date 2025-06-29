@@ -16,8 +16,6 @@ let
     "ipify.org"
     "fmsh.com"
     "deepseek.com"
-    # game
-    "steamcontent.com"
   ];
   direct_ip = [
     "154.17.13.197"
@@ -166,6 +164,13 @@ in
           }
           {
             type = "remote";
+            tag = "geosite-steam-cn";
+            format = "binary";
+            url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-steam@cn.srs";
+            download_detour = "vless-out";
+          }
+          {
+            type = "remote";
             tag = "geoip-cn";
             format = "binary";
             url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs";
@@ -189,6 +194,7 @@ in
             ip_is_private = true;
             rule_set = [
               "geosite-cn"
+              "geosite-steam-cn"
               "geoip-cn"
             ];
             domain_suffix = direct_domain;
