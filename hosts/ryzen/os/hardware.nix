@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   modulesPath,
@@ -23,7 +24,9 @@
       "kvm-amd"
       "nct6687"
     ];
-    extraModulePackages = with config.boot.kernelPackages; [ nct6687d ];
+    extraModulePackages = with config.boot.kernelPackages; [
+      nct6687d
+    ];
   };
   fileSystems = {
     "/" = {
@@ -51,4 +54,9 @@
   networking.useDHCP = lib.mkDefault true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+  # flydigi apex 5 elite gaming controller
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="usb", ATTR{idVendor}=="37d7", ATTR{idProduct}=="2501", RUN+="${pkgs.bash}/bin/bash -c '${pkgs.kmod}/bin/modprobe -i xpad && echo 37d7 2501 > /sys/bus/usb/drivers/xpad/new_id'"
+  '';
 }

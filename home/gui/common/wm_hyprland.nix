@@ -39,7 +39,6 @@
         "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
         layout = "dwindle";
-        resize_on_border = false;
         allow_tearing = false;
       };
       decoration = {
@@ -69,7 +68,6 @@
       };
       misc = {
         disable_hyprland_logo = true;
-        vrr = 0;
         mouse_move_enables_dpms = true;
         key_press_enables_dpms = true;
         disable_autoreload = false;
@@ -187,9 +185,14 @@
       windowrule = [
         "float, class:(Bytedance-feishu), title:(图片)"
         "float, class:(Bytedance-lark), title:(图片)"
-        "float, class:(Meeting)"
-        "float, title:(MainPicker)"
+
+        "float, title:(Lark会议)"
+        "noshadow, class:^()$, title:(Lark会议)"
+        "noshadow, class:^(Meeting)$, title:(Lark会议)"
+
         "float, class:(wechat), title:(预览)"
+
+        "float, title:(MainPicker)"
         "float, class:(nm-connection-editor)"
         "float, class:(.blueman-manager-wrapped)"
 
