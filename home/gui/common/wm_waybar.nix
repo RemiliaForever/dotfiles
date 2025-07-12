@@ -34,7 +34,7 @@ let
     def update(n: int):
         if n == -255:
             res = '!!!'  # error
-        if n == -1:
+        elif n == -1:
             res = '󱋈 ?'  # loading
         elif n == 0:
             res = '󰇰 0'  # empty

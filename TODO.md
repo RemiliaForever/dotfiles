@@ -1,3 +1,0 @@
-- home
-  - gui
-    - refactor waybar email daemon
