@@ -30,6 +30,7 @@
         pa = "!f(){ for i in `git remote`; do git push $i; done; };f";
         s = "status";
       };
+
       delta = {
         enable = true;
         options = {
@@ -57,8 +58,10 @@
           };
         };
       };
+
       extraConfig = {
         core.autocrlf = "input";
+        fetch.prune = true;
         push.default = "simple";
         diff = {
           tool = "nvimdiff";
@@ -69,7 +72,9 @@
           cmd = "nvim -d $LOCAL $MERGED $REMOTE";
         };
       };
+
       lfs.enable = true;
+
       ignores = [
         ".env"
         ".envrc"
@@ -79,6 +84,7 @@
         ".shell.nix"
       ];
     };
+
     lazygit = {
       enable = true;
       settings = {

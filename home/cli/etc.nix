@@ -11,11 +11,9 @@
 
       Host mac
           HostName 18.236.168.19
-          User ec2-user
           IdentityFile ~/.ssh/nexasdk.pem
 
       Host win
-          HostName 192.168.122.124
           User RemiliaForever
     '';
   };

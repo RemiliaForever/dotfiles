@@ -2,43 +2,82 @@
 
 let
   waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
+    import base64
     import imaplib
-    import os
     import re
-    import shutil
     import signal
     import subprocess
+    import sys
     import threading
 
-    uid = 0
-    pid = 0
     event = threading.Event()
 
 
-    def update(index: int, name: str, msg: str):
-        open(f'/run/user/{uid}/email/{name}', 'w').write(msg)
-        os.kill(pid, signal.SIGRTMIN + index)
+    def imaputf7encode(s):
+        s = s.replace('&', '&-')
+        unipart = out = ""
+        for c in s:
+            if 0x20 <= ord(c) <= 0x7f:
+                if unipart != "":
+                    out += '&' + base64.b64encode(unipart.encode(
+                        'utf-16-be')).decode('ascii').rstrip('=') + '-'
+                    unipart = ""
+                out += c
+            else:
+                unipart += c
+        if unipart != "":
+            out += '&' + base64.b64encode(
+                unipart.encode('utf-16-be')).decode('ascii').rstrip('=') + '-'
+        return out
 
 
-    def fetch_mail(index: int, name: str, server: str):
-        update(index, name, '󱋈 ?')
+    def update(n: int):
+        if n == -255:
+            res = '!!!'  # error
+        if n == -1:
+            res = '󱋈 ?'  # loading
+        elif n == 0:
+            res = '󰇰 0'  # empty
+        else:
+            res = f'󰇮 {n}'  # new
+        print(res)
+        sys.stdout.flush()
+
+
+    def fetch_mail():
+        update(-1)
+
+        name = sys.argv[1]
+        server = sys.argv[2]
 
         username = open(f'/run/secrets/mail/{name}/address').read()
         password = open(f'/run/secrets/mail/{name}/password').read()
+
         try:
             M = imaplib.IMAP4_SSL(server)
             M.login(username, password)
             M.select(readonly=True)
-            s = M.status('INBOX', '(UNSEEN)')
-            n = int(re.search(r'UNSEEN\s+(\d+)', str(s)).group(1))  # type: ignore
-            if n > 0:
-                update(index, name, f'󰇮 {n}')
-                subprocess.call(
-                    ['notify-send', 'New email', f'[{name}] has {n} new emails'])
-            else:
-                update(index, name, '󰇰 0')
+
+            mails = {}
+            count = 0
+
+            for box in sys.argv[3:]:
+                s = M.status(imaputf7encode(box), '(UNSEEN)')
+                n = int(re.search(r'UNSEEN\s+(\d+)',
+                                  str(s)).group(1))  # type: ignore
+                mails[box] = n
+                count += n
+
+            update(count)
+            if count > 0:
+                subprocess.call([
+                    'notify-send', f'[{name}] New email', '\n'.join([
+                        f'[{box}] hash {mails[box]} new emails' for box in mails
+                        if mails[box] > 0
+                    ])
+                ])
         except Exception as ec:
-            update(index, name, '!!!')
+            update(-255)
             subprocess.call(['notify-send', 'Email check failed', str(ec)])
 
 
@@ -47,25 +86,19 @@ let
 
 
     if __name__ == '__main__':
-        uid = os.getuid()
-        shutil.rmtree(f'/run/user/{uid}/email', ignore_errors=True)
-        os.makedirs(f'/run/user/{uid}/email', exist_ok=True)
-        pid = int(subprocess.check_output(['pidof', '-s', 'waybar']))
+        if len(sys.argv) < 4:
+            update(-255)
+            sys.exit(-255)
 
         signal.signal(signal.SIGRTMIN + 1, sig_update)
         event.set()
         while True:
             event.wait(timeout=300)
-            for i, m, s in [
-                (1, 'koumakan', 'imap.exmail.qq.com'),
-                (2, 'nexa4ai', 'imap.gmail.com'),
-            ]:
-                fetch_mail(i, m, s)
+            fetch_mail()
             event.clear()
   '';
 in
 {
-  home.packages = [ waybar-email-daemon ];
   programs.waybar = {
     enable = true;
     settings = {
@@ -133,20 +166,18 @@ in
           spacing = 5;
         };
         "custom/email#koumakan" = {
-          exec = "cat /run/user/1000/email/koumakan";
-          signal = 1;
+          exec = "${waybar-email-daemon}/bin/waybar-email-daemon koumakan imap.exmail.qq.com INBOX 其他文件夹/ccsvc 其他文件夹/github";
           format = "{}";
           tooltip-format = "koumakan";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
-          on-click-right = "pkill -SIGRTMIN+1 waybar-email-da";
+          on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
         };
         "custom/email#nexa4ai" = {
-          exec = "cat /run/user/1000/email/nexa4ai";
-          signal = 2;
+          exec = "${waybar-email-daemon}/bin/waybar-email-daemon nexa4ai imap.gmail.com INBOX";
           format = "{}";
           tooltip-format = "nexa4ai";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
-          on-click-right = "pkill -SIGRTMIN+2 waybar-email-da";
+          on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon nexa4ai'";
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";

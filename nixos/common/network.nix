@@ -34,7 +34,10 @@ let
     +/4yDQ/eASC42WVLACml+LxB1QZZ4/kTAIVu2cN6Go0G2eLVXvCRNelw7Kgf2DeWUJZeF82j8NfW
     c57poxmn54yaL+RbqzmiyY0V8SMAAgSaEQ3FhkAGJgVSwAACAvk4n6D//o6Pw4ZA
   '';
-  networkid = "20b8d9654b7800af";
+  networkids = {
+    koumakan = "20b8d9654b7800af";
+    nexa = "20b8d9654be491d9";
+  };
 in
 {
   networking = {
@@ -51,15 +54,22 @@ in
     enable = true;
     port = 29993;
     joinNetworks = [
-      "${networkid}" # koumakan
+      networkids.koumakan
+      networkids.nexa
     ];
   };
   systemd.services.zerotierone.preStart = ''
     echo "${planet}" | base64 -d > /var/lib/zerotier-one/planet
   '';
   programs.bash.shellAliases = {
-    zerotier-peers = " sudo zerotier-cli peers";
-    zerotier-refresh = " sudo zerotier-cli leave ${networkid} && sudo zerotier-cli join ${networkid}";
+    zerotier-peers = "sudo zerotier-cli peers";
+    zerotier-refresh = ''
+      sudo zerotier-cli leave ${networkids.koumakan} \
+      && sudo zerotier-cli leave ${networkids.nexa} \
+      && sudo zerotier-cli join ${networkids.koumakan} \
+      && sudo zerotier-cli join ${networkids.nexa} \
+      && echo done
+    '';
   };
   networking.hosts = {
     "127.0.0.1" = [ "koumakan-${hostname.hostname}" ];
@@ -71,6 +81,9 @@ in
     "172.18.10.2" = [ "console" ];
     "172.18.10.3" = [ "surface" ];
     "172.18.10.4" = [ "deck" ];
+    "172.18.10.5" = [ "win" ];
+
+    "172.18.20.1" = [ "nexa-amd" ];
   };
 
   # sing-box
