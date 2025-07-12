@@ -43,6 +43,7 @@
   programs.nh = {
     enable = true;
     clean.enable = true;
-    clean.extraArgs = "--keep 5 --keep-since 2w";
+    clean.dates = "daily";
+    clean.extraArgs = "--keep 5 --keep-since 1w";
   };
 }
