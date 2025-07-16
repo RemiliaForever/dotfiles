@@ -133,6 +133,7 @@
         "SUPER, 3, split:workspace, 3"
         "SUPER, 4, split:workspace, 4"
         "SUPER, 5, split:workspace, 5"
+        "SUPER, 6, split:workspace, 6"
         "SUPER, mouse_down, split:workspace, e-1"
         "SUPER, mouse_up, split:workspace, e+1"
 
@@ -141,6 +142,7 @@
         "SUPER_SHIFT, 3, split:movetoworkspace, 3"
         "SUPER_SHIFT, 4, split:movetoworkspace, 4"
         "SUPER_SHIFT, 5, split:movetoworkspace, 5"
+        "SUPER_SHIFT, 6, split:movetoworkspace, 6"
         "SUPER_SHIFT, o, movewindow, mon:+1"
         "SUPER_SHIFT_CONTROl, O, split:swapactiveworkspaces, current +1"
         "SUPER_SHIFT, G, split:grabroguewindows"
@@ -212,7 +214,7 @@
 
       plugin = {
         hyprsplit = {
-          num_workspaces = 5;
+          num_workspaces = 6;
           persistent_workspaces = true;
         };
 

@@ -37,8 +37,8 @@ snacks.setup({
 			},
 		},
 		lazygit = {
-			width = 0,
-			height = 0,
+			width = 0.9,
+			height = 0.9,
 			zindex = 10,
 		},
 	},

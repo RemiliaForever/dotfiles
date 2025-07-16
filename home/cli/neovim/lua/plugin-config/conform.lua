@@ -7,10 +7,12 @@ conform.setup({
 	default_format_opts = {
 		lsp_format = "first",
 	},
-	format_on_save = {
-		timeout_ms = 500,
-		lsp_format = "fallback",
-	},
+	format_on_save = function(_)
+		if vim.g.disable_autoformat then
+			return
+		end
+		return { timeout_ms = 500, lsp_format = "fallback" }
+	end,
 
 	formatters_by_ft = {
 		c = { "clang-format" },
