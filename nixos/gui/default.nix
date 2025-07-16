@@ -24,12 +24,12 @@
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
-          "VictorMono Nerd Font"
           "Noto Color Emoji"
         ];
         monospace = [
           "VictorMono Nerd Font"
           "Noto Sans Mono CJK SC"
+          "Noto Color Emoji"
         ];
       };
     };
