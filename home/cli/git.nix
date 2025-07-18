@@ -71,6 +71,7 @@
           prompt = false;
           cmd = "nvim -d $LOCAL $MERGED $REMOTE";
         };
+        color.ui = true;
       };
 
       lfs.enable = true;

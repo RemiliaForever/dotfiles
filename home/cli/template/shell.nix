@@ -1,4 +1,4 @@
-# use flake path:$PWD/.shell
+# use flake path:"$PWD/.shell"
 
 {
   description = "nix flake shell";
@@ -10,7 +10,10 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          config.allowUnfree = true;
+        };
       in
       {
         devShells.default = pkgs.mkShell {

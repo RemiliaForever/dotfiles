@@ -1,4 +1,4 @@
-# use flake path:$PWD/.shell
+# use flake path:"$PWD/.shell"
 
 {
   description = "nix flake shell";
