@@ -58,7 +58,7 @@
         show_always = true;
       };
       hostname = {
-        format = "[$ssh_symbol$hostname]($style)";
+        format = "[$ssh_symbol](blue)[$hostname]($style)";
         # style = "";
         ssh_only = true;
         ssh_symbol = " 🌐 ";
