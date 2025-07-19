@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     prettyping
     xh
+    trash-cli
   ];
 
   programs = {
