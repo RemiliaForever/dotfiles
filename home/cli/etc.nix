@@ -1,22 +1,6 @@
 { ... }:
 
 {
-  programs.ssh = {
-    enable = true;
-    extraConfig = ''
-      Host dmit
-          HostName koumakan.cc
-          Port 121
-          User root
-
-      Host mac
-          HostName 18.236.168.19
-          IdentityFile ~/.ssh/nexasdk.pem
-
-      Host win
-          User RemiliaForever
-    '';
-  };
   home.file = {
     ".latexmkrc".text = ''
       $pdflatex = "lualatex -synctex=1 %O %S";

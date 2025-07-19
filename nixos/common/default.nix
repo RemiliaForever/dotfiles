@@ -5,7 +5,7 @@
     ./app.nix
     ./boot.nix
     ./config.nix
-    ./network.nix
+    ./network
     ./nix.nix
     ./services.nix
     ./user.nix
