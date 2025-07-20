@@ -21,7 +21,9 @@ let
   proxy_domain = [
     "dmhy.org"
   ];
-  proxy_ip = [ ];
+  proxy_ip = [
+    "::/0"
+  ];
 in
 {
   services.sing-box = {
@@ -45,13 +47,13 @@ in
           {
             tag = "dns-local";
             address = "114.114.114.114";
-            strategy = "ipv4_only";
+            strategy = "prefer_ipv4";
             detour = "direct-out";
           }
           {
             tag = "dns-proxy";
             address = "tcp://1.1.1.1";
-            strategy = "ipv4_only";
+            strategy = "prefer_ipv6";
             detour = "vless-out";
           }
         ];

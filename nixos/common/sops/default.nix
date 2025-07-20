@@ -18,6 +18,7 @@ in
       "mail/nexa4ai/password" = user;
       "api/deepseek" = user;
       "api/anthropic" = user;
+      "api/gemini" = user;
       "singbox/server" = { };
       "singbox/server_name" = { };
       "singbox/uuid" = { };

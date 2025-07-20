@@ -10,9 +10,10 @@ end
 
 load_api_key("deepseek")
 load_api_key("anthropic")
+load_api_key("gemini")
 
 require("avante").setup({
-	provider = "deepseek",
+	provider = "gemini",
 	behaviour = {
 		enable_cursor_planning_mode = true,
 	},
@@ -38,5 +39,6 @@ require("avante").setup({
 				max_completion_tokens = 8192,
 			},
 		},
+		gemini = {},
 	},
 })

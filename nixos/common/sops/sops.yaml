@@ -13,9 +13,10 @@ singbox:
 api:
     deepseek: ENC[AES256_GCM,data:Fu9vv0pQzWI6gwVLIpQNZ6zVMp38l7Rm3njyORlhHqxr+4o=,iv:UCcSKdrzSRhOEg1FwCts3XM0EHJOOOLApLEXawTf2kg=,tag:xhnkm4FX5geJbL5qDV+YmQ==,type:str]
     anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
+    gemini: ENC[AES256_GCM,data:9VPRfR/8w5qoxJqpGQtJfBoiHaMwKgLBM+8VlNUH/0J09q0CVnR1,iv:q7eE8O8sZ6wfT0Og37xouhFLZvFCMzITn4ldcutQnqc=,tag:zJsW6WFGvtIDTWEUMW3TsQ==,type:str]
 sops:
-    lastmodified: "2025-06-11T09:16:02Z"
-    mac: ENC[AES256_GCM,data:RXrpTJ3+M2YTbPDud7nqztlmep2t202O4KmPA6Vhzc7AyRo41XWmHi2NkKLbV1fhh4wdyaom6aXc8S2etTIjKIsjEsaAAuw8jwR+TkaI43fX9YDCKhckFP05DMF6GWu3btfZwDO4D8ln5wn5dSG09qawGfBWIwxOgJz5t4apsRE=,iv:hH/m3pmapD+wnKXItZ2KPS2HQEyxO8VEvCzb9x56DbA=,tag:qa9dFvXZtWw+7pIRl5s6zQ==,type:str]
+    lastmodified: "2025-07-20T07:26:08Z"
+    mac: ENC[AES256_GCM,data:H2AROFGuWfVRpu++63NqInmxV/eg0Dr+D2MPAtfp9xsLlixGiWB+xskdCMlew7oIFI2tw/t7qAwUYlZ8qN1LTCD5jJxhIqaxqzIoSO3B9m9rzy8JJZ5fQGorogdEXRUUuzdnefT4BZl5juJv9pD7OUD9fZO/1DG08Jy47UL5VdA=,iv:Vs7/r0AYPmYoce5/5rtowW1SIk0Afho6Jx4ye/6soAs=,tag:DDmlN0CoKyUu/erpaIhZ5g==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-

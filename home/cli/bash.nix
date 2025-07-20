@@ -23,6 +23,18 @@
     };
     bashrcExtra = ''
       # extra
+      function nd() {
+          dir="$PWD"
+          while  [[ "$dir" != "/" ]]; do
+              if [[ -d "$dir/.shell" ]]; then
+                  nix develop "$dir/.shell"
+                  return $?
+              fi
+              dir=$(dirname "$dir")
+          done
+          echo ".shell not found"
+          return 1
+      }
     '';
   };
 
