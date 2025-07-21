@@ -72,6 +72,8 @@
           cmd = "nvim -d $LOCAL $MERGED $REMOTE";
         };
         color.ui = true;
+
+        url."git@github.com:".insteadOf = "https://github.com/";
       };
 
       lfs.enable = true;

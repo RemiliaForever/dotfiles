@@ -47,7 +47,7 @@ in
           {
             tag = "dns-local";
             address = "114.114.114.114";
-            strategy = "prefer_ipv4";
+            strategy = "ipv4_only";
             detour = "direct-out";
           }
           {
