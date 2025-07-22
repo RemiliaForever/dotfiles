@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./bash.nix
     ./etc.nix
     ./git.nix
     ./neomutt
@@ -10,5 +9,6 @@
     ./python.nix
     ./tool.nix
     ./yazi
+    ./zsh.nix
   ];
 }

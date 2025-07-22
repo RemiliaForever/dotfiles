@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 
 {
   users.mutableUsers = false;
@@ -14,7 +14,10 @@
       "input"
       "dialout"
     ];
+    shell = pkgs.zsh;
   };
+
+  programs.zsh.enable = true;
 
   systemd.user.extraConfig = "DefaultLimitNOFILE=65535";
 

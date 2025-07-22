@@ -2,7 +2,7 @@
 
 {
   # fix TERM
-  programs.bash.shellAliases.ssh = "TERM=xterm-256color ssh";
+  programs.zsh.shellAliases.ssh = "TERM=xterm-256color ssh";
 
   programs.alacritty = {
     enable = true;

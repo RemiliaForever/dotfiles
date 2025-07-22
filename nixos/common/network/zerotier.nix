@@ -28,7 +28,7 @@ in
   systemd.services.zerotierone.preStart = ''
     echo "${planet}" | base64 -d > /var/lib/zerotier-one/planet
   '';
-  programs.bash.shellAliases = {
+  programs.zsh.shellAliases = {
     zerotier-peers = "sudo zerotier-cli peers";
     zerotier-refresh = ''
       sudo zerotier-cli leave ${networkids.koumakan} \
@@ -52,12 +52,7 @@ in
     "172.18.10.5" = [ "win" ];
 
     "172.18.20.1" = [ "nexa-amd" ];
-    "172.18.20.2" = [ "nexa-xplus" ];
-    "18.236.168.19" = [ "nexa-mac" ];
+    "172.18.20.2" = [ "nexa-mac" ];
+    "172.18.20.3" = [ "nexa-xelite" ];
   };
-
-  programs.ssh.extraConfig = ''
-    Host nexa-mac
-        IdentityFile ~/.ssh/nexasdk.pem
-  '';
 }

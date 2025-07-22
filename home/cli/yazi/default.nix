@@ -32,8 +32,10 @@
     };
   };
 
-  programs.bash.bashrcExtra = ''
+  programs.zsh.initContent = ''
     # yazi
-    [[ $- == *i* ]] && bind '"\C-o":"\C-u${config.programs.yazi.shellWrapperName}\C-m"'
+    #[[ $- == *i* ]] && bind '"\C-o":"\C-u${config.programs.yazi.shellWrapperName}\C-m"'
+    zle -N ${config.programs.yazi.shellWrapperName}
+    bindkey '^O' ${config.programs.yazi.shellWrapperName}
   '';
 }

@@ -30,7 +30,8 @@
   programs.starship.settings.hostname.style = "yellow";
 
   # wayland
-  programs.bash.profileExtra = ''
+  programs.zsh.loginExtra = ''
+    # UWSM
     if [[ -z "$SSH_CLIENT" ]] && uwsm check may-start -q && uwsm select; then
         exec uwsm start default
     fi
