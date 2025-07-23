@@ -5,13 +5,16 @@
     enable = true;
     enableCompletion = true;
     enableVteIntegration = true;
-    enableSyntaxHighlighting = true;
+
     history = {
       append = true;
+      ignoreAllDups = true;
       saveNoDups = true;
       share = true;
       size = 65536;
     };
+
+    syntaxHighlighting.enable = true;
 
     autocd = true;
     autosuggestion.enable = true;
