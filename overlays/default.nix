@@ -5,6 +5,7 @@
     (final: prev: {
       hyprshot = import ./app/hyprshot { pkgs = final; };
       lark = final.callPackage ./app/lark { };
+      ai-shell = final.callPackage ./app/ai-shell { };
     })
     (import ./patch/pr.nix)
     (import ./patch/hdpi.nix)

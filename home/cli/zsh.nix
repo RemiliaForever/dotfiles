@@ -14,10 +14,7 @@
       size = 65536;
     };
 
-    syntaxHighlighting.enable = true;
-
     autocd = true;
-    autosuggestion.enable = true;
     defaultKeymap = "emacs";
 
     shellAliases = {
@@ -48,7 +45,23 @@
           echo ".shell not found"
           return 1
       }
+
+      bindkey '\e[1;5D' backward-word
+      bindkey '\e[1;5C' forward-word
+
+      typeset -A ZSH_HIGHLIGHT_STYLES
+      ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
+      ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=blue
     '';
+
+    autosuggestion.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      highlighters = [
+        "main"
+        "brackets"
+      ];
+    };
   };
 
 }

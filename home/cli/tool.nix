@@ -5,6 +5,7 @@
     prettyping
     xh
     trash-cli
+    ai-shell
   ];
 
   programs = {
@@ -49,6 +50,8 @@
   programs.starship = {
     enable = true;
     settings = {
+      scan_timeout = 1000;
+      command_timeout = 1000;
       format = "$hostname $directory $character";
       right_format = lib.concatStrings [
         "$jobs"
@@ -62,13 +65,11 @@
         "$time"
       ];
 
-      scan_timeout = 1000;
-      command_timeout = 1000;
       hostname = {
         format = "[$ssh_symbol]($style)";
         # style = "";
         ssh_only = true;
-        ssh_symbol = " 🌐 ";
+        ssh_symbol = "🌐";
       };
       directory = {
         format = "[$path]($style)[$read_only]($read_only_style)";

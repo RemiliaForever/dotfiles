@@ -34,8 +34,11 @@
 
   programs.zsh.initContent = ''
     # yazi
-    #[[ $- == *i* ]] && bind '"\C-o":"\C-u${config.programs.yazi.shellWrapperName}\C-m"'
-    zle -N ${config.programs.yazi.shellWrapperName}
-    bindkey '^O' ${config.programs.yazi.shellWrapperName}
+    function yazi-cd() {
+        ${config.programs.yazi.shellWrapperName}
+        zle reset-prompt
+    }
+    zle -N yazi-cd
+    bindkey '^O' yazi-cd
   '';
 }
