@@ -20,7 +20,7 @@ require("lazy").setup({
 		build = ":TSUpdate",
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/nvim-treesitter")
+			require("plugin-config/_nvim-treesitter")
 		end,
 	},
 	{
@@ -48,7 +48,7 @@ require("lazy").setup({
 		version = false,
 		build = "make",
 		config = function()
-			require("plugin-config/avante")
+			require("plugin-config/_avante")
 		end,
 	},
 	-- ui components
@@ -60,14 +60,14 @@ require("lazy").setup({
 		},
 		-- event = "VeryLazy",
 		config = function()
-			require("plugin-config/nvim-tree")
+			require("plugin-config/_nvim-tree")
 		end,
 	},
 	{
 		"folke/trouble.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/trouble")
+			require("plugin-config/_trouble")
 		end,
 	},
 	{
@@ -78,7 +78,7 @@ require("lazy").setup({
 		},
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/lualine")
+			require("plugin-config/_lualine")
 		end,
 	},
 	---- render enhance
@@ -90,7 +90,7 @@ require("lazy").setup({
 		},
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/snacks")
+			require("plugin-config/_snacks")
 		end,
 	},
 	{
@@ -102,7 +102,7 @@ require("lazy").setup({
 		"MeanderingProgrammer/render-markdown.nvim",
 		ft = { "markdown", "Avante" },
 		config = function()
-			require("plugin-config/render-markdown")
+			require("plugin-config/_render-markdown")
 		end,
 	},
 	-- completion, format
@@ -110,7 +110,7 @@ require("lazy").setup({
 		"stevearc/conform.nvim",
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/conform")
+			require("plugin-config/_conform")
 		end,
 	},
 	{
@@ -125,14 +125,14 @@ require("lazy").setup({
 		},
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/nvim-cmp")
+			require("plugin-config/_nvim-cmp")
 		end,
 	},
 	{
 		"neovim/nvim-lspconfig",
 		event = "VeryLazy",
 		config = function()
-			require("plugin-config/nvim-lspconfig")
+			require("plugin-config/_nvim-lspconfig")
 		end,
 	},
 })

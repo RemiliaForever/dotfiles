@@ -5,6 +5,7 @@
     prettyping
     xh
     trash-cli
+
     ai-shell
   ];
 
