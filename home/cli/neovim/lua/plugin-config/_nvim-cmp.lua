@@ -1,5 +1,7 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
+local copilot = require("copilot")
+local copilot_cmp = require("copilot_cmp")
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
@@ -30,6 +32,12 @@ local kind_icons = {
 	Operator = "󰆕 ",
 	TypeParameter = "󰅲 ",
 }
+
+copilot.setup({
+	suggestion = { enabled = false },
+	panel = { enabled = false },
+})
+copilot_cmp.setup({})
 
 cmp.setup({
 	snippet = {
@@ -67,6 +75,7 @@ cmp.setup({
 		["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
 	},
 	sources = cmp.config.sources({
+		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },

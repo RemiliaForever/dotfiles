@@ -14,6 +14,7 @@
       gcc
       gnumake
       cmake
+      nodejs
       # conform
       clang-tools
       go
