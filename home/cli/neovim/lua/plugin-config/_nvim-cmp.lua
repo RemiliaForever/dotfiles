@@ -36,6 +36,7 @@ local kind_icons = {
 copilot.setup({
 	suggestion = { enabled = false },
 	panel = { enabled = false },
+	copilot_mode = "gpt-4.1",
 })
 copilot_cmp.setup({})
 

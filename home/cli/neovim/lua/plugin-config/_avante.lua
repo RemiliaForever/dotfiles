@@ -9,21 +9,19 @@ local function load_api_key(name)
 end
 
 load_api_key("deepseek")
-load_api_key("anthropic")
-load_api_key("gemini")
 
 require("avante").setup({
-	provider = "gemini",
+	provider = "copilot",
 	behaviour = {
 		enable_cursor_planning_mode = true,
 	},
 	providers = {
-		claude = {
-			endpoint = "https://api.anthropic.com",
-			model = "claude-3-7-sonnet-20250219",
+		copilot = {
+			model = "gpt-4.1",
 			timeout = 30000, -- Timeout in milliseconds
+			context_window = 64000, -- Number of tokens to send to the model for context
 			extra_request_body = {
-				temperature = 0,
+				temperature = 0.75,
 				max_tokens = 20480,
 			},
 		},
@@ -39,6 +37,5 @@ require("avante").setup({
 				max_completion_tokens = 8192,
 			},
 		},
-		gemini = {},
 	},
 })

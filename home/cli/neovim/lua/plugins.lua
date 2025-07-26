@@ -43,6 +43,8 @@ require("lazy").setup({
 			"ibhagwan/fzf-lua",
 			"folke/snacks.nvim",
 			"nvim-tree/nvim-web-devicons",
+			-- provider
+			"zbirenbaum/copilot.lua",
 		},
 		event = "VeryLazy",
 		version = false,
