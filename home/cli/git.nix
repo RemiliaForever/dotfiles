@@ -85,6 +85,7 @@
         ".direnv"
         ".shell"
         ".shell.nix"
+        "TODO.md"
       ];
     };
 
