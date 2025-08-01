@@ -45,6 +45,7 @@
         rounding = 8;
         active_opacity = 1.0;
         inactive_opacity = 1.0;
+        dim_special = 0.4;
 
         shadow = {
           enabled = true;
@@ -77,6 +78,9 @@
         disable_hyprland_qtutils_check = true;
         enable_anr_dialog = false;
       };
+      binds = {
+        hide_special_on_workspace_change = true;
+      };
       xwayland.force_zero_scaling = true;
       render.expand_undersized_textures = false;
       cursor.no_hardware_cursors = 2;
@@ -100,8 +104,9 @@
       bind = [
         "SUPER, R, exec, wofi"
         "SUPER, Return, exec, alacritty"
-        "SUPER CONTROL, Q, exit"
-        "SUPER, Tab, overview:toggle, toggle"
+        "SUPER_CONTROL, Q, exit"
+        "SUPER, Tab, togglespecialworkspace"
+        "SUPER_SHIFT, Tab, overview:toggle, toggle"
         "SUPER, Delete, exec, loginctl lock-session"
 
         "SUPER, W, killactive"
@@ -143,6 +148,7 @@
         "SUPER_SHIFT, 4, split:movetoworkspace, 4"
         "SUPER_SHIFT, 5, split:movetoworkspace, 5"
         "SUPER_SHIFT, 6, split:movetoworkspace, 6"
+        "SUPER_SHIFT, s, split:movetoworkspace, special"
         "SUPER_SHIFT, o, movewindow, mon:+1"
         "SUPER_SHIFT_CONTROl, O, split:swapactiveworkspaces, current +1"
         "SUPER_SHIFT, G, split:grabroguewindows"
@@ -203,7 +209,10 @@
         "renderunfocused, title:(魔兽世界)"
       ];
 
-      workspace = [ ];
+      workspace = [
+        "s[true], gapsout:50"
+        "s[true], on-created-empty:hyprctl dispatch exec [workspace special] alacritty"
+      ];
 
       animation = [
         "windows, 1, 3, default"
