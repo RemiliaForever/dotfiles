@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     kdePackages.elisa
     kdePackages.kwave
-    bambu-studio
+    #bambu-studio
     (blender.override {
       cudaSupport = config.remilia.cuda;
       hipSupport = config.remilia.rocm;
@@ -16,6 +16,6 @@
     darktable
     kdePackages.kdenlive
     krita
-    #lmms
+    lmms
   ];
 }

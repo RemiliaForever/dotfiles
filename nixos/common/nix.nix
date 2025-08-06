@@ -30,20 +30,20 @@
       automatic = true;
       dates = [ "daily" ];
     };
-
-    #gc = {
-    #  automatic = true;
-    #  dates = "weekly";
-    #  delete_generations = "+3";
-    #};
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "libsoup-2.74.3"
+    ];
+  };
 
   programs.nh = {
     enable = true;
     clean.enable = true;
     clean.dates = "daily";
-    clean.extraArgs = "--keep 5 --keep-since 1w";
+    clean.extraArgs = "--keep 5 --keep-since 1m";
   };
 }

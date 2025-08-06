@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   home.packages = [ ];
@@ -115,7 +115,17 @@
       };
     };
 
-    gh.enable = true;
-    gh-dash.enable = true;
+    gh = {
+      enable = true;
+      extensions = with pkgs; [
+        gh-copilot
+        gh-dash
+
+        gh-s
+        gh-i
+        #gh-notify
+        gh-contribs
+      ];
+    };
   };
 }
