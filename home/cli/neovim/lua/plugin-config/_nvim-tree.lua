@@ -80,6 +80,7 @@ require("nvim-tree").setup({
 			},
 		},
 	},
+	git = { timeout = 5000 },
 	diagnostics = {
 		enable = true,
 		show_on_dirs = true,

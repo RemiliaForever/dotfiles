@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = [ ];
+  home.packages = with pkgs; [ tig ];
   programs = {
     git = {
       enable = true;
@@ -112,6 +112,64 @@
             showWholeGraph = true;
           };
         };
+        customCommands = [
+          {
+            context = "subCommits";
+            key = "t";
+            command = "tig show {{.SelectedSubCommit.Sha}}";
+            description = "tig commit (`t` again to browse files at revision)";
+            output = "terminal";
+          }
+          {
+            context = "localBranches";
+            key = "t";
+            command = "tig show {{.SelectedLocalBranch.Name}}";
+            description = "tig branch (`t` again to browse files at revision)";
+            output = "terminal";
+          }
+          {
+            context = "remoteBranches";
+            key = "t";
+            command = "tig show {{.SelectedRemoteBranch.RemoteName}}/{{.SelectedRemoteBranch.Name}}";
+            description = "tig branch (`t` again to browse files at revision)";
+            output = "terminal";
+          }
+          {
+            context = "commitFiles";
+            key = "t";
+            command = "tig {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
+            description = "tig file (history of commits affecting file)";
+            output = "terminal";
+          }
+          {
+            key = "t";
+            command = "tig -- {{.SelectedFile.Name}}";
+            context = "files";
+            description = "tig file (history of commits affecting file)";
+            output = "terminal";
+          }
+          {
+            context = "files";
+            key = "b";
+            command = "tig blame -- {{.SelectedFile.Name}}";
+            description = "blame file at tree";
+            output = "terminal";
+          }
+          {
+            context = "commitFiles";
+            key = "b";
+            command = "tig blame {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
+            description = "blame file at revision";
+            output = "terminal";
+          }
+          {
+            context = "commitFiles";
+            key = "B";
+            command = "tig blame -- {{.SelectedCommitFile.Name}}";
+            description = "blame file at tree";
+            output = "terminal";
+          }
+        ];
       };
     };
 
@@ -123,9 +181,10 @@
 
         gh-s
         gh-i
-        #gh-notify
+        gh-notify
         gh-contribs
       ];
     };
+    zsh.completionInit = ''eval "$(${pkgs.gh-copilot}/bin/gh-copilot alias zsh)"'';
   };
 }
