@@ -1,7 +1,5 @@
 local cmp = require("cmp")
 local luasnip = require("luasnip")
-local copilot = require("copilot")
-local copilot_cmp = require("copilot_cmp")
 
 vim.opt.completeopt = "menu,menuone,noselect"
 
@@ -34,13 +32,6 @@ local kind_icons = {
 
 	Copilot = " ",
 }
-
-copilot.setup({
-	suggestion = { enabled = false },
-	panel = { enabled = false },
-	copilot_mode = "gpt-4.1",
-})
-copilot_cmp.setup({})
 
 cmp.setup({
 	snippet = {
@@ -75,10 +66,9 @@ cmp.setup({
 		["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
 		["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
 		["<C-b>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
+		["<C-c>"] = cmp.mapping({ i = cmp.mapping.abort(), c = cmp.mapping.close() }),
 	},
 	sources = cmp.config.sources({
-		{ name = "copilot" },
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },

@@ -1,3 +1,22 @@
+local copilot = require("copilot")
+
+local model = "gpt-4.1"
+
+copilot.setup({
+	suggestion = {
+		enabled = true,
+		auto_trigger = true,
+		keymap = {
+			accept = "<C-e>",
+			next = "<C-j>",
+			prev = "<C-k>",
+		},
+	},
+	panel = { enabled = false },
+	copilot_mode = model,
+})
+vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#56b6c2", italic = true })
+
 -- load api key
 local function load_api_key(name)
 	local f = io.open("/run/secrets/api/" .. name, "r")
@@ -11,13 +30,11 @@ end
 load_api_key("deepseek")
 
 require("avante").setup({
+	system_prompt = "Always respond in chinese. Prefer markdown format.",
 	provider = "copilot",
-	behaviour = {
-		enable_cursor_planning_mode = true,
-	},
 	providers = {
 		copilot = {
-			model = "gpt-4.1",
+			model = model,
 			timeout = 30000, -- Timeout in milliseconds
 			context_window = 64000, -- Number of tokens to send to the model for context
 			extra_request_body = {
