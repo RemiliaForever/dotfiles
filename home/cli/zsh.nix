@@ -10,7 +10,7 @@
       append = true;
       ignoreAllDups = true;
       saveNoDups = true;
-      share = true;
+      share = false;
       size = 65536;
     };
 

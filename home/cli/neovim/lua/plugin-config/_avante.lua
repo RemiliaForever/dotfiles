@@ -17,7 +17,7 @@ require("avante").setup({
 	},
 	providers = {
 		copilot = {
-			model = "gpt-5",
+			model = "gpt-4.1",
 			timeout = 30000, -- Timeout in milliseconds
 			context_window = 64000, -- Number of tokens to send to the model for context
 			extra_request_body = {

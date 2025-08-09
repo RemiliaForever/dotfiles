@@ -182,7 +182,6 @@
         gh-s
         gh-i
         gh-notify
-        gh-contribs
       ];
     };
     zsh.completionInit = ''eval "$(${pkgs.gh-copilot}/bin/gh-copilot alias zsh)"'';
