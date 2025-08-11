@@ -181,8 +181,8 @@ in
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
-          format-ethernet = "  {bandwidthUpBytes:>}  {bandwidthDownBytes:>} ";
-          format-wifi = "{icon} {bandwidthUpBytes:>}  {bandwidthDownBytes:>} ";
+          format-ethernet = "  {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+          format-wifi = "{icon} {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
           format-linked = " ";
           format-disconnected = " ";
           format-disabled = " ";
