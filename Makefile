@@ -1,7 +1,7 @@
 remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
 
-param = --build-host ryzen . $(args)
+param = . $(args)
 param_remote = -H koumakan-$@ --target-host $@ -o build/$@ $(param)
 
 local:
