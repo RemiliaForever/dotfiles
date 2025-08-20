@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -31,13 +31,12 @@
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
   ];
 
-  ## steam
-  #jovian = {
-  #  steam.enable = true;
-  #  steam.autoStart = true;
-  #  steamos.enableDefaultCmdlineConfig = false;
-  #  steamos.enableMesaPatches = false;
-  #};
-  ## https://github.com/Jovian-Experiments/Jovian-NixOS/issues/497
-  #services.xserver.displayManager.startx.enable = lib.mkForce false;
+  # steam
+  jovian = {
+    steam.enable = true;
+    steam.autoStart = true;
+    steamos.enableDefaultCmdlineConfig = false;
+  };
+  # https://github.com/Jovian-Experiments/Jovian-NixOS/issues/497
+  services.xserver.displayManager.startx.enable = lib.mkForce false;
 }
