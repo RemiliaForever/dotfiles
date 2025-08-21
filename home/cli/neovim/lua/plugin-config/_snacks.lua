@@ -17,7 +17,7 @@ snacks.setup({
 		win = {
 			input = {
 				keys = {
-					["<Esc>"] = { "close", mode = { "n", "i" } },
+					-- ["<Esc>"] = { "close", mode = { "n", "i" } },
 				},
 			},
 		},
@@ -33,7 +33,10 @@ snacks.setup({
 			relative = "cursor",
 			width = 48,
 			keys = {
-				i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+				-- i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+				-- emacs style
+				i_ctrl_j = { "<c-j>", { "hist_down" }, mode = { "i", "n" } },
+				i_ctrl_k = { "<c-k>", { "hist_up" }, mode = { "i", "n" } },
 			},
 		},
 		lazygit = {
