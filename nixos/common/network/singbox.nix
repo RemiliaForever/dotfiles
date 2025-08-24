@@ -7,8 +7,12 @@ let
     # self
     "dmit.io"
     "koumakan.cc"
-    # work
+    # ipinfo
     "ipify.org"
+    "ip-api.com"
+    "ipapi.co"
+    "ipinfo.io"
+    # work
     "fmsh.com"
     "deepseek.com"
     # game

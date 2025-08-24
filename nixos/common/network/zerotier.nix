@@ -45,6 +45,7 @@ in
       "ryzen"
       "nextcloud.koumakan.cc"
       "gitlab.koumakan.cc"
+      "ha.koumakan.cc"
     ];
     "172.18.10.2" = [ "console" ];
     "172.18.10.3" = [ "surface" ];
