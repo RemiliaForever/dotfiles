@@ -64,8 +64,8 @@
 let
   sources = {
     x86_64-linux = fetchurl {
-      url = "https://sf16-sg.larksuitecdn.com/obj/lark-artifact-storage/12b1adb3/Lark-linux_x64-7.42.17.deb";
-      sha256 = "sha256-fusUlfZIjZ51Snbg2WJRhZGwQ+ytzY88ambVHSfD0mk=";
+      url = "https://sf16-sg.larksuitecdn.com/obj/lark-artifact-storage/3d9dcd0b/Lark-linux_x64-7.46.12.deb";
+      sha256 = "sha256-+B+T/Sinq7vPDpI0eaWCr91jgooCIXX1N0oAeicZLpw=";
     };
   };
 

@@ -19,7 +19,6 @@
     discord
 
     wiliwili
-    obs-studio
   ];
 
   remilia = {
@@ -28,6 +27,10 @@
 
   # cli
   programs.starship.settings.hostname.style = "yellow";
+  programs.zsh.shellAliases = {
+    sb = ''rsync -aP --mkpath --delete "$PWD/" "win:''${PWD#/home/remilia/}/" --exclude ".git" --exclude ".cache" --exclude ".direnv"'';
+    s = ''sb --exclude "build"'';
+  };
 
   # wayland
   programs.zsh.loginExtra = ''
@@ -58,6 +61,7 @@
     hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
     input-filename = "temp1_input";
   };
+
   home.sessionVariables = {
     STEAM_FORCE_DESKTOPUI_SCALING = "2.0";
   };

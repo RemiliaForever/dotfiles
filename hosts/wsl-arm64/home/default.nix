@@ -12,8 +12,8 @@
   # cli
   programs.starship.settings.format = lib.mkForce "wsl $directory $character";
   programs.zsh.shellAliases = {
-    s = ''rsync -aP --delete "$PWD/" "/mnt/c/Users/''${PWD#/home/}/" --exclude ".git" --exclude ".direnv" --exclude "build"'';
-    sb = ''rsync -aP --delete "$PWD/" "/mnt/c/Users/''${PWD#/home/}/" --exclude ".git" --exclude ".direnv"'';
+    sb = ''rsync -aP --mkpath --delete "$PWD/" "/mnt/c/Users/remilia/''${PWD#/home/remilia/}/" --exclude ".git" --exclude ".cache" --exclude ".direnv"'';
+    s = ''sb --exclude "build"'';
   };
 
   home.sessionVariables = {

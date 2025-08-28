@@ -84,6 +84,7 @@
         ".shell"
         ".shell.nix"
         "TODO.md"
+        "avante.md"
       ];
     };
 

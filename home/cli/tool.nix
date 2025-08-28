@@ -104,6 +104,8 @@
   services.gpg-agent = {
     enable = true;
     pinentry.package = pkgs.pinentry-curses;
+    defaultCacheTtl = 604800; # default unlock time: 1 week
+    maxCacheTtl = 2147483647; # never timeout
   };
 
 }
