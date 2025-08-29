@@ -23,11 +23,9 @@
         mt = "mergetool";
         c = "commit -m";
         d = "diff";
-        f = "fetch -p";
-        fa = "!f(){ for i in `git remote`; do git fetch -p $i; done; };f";
+        f = "fetch -p -t";
         pl = "pull --ff -p";
         ps = "push";
-        pa = "!f(){ for i in `git remote`; do git push $i; done; };f";
         s = "status";
       };
 

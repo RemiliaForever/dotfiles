@@ -1,4 +1,4 @@
-{ hostname, ... }:
+{ host, ... }:
 
 {
   imports = [
@@ -6,7 +6,7 @@
     ./zerotier.nix
   ];
   networking = {
-    hostName = "koumakan-${hostname.hostname}";
+    hostName = "koumakan-${host.hostname}";
     networkmanager.enable = true;
     firewall.enable = false;
     nftables.enable = true;

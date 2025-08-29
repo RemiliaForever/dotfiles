@@ -12,19 +12,15 @@
       };
       window = {
         decorations = "None";
-        opacity = 0.85;
-        padding.x = 2;
-        padding.y = 2;
+        opacity = 0.9;
         dynamic_padding = true;
       };
       font = {
-        size = 11;
-        offset.y = -6;
-        glyph_offset.y = -3;
+        size = 13;
+        offset.y = 2;
       };
       colors = {
         primary = {
-          #background = "0x282c34";
           foreground = "0xdcdfe4";
         };
         normal = {

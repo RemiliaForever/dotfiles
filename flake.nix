@@ -57,7 +57,7 @@
           system = "${host.arch}";
 
           specialArgs = {
-            hostname = host;
+            host = host;
             nixos-hardware = inputs.nixos-hardware;
             nixos-wsl = inputs.nixos-wsl;
             jovian = inputs.jovian;

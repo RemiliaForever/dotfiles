@@ -1,5 +1,5 @@
 {
-  hostname,
+  host,
   ...
 }:
 
@@ -40,7 +40,7 @@ in
   };
 
   networking.hosts = {
-    "127.0.0.1" = [ "koumakan-${hostname.hostname}" ];
+    "127.0.0.1" = [ "koumakan-${host.hostname}" ];
     "172.18.10.1" = [
       "ryzen"
       "nextcloud.koumakan.cc"
