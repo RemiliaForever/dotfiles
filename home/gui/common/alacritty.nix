@@ -16,8 +16,9 @@
         dynamic_padding = true;
       };
       font = {
-        size = 13;
-        offset.y = 2;
+        size = 12;
+        offset.x = -1;
+        offset.y = -2;
       };
       colors = {
         primary = {

@@ -20,7 +20,8 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
       symbola
-      nerd-fonts.fantasque-sans-mono
+      berkeley-mono
+      nerd-fonts.victor-mono
     ];
     fontconfig = {
       enable = true;
@@ -31,7 +32,8 @@
           "Symbola"
         ];
         monospace = [
-          "FantasqueSansM Nerd Font Mono"
+          "Berkeley Mono Variable"
+          "VictorMono Nerd Font"
           "Noto Sans Mono CJK SC"
           "Symbola"
         ];
