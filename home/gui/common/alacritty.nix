@@ -17,7 +17,7 @@
       };
       font = {
         size = 12;
-        offset.x = -1;
+        offset.x = -2;
         offset.y = -2;
       };
       colors = {

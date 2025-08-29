@@ -41,21 +41,13 @@ in
 
   networking.hosts = {
     "127.0.0.1" = [ "koumakan-${host.hostname}" ];
-    "172.18.10.1" = [
-      "ryzen"
-      "nextcloud.koumakan.cc"
-      "gitlab.koumakan.cc"
-      "ha.koumakan.cc"
-    ];
+    "172.18.10.1" = [ "ryzen" ];
     "172.18.10.2" = [ "console" ];
     "172.18.10.3" = [ "surface" ];
     "172.18.10.4" = [ "deck" ];
     "172.18.10.5" = [ "win" ];
 
     "172.18.20.1" = [ "nexa-amd" ];
-    #"172.18.20.2" = [ "nexa-mac" ];
-    "18.236.168.19" = [ "nexa-mac" ];
     "172.18.20.3" = [ "nexa-xelite" ];
-
   };
 }
