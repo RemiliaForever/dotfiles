@@ -17,8 +17,6 @@
     wechat-uos
     qq
     discord
-
-    wiliwili
   ];
 
   remilia = {

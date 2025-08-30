@@ -14,8 +14,6 @@
     qq
     discord
 
-    wiliwili
-
     krita # from multimedia
   ];
 

@@ -9,5 +9,6 @@
     })
     (import ./patch/pr.nix)
     (import ./patch/hdpi.nix)
+    (import ./patch/rollback.nix)
   ];
 }

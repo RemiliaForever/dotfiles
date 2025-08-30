@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
@@ -21,4 +21,10 @@
   };
 
   #services.flatpak.enable = true;
+
+  # build machine keep more generations
+  programs.nh.clean = {
+    dates = lib.mkForce "weekly";
+    extraArgs = lib.mkForce "--keep 5 --keep-since 4w";
+  };
 }

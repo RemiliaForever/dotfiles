@@ -44,6 +44,6 @@
     enable = true;
     clean.enable = true;
     clean.dates = "daily";
-    clean.extraArgs = "--keep 5 --keep-since 4w";
+    clean.extraArgs = "--keep 5 --keep-since 1w";
   };
 }

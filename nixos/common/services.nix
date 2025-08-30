@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 
 {
   systemd.coredump.extraConfig = "Storage=none";
@@ -9,12 +9,12 @@
 
     speechd.enable = false;
 
-    logind = {
-      powerKey = "suspend";
-      powerKeyLongPress = "ignore";
-      lidSwitch = "ignore";
-      lidSwitchDocked = "ignore";
-      lidSwitchExternalPower = "ignore";
+    logind.settings.Login = {
+      HandlePowerKey = lib.mkDefault "suspend";
+      HandlePowerKeyLongPress = lib.mkDefault "ignore";
+      HandleLidSwitch = lib.mkDefault "ignore";
+      HandleLidSwitchDocked = lib.mkDefault "ignore";
+      HandleLidSwitchExternalPower = lib.mkDefault "ignore";
     };
 
     journald = {

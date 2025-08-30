@@ -7,7 +7,6 @@
 
     fcitx5 = {
       waylandFrontend = true;
-      plasma6Support = true;
       addons = with pkgs; [
         fcitx5-gtk
         kdePackages.fcitx5-qt

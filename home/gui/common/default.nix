@@ -51,6 +51,8 @@ in
     kdePackages.dolphin
     kdePackages.gwenview
     nextcloud-client
+
+    wiliwili
   ];
 
   xdg = {

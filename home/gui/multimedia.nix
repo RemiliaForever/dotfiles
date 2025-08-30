@@ -16,7 +16,7 @@
     kdePackages.kdenlive
     kdePackages.kwave
     krita
-    lmms
+    #lmms
     (obs-studio.override { cudaSupport = config.remilia.cuda; })
   ];
 }
