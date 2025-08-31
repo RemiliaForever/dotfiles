@@ -20,7 +20,6 @@ in
       "api/anthropic" = user;
       "api/gemini" = user;
       "singbox/server" = { };
-      "singbox/server_name" = { };
       "singbox/uuid" = { };
     };
   };

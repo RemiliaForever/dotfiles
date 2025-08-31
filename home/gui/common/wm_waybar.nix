@@ -167,6 +167,7 @@ in
         };
         "custom/email#koumakan" = {
           exec = "${waybar-email-daemon}/bin/waybar-email-daemon koumakan imap.exmail.qq.com INBOX 其他文件夹/ccsvc 其他文件夹/github";
+          restart-interval = 60;
           format = "{}";
           tooltip-format = "koumakan";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
@@ -174,6 +175,7 @@ in
         };
         "custom/email#nexa4ai" = {
           exec = "${waybar-email-daemon}/bin/waybar-email-daemon nexa4ai imap.gmail.com INBOX";
+          restart-interval = 60;
           format = "{}";
           tooltip-format = "nexa4ai";
           on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
@@ -274,6 +276,7 @@ in
           min-height: 0;
           font-family: monospace;
           font-size: 13px;
+          font-weight: 300;
           margin: 0;
           padding: 0;
       }

@@ -36,8 +36,8 @@ in
       log.level = "warn";
       inbounds = [
         {
-          type = "tun";
           tag = "tun-in";
+          type = "tun";
           address = [
             "172.22.0.1/30"
             "fdfe:dcba:9876::1/126"
@@ -50,103 +50,109 @@ in
         servers = [
           {
             tag = "dns-local";
-            address = "114.114.114.114";
-            strategy = "ipv4_only";
+            type = "udp";
+            server = "114.114.114.114";
+            # dialer
             detour = "direct-out";
+            #connect_timeout = "3s";
           }
           {
             tag = "dns-proxy";
-            address = "tcp://1.1.1.1";
-            strategy = "prefer_ipv6";
+            type = "tcp";
+            server = "1.1.1.1";
+            # dialer
             detour = "vless-out";
+            #connect_timeout = "3s";
           }
         ];
-        final = "dns-proxy";
         rules = [
           {
-            outbound = "any";
-            server = "dns-local";
-          }
-          {
-            domain_suffix = proxy_domain;
-            server = "dns-proxy";
-          }
-          {
+            action = "route";
             rule_set = "geosite-cn";
             domain_suffix = direct_domain;
             server = "dns-local";
+            strategy = "ipv4_only";
+          }
+          {
+            action = "route";
+            domain_suffix = proxy_domain;
+            server = "dns-proxy";
+            strategy = "prefer_ipv6";
           }
         ];
+        final = "dns-proxy";
       };
       outbounds = [
         {
-          type = "direct";
           tag = "direct-out";
+          type = "direct";
+          # dialer
+          connect_timeout = "3s";
           tcp_fast_open = true;
         }
         {
-          type = "vless";
           tag = "vless-out";
+          type = "vless";
           server._secret = config.sops.secrets."singbox/server".path;
           server_port = 443;
           uuid._secret = config.sops.secrets."singbox/uuid".path;
-          multiplex = {
-            enabled = true;
-            padding = false;
-            protocol = "smux";
-            max_streams = 64;
-          };
           tls = {
             enabled = true;
             disable_sni = true;
-            server_name._secret = config.sops.secrets."singbox/server_name".path;
           };
           transport = {
             type = "ws";
             path = "/notify";
           };
+          multiplex = {
+            enabled = true;
+            protocol = "smux";
+            max_streams = 64;
+          };
+          # dialer
+          connect_timeout = "3s";
           tcp_fast_open = true;
         }
       ];
       route = {
-        auto_detect_interface = true;
         rule_set = [
           {
-            type = "remote";
             tag = "geosite-cn";
+            type = "remote";
             format = "binary";
             url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-cn.srs";
             download_detour = "vless-out";
           }
           {
-            type = "remote";
             tag = "geosite-steam-cn";
+            type = "remote";
             format = "binary";
             url = "https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-steam@cn.srs";
             download_detour = "vless-out";
           }
           {
-            type = "remote";
             tag = "geoip-cn";
+            type = "remote";
             format = "binary";
             url = "https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs";
             download_detour = "vless-out";
           }
         ];
-        final = "vless-out";
         rules = [
           { action = "sniff"; }
           {
-            protocol = "dns";
             action = "hijack-dns";
+            protocol = "dns";
           }
           {
+            action = "route";
             rule_set = [ ];
             domain_suffix = proxy_domain;
             ip_cidr = proxy_ip;
             outbound = "vless-out";
           }
           {
+            action = "route";
             ip_is_private = true;
             rule_set = [
               "geosite-cn"
@@ -158,6 +164,9 @@ in
             outbound = "direct-out";
           }
         ];
+        final = "vless-out";
+        auto_detect_interface = true;
+        default_domain_resolver = "dns-local";
       };
     };
   };

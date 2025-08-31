@@ -8,15 +8,14 @@ mail:
         password: ENC[AES256_GCM,data:oUHHdMMvRpKyY3LtTsa2aA==,iv:PYLnniIqXJnENDmTVoxxmInuWpk5RMLUMWuhB6ZEgJA=,tag:IR4jwp4875ZyY5pbeLFyFg==,type:str]
 singbox:
     server: ENC[AES256_GCM,data:2rpbtTwHIyTqG5xvPLtNrw/kpQ==,iv:q5J3Jb/7iVPcbJPt9ah4XRQv1+gwboCHg+/mrIF85fM=,tag:53rgvMJkhd5P9VyIzn2X1A==,type:str]
-    server_name: ENC[AES256_GCM,data:FWTNp1XjWzBNw3U=,iv:dKboYEkXaQ7TDOHs4SavaCol0pFxrsZXXwqA+OhTU4s=,tag:CQAr/bzXw5Zk1e6u4o9cWg==,type:str]
     uuid: ENC[AES256_GCM,data:7y2qQjL5jZACLjmeu3dX4oImSlj9tQVfIoUU/veknzxQCD+/,iv:nS015iUASZ4cq7kxSdcIojCq8HQGMtWGKzdr/jD1/xg=,tag:NVRtf4Tuejof0BWgm9lHCQ==,type:str]
 api:
     deepseek: ENC[AES256_GCM,data:Fu9vv0pQzWI6gwVLIpQNZ6zVMp38l7Rm3njyORlhHqxr+4o=,iv:UCcSKdrzSRhOEg1FwCts3XM0EHJOOOLApLEXawTf2kg=,tag:xhnkm4FX5geJbL5qDV+YmQ==,type:str]
     anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
     gemini: ENC[AES256_GCM,data:9VPRfR/8w5qoxJqpGQtJfBoiHaMwKgLBM+8VlNUH/0J09q0CVnR1,iv:q7eE8O8sZ6wfT0Og37xouhFLZvFCMzITn4ldcutQnqc=,tag:zJsW6WFGvtIDTWEUMW3TsQ==,type:str]
 sops:
-    lastmodified: "2025-07-20T07:26:08Z"
-    mac: ENC[AES256_GCM,data:H2AROFGuWfVRpu++63NqInmxV/eg0Dr+D2MPAtfp9xsLlixGiWB+xskdCMlew7oIFI2tw/t7qAwUYlZ8qN1LTCD5jJxhIqaxqzIoSO3B9m9rzy8JJZ5fQGorogdEXRUUuzdnefT4BZl5juJv9pD7OUD9fZO/1DG08Jy47UL5VdA=,iv:Vs7/r0AYPmYoce5/5rtowW1SIk0Afho6Jx4ye/6soAs=,tag:DDmlN0CoKyUu/erpaIhZ5g==,type:str]
+    lastmodified: "2025-08-31T05:25:11Z"
+    mac: ENC[AES256_GCM,data:7jjwFF4+C15waJpHaO3IR1HMdfYWN9bZpKAM5kvQoTMK7fP6ly2Xo9XgzDOwsDCYrIu0rM9935OCPrVNbU3CAQN31sm2B6KVybci0G6B1BHYEVJI1KEdrmW5kvxVa9LTwELSfpk97Ry3f8P0BbC8bsjEUaxnS6pjkCY+y3G99l0=,iv:cmOF3qbAlcjFrnA7E9Yi4jkVU603MRcBQxIE8ZaLFOE=,tag:RGjCZUfpk3KAJvmFCp+hgQ==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-
