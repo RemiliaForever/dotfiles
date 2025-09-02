@@ -106,8 +106,7 @@ in
           };
           multiplex = {
             enabled = true;
-            protocol = "smux";
-            max_streams = 64;
+            max_connections = 16;
           };
           # dialer
           connect_timeout = "3s";

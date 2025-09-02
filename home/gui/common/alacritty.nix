@@ -46,6 +46,7 @@
           white = "0xdcdfe4";
         };
       };
+      terminal.osc52 = "CopyPaste";
       mouse = {
         hide_when_typing = true;
       };

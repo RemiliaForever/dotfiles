@@ -23,11 +23,48 @@
         mt = "mergetool";
         c = "commit -m";
         d = "diff";
-        f = "fetch -p -t";
-        pl = "pull --ff -p";
+        f = "fetch";
+        pl = "pull -p";
         ps = "push";
         s = "status";
       };
+
+      extraConfig = {
+        core.autocrlf = "input";
+        fetch = {
+          prune = true;
+          pruneTags = true;
+        };
+        pull = {
+          ff = true;
+          rebase = true;
+        };
+        push.default = "simple";
+        merge.autoStash = true;
+        rebase.autoStash = true;
+        diff = {
+          tool = "nvimdiff";
+          colorMoved = "default";
+        };
+        difftool.nvimdiff = {
+          prompt = false;
+          cmd = "nvim -d $LOCAL $MERGED $REMOTE";
+        };
+        color.ui = true;
+      };
+
+      lfs.enable = true;
+
+      ignores = [
+        ".env"
+        ".envrc"
+        ".secrets"
+        ".direnv"
+        ".shell"
+        ".shell.nix"
+        "TODO.md"
+        "avante.md"
+      ];
 
       delta = {
         enable = true;
@@ -56,34 +93,6 @@
           };
         };
       };
-
-      extraConfig = {
-        core.autocrlf = "input";
-        fetch.prune = true;
-        push.default = "simple";
-        diff = {
-          tool = "nvimdiff";
-          colorMoved = "default";
-        };
-        difftool.nvimdiff = {
-          prompt = false;
-          cmd = "nvim -d $LOCAL $MERGED $REMOTE";
-        };
-        color.ui = true;
-      };
-
-      lfs.enable = true;
-
-      ignores = [
-        ".env"
-        ".envrc"
-        ".secrets"
-        ".direnv"
-        ".shell"
-        ".shell.nix"
-        "TODO.md"
-        "avante.md"
-      ];
     };
 
     lazygit = {

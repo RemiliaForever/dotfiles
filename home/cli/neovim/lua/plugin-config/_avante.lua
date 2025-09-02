@@ -12,6 +12,10 @@ copilot.setup({
 			prev = "<C-k>",
 		},
 	},
+	filetypes = {
+		["markdown"] = true,
+		["yaml"] = true,
+	},
 	panel = { enabled = false },
 	copilot_mode = model,
 })
