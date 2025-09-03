@@ -103,10 +103,7 @@ in
           transport = {
             type = "ws";
             path = "/notify";
-          };
-          multiplex = {
-            enabled = true;
-            max_connections = 16;
+            max_early_data = 2048;
           };
           # dialer
           connect_timeout = "3s";
