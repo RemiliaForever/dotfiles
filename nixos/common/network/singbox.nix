@@ -54,15 +54,13 @@ in
             server = "114.114.114.114";
             # dialer
             detour = "direct-out";
-            #connect_timeout = "3s";
           }
           {
             tag = "dns-proxy";
-            type = "tcp";
+            type = "udp";
             server = "1.1.1.1";
             # dialer
             detour = "vless-out";
-            #connect_timeout = "3s";
           }
         ];
         rules = [
