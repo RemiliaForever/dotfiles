@@ -3,6 +3,7 @@ local copilot = require("copilot")
 local model = "gpt-4.1"
 
 copilot.setup({
+	panel = { enabled = false },
 	suggestion = {
 		enabled = true,
 		auto_trigger = true,
@@ -16,7 +17,6 @@ copilot.setup({
 		["markdown"] = true,
 		["yaml"] = true,
 	},
-	panel = { enabled = false },
 	copilot_mode = model,
 })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#56b6c2", italic = true })
