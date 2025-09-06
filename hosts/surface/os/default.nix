@@ -11,6 +11,9 @@
     ../../../nixos/opt/wireshark.nix
   ];
 
+  # surface kernel
+  hardware.microsoft-surface.kernelVersion = "stable";
+
   # steam
   programs.steam = {
     enable = true;
