@@ -39,11 +39,10 @@ require("avante").setup({
 	providers = {
 		copilot = {
 			model = model,
-			timeout = 30000, -- Timeout in milliseconds
+			timeout = 5000, -- Timeout in milliseconds
 			context_window = 64000, -- Number of tokens to send to the model for context
 			extra_request_body = {
-				temperature = 0.75,
-				max_tokens = 20480,
+				max_tokens = 4096,
 			},
 		},
 		deepseek = {

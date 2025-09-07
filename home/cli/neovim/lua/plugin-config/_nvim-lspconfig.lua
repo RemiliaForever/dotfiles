@@ -34,6 +34,9 @@ vim.diagnostic.config({
 	severity_sort = true,
 })
 
+-- highlight
+vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#5c6370" })
+
 -- jump
 local function open_vsplit(f)
 	local function handler()
@@ -58,6 +61,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(ev)
 		local opts = { buffer = ev.buf }
+
+		vim.lsp.inlay_hint.enable(true)
 
 		vim.keymap.set("n", "[c", open_vsplit(vim.lsp.buf.declaration), opts)
 		vim.keymap.set("n", "[d", open_vsplit(vim.lsp.buf.definition), opts)
@@ -116,14 +121,23 @@ local lsps = {
 	"vue_ls",
 }
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-vim.lsp.config("*", { capabilities = capabilities })
-
-for _, lsp in ipairs(lsps) do
-	vim.lsp.enable(lsp)
-end
-
 -- custom
+vim.lsp.config("gopls", {
+	settings = {
+		gopls = {
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				ignoreError = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
+		},
+	},
+})
 vim.lsp.config("lua_ls", {
 	on_init = function(client)
 		if client.workspace_folders then
@@ -142,7 +156,13 @@ vim.lsp.config("lua_ls", {
 		})
 	end,
 	settings = {
-		Lua = {},
+		Lua = {
+			hint = {
+				enable = true,
+				arrayIndex = "Enable",
+				setType = true,
+			},
+		},
 	},
 })
 vim.lsp.config("rust_analyzer", {
@@ -182,3 +202,12 @@ vim.lsp.config("vue_ls", {
 	},
 	root_dir = nvim_lsp_util.root_pattern("tsconfig.json", ".git"),
 })
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+vim.lsp.config("*", {
+	capabilities = capabilities,
+})
+
+for _, lsp in ipairs(lsps) do
+	vim.lsp.enable(lsp)
+end
