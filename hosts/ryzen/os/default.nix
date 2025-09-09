@@ -27,4 +27,12 @@
     dates = lib.mkForce "weekly";
     extraArgs = lib.mkForce "--keep 5 --keep-since 4w";
   };
+
+  # deluge
+  services.deluge = {
+    enable = true;
+    user = "remilia";
+    group = "users";
+    dataDir = "/home/remilia";
+  };
 }

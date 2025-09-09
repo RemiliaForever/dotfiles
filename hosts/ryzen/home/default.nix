@@ -10,7 +10,7 @@
   ];
 
   home.packages = with pkgs; [
-    deluge
+    # deluge
     baidupcs-go
 
     lark
