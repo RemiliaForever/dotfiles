@@ -16,7 +16,7 @@
   hardware = {
     amdgpu = {
       opencl.enable = true;
-      overdrive.enable = true;
+      #overdrive.enable = true;
     };
     graphics = {
       enable = true;

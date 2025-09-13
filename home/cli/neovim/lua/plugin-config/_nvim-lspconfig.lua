@@ -113,7 +113,7 @@ local lsps = {
 	"neocmake",
 	"nixd",
 	"openscad_lsp",
-	"pyright",
+	"basedpyright",
 	"rust_analyzer",
 	"taplo",
 	"texlab",

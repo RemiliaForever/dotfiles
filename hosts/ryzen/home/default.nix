@@ -45,9 +45,12 @@
 
       exec-once = [
         "[workspace 3 silent] sleep 5 && firefox"
+
         "[workspace 4 silent] sleep 5 && wechat-uos"
         "[workspace 4 silent] sleep 5 && qq"
         "[workspace 4 silent] sleep 5 && bytedance-lark"
+        "[workspace 4 silent] sleep 5 && discord"
+
         "[workspace 5 silent] sleep 5 && spotify"
         "[workspace 5 silent] sleep 5 && steam"
 
@@ -58,9 +61,5 @@
   programs.waybar.settings.mainBar.temperature = {
     hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
     input-filename = "temp1_input";
-  };
-
-  home.sessionVariables = {
-    STEAM_FORCE_DESKTOPUI_SCALING = "2.0";
   };
 }

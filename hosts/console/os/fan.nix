@@ -116,6 +116,7 @@ in
     serviceConfig = {
       Type = "simple";
       ExecStart = "${pkgs.fanctl}/bin/fanctl -c ${fanctlConfig}";
+      Restart = "always";
       RestartSec = "5s";
     };
     wantedBy = [ "multi-user.target" ];

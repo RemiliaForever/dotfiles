@@ -34,7 +34,7 @@
       neocmakelsp
       nixd
       openscad-lsp
-      pyright
+      basedpyright
       typescript-language-server
       lua-language-server
       rust-analyzer

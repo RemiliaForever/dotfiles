@@ -31,7 +31,4 @@
     hwmon-path-abs = [ "/sys/devices/platform/coretemp.0/hwmon" ];
     input-filename = "temp1_input";
   };
-  home.sessionVariables = {
-    STEAM_FORCE_DESKTOPUI_SCALING = "2.0";
-  };
 }
