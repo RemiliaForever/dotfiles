@@ -13,6 +13,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -66,15 +70,17 @@
           modules = [
             inputs.grub2-themes.nixosModules.default
             inputs.sops-nix.nixosModules.sops
-            home-manager.nixosModules.home-manager
-
+            inputs.nix-index-database.nixosModules.nix-index
             ./hosts/${host.hostname}/os
+
+            home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
               home-manager.users.remilia = import ./hosts/${host.hostname}/home;
             }
+
             ./overlays
           ];
         };

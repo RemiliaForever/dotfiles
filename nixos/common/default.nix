@@ -4,7 +4,7 @@
   imports = [
     ./app.nix
     ./boot.nix
-    ./config.nix
+    ./etc.nix
     ./network
     ./nix.nix
     ./services.nix

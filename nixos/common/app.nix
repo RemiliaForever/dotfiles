@@ -23,7 +23,6 @@
     wget
 
     nix-tree
-    nix-index
   ];
 
   programs = {
