@@ -14,9 +14,10 @@
     baidupcs-go
 
     lark
-    wechat-uos
     qq
+    wechat
     discord
+    telegram-desktop
   ];
 
   remilia = {
@@ -51,17 +52,16 @@
       ];
 
       exec-once = [
-        "[workspace 3 silent] sleep 5 && firefox"
+        "[workspace 3 silent] sleep 3 && firefox"
 
-        "[workspace 4 silent] sleep 5 && wechat-uos"
+        "[workspace 4 silent] sleep 5 && wechat"
         "[workspace 4 silent] sleep 5 && qq"
         "[workspace 4 silent] sleep 5 && bytedance-lark"
         "[workspace 4 silent] sleep 5 && discord"
+        "[workspace 4 silent] sleep 5 && Telegram"
 
-        "[workspace 5 silent] sleep 5 && spotify"
-        "[workspace 5 silent] sleep 5 && steam"
-
-        "sleep 5 && pkill hypridle"
+        "[workspace 5 silent] sleep 8 && spotify"
+        "[workspace 5 silent] sleep 8 && steam"
       ];
     };
   };

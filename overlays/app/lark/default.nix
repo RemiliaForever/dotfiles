@@ -63,6 +63,7 @@
 
 let
   sources = {
+    # NOTE: override
     x86_64-linux = fetchurl {
       url = "https://sf16-sg.larksuitecdn.com/obj/lark-artifact-storage/3d9dcd0b/Lark-linux_x64-7.46.12.deb";
       sha256 = "sha256-+B+T/Sinq7vPDpI0eaWCr91jgooCIXX1N0oAeicZLpw=";
@@ -127,7 +128,7 @@ let
   ];
 in
 stdenv.mkDerivation {
-  version = "7.42.17";
+  version = "7.46.12"; # NOTE: override
   pname = "lark";
 
   src =
@@ -173,9 +174,12 @@ stdenv.mkDerivation {
     # lark is the main executable, vulcan is the builtin browser
     for executable in $out/opt/bytedance/lark/{lark,vulcan/vulcan}; do
       # FIXME: Add back NIXOS_OZONE_WL support once upstream fixes the crash on native Wayland (see #318035)
+      # NOTE: override
       wrapProgram $executable \
         --prefix XDG_DATA_DIRS    :  "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
         --prefix LD_LIBRARY_PATH  :  ${rpath}:$out/opt/bytedance/lark:${addDriverRunpath.driverLink}/share \
+        --set GTK_IM_MODULE fcitx \
+        --set GDK_SCALE 2 \
         ${lib.optionalString (
           commandLineArgs != ""
         ) "--add-flags ${lib.escapeShellArg commandLineArgs}"}

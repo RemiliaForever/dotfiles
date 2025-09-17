@@ -10,7 +10,7 @@
 
   home.packages = with pkgs; [
     lark
-    wechat-uos
+    wechat
     qq
     discord
 
