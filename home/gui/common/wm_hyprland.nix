@@ -206,7 +206,7 @@
 
         "renderunfocused, class:(starrail.exe)" # fix fps limit
         "tile, class:(starrail.exe)"
-        "renderunfocused, title:(魔兽世界)"
+        "renderunfocused, class:(dota2)" # fix fps limit
       ];
 
       workspace = [

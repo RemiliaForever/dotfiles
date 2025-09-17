@@ -46,6 +46,9 @@
           white = "0xdcdfe4";
         };
       };
+      selection = {
+        save_to_clipboard = true;
+      };
       terminal.osc52 = "CopyPaste";
       mouse = {
         hide_when_typing = true;
