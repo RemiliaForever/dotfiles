@@ -25,10 +25,17 @@
 
   # cli
   programs.starship.settings.hostname.style = "yellow";
-  programs.zsh.shellAliases = {
-    sb = ''rsync -aP --mkpath --delete "$PWD/" "win:''${PWD#/home/remilia/}/" --exclude ".git" --exclude ".cache" --exclude ".direnv"'';
-    s = ''sb --exclude "build"'';
-  };
+  programs.zsh.initContent = ''
+    # sync
+    sb() {
+        cmd="rsync -v -aP --mkpath --delete $PWD/$1/ ''${S_HOST:-win}:''${PWD#/home/remilia/}/$1/ --exclude .git --exclude .cache --exclude .direnv ''${@:2}"
+        echo "$cmd"
+        eval "$cmd"
+    }
+    s() {
+        sb "$1" --exclude build
+    }
+  '';
 
   # wayland
   programs.zsh.loginExtra = ''
