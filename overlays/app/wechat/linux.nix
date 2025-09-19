@@ -29,5 +29,5 @@ appimageTools.wrapAppImage {
   '';
 
   # NOTE: override
-  runScript = "bash -xc 'export GTK_IM_MODULE=fcitx; export QT_SCALE_FACTOR=2; appimage-exec.sh -w ${appimageContents} --'";
+  runScript = "bash -xc 'export QT_IM_MODULE=fcitx; export QT_SCALE_FACTOR=2; appimage-exec.sh -w ${appimageContents} --'";
 }

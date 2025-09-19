@@ -9,11 +9,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1757519352,
-        "narHash": "sha256-Rfokm02H340r+uuxswri8IiC64S30vziLGR36/NDId4=",
+        "lastModified": 1757804162,
+        "narHash": "sha256-yHMlD/8m4RQOrFwtaaZUfKn6hr0i3DhkoD+Gzcd2qns=",
         "owner": "ezKEa",
         "repo": "aagl-gtk-on-nix",
-        "rev": "dc83e172461fb4f2e55b4a61762d898c73026a85",
+        "rev": "8e105b0850a1c9bc81affcae689db92f35d28595",
         "type": "github"
       },
       "original": {
