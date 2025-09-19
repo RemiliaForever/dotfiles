@@ -1,27 +1,21 @@
 final: prev:
 
 {
-  # https://github.com/NixOS/nixpkgs/pull/427468
-  # https://github.com/NixOS/nixpkgs/pull/438521
-  bambu-studio =
-    (import
-      (builtins.fetchTree {
-        type = "github";
-        owner = "nixos";
-        repo = "nixpkgs";
-        rev = "621b44afe230ac72e9251da72d4b0e31a910b237";
-      })
-      {
-        system = final.stdenv.system;
-      }
-    ).bambu-studio.overrideAttrs
-      (oldAttrs: rec {
-        version = "02.02.01.60";
-        src = final.fetchFromGitHub {
-          owner = "bambulab";
-          repo = "BambuStudio";
-          tag = "v${version}";
-          hash = "sha256-Ttv0LwJ0GnDhmxofP7c3CJMawad8AhAToZFOvoK3Zow=";
-        };
-      });
+  hyprlandPlugins = prev.hyprlandPlugins // {
+    hyprspace = prev.hyprlandPlugins.hyprspace.overrideAttrs (old: {
+      postPatch = ''
+        substituteInPlace src/Globals.hpp \
+          --replace-fail "<hyprland/src/managers/AnimationManager.hpp>" "<hyprland/src/managers/animation/AnimationManager.hpp>"
+      '';
+    });
+    hyprsplit = prev.hyprlandPlugins.hyprsplit.overrideAttrs (old: rec {
+      version = "0.51.0";
+      src = final.fetchFromGitHub {
+        owner = "shezdy";
+        repo = "hyprsplit";
+        tag = "v${version}";
+        hash = "sha256-h6vDtBKTfyuA/6frSFcTrdjoAKhwlGBT+nzjoWf9sQE=";
+      };
+    });
+  };
 }

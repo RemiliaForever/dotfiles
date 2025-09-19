@@ -27,8 +27,7 @@
 
     plugins = with pkgs.hyprlandPlugins; [
       hyprsplit
-      hyprspace
-      hyprgrass
+      #hyprspace
       hyprwinwrap
     ];
     settings = {
@@ -64,10 +63,7 @@
         mouse_refocus = false;
         scroll_method = "2fg";
       };
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_touch = true;
-      };
+      gestures = { };
       misc = {
         disable_hyprland_logo = true;
         mouse_move_enables_dpms = true;
@@ -107,7 +103,7 @@
         "SUPER, Return, exec, alacritty"
         "SUPER_CONTROL, Q, exit"
         "SUPER, Tab, togglespecialworkspace"
-        "SUPER_SHIFT, Tab, overview:toggle, toggle"
+        #"SUPER_SHIFT, Tab, overview:toggle, toggle"
         "SUPER, Delete, exec, loginctl lock-session"
 
         "SUPER, W, killactive"
@@ -218,6 +214,7 @@
       animation = [
         "windows, 1, 3, default"
         "workspaces, 1, 5, default"
+        "fade, 0"
       ];
 
       dwindle.preserve_split = true;
@@ -228,29 +225,20 @@
           persistent_workspaces = true;
         };
 
-        overview = {
-          workspaceActiveBorder = "rgba(33ccffee)";
-          workspaceInactiveBorder = "rgba(595959aa)";
-          disableBlur = true;
-
-          panelHeight = 180;
-          reservedArea = 32;
-          workspaceBorderSize = 2;
-          overrideGaps = false;
-
-          hideRealLayers = false;
-          showNewWorkspace = false;
-          exitOnSwitch = true;
-        };
-
-        touch_gestures = {
-          sensitivity = 16.0;
-          workspace_swipe_fingers = 3;
-          workspace_swipe_edge = "d";
-          long_press_delay = 400;
-          resize_on_border_long_press = true;
-          edge_margin = 10;
-        };
+        # overview = {
+        #   workspaceActiveBorder = "rgba(33ccffee)";
+        #   workspaceInactiveBorder = "rgba(595959aa)";
+        #   disableBlur = true;
+        #
+        #   panelHeight = 180;
+        #   reservedArea = 32;
+        #   workspaceBorderSize = 2;
+        #   overrideGaps = false;
+        #
+        #   hideRealLayers = false;
+        #   showNewWorkspace = false;
+        #   exitOnSwitch = true;
+        # };
 
         hyprwinwrap = {
           class = "winwrap";

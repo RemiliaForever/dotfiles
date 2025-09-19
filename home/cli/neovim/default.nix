@@ -28,7 +28,7 @@
       # lsp
       bash-language-server
       vscode-langservers-extracted
-      dockerfile-language-server-nodejs
+      dockerfile-language-server
       docker-compose-language-service
       gopls
       neocmakelsp
