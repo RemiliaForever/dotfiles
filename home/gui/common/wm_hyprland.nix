@@ -60,7 +60,8 @@
       };
       input = {
         follow_mouse = 1;
-        follow_mouse_threshold = 32;
+        #follow_mouse_threshold = 32;
+        mouse_refocus = false;
         scroll_method = "2fg";
       };
       gestures = {
@@ -195,8 +196,8 @@
         "float, class:(Bytedance-lark), title:(图片)"
 
         "float, title:(Lark会议)"
-        "noshadow, class:^()$, title:(Lark会议)"
-        "noshadow, class:^(Meeting)$, title:(Lark会议)"
+        "noshadow, title:(Lark会议)"
+        "noborder, title:(Lark会议)"
 
         "float, class:(wechat), title:(预览)"
 
