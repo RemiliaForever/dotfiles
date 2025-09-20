@@ -12,12 +12,12 @@
     nftables.enable = true;
   };
 
+  users.users.remilia.extraGroups = [ "networkmanager" ];
+
   programs.ssh.extraConfig = ''
     Host dmit
         HostName koumakan.cc
         Port 121
         User root
   '';
-
-  users.users.remilia.extraGroups = [ "networkmanager" ];
 }

@@ -4,7 +4,5 @@
     enable = true;
     package = pkgs.wireshark;
   };
-  users.users.remilia.extraGroups = [
-    "wireshark"
-  ];
+  users.users.remilia.extraGroups = [ "wireshark" ];
 }

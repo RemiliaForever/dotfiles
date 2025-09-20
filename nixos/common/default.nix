@@ -13,7 +13,5 @@
     ./sops
   ];
 
-  environment.pathsToLink = [ "/share/zsh" ];
-
   system.stateVersion = "24.05";
 }

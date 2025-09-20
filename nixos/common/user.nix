@@ -16,7 +16,6 @@
     ];
     shell = pkgs.zsh;
   };
-
   programs.zsh.enable = true;
 
   systemd.user.extraConfig = "DefaultLimitNOFILE=65535";
