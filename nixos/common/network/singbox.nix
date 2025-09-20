@@ -57,10 +57,20 @@ in
           }
           {
             tag = "dns-proxy";
-            type = "udp";
+            type = "tls";
             server = "1.1.1.1";
             # dialer
             detour = "vless-out";
+          }
+          {
+            tag = "dns-hosts";
+            type = "hosts";
+            predefined = {
+              "singbox.koumakan.cc" = [
+                "154.17.13.197"
+                "154.17.21.145"
+              ];
+            };
           }
         ];
         rules = [
@@ -85,7 +95,7 @@ in
           tag = "direct-out";
           type = "direct";
           # dialer
-          connect_timeout = "3s";
+          connect_timeout = "10s";
           tcp_fast_open = true;
         }
         {
@@ -104,7 +114,7 @@ in
             max_early_data = 2048;
           };
           # dialer
-          connect_timeout = "3s";
+          connect_timeout = "10s";
           tcp_fast_open = true;
         }
       ];
@@ -160,7 +170,7 @@ in
         ];
         final = "vless-out";
         auto_detect_interface = true;
-        default_domain_resolver = "dns-local";
+        default_domain_resolver = "dns-hosts";
       };
     };
   };

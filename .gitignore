@@ -1,5 +1,4 @@
 .direnv/
 build/
 
-!.shell/flake.nix
-!.shell/flake.lock
+!.shell/

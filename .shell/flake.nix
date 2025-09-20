@@ -17,7 +17,6 @@
         devShells.default = pkgs.mkShell {
           name = "dotfiles";
           packages = with pkgs; [
-            go
             sops
           ];
           shellHook = '''';
