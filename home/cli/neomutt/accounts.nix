@@ -1,10 +1,12 @@
+{ config, ... }:
+
 {
   accounts.email.accounts = {
     "koumakan" = {
       primary = true;
 
       address = "remilia@koumakan.cc";
-      passwordCommand = "cat /run/secrets/mail/koumakan/password";
+      passwordCommand = "cat ${config.sops.secrets."mail/koumakan/password".path}";
       userName = "remilia@koumakan.cc";
       realName = "RemiliaForever";
 
@@ -29,7 +31,7 @@
     };
     "nexa4ai" = {
       address = "hongzhichen@nexa4ai.com";
-      passwordCommand = "cat /run/secrets/mail/nexa4ai/password";
+      passwordCommand = "cat ${config.sops.secrets."mail/nexa4ai/password".path}";
       userName = "hongzhichen@nexa4ai.com";
       realName = "Hongzhi Chen";
 

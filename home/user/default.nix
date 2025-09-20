@@ -3,6 +3,7 @@
 {
   imports = [
     ./option.nix
+    ./sops
   ];
 
   home.sessionVariables = { };

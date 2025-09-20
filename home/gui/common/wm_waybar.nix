@@ -4,6 +4,7 @@ let
   waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
     import base64
     import imaplib
+    from pathlib import Path
     import re
     import signal
     import subprocess
@@ -50,8 +51,10 @@ let
         name = sys.argv[1]
         server = sys.argv[2]
 
-        username = open(f'/run/secrets/mail/{name}/address').read()
-        password = open(f'/run/secrets/mail/{name}/password').read()
+        username = open(
+            f'{Path.home()}/.config/sops-nix/secrets/mail/{name}/address').read()
+        password = open(
+            f'{Path.home()}/.config/sops-nix/secrets/mail/{name}/password').read()
 
         try:
             M = imaplib.IMAP4_SSL(server)

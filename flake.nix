@@ -79,6 +79,9 @@
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
               home-manager.users.remilia = import ./hosts/${host.hostname}/home;
+              home-manager.sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+              ];
             }
 
             ./overlays

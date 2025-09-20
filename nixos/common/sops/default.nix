@@ -1,10 +1,5 @@
-{ config, ... }:
+{ ... }:
 
-let
-  user = {
-    owner = config.users.users.remilia.name;
-  };
-in
 {
   sops = {
     gnupg.home = "/var/lib/sops";
@@ -12,13 +7,6 @@ in
     defaultSopsFile = ./sops.yaml;
     secrets = {
       "hashedPassword".neededForUsers = true;
-      "mail/koumakan/address" = user;
-      "mail/koumakan/password" = user;
-      "mail/nexa4ai/address" = user;
-      "mail/nexa4ai/password" = user;
-      "api/deepseek" = user;
-      "api/anthropic" = user;
-      "api/gemini" = user;
       "singbox/server" = { };
       "singbox/uuid" = { };
     };

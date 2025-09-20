@@ -2,6 +2,7 @@ local copilot = require("copilot")
 
 local model = "gpt-4.1"
 
+-- Copilot
 copilot.setup({
 	panel = { enabled = false },
 	suggestion = {
@@ -21,20 +22,38 @@ copilot.setup({
 })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#56b6c2", italic = true })
 
--- load api key
-local function load_api_key(name)
-	local f = io.open("/run/secrets/api/" .. name, "r")
-	if f then
-		local content = f:read("a")
-		vim.fn.setenv(string.upper(name) .. "_API_KEY", content)
-		f:close()
-	end
-end
-
-load_api_key("deepseek")
+-- MCP Hub
+require("mcphub").setup({
+	auto_approve = true,
+})
 
 require("avante").setup({
-	system_prompt = "Always respond in chinese. Prefer markdown format.",
+	system_prompt = function()
+		local user_prompt = "Always respond in chinese. Prefer markdown format."
+		local hub = require("mcphub").get_hub_instance()
+		return hub and user_prompt .. hub:get_active_servers_prompt() or ""
+	end,
+	-- Using function prevents requiring mcphub before it's loaded
+	custom_tools = function()
+		return {
+			require("mcphub.extensions.avante").mcp_tool(),
+		}
+	end,
+	disabled_tools = {
+		"list_files", -- Built-in file operations
+		"search_files",
+		"read_file",
+		"create_file",
+		"rename_file",
+		"delete_file",
+		"create_dir",
+		"rename_dir",
+		"delete_dir",
+		"git_diff",
+		"git_commit",
+		"web_search",
+	},
+
 	provider = "copilot",
 	providers = {
 		copilot = {
