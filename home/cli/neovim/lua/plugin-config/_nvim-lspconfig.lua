@@ -100,6 +100,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- normal
 local lsps = {
 	"bashls",
+	"basedpyright",
 	"clangd",
 	"cssls",
 	"docker_compose_language_service",
@@ -113,7 +114,6 @@ local lsps = {
 	"neocmake",
 	"nixd",
 	"openscad_lsp",
-	"basedpyright",
 	"rust_analyzer",
 	"taplo",
 	"texlab",
@@ -163,6 +163,11 @@ vim.lsp.config("lua_ls", {
 				setType = true,
 			},
 		},
+	},
+})
+vim.lsp.config("neocmake", {
+	init_options = {
+		lint = { enable = false },
 	},
 })
 vim.lsp.config("rust_analyzer", {
