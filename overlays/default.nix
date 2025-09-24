@@ -6,7 +6,6 @@
       hyprshot = import ./app/hyprshot { pkgs = final; };
       lark = final.callPackage ./app/lark { };
       berkeley-mono = final.callPackage ./app/berkeley-mono { };
-      wechat = final.callPackage ./app/wechat { };
     })
     (import ./patch/pr.nix)
     (import ./patch/hdpi.nix)
