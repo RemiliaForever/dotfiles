@@ -10,4 +10,10 @@ final: prev:
       )
     '';
   });
+
+  steam = prev.steam.override {
+    extraEnv = {
+      GDK_SCALE = "2";
+    };
+  };
 }

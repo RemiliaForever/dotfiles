@@ -34,7 +34,7 @@
         eval "$cmd"
     }
     s() {
-        sb "$1" --exclude build
+        sb "$1" ''${@:2} --exclude build
     }
   '';
 
