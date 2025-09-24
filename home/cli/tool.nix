@@ -2,9 +2,10 @@
 
 {
   home.packages = with pkgs; [
+    comma
     prettyping
-    xh
     trash-cli
+    xh
   ];
 
   programs = {

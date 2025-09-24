@@ -70,7 +70,6 @@
           modules = [
             inputs.grub2-themes.nixosModules.default
             inputs.sops-nix.nixosModules.sops
-            inputs.nix-index-database.nixosModules.nix-index
             ./hosts/${host.hostname}/os
 
             home-manager.nixosModules.home-manager
@@ -81,6 +80,7 @@
               home-manager.users.remilia = import ./hosts/${host.hostname}/home;
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
+                inputs.nix-index-database.homeModules.nix-index
               ];
             }
 
