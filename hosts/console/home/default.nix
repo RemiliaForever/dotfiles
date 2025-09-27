@@ -25,7 +25,6 @@
         "HDMI-A-1, preferred, auto, 2"
       ];
       exec-once = [
-        "sleep 5 && pkill hypridle"
       ];
     };
   };

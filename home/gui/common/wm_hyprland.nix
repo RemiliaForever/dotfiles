@@ -1,18 +1,7 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-    config = {
-      common.default = "hyprland";
-    };
-  };
-  # disable xdg autostart
-  home.activation.hyprland = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    ln -sf /dev/null /home/remilia/.config/systemd/user/xdg-desktop-autostart.target
-  '';
   # fix uwsm leak python
   programs.zsh.initContent = ''
     # USWM: fix PATH
@@ -82,20 +71,7 @@
       render.expand_undersized_textures = false;
       cursor.no_hardware_cursors = 2;
 
-      exec-once = [
-        "kwalletd6"
-        "mako"
-        "hypridle"
-        "wpaperd"
-
-        "sleep 1 && waybar"
-
-        "sleep 2 && waybar-email-daemon"
-        "sleep 2 && fcitx5 -r"
-        "sleep 2 && blueman-applet"
-
-        "sleep 5 && nextcloud"
-      ];
+      exec-once = [ ];
       env = [ ];
 
       bind = [
@@ -186,6 +162,11 @@
         ", switch:off:Lid Switch, dpms, on"
         ", switch:off:Lid Switch, exec, wpaperctl resume"
       ];
+
+      ecosystem = {
+        no_update_news = true;
+        no_donation_nag = true;
+      };
 
       windowrule = [
         "float, class:(Bytedance-feishu), title:(图片)"

@@ -62,8 +62,6 @@
 
         "[workspace 5 silent] sleep 8 && spotify"
         "[workspace 5 silent] sleep 8 && steam"
-
-        "sleep 5 && pkill hypridle"
       ];
     };
   };

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   genMimeMap = (
@@ -21,10 +21,8 @@ in
     ./theme.nix
     ./wm_hyprland.nix
     ./wm_components.nix
-    ./wm_mako.nix
     ./wm_waybar.nix
     ./wm_wofi.nix
-    ./wm_wpaperd.nix
 
     ./alacritty.nix
     ./firefox.nix
@@ -45,7 +43,6 @@ in
     playerctl
     ueberzugpp
     wl-clipboard-rs
-    xdg-user-dirs
     # app
     kdePackages.ark
     kdePackages.dolphin
@@ -208,6 +205,6 @@ in
     createDirectories = true;
     desktop = null;
     publicShare = null;
-    templates = null;
+    templates = "${config.home.homeDirectory}/.template";
   };
 }

@@ -23,7 +23,6 @@
         }
       ];
       exec-once = [
-        "sleep 5 && pkill hypridle"
       ];
     };
   };

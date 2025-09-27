@@ -5,6 +5,7 @@
 }:
 
 {
+
   home.packages = with pkgs; [
     hypridle
     hyprlock
@@ -42,6 +43,55 @@
           color = "rgb(23, 39, 41)";
         };
       };
+    };
+  };
+
+  services.mako = {
+    enable = true;
+
+    settings = {
+      default-timeout = 10000;
+      layer = "overlay";
+      sort = "-time";
+
+      background-color = "#212121dd";
+      border-radius = 8;
+      border-size = 2;
+
+      "urgency=low".border-color = "#595959ee";
+      "urgency=normal".border-color = "#33ccffee";
+      "urgency=high" = {
+        border-color = "#f38ba8ee";
+        default-timeout = 0;
+      };
+
+      on-notify = "exec mpv /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga";
+    };
+  };
+
+  services.wpaperd = {
+    enable = true;
+    settings = {
+      default = {
+        path = "/home/remilia/.background";
+        sorting = "random";
+        queue-size = 3;
+        mode = "center";
+        duration = "10min";
+        transition-time = 1000;
+        group = 1;
+      };
+    };
+  };
+
+  # authentication
+  services.hyprpolkitagent.enable = true;
+  dbus.packages = [ pkgs.kdePackages.kwallet ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+    config = {
+      common.default = "hyprland";
     };
   };
 }
