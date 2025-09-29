@@ -86,7 +86,6 @@
 
   # authentication
   services.hyprpolkitagent.enable = true;
-  dbus.packages = [ pkgs.kdePackages.kwallet ];
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];

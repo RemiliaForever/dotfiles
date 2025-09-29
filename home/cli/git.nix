@@ -120,6 +120,7 @@
             showWholeGraph = true;
           };
         };
+        update.method = "never";
         customCommands = [
           {
             context = "subCommits";

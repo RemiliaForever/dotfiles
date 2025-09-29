@@ -48,7 +48,6 @@
       };
       input = {
         follow_mouse = 1;
-        #follow_mouse_threshold = 32;
         mouse_refocus = false;
         scroll_method = "2fg";
       };
@@ -71,7 +70,7 @@
       render.expand_undersized_textures = false;
       cursor.no_hardware_cursors = 2;
 
-      exec-once = [ ];
+      exec-once = [ "ksecretd" ];
       env = [ ];
 
       bind = [
@@ -188,6 +187,12 @@
       ];
 
       workspace = [
+        "1, persistent:true"
+        "2, persistent:true"
+        "3, persistent:true"
+        "4, persistent:true"
+        "5, persistent:true"
+        "6, persistent:true"
         "s[true], gapsout:50"
         "s[true], on-created-empty:hyprctl dispatch exec [workspace special] alacritty"
       ];
