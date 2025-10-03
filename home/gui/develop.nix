@@ -4,8 +4,8 @@
   home.packages = with pkgs; [
     wayvnc
     kdePackages.krdc
-    #kicad
-    #openscad
+    kicad
+    openscad
     virt-manager
     libreoffice-qt6-fresh
   ];

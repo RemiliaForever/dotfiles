@@ -65,8 +65,8 @@ let
   sources = {
     # NOTE: override
     x86_64-linux = fetchurl {
-      url = "https://sf16-sg.larksuitecdn.com/obj/lark-artifact-storage/3d9dcd0b/Lark-linux_x64-7.46.12.deb";
-      sha256 = "sha256-+B+T/Sinq7vPDpI0eaWCr91jgooCIXX1N0oAeicZLpw=";
+      url = "https://sf16-sg.larksuitecdn.com/obj/lark-artifact-storage/f80dd338/Lark-linux_x64-7.50.13.deb";
+      sha256 = "sha256-dAoiyUUw6lTThLqVEEBqS+KoZf1EC07tv/U9BkE9IH8=";
     };
   };
 
@@ -128,7 +128,7 @@ let
   ];
 in
 stdenv.mkDerivation {
-  version = "7.46.12"; # NOTE: override
+  version = "7.50.13"; # NOTE: override
   pname = "lark";
 
   src =

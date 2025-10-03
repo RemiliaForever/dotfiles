@@ -6,7 +6,7 @@
 
 {
   home.packages = with pkgs; [
-    #bambu-studio
+    #bambu-studio # NOTE: user login notwork
     (blender.override {
       cudaSupport = config.remilia.cuda;
       hipSupport = config.remilia.rocm;

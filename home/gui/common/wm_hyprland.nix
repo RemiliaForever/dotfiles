@@ -16,7 +16,7 @@
 
     plugins = with pkgs.hyprlandPlugins; [
       hyprsplit
-      #hyprspace
+      hyprspace
       hyprwinwrap
     ];
     settings = {
@@ -78,7 +78,7 @@
         "SUPER, Return, exec, alacritty"
         "SUPER_CONTROL, Q, exit"
         "SUPER, Tab, togglespecialworkspace"
-        #"SUPER_SHIFT, Tab, overview:toggle, toggle"
+        "SUPER_SHIFT, Tab, overview:toggle, toggle"
         "SUPER, Delete, exec, loginctl lock-session"
 
         "SUPER, W, killactive"
