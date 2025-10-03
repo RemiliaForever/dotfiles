@@ -6,6 +6,8 @@
     prettyping
     trash-cli
     xh
+
+    github-copilot-cli
   ];
 
   programs = {

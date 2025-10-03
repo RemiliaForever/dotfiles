@@ -188,8 +188,6 @@
         gh-copilot
         gh-dash
 
-        gh-s
-        gh-i
         gh-notify
       ];
     };
