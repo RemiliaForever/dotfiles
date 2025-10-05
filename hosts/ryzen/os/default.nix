@@ -14,6 +14,8 @@
     ../../../nixos/opt/wireshark.nix
   ];
 
+  services.zerotierone.enableNexa = true;
+
   # steam
   programs.steam = {
     enable = true;

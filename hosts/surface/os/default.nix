@@ -11,6 +11,8 @@
     ../../../nixos/opt/wireshark.nix
   ];
 
+  services.zerotierone.enableNexa = true;
+
   # surface kernel
   hardware.microsoft-surface.kernelVersion = "stable";
 
