@@ -1,4 +1,7 @@
-# do NOT use direnv
+# if [ "$FHS_CURRENT" != "$1" ]; then
+#     export FHS_CURRENT=$1
+#     use flake path:"$PWD/.shell"
+# fi
 
 {
   description = "A basic flake for nix-direnv";
