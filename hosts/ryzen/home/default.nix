@@ -39,13 +39,8 @@
   '';
 
   # wayland
-  programs.zsh.loginExtra = ''
-    # UWSM
-    if [[ -z "$SSH_CLIENT" ]] && uwsm check may-start -q && uwsm select; then
-        exec uwsm start default
-    fi
-  '';
   wayland.windowManager.hyprland = {
+    autoStart = true;
     settings = {
       monitor = [
         "HDMI-A-1, 3840x2160@160, 0x0, 2, vrr, 1"

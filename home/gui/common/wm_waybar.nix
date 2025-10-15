@@ -105,6 +105,7 @@ let
             fetch_mail()
             event.clear()
   '';
+
   genBar = isMain: {
     output =
       if config.programs.waybar.mainOutput == "" then
@@ -309,6 +310,7 @@ in
       };
     };
   };
+
   config.programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -316,6 +318,7 @@ in
       mainBar = genBar true;
       altBar = genBar false;
     };
+
     style = ''
       * {
           min-height: 0;

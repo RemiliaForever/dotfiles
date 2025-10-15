@@ -20,10 +20,7 @@
   programs.starship.settings.hostname.style = "green";
 
   # wayland
-  programs.zsh.loginExtra = ''
-    # UWSM
-    if [[ -z "$SSH_CLIENT" ]] && uwsm check may-start -q && uwsm select; then
-        exec uwsm start default
-    fi
-  '';
+  wayland.windowManager.hyprland = {
+    autoStart = true;
+  };
 }

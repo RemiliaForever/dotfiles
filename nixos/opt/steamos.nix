@@ -6,7 +6,6 @@
 }:
 
 {
-
   imports = [
     jovian.nixosModules.jovian
   ];
