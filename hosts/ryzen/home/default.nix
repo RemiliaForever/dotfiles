@@ -6,7 +6,10 @@
     ../../../home/cli
     ../../../home/gui/common
     ../../../home/gui/develop.nix
-    ../../../home/gui/multimedia.nix
+    (import ../../../home/gui/multimedia.nix {
+      pkgs = pkgs;
+      cudaSupport = true;
+    })
   ];
 
   home.packages = with pkgs; [
@@ -17,12 +20,9 @@
     qq
     wechat
     discord
+    slack
     telegram-desktop
   ];
-
-  remilia = {
-    cuda = true;
-  };
 
   # cli
   programs.starship.settings.hostname.style = "yellow";
@@ -48,25 +48,29 @@
   wayland.windowManager.hyprland = {
     settings = {
       monitor = [
-        "HDMI-A-1, highrr, 0x0, 2, vrr, 1"
+        "HDMI-A-1, 3840x2160@160, 0x0, 2, vrr, 1"
+        "DP-1, 3840x2160@60, 1920x0, 2, vrr, 1"
       ];
 
       exec-once = [
-        "[workspace 3 silent] sleep 3 && firefox"
+        "[workspace 8 silent] sleep 3 && firefox"
 
-        "[workspace 4 silent] sleep 5 && wechat"
-        "[workspace 4 silent] sleep 5 && qq"
-        "[workspace 4 silent] sleep 5 && bytedance-lark"
-        "[workspace 4 silent] sleep 5 && discord"
-        "[workspace 4 silent] sleep 5 && Telegram"
+        "[workspace 9 silent] sleep 5 && wechat"
+        "[workspace 9 silent] sleep 5 && qq"
+        "[workspace 9 silent] sleep 5 && Telegram"
+        "[workspace 10 silent] sleep 5 && bytedance-lark"
+        "[workspace 10 silent] sleep 5 && discord"
 
-        "[workspace 5 silent] sleep 8 && spotify"
-        "[workspace 5 silent] sleep 8 && steam"
+        "[workspace 11 silent] sleep 8 && spotify"
+        "[workspace 11 silent] sleep 8 && steam"
       ];
     };
   };
-  programs.waybar.settings.mainBar.temperature = {
-    hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
-    input-filename = "temp1_input";
+  programs.waybar = {
+    mainOutput = "DP-1";
+    temperature = {
+      hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
+      input-filename = "temp1_input";
+    };
   };
 }

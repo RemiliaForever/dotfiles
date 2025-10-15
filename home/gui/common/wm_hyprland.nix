@@ -187,12 +187,6 @@
       ];
 
       workspace = [
-        "1, persistent:true"
-        "2, persistent:true"
-        "3, persistent:true"
-        "4, persistent:true"
-        "5, persistent:true"
-        "6, persistent:true"
         "s[true], gapsout:50"
         "s[true], on-created-empty:hyprctl dispatch exec [workspace special] alacritty"
       ];
@@ -211,20 +205,20 @@
           persistent_workspaces = true;
         };
 
-        # overview = {
-        #   workspaceActiveBorder = "rgba(33ccffee)";
-        #   workspaceInactiveBorder = "rgba(595959aa)";
-        #   disableBlur = true;
-        #
-        #   panelHeight = 180;
-        #   reservedArea = 32;
-        #   workspaceBorderSize = 2;
-        #   overrideGaps = false;
-        #
-        #   hideRealLayers = false;
-        #   showNewWorkspace = false;
-        #   exitOnSwitch = true;
-        # };
+        overview = {
+          workspaceActiveBorder = "rgba(33ccffee)";
+          workspaceInactiveBorder = "rgba(595959aa)";
+          disableBlur = true;
+
+          panelHeight = 180;
+          reservedArea = 32;
+          workspaceBorderSize = 2;
+          overrideGaps = false;
+
+          hideRealLayers = false;
+          showNewWorkspace = false;
+          exitOnSwitch = true;
+        };
 
         hyprwinwrap = {
           class = "winwrap";

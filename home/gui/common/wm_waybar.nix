@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 
 let
   waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
@@ -100,180 +105,209 @@ let
             fetch_mail()
             event.clear()
   '';
+  genBar = isMain: {
+    output = (if isMain then "" else "!") + config.programs.waybar.mainOutput;
+    layer = "top";
+    position = "top";
+    modules-left = [
+      "custom/starter"
+      "hyprland/workspaces"
+      "hyprland/window"
+    ];
+    modules-center = [ "mpris" ];
+    modules-right =
+      (
+        if isMain then
+          [
+            "tray"
+            "custom/email#koumakan"
+            "custom/email#nexa4ai"
+          ]
+        else
+          [ ]
+      )
+      ++ [
+        "network"
+        "wireplumber"
+        "temperature"
+        "memory"
+        "battery"
+        "clock"
+      ];
+    "custom/starter" = {
+      format = "{}";
+      exec = "echo ' '";
+      tooltip = false;
+      on-click = "wofi";
+      on-click-middle = "sleep 2 && hyprctl dispatch dpms off";
+      on-click-right = "wpaperctl next";
+      on-triple-click-right = "hyprctl dispatch exit";
+    };
+    "hyprland/workspaces" = {
+      disable-scroll = true;
+      format = "{icon}";
+      format-icons = {
+        "active" = " ";
+        "default" = " ";
+      };
+    };
+    "hyprland/window" = {
+      separate-outputs = true;
+      format = "{title:.48}";
+    };
+    mpris = {
+      format = "{status_icon} - {title} - {position}/{length}";
+      tooltip-format = ''
+        {player}
+        status: {status_icon} {position}/{length}
+        title:  {title}
+        artist: {artist}
+        album:  {album}'';
+      status-icons = {
+        playing = "";
+        paused = "";
+        stopped = "";
+      };
+      title-len = 32;
+      interval = 1;
+      on-scroll-up = "playerctl previous";
+      on-scroll-down = "playerctl next";
+    };
+    tray = {
+      icon-size = 14;
+      spacing = 5;
+    };
+    "custom/email#koumakan" = {
+      exec = "${waybar-email-daemon}/bin/waybar-email-daemon koumakan imap.exmail.qq.com INBOX 其他文件夹/ccsvc 其他文件夹/github";
+      restart-interval = 60;
+      format = "{}";
+      tooltip-format = "koumakan";
+      on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
+      on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
+    };
+    "custom/email#nexa4ai" = {
+      exec = "${waybar-email-daemon}/bin/waybar-email-daemon nexa4ai imap.gmail.com INBOX";
+      restart-interval = 60;
+      format = "{}";
+      tooltip-format = "nexa4ai";
+      on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
+      on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon nexa4ai'";
+    };
+    network = {
+      format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
+      format-ethernet = "  {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+      format-wifi = "{icon} {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+      format-linked = " ";
+      format-disconnected = " ";
+      format-disabled = " ";
+      format-icons = [
+        "󰤯 "
+        "󰤟 "
+        "󰤢 "
+        "󰤥 "
+        "󰤨 "
+      ];
+      tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
+      tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
+      interval = 1;
+      on-click = "alacritty -e nmtui";
+    };
+    wireplumber = {
+      format = " {volume}%";
+      format-muted = "<span color='red'> {volume}%</span>";
+      on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+      on-click-right = "alacritty -e pulsemixer";
+    };
+    temperature = {
+      format = " {temperatureC}°C";
+      critical-threshold = 70;
+      tooltip = false;
+      interval = 3;
+      hwmon-path-abs = config.programs.waybar.temperature.hwmon-path-abs;
+      input-filename = config.programs.waybar.temperature.input-filename;
+    };
+    memory = {
+      format = "  {percentage}%";
+      tooltip-format = ''
+        mem:  {percentage}%
+        {used:0.1f}G/{total:0.1f}G
+
+        swap: {swapPercentage}%
+        {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
+      interval = 3;
+      on-click = "alacritty -e htop";
+    };
+    battery = {
+      format = "{icon}󱐥";
+      format-discharging = "{icon} {time}";
+      format-charging = "{icon}󱐋 {time}";
+      format-icons = [
+        " "
+        " "
+        " "
+        " "
+        " "
+      ];
+      format-time = "{H}:{m}";
+      tooltip-format = ''
+        Cap:    {capacity}%
+        Power:  {power}W
+        Cycles: {cycles}
+        Health: {health}%'';
+      states = {
+        warning = 30;
+        critical = 15;
+      };
+      interval = 5;
+    };
+    clock = {
+      locale = "en_US.UTF-8";
+      format = " {:%H:%M}";
+      tooltip-format = "<tt><span size='11pt'>{calendar}</span></tt>";
+      calendar = {
+        mode = "month";
+        mode-mon-col = 4;
+        weeks-pos = "left";
+        on-scroll = 1;
+        format = {
+          months = "<span color='#ffead3'>{}</span>";
+          days = "<span color='#ecc6d9'>{}</span>";
+          weeks = "<span color='#99ffdd'>W{:%W}</span>";
+          weekdays = "<span color='#ffcc66'>{}</span>";
+          today = "<span color='#ff6699'><b><u>{}</u></b></span>";
+        };
+      };
+      actions = {
+        on-click-right = "mode";
+        on-scroll-up = "shift_down";
+        on-scroll-down = "shift_up";
+      };
+    };
+  };
 in
 {
-  programs.waybar = {
+  options.programs.waybar = {
+    mainOutput = lib.mkOption {
+      type = lib.types.str;
+      description = "The main output for waybar.";
+    };
+    temperature = {
+      hwmon-path-abs = lib.mkOption {
+        type = lib.types.listOf lib.types.str;
+        description = "The absolute path of hwmon for temperature module.";
+      };
+      input-filename = lib.mkOption {
+        type = lib.types.str;
+        description = "The input filename of hwmon for temperature module.";
+      };
+    };
+  };
+  config.programs.waybar = {
     enable = true;
     systemd.enable = true;
     settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        modules-left = [
-          "custom/starter"
-          "hyprland/workspaces"
-          "hyprland/window"
-        ];
-        modules-center = [ "mpris" ];
-        modules-right = [
-          "tray"
-          "custom/email#koumakan"
-          "custom/email#nexa4ai"
-          "network"
-          "wireplumber"
-          "temperature"
-          "memory"
-          "battery"
-          "clock"
-        ];
-        "custom/starter" = {
-          format = "{}";
-          exec = "echo ' '";
-          tooltip = false;
-          on-click = "wofi";
-          on-click-middle = "sleep 2 && hyprctl dispatch dpms off";
-          on-click-right = "wpaperctl next";
-          on-triple-click-right = "hyprctl dispatch exit";
-        };
-        "hyprland/workspaces" = {
-          disable-scroll = true;
-          format = "{icon}";
-          format-icons = {
-            "active" = " ";
-            "default" = " ";
-          };
-        };
-        "hyprland/window" = {
-          separate-outputs = true;
-          format = "{title:.48}";
-        };
-        mpris = {
-          format = "{status_icon} - {title} - {position}/{length}";
-          tooltip-format = ''
-            {player}
-            status: {status_icon} {position}/{length}
-            title:  {title}
-            artist: {artist}
-            album:  {album}'';
-          status-icons = {
-            playing = "";
-            paused = "";
-            stopped = "";
-          };
-          title-len = 32;
-          interval = 1;
-          on-scroll-up = "playerctl previous";
-          on-scroll-down = "playerctl next";
-        };
-        tray = {
-          icon-size = 14;
-          spacing = 5;
-        };
-        "custom/email#koumakan" = {
-          exec = "${waybar-email-daemon}/bin/waybar-email-daemon koumakan imap.exmail.qq.com INBOX 其他文件夹/ccsvc 其他文件夹/github";
-          restart-interval = 60;
-          format = "{}";
-          tooltip-format = "koumakan";
-          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
-          on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
-        };
-        "custom/email#nexa4ai" = {
-          exec = "${waybar-email-daemon}/bin/waybar-email-daemon nexa4ai imap.gmail.com INBOX";
-          restart-interval = 60;
-          format = "{}";
-          tooltip-format = "nexa4ai";
-          on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
-          on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon nexa4ai'";
-        };
-        network = {
-          format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
-          format-ethernet = "  {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
-          format-wifi = "{icon} {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
-          format-linked = " ";
-          format-disconnected = " ";
-          format-disabled = " ";
-          format-icons = [
-            "󰤯 "
-            "󰤟 "
-            "󰤢 "
-            "󰤥 "
-            "󰤨 "
-          ];
-          tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
-          tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
-          interval = 1;
-          on-click = "alacritty -e nmtui";
-        };
-        wireplumber = {
-          format = " {volume}%";
-          format-muted = "<span color='red'> {volume}%</span>";
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-right = "alacritty -e pulsemixer";
-        };
-        temperature = {
-          format = " {temperatureC}°C";
-          critical-threshold = 70;
-          tooltip = false;
-          interval = 3;
-        };
-        memory = {
-          format = "  {percentage}%";
-          tooltip-format = ''
-            mem:  {percentage}%
-            {used:0.1f}G/{total:0.1f}G
-
-            swap: {swapPercentage}%
-            {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
-          interval = 3;
-          on-click = "alacritty -e htop";
-        };
-        battery = {
-          format = "{icon}󱐥";
-          format-discharging = "{icon} {time}";
-          format-charging = "{icon}󱐋 {time}";
-          format-icons = [
-            " "
-            " "
-            " "
-            " "
-            " "
-          ];
-          format-time = "{H}:{m}";
-          tooltip-format = ''
-            Cap:    {capacity}%
-            Power:  {power}W
-            Cycles: {cycles}
-            Health: {health}%'';
-          states = {
-            warning = 30;
-            critical = 15;
-          };
-          interval = 5;
-        };
-        clock = {
-          locale = "en_US.UTF-8";
-          format = " {:%H:%M}";
-          tooltip-format = "<tt><span size='11pt'>{calendar}</span></tt>";
-          calendar = {
-            mode = "month";
-            mode-mon-col = 4;
-            weeks-pos = "left";
-            on-scroll = 1;
-            format = {
-              months = "<span color='#ffead3'>{}</span>";
-              days = "<span color='#ecc6d9'>{}</span>";
-              weeks = "<span color='#99ffdd'>W{:%W}</span>";
-              weekdays = "<span color='#ffcc66'>{}</span>";
-              today = "<span color='#ff6699'><b><u>{}</u></b></span>";
-            };
-          };
-          actions = {
-            on-click-right = "mode";
-            on-scroll-up = "shift_down";
-            on-scroll-down = "shift_up";
-          };
-        };
-      };
+      mainBar = genBar true;
+      altBar = genBar false;
     };
     style = ''
       * {

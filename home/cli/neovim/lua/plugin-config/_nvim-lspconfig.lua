@@ -171,12 +171,11 @@ vim.lsp.config("neocmake", {
 	},
 })
 vim.lsp.config("rust_analyzer", {
-	cmd = { "bash", "-c", "CARGO_TARGET_DIR=target/rust-analyzer rust-analyzer" },
 	settings = {
 		["rust-analyzer"] = {
 			cargo = {
 				features = "all",
-				buildScrips = {
+				buildScritps = {
 					enable = true,
 				},
 			},

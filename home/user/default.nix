@@ -2,7 +2,6 @@
 
 {
   imports = [
-    ./option.nix
     ./sops
   ];
 
