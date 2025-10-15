@@ -26,11 +26,12 @@
       ];
     };
   };
-
-  programs.waybar.settings.mainBar.temperature = {
-    hwmon-path-abs = [
-      "/sys/devices/pci0000:00/0000:00:08.1/0000:04:00.0/hwmon"
-    ];
-    input-filename = "temp1_input";
+  programs.waybar = {
+    temperature = {
+      hwmon-path-abs = [
+        "/sys/devices/pci0000:00/0000:00:08.1/0000:04:00.0/hwmon"
+      ];
+      input-filename = "temp1_input";
+    };
   };
 }

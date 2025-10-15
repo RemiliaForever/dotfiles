@@ -106,7 +106,11 @@ let
             event.clear()
   '';
   genBar = isMain: {
-    output = (if isMain then "" else "!") + config.programs.waybar.mainOutput;
+    output =
+      if config.programs.waybar.mainOutput == "" then
+        if isMain then "" else [ ]
+      else
+        (if isMain then "" else "!") + config.programs.waybar.mainOutput;
     layer = "top";
     position = "top";
     modules-left = [
@@ -289,15 +293,18 @@ in
   options.programs.waybar = {
     mainOutput = lib.mkOption {
       type = lib.types.str;
+      default = "";
       description = "The main output for waybar.";
     };
     temperature = {
       hwmon-path-abs = lib.mkOption {
         type = lib.types.listOf lib.types.str;
+        default = [ "/sys/devices/platform/coretemp.0/hwmon" ];
         description = "The absolute path of hwmon for temperature module.";
       };
       input-filename = lib.mkOption {
         type = lib.types.str;
+        default = "temp1_input";
         description = "The input filename of hwmon for temperature module.";
       };
     };

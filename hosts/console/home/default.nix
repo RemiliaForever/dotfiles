@@ -11,10 +11,6 @@
     waypipe
   ];
 
-  remilia = {
-    rocm = true;
-  };
-
   # cli
   programs.starship.settings.hostname.style = "purple";
 
@@ -27,10 +23,5 @@
       exec-once = [
       ];
     };
-  };
-
-  programs.waybar.settings.mainBar.temperature = {
-    hwmon-path-abs = [ "/sys/devices/platform/coretemp.0/hwmon" ];
-    input-filename = "temp1_input";
   };
 }
