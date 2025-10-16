@@ -65,6 +65,7 @@
         "media.ffmpeg.vaapi.enabled" = true;
         "media.ffvpx.enabled" = true;
         "gfx.webrender.all" = true;
+        "dom.webgpu.enabled" = true;
 
         "network.trr.mode" = 5;
       };
