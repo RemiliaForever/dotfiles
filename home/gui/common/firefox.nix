@@ -38,9 +38,10 @@
             icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@nw" ];
           };
+          google.metaData.alias = "@g";
           baidu.metaData.hidden = true;
           bing.metaData.hidden = true;
-          google.metaData.hidden = true;
+          perplexity.metaData.hidden = true;
         };
       };
       userChrome = ''
