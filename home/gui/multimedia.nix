@@ -15,7 +15,7 @@
     kdePackages.kdenlive
     kdePackages.kwave
     krita
-    lmms
+    ardour
     (obs-studio.override { inherit cudaSupport; })
   ];
 }

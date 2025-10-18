@@ -2,8 +2,8 @@ SLURP_OPT=(-b "#212121aa" -B "#212121aa" -c "#22ddeeee")
 
 function freeze() {
     hyprpicker -r -z &
-    sleep 0.2
     picker_pid=$!
+    sleep 0.3
     "$@" || true
     kill $picker_pid
 }

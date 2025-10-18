@@ -53,8 +53,8 @@
         "[workspace 9 silent] sleep 5 && wechat"
         "[workspace 9 silent] sleep 5 && qq"
         "[workspace 9 silent] sleep 5 && Telegram"
+        "[workspace 9 silent] sleep 5 && discord"
         "[workspace 10 silent] sleep 5 && bytedance-lark"
-        "[workspace 10 silent] sleep 5 && discord"
 
         "[workspace 11 silent] sleep 8 && spotify"
         "[workspace 11 silent] sleep 8 && steam"
@@ -62,10 +62,24 @@
     };
   };
   programs.waybar = {
-    mainOutput = "DP-1";
+    mainOutput = "HDMI-A-1";
     temperature = {
       hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
       input-filename = "temp1_input";
+    };
+    settings = {
+      mainBar."hyprland/workspaces".format-icons = {
+        "1" = " ";
+        "2" = " ";
+        "3" = " ";
+      };
+      altBar."hyprland/workspaces".format-icons = {
+        "8" = "󰈹 ";
+        "9" = " ";
+        "10" = "󰭹 ";
+        "11" = " ";
+        "12" = " ";
+      };
     };
   };
 }

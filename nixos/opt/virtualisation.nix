@@ -11,6 +11,7 @@
         insecure-registries = [ "172.18.10.1:5050" ];
         live-restore = false;
         userland-proxy = false;
+        features.cdi = true;
       };
     };
   };

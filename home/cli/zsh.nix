@@ -35,6 +35,25 @@
     };
 
     initContent = ''
+      # keybind
+      bindkey '\e[1;5D' backward-word
+      bindkey '\e[1;5C' forward-word
+
+      # highlight
+      typeset -A ZSH_HIGHLIGHT_STYLES
+      ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
+      ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=blue
+
+      # title
+      _precmd_title() {
+          print -Pn "\e]0;%m: %~\a"
+      }
+      add-zsh-hook precmd _precmd_title
+      _preexec_title() {
+          print -Pn "\e]0; - $2\a"
+      }
+      add-zsh-hook preexec _preexec_title
+
       # extra
       function nd() {
           dir="$PWD"
@@ -48,13 +67,6 @@
           echo ".shell not found"
           return 1
       }
-
-      bindkey '\e[1;5D' backward-word
-      bindkey '\e[1;5C' forward-word
-
-      typeset -A ZSH_HIGHLIGHT_STYLES
-      ZSH_HIGHLIGHT_STYLES[single-hyphen-option]=fg=cyan
-      ZSH_HIGHLIGHT_STYLES[double-hyphen-option]=fg=blue
     '';
 
     autosuggestion.enable = true;
