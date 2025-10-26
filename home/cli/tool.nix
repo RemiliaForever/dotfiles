@@ -8,6 +8,11 @@
     xh
   ];
 
+  programs.zsh.initContent = ''
+    # comma
+    export COMMA_PICKER="fzf"
+  '';
+
   programs = {
     bat = {
       enable = true;

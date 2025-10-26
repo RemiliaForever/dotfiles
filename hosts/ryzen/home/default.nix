@@ -37,6 +37,9 @@
         sb "$1" ''${@:2} --exclude build
     }
   '';
+  programs.zsh.shellAliases = {
+    hrst = "systemctl --user restart waybar wpaperd";
+  };
 
   # wayland
   wayland.windowManager.hyprland = {
@@ -47,17 +50,25 @@
         "DP-1, 3840x2160@60, 1920x0, 2, vrr, 1"
       ];
 
+      windowrule = [
+        "workspace 8, class:firefox"
+        "workspace 9, class:Bytedance-lark"
+        "workspace 10, class:wechat|QQ|org.telegram.desktop|discord"
+        "workspace 11, class:spotify"
+        "workspace 12, class:steam"
+      ];
+
       exec-once = [
-        "[workspace 8 silent] sleep 3 && firefox"
+        "sleep 3 && firefox"
 
-        "[workspace 9 silent] sleep 5 && wechat"
-        "[workspace 9 silent] sleep 5 && qq"
-        "[workspace 9 silent] sleep 5 && Telegram"
-        "[workspace 9 silent] sleep 5 && discord"
-        "[workspace 10 silent] sleep 5 && bytedance-lark"
+        "sleep 5 && wechat"
+        "sleep 5 && qq"
+        "sleep 5 && Telegram"
+        "sleep 5 && discord"
+        "sleep 5 && bytedance-lark"
 
-        "[workspace 11 silent] sleep 8 && spotify"
-        "[workspace 11 silent] sleep 8 && steam"
+        "sleep 8 && spotify"
+        "sleep 8 && steam"
       ];
     };
   };
@@ -68,17 +79,17 @@
       input-filename = "temp1_input";
     };
     settings = {
+      altBar."hyprland/workspaces".format-icons = {
+        "8" = "󰈹 ";
+        "9" = "󱗆 ";
+        "10" = " ";
+        "11" = " ";
+        "12" = " ";
+      };
       mainBar."hyprland/workspaces".format-icons = {
         "1" = " ";
         "2" = " ";
         "3" = " ";
-      };
-      altBar."hyprland/workspaces".format-icons = {
-        "8" = "󰈹 ";
-        "9" = " ";
-        "10" = "󰭹 ";
-        "11" = " ";
-        "12" = " ";
       };
     };
   };

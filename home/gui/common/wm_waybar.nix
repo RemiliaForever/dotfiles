@@ -144,7 +144,7 @@ let
       exec = "echo ' '";
       tooltip = false;
       on-click = "wofi";
-      on-click-middle = "sleep 2 && hyprctl dispatch dpms off";
+      on-click-middle = "hyprctl dispatch dpms off";
       on-click-right = "wpaperctl next";
       on-triple-click-right = "hyprctl dispatch exit";
     };

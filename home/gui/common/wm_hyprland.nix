@@ -218,6 +218,7 @@
           "windows, 1, 3, default"
           "workspaces, 1, 5, default"
           "fade, 0"
+          "fadeDpms, 1, 20, default"
         ];
 
         dwindle.preserve_split = true;
