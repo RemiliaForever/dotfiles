@@ -191,19 +191,18 @@
         };
 
         windowrule = [
-          "float, class:(Bytedance-feishu), title:(图片)"
+          # lark
           "float, class:(Bytedance-lark), title:(图片)"
-
           "float, title:(Lark会议)"
-          "noshadow, title:(Lark会议)"
-          "noborder, title:(Lark会议)"
-
+          "noshadow, class:(), title:(Lark会议)"
+          "noborder, class:(), title:(Lark会议)"
+          # wechat
           "float, class:(wechat), title:(预览)"
-
+          # float dialog
           "float, title:(MainPicker)"
           "float, class:(nm-connection-editor)"
           "float, class:(.blueman-manager-wrapped)"
-
+          # game
           "renderunfocused, class:(starrail.exe)" # fix fps limit
           "tile, class:(starrail.exe)"
           "renderunfocused, class:(dota2)" # fix fps limit

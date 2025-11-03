@@ -59,7 +59,7 @@
           dir="$PWD"
           while  [[ "$dir" != "/" ]]; do
               if [[ -d "$dir/.shell" ]]; then
-                  nix develop "$dir/.shell"
+                  nix develop "path:$dir/.shell"
                   return $?
               fi
               dir=$(dirname "$dir")

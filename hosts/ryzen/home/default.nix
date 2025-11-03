@@ -51,11 +51,11 @@
       ];
 
       windowrule = [
-        "workspace 8, class:firefox"
-        "workspace 9, class:Bytedance-lark"
-        "workspace 10, class:wechat|QQ|org.telegram.desktop|discord"
-        "workspace 11, class:spotify"
-        "workspace 12, class:steam"
+        "workspace 8, noinitialfocus, class:firefox"
+        "workspace 9, noinitialfocus, class:Bytedance-lark"
+        "workspace 10, noinitialfocus, class:wechat|QQ|org.telegram.desktop|discord"
+        "workspace 11, noinitialfocus, class:spotify"
+        "workspace 12, noinitialfocus, class:steam"
       ];
 
       exec-once = [
