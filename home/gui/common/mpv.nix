@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 
 let
   glsl_prefix = "no-osd change-list glsl-shaders";

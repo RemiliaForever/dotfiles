@@ -57,6 +57,10 @@
       background-color = "#212121dd";
       border-radius = 8;
       border-size = 2;
+      width = 400;
+      height = 200;
+      max-icon-size = 128;
+      markup = 1;
 
       "urgency=low".border-color = "#595959ee";
       "urgency=normal".border-color = "#33ccffee";
@@ -65,7 +69,7 @@
         default-timeout = 0;
       };
 
-      on-notify = "exec mpv /run/current-system/sw/share/sounds/freedesktop/stereo/bell.oga";
+      on-notify = "exec ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/bell.oga";
     };
   };
 
