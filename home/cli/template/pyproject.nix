@@ -26,18 +26,15 @@
           inherit system;
           config.allowUnfree = true;
         };
-        project = pyproject-nix.lib.project.loadPyproject { projectRoot = ./.; };
-        python = pkgs.python3;
+        pythonEnv =
+          pkgs.python3.withPackages
+            (pyproject-nix.lib.project.loadPyproject { projectRoot = ./.; }).renderers.withPackages
+            { python = pkgs.python3; };
       in
       {
-        devShells.default =
-          let
-            arg = project.renderers.withPackages { inherit python; };
-            pythonEnv = python.withPackages arg;
-          in
-          pkgs.mkShell {
-            packages = [ pythonEnv ];
-          };
+        devShells.default = pkgs.mkShell {
+          packages = [ pythonEnv ];
+        };
       }
     );
 }

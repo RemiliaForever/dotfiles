@@ -57,9 +57,6 @@
       background-color = "#212121dd";
       border-radius = 8;
       border-size = 2;
-      width = 400;
-      height = 200;
-      max-icon-size = 128;
       markup = 1;
 
       "urgency=low".border-color = "#595959ee";
