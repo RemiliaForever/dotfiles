@@ -64,6 +64,7 @@
       right_format = lib.concatStrings [
         "$jobs"
         "$cmd_duration"
+        "$python"
         "$nix_shell"
         "$git_branch"
         "$git_commit"
@@ -91,6 +92,10 @@
       };
       cmd_duration = {
         format = "[ $duration]($style) ";
+      };
+      python = {
+        format = "[$symbol]($style) ";
+        symbol = "🐍";
       };
       nix_shell = {
         format = "[$state]($style) ";
