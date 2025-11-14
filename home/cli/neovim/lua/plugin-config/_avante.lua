@@ -22,37 +22,8 @@ copilot.setup({
 })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#56b6c2", italic = true })
 
--- MCP Hub
-require("mcphub").setup({
-	auto_approve = true,
-})
-
 require("avante").setup({
-	system_prompt = function()
-		local user_prompt = "Always respond in chinese. Prefer markdown format."
-		local hub = require("mcphub").get_hub_instance()
-		return hub and user_prompt .. hub:get_active_servers_prompt() or ""
-	end,
-	-- Using function prevents requiring mcphub before it's loaded
-	custom_tools = function()
-		return {
-			require("mcphub.extensions.avante").mcp_tool(),
-		}
-	end,
-	disabled_tools = {
-		"list_files", -- Built-in file operations
-		"search_files",
-		"read_file",
-		"create_file",
-		"rename_file",
-		"delete_file",
-		"create_dir",
-		"rename_dir",
-		"delete_dir",
-		"git_diff",
-		"git_commit",
-		"web_search",
-	},
+	system_prompt = "Always respond in chinese. Prefer markdown format.",
 
 	provider = "copilot",
 	providers = {
@@ -76,5 +47,8 @@ require("avante").setup({
 				max_completion_tokens = 8192,
 			},
 		},
+	},
+	web_search_engine = {
+		provider = "google",
 	},
 })

@@ -1,3 +1,5 @@
+# use flake path:"$PWD/.shell"
+
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";

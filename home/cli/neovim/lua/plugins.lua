@@ -45,7 +45,6 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 			-- provider
 			"zbirenbaum/copilot.lua",
-			"ravitemer/mcphub.nvim",
 		},
 		event = "VeryLazy",
 		version = false,

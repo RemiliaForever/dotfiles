@@ -96,6 +96,8 @@
       python = {
         format = "[$symbol]($style) ";
         symbol = "🐍";
+        detect_extensions = [ ];
+        detect_files = [ ];
       };
       nix_shell = {
         format = "[$state]($style) ";

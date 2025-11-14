@@ -8,12 +8,11 @@ mail:
 api:
     deepseek: ENC[AES256_GCM,data:Fu9vv0pQzWI6gwVLIpQNZ6zVMp38l7Rm3njyORlhHqxr+4o=,iv:UCcSKdrzSRhOEg1FwCts3XM0EHJOOOLApLEXawTf2kg=,tag:xhnkm4FX5geJbL5qDV+YmQ==,type:str]
     anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
-    gemini: ENC[AES256_GCM,data:9VPRfR/8w5qoxJqpGQtJfBoiHaMwKgLBM+8VlNUH/0J09q0CVnR1,iv:q7eE8O8sZ6wfT0Og37xouhFLZvFCMzITn4ldcutQnqc=,tag:zJsW6WFGvtIDTWEUMW3TsQ==,type:str]
     google_api_key: ENC[AES256_GCM,data:uJbAOFM88rq82BBJ1kg9D05iVFgZpHB4L+Q8BKrh34LIF2VzMlTI,iv:Qu5X3KZQin94EqnGx5JgwMbzbUAfWowZFZjRTqNqQZo=,tag:0hdv0QJIAzL5tfMZyQFIgA==,type:str]
     google_search_engine_id: ENC[AES256_GCM,data:6j+6D9f3TixW+6dUU2dex50=,iv:fmbBIJnIr7PgUA+VPvzd60vTO63ngsomNZt39DgRyoY=,tag:ighqQ7ewBQdWJrBMRcpVzw==,type:str]
 sops:
-    lastmodified: "2025-09-20T13:57:06Z"
-    mac: ENC[AES256_GCM,data:nHqYJA5v/a+ImqqBvdqcrHz4synIw3U2Yy+2sLsBoYj2OPefOiSTEOxkT+WwPxQV8QyNyYUp7Y9njovsj82tn7FTzfKvuhr6IehxgJwvykGAeJogCLxTYWJPSRMbObz2EM8Yop4Sv1Z4vQ2k78/RtppK6FwoXBDkMCArZbrBb6Y=,iv:Fn3ny5skS35Eywu7vct/ctpWC7V9rFNhGoJBJDDYvEw=,tag:UxbrSM8dv84Fa6RX3Knc+Q==,type:str]
+    lastmodified: "2025-11-14T04:55:23Z"
+    mac: ENC[AES256_GCM,data:zAoWHG+7sKk9iwVbQD1VHgMpeD94IXn68wKeYmegXbAwpAW5BBO1kj8LxzlH4/PXrgW/Llt5NRODPXgPjEHjFoZzSuZucph4ozgsN1U8W78Mu3t1OWpMe/Yt1lVW6uRMC41GJrjLBaFBBvAT/q5fC1HInYGxpHdIUtYcmMQak8Q=,iv:NttTim+Q8nY58XyEK+jEWFejBT5tZJAfgAppV0t8yH8=,tag:edYzAc94tj9beiQtfUhR9w==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-
@@ -36,4 +35,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6382326ae6fd8356030396ad624434a577907d82
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.11.0
