@@ -1,3 +1,4 @@
+# watch_file pyproject.toml
 # use flake path:"$PWD/.shell"
 
 {

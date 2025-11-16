@@ -5,7 +5,7 @@ function freeze() {
     picker_pid=$!
     sleep 0.3
     "$@" || true
-    kill $picker_pid
+    kill -9 $picker_pid
 }
 
 function grab_region() {
