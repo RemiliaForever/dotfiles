@@ -3,9 +3,14 @@ SLURP_OPT=(-b "#212121aa" -B "#212121aa" -c "#22ddeeee")
 function freeze() {
     hyprpicker -r -z &
     picker_pid=$!
-    sleep 0.3
+    sleep 0.2
     "$@" || true
-    kill -9 $picker_pid
+    kill -15 $picker_pid
+    sleep 0.5
+    if kill -0 $picker_pid; then
+        kill -9 $picker_pid
+    fi
+    rm /run/user/"$(id -u)"/.hyprpicker_*
 }
 
 function grab_region() {
@@ -21,7 +26,7 @@ function grab_window() {
 }
 
 function grab_output() {
-    slurp -or "${SLURP_OPT[@]}"
+    slurp -o "${SLURP_OPT[@]}"
 }
 
 function grab_and_save() {
