@@ -50,4 +50,24 @@ require("avante").setup({
 	web_search_engine = {
 		provider = "google",
 	},
+	shortcuts = {
+		{
+			name = "resp",
+			description = "translate to english and refine",
+			details = "Translate to English and refine for clarity and coherence",
+			prompt = "Please translate the following text to English and refine it for clarity and coherence:\n",
+		},
+		{
+			name = "2en",
+			description = "translate to english",
+			details = "Translate to English",
+			prompt = "Please translate the following text to English:\n",
+		},
+		{
+			name = "2cn",
+			description = "translate to chinese",
+			details = "Translate to Chinese",
+			prompt = "Please translate the following text to Chinese:\n",
+		},
+	},
 })
