@@ -38,6 +38,12 @@
                   libsForQt5.qt5.qtquickcontrols
                   libsForQt5.qt5.qtquickcontrols2
                 ]);
+
+              profile = ''
+                export SHELL=${pkgs.zsh}/bin/zsh
+              '';
+
+              runScript = "zsh";
             }).env;
         }
       );

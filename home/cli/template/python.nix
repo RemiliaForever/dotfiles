@@ -1,5 +1,7 @@
-# watch_file pyproject.toml
-# use flake path:"$PWD/.shell"
+# if [ "$FHS_CURRENT" != "$1" ]; then
+#     export FHS_CURRENT=$1
+#     use flake path:"$PWD/.shell"
+# fi
 
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -16,28 +18,32 @@
           };
         in
         {
-          default = pkgs.mkShell {
-            packages = with pkgs; [
-              uv
-            ];
+          default =
+            (pkgs.buildFHSEnv {
+              name = "FHS";
+              targetPkgs =
+                pkgs:
+                (with pkgs; [
+                  python3
+                  uv
+                ]);
 
-            buildInputs = [ ];
+              profile = ''
+                export SHELL=${pkgs.zsh}/bin/zsh
+                export UV_PYTHON_DOWNLOADS="never"
 
-            nativeBuildInputs = [ ];
+                pushd /path/to/project
+                if [ ! -d ".venv" ]; then
+                    uv venv .venv
+                fi
+                unset PYTHONPATH
+                uv sync
+                source .venv/bin/activate
+                popd
+              '';
 
-            env = {
-              UV_PYTHON = pkgs.python3.interpreter;
-              UV_PYTHON_DOWNLOADS = "never";
-            };
-            shellHook = ''
-              if [ ! -d ".venv" ]; then
-                uv venv .venv
-              fi
-              unset PYTHONPATH
-              uv sync
-              source .venv/bin/activate
-            '';
-          };
+              runScript = "zsh";
+            }).env;
         }
       );
     };
