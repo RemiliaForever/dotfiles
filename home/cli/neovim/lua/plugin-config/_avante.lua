@@ -1,7 +1,5 @@
 local copilot = require("copilot")
 
-local model = "gpt-4.1"
-
 -- Copilot
 copilot.setup({
 	panel = { enabled = false },
@@ -18,7 +16,6 @@ copilot.setup({
 		["markdown"] = true,
 		["yaml"] = true,
 	},
-	copilot_mode = model,
 })
 vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#56b6c2", italic = true })
 
@@ -28,7 +25,7 @@ require("avante").setup({
 	provider = "copilot",
 	providers = {
 		copilot = {
-			model = model,
+			model = "gpt-4.1",
 			context_window = 64000, -- Number of tokens to send to the model for context
 			extra_request_body = {
 				max_tokens = 20480,
@@ -71,3 +68,16 @@ require("avante").setup({
 		},
 	},
 })
+
+M = {}
+function M.zen_mode()
+	vim.opt.fillchars = "vert: ,stl: ,stlnc: "
+	require("avante.api").ask({
+		show_logo = true,
+		new_chat = true,
+		sidebar_post_render = function(sidebar)
+			sidebar:toggle_code_window()
+		end,
+	})
+end
+return M

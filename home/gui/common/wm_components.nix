@@ -80,7 +80,6 @@
         mode = "center";
         duration = "10min";
         transition-time = 1000;
-        group = 1;
       };
     };
   };
