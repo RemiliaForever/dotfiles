@@ -73,23 +73,27 @@
     };
   };
   programs.waybar = {
-    mainOutput = "HDMI-A-1";
+    mainOutput = "DP-1";
     temperature = {
       hwmon-path-abs = [ "/sys/devices/pci0000:00/0000:00:18.3/hwmon" ];
       input-filename = "temp1_input";
     };
     settings = {
-      altBar."hyprland/workspaces".format-icons = {
-        "8" = "󰈹 ";
-        "9" = "󱗆 ";
-        "10" = " ";
-        "11" = " ";
-        "12" = " ";
+      altBar = {
+        "hyprland/workspaces".format-icons = {
+          "1" = " ";
+          "2" = " ";
+          "3" = " ";
+        };
       };
-      mainBar."hyprland/workspaces".format-icons = {
-        "1" = " ";
-        "2" = " ";
-        "3" = " ";
+      mainBar = {
+        "hyprland/workspaces".format-icons = {
+          "8" = "󰈹 ";
+          "9" = "󱗆 ";
+          "10" = " ";
+          "11" = " ";
+          "12" = " ";
+        };
       };
     };
   };

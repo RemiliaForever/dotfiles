@@ -141,7 +141,8 @@ let
       ];
     "custom/starter" = {
       format = "{}";
-      exec = "echo ' '";
+      exec = "python3 -c \"from datetime import datetime; print(' %.2f' % ((datetime(2055,8,11) - datetime.now()).total_seconds()/86400))\"";
+      interval = 300;
       tooltip = false;
       on-click = "wofi";
       on-click-middle = "hyprctl dispatch dpms off";
