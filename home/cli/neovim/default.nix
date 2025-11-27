@@ -18,13 +18,12 @@
       # conform
       clang-tools
       go
-      isort
+      ruff
       nixfmt-rfc-style
       nodePackages.prettier
       rustfmt
       stylua
       taplo
-      yapf
       # lsp
       bash-language-server
       vscode-langservers-extracted

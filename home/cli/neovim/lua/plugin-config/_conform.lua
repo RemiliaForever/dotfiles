@@ -26,7 +26,7 @@ conform.setup({
 		markdown = { "prettier" },
 		nix = { "nixfmt" },
 		openscad = { "clang-format" },
-		python = { "yapf", "isort" },
+		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 		rust = { "rustfmt" },
 		toml = { "taplo" },
 		typescript = { "prettier" },
