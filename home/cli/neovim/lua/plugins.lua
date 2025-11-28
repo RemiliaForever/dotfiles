@@ -33,6 +33,13 @@ require("lazy").setup({
 		opts = {},
 	},
 	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("plugin-config/_flash")
+		end,
+	},
+	{
 		"yetone/avante.nvim",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
