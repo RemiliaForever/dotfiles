@@ -99,7 +99,7 @@
         bind = [
           "SUPER, R, exec, wofi"
           "SUPER, Return, exec, alacritty"
-          "SUPER_CONTROL, Q, exit"
+          "SUPER_CONTROL, Q, exec, uwsm stop"
           "SUPER, Tab, togglespecialworkspace"
           "SUPER_SHIFT, Tab, overview:toggle, toggle"
           "SUPER, Delete, exec, loginctl lock-session"

@@ -10,8 +10,8 @@ in
     enable = true;
     enabledExtensions = with spicePkgs.extensions; [
       keyboardShortcut
-      #adblock
-      #copyToClipboard
+      adblock
+      copyToClipboard
       betterGenres
       beautifulLyrics
     ];
