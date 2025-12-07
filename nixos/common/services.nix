@@ -7,7 +7,7 @@
     openssh.enable = true;
     fstrim.enable = true;
 
-    speechd.enable = false;
+    speechd.enable = lib.mkForce false;
 
     logind.settings.Login = {
       HandlePowerKey = lib.mkDefault "suspend";

@@ -9,6 +9,13 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
+    kernelPatches = [
+      # https://github.com/NixOS/nixos-hardware/issues/1685
+      {
+        name = "rust-1.91-fix";
+        patch = ./rust-fix.patch;
+      }
+    ];
     initrd.availableKernelModules = [
       "xhci_pci"
       "nvme"

@@ -11,21 +11,21 @@
   programs.starship.settings.hostname.style = "blue";
 
   # wayland
-  wayland.windowManager.hyprland = {
-    settings = {
-      monitor = [
-        "eDP-1, preferred, auto, 1, transform, 3"
-      ];
-      device = [
-        {
-          name = "fts3528:00-2808:1015";
-          transform = 3;
-        }
-      ];
-      exec-once = [
-      ];
-    };
-  };
+  programs.niri.extraConfig = ''
+    // Host Specific Configurations
+
+    // Inputs
+
+    input {
+
+    }
+
+    // Outputs
+
+    output "eDP-1" {
+        transform 90
+    }
+  '';
   programs.waybar = {
     temperature = {
       hwmon-path-abs = [

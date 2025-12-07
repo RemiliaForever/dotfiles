@@ -7,7 +7,7 @@
 
 {
   options = {
-    niri = {
+    programs.niri = {
       autoStart = lib.mkOption {
         type = lib.types.bool;
         default = false;
@@ -29,7 +29,7 @@
     ];
     # programs.zsh.completionInit = ''eval "$(${pkgs.niri}/bin/niri completions zsh)"'';
     programs.zsh.loginExtra =
-      if config.niri.autoStart then
+      if config.programs.niri.autoStart then
         ''
           # auto start
           if [[ "$(tty)" == "/dev/tty1" ]] ; then
@@ -215,6 +215,6 @@
       // Recent Windows
 
     ''
-    + config.niri.extraConfig;
+    + config.programs.niri.extraConfig;
   };
 }

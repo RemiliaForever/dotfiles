@@ -20,7 +20,7 @@
   programs.starship.settings.hostname.style = "green";
 
   # wayland
-  wayland.windowManager.hyprland = {
+  programs.niri = {
     autoStart = true;
   };
 }

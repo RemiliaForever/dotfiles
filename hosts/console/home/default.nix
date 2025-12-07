@@ -15,13 +15,14 @@
   programs.starship.settings.hostname.style = "purple";
 
   # wayland
-  wayland.windowManager.hyprland = {
-    settings = {
-      monitor = [
-        "HDMI-A-1, preferred, auto, 2"
-      ];
-      exec-once = [
-      ];
-    };
-  };
+  programs.niri.extraConfig = ''
+    // Host Specific Configurations
+
+    // Outputs
+
+    output "HDMI-A-1" {
+        mode "4096x2160@60"
+        scale 2.0
+    }
+  '';
 }

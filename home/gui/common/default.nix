@@ -19,7 +19,6 @@ in
 
   imports = [
     ./theme.nix
-    # ./wm_hyprland.nix
     ./wm_components.nix
     ./wm_niri.nix
     ./wm_waybar.nix

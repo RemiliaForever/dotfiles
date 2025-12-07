@@ -145,9 +145,9 @@ let
       interval = 300;
       tooltip = false;
       on-click = "wofi";
-      on-click-middle = "hyprctl dispatch dpms off";
+      on-click-middle = "sleep 1 && niri msg action power-off-monitors";
       on-click-right = "wpaperctl next";
-      on-triple-click-right = "hyprctl dispatch exit";
+      on-triple-click-right = "niri msg action exit";
     };
     "niri/workspaces" = {
       disable-scroll = true;
