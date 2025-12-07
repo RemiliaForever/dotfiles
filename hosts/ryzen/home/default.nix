@@ -40,36 +40,98 @@
     hrst = "systemctl --user restart waybar wpaperd";
   };
 
-  # wayland
-  wayland.windowManager.hyprland = {
+  niri = {
     autoStart = true;
-    settings = {
-      monitor = [
-        "HDMI-A-1, 3840x2160@160, 0x0, 2, vrr, 1"
-        "DP-1, 3840x2160@60, 1920x0, 2, vrr, 1"
-      ];
+    extraConfig = ''
+      // Host Specific Configurations
 
-      windowrule = [
-        "workspace 8, noinitialfocus, class:firefox"
-        "workspace 9, noinitialfocus, class:Bytedance-lark"
-        "workspace 10, noinitialfocus, class:wechat|QQ|org.telegram.desktop|discord"
-        "workspace 11, noinitialfocus, class:spotify"
-        "workspace 12, noinitialfocus, class:steam"
-      ];
+      // Outputs
 
-      exec-once = [
-        "sleep 3 && firefox"
+      output "HDMI-A-1" {
+          mode "3840x2160@119.88"
+          scale 2.0
+          position x=0 y=0
+          variable-refresh-rate
+          focus-at-startup
+      }
 
-        "sleep 5 && wechat"
-        "sleep 5 && qq"
-        "sleep 5 && Telegram"
-        "sleep 5 && discord"
-        "sleep 5 && bytedance-lark"
+      output "DP-1" {
+          mode "3840x2160@59.997"
+          scale 2.0
+          position x=1920 y=0
+      }
 
-        "sleep 8 && spotify"
-        "sleep 8 && steam"
-      ];
-    };
+      // Named workspaces
+
+      workspace "programming1" {
+          open-on-output "HDMI-A-1"
+      }
+      workspace "programming2" {
+          open-on-output "HDMI-A-1"
+      }
+      workspace "browser" {
+          open-on-output "DP-1"
+      }
+      workspace "lark" {
+          open-on-output "DP-1"
+      }
+      workspace "chat" {
+          open-on-output "DP-1"
+      }
+      workspace "fun" {
+          open-on-output "DP-1"
+      }
+
+
+      // Miscellaneous
+
+      spawn-sh-at-startup "sleep 3 && firefox"
+      spawn-sh-at-startup "sleep 3 && bytedance-lark"
+      spawn-sh-at-startup "sleep 3 && wechat"
+      spawn-sh-at-startup "sleep 5 && qq"
+      spawn-sh-at-startup "sleep 7 && discord"
+      spawn-sh-at-startup "sleep 10 && Telegram"
+      spawn-sh-at-startup "sleep 8 && spotify"
+      spawn-sh-at-startup "sleep 8 && steam"
+
+      // Window Rules
+
+      window-rule {
+          match app-id="^firefox$"
+          open-on-workspace "browser"
+          default-column-width {}
+      }
+
+      window-rule {
+          match app-id="^Bytedance-lark$"
+          open-on-workspace "lark"
+          default-column-width {
+              proportion 1.0
+          }
+      }
+
+      window-rule {
+          match app-id="^wechat$"
+          match app-id="^QQ$"
+          match app-id=r#"^org\.telegram\.desktop$"#
+          match app-id=r#"^discord$"#
+          open-on-workspace "chat"
+      }
+
+      window-rule {
+          match app-id="^spotify$"
+          match app-id="^steam$"
+          open-on-workspace "fun"
+          default-column-width {
+              proportion 0.6
+          }
+      }
+
+      window-rule {
+          match app-id=r#"^org\.telegram\.desktop$"#
+          block-out-from "screencast"
+      }
+    '';
   };
   programs.waybar = {
     mainOutput = "DP-1";
@@ -79,19 +141,17 @@
     };
     settings = {
       altBar = {
-        "hyprland/workspaces".format-icons = {
-          "1" = " ";
-          "2" = " ";
-          "3" = " ";
+        "niri/workspaces".format-icons = {
+          "programming1" = " ";
+          "programming2" = " ";
         };
       };
       mainBar = {
-        "hyprland/workspaces".format-icons = {
-          "8" = "󰈹 ";
-          "9" = "󱗆 ";
-          "10" = " ";
-          "11" = " ";
-          "12" = " ";
+        "niri/workspaces".format-icons = {
+          "browser" = "󰈹 ";
+          "lark" = "󱗆 ";
+          "chat" = " ";
+          "fun" = " ";
         };
       };
     };

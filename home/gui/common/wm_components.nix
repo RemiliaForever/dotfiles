@@ -1,50 +1,15 @@
 {
   pkgs,
-  lib,
   ...
 }:
 
 {
 
   home.packages = with pkgs; [
-    hypridle
-    hyprlock
-    hyprshot
+    # gnome-keyring
+    gcr
+    seahorse
   ];
-
-  xdg.configFile = {
-    "hypr/hypridle.conf".text = lib.hm.generators.toHyprconf {
-      attrs = {
-        general = {
-          lock_cmd = "pidof hyprlock || hyprlock";
-          before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
-        };
-        listener = [
-          {
-            timeout = 600;
-            on-timeout = "loginctl lock-session";
-          }
-          {
-            timeout = 900;
-            on-timeout = "hyprctl dispatch dpms off && wpaperctl pause";
-            on-resume = "hyprctl dispatch dpms on && wpaperctl resume";
-          }
-        ];
-      };
-    };
-
-    "hypr/hyprlock.conf".text = lib.hm.generators.toHyprconf {
-      attrs = {
-        input-field = {
-          fade_on_empty = false;
-        };
-        background = {
-          color = "rgb(23, 39, 41)";
-        };
-      };
-    };
-  };
 
   services.mako = {
     enable = true;
@@ -85,12 +50,70 @@
   };
 
   # authentication
-  services.hyprpolkitagent.enable = true;
+  services.polkit-gnome.enable = true;
+  services.gnome-keyring.enable = true;
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-    config = {
-      common.default = "hyprland";
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = "gnome";
+  };
+
+  # IME
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        fcitx5-gtk
+        kdePackages.fcitx5-qt
+        kdePackages.fcitx5-chinese-addons
+        fcitx5-material-color
+      ];
+      settings = {
+        inputMethod = {
+          "GroupOrder"."0" = "默认";
+          "Groups/0" = {
+            "Name" = "默认";
+            "Default Layout" = "us";
+            "DefaultIM" = "pinyin";
+          };
+          "Groups/0/Items/0"."Name" = "keyboard-us";
+          "Groups/0/Items/1"."Name" = "pinyin";
+        };
+        globalOptions = {
+          "Hotkey/TriggerKeys"."0" = "Control+space";
+        };
+        addons = {
+          classicui.globalSection = {
+            Font = "Sans 14";
+            TrayFont = "Sans Bold 14";
+            PreferTextIcon = "True";
+            Theme = "Material-Color-blue";
+          };
+          cloudpinyin.globalSection = {
+            MinimumPinyinLength = "2";
+            Backend = "Baidu";
+          };
+          pinyin.globalSection = {
+            PageSize = "7";
+            CloudPinyinEnabled = "True";
+            CloudPinyinIndex = "3";
+            CloudPinyinAnimation = "True";
+            KeepCloudPinyinPlaceholder = "True";
+          };
+          xim.globalSection.UseOnTheSpot = "True";
+        };
+      };
     };
   };
+  home.sessionVariables = {
+    QT_IM_MODULE = "fcitx";
+    QT_IM_MODULES = "wayland;fcitx";
+  };
+
 }

@@ -174,12 +174,9 @@ stdenv.mkDerivation {
     # lark is the main executable, vulcan is the builtin browser
     for executable in $out/opt/bytedance/lark/{lark,vulcan/vulcan}; do
       # FIXME: Add back NIXOS_OZONE_WL support once upstream fixes the crash on native Wayland (see #318035)
-      # NOTE: override
       wrapProgram $executable \
         --prefix XDG_DATA_DIRS    :  "$XDG_ICON_DIRS:$GSETTINGS_SCHEMAS_PATH" \
         --prefix LD_LIBRARY_PATH  :  ${rpath}:$out/opt/bytedance/lark:${addDriverRunpath.driverLink}/share \
-        --set GTK_IM_MODULE fcitx \
-        --set GDK_SCALE 2 \
         ${lib.optionalString (
           commandLineArgs != ""
         ) "--add-flags ${lib.escapeShellArg commandLineArgs}"}

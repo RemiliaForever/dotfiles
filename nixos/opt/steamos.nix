@@ -20,7 +20,7 @@
       user = "remilia";
     };
     steam = {
-      desktopSession = "hyprland-uwsm";
+      desktopSession = "niri";
       user = "remilia";
     };
   };

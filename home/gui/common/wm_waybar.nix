@@ -116,8 +116,8 @@ let
     position = "top";
     modules-left = [
       "custom/starter"
-      "hyprland/workspaces"
-      "hyprland/window"
+      "niri/workspaces"
+      "niri/window"
     ];
     modules-center = [ "mpris" ];
     modules-right =
@@ -149,7 +149,7 @@ let
       on-click-right = "wpaperctl next";
       on-triple-click-right = "hyprctl dispatch exit";
     };
-    "hyprland/workspaces" = {
+    "niri/workspaces" = {
       disable-scroll = true;
       format = "{icon}";
       format-icons = {
@@ -157,8 +157,10 @@ let
         "default" = " ";
       };
     };
-    "hyprland/window" = {
+    "niri/window" = {
       separate-outputs = true;
+      icon = true;
+      icon-size = 14;
       format = "{title:.48}";
     };
     mpris = {
