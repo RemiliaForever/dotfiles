@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     wayvnc
-    kdePackages.krdc
+    remmina
     kicad
     openscad
     virt-manager

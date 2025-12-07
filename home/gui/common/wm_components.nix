@@ -52,13 +52,6 @@
   # authentication
   services.polkit-gnome.enable = true;
   services.gnome-keyring.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-    ];
-    config.common.default = "gnome";
-  };
 
   # IME
   i18n.inputMethod = {

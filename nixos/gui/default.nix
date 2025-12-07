@@ -21,7 +21,10 @@
   };
 
   # portals and keyring
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    useNautilus = false;
+  };
   security.pam.services.login.enableGnomeKeyring = true;
   environment.pathsToLink = [
     "/share/applications"

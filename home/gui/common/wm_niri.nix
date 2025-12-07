@@ -169,6 +169,14 @@
               active-color "#33ccffee"
               inactive-color "#00000000"
           }
+
+          shadow {
+              on
+              softness 5
+              spread 5
+              offset x=0 y=0
+              color "#00000070"
+          }
       }
 
       // Named workspaces
@@ -191,6 +199,7 @@
           geometry-corner-radius 8
           clip-to-geometry true
           open-floating false
+          open-maximized-to-edges false
       }
 
       // Layer Rules
