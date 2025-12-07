@@ -1,4 +1,0 @@
-- [x] fcitx on xwayland
-- [x] nix niri config
-- [] other host config
-- [] swaylock

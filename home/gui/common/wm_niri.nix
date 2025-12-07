@@ -25,7 +25,6 @@
     home.packages = with pkgs; [
       niri
       xwayland-satellite
-      swaylock
     ];
     # programs.zsh.completionInit = ''eval "$(${pkgs.niri}/bin/niri completions zsh)"'';
     programs.zsh.loginExtra =
@@ -70,7 +69,8 @@
 
       binds {
           Mod+Ctrl+Q          { quit; }
-          Mod+Ctrl+P          { power-off-monitors; }
+          Mod+Ctrl+P          { spawn-sh "swaylock -f && sleep 1 && niri msg action power-off-monitors"; }
+          Mod+Delete          allow-when-locked=true { spawn "swaylock"; }
           Mod+Shift+Slash     { show-hotkey-overlay; }
           Mod+Tab             repeat=false { toggle-overview; }
           Mod+R               repeat=false { spawn "wofi"; }
@@ -84,14 +84,14 @@
           Alt+Print               { screenshot-screen write-to-disk=false; }
           Mod+Alt+Print           { screenshot-screen; }
           Mod+Escape              allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-          XF86AudioRaiseVolume    allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
-          XF86AudioLowerVolume    allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
-          XF86AudioMute           allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
-          XF86AudioMicMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
-          XF86AudioPrev           allow-when-locked=true { spawn-sh "playerctl previous"; }
-          XF86AudioNext           allow-when-locked=true { spawn-sh "playerctl next"; }
-          XF86AudioPlay           allow-when-locked=true { spawn-sh "playerctl play-pause"; }
-          XF86AudioStop           allow-when-locked=true { spawn-sh "playerctl stop"; }
+          XF86AudioRaiseVolume    allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05+"; }
+          XF86AudioLowerVolume    allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.05-"; }
+          XF86AudioMute           allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+          XF86AudioMicMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+          XF86AudioPrev           allow-when-locked=true { spawn "playerctl" "previous"; }
+          XF86AudioNext           allow-when-locked=true { spawn "playerctl" "next"; }
+          XF86AudioPlay           allow-when-locked=true { spawn "playerctl" "play-pause"; }
+          XF86AudioStop           allow-when-locked=true { spawn "playerctl" "stop"; }
 
           // window, column, monitor
           Mod+H                   { focus-column-left; }
@@ -200,6 +200,18 @@
           clip-to-geometry true
           open-floating false
           open-maximized-to-edges false
+      }
+
+      window-rule {
+          match app-id="xdg-desktop-portal-gnome"
+          match title="图片"
+          match title="视频"
+          open-floating true
+      }
+
+      window-rule {
+          match title="Lark会议"
+          open-floating true
       }
 
       // Layer Rules

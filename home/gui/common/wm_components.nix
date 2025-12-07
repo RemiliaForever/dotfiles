@@ -52,6 +52,24 @@
   # authentication
   services.polkit-gnome.enable = true;
   services.gnome-keyring.enable = true;
+  programs.swaylock = {
+    enable = true;
+    package = pkgs.swaylock-effects;
+    settings = {
+      fade-in = 1;
+      screenshots = true;
+      clock = true;
+      indicator = true;
+      effect-blur = "20x5";
+    };
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gnome
+    ];
+    config.common.default = "gnome";
+  };
 
   # IME
   i18n.inputMethod = {
