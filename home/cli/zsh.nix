@@ -28,7 +28,6 @@
 
       latexmk = "latexmk -interaction=nonstopmode";
       ncdu = "ncdu --color=dark";
-      vims = "vim --servername VIM";
 
       cb = "nice -n 19 cmake --build build -j";
       ct = "ctest --test-dir build";

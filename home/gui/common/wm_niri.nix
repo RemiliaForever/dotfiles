@@ -67,7 +67,7 @@
 
       // Key Bindings
 
-      binds { // use wev to get key code
+      binds {
           Mod+Ctrl+Q          { quit; }
           Mod+Ctrl+P          { spawn-sh "swaylock -f && sleep 1 && niri msg action power-off-monitors"; }
           Mod+Delete          allow-when-locked=true { spawn "swaylock"; }
@@ -95,8 +95,8 @@
 
           // window, column, monitor
           Mod+H                   { focus-column-left; }
-          Mod+J                   { focus-window-down; }
-          Mod+K                   { focus-window-up; }
+          Mod+J                   { focus-window-or-workspace-down; }
+          Mod+K                   { focus-window-or-workspace-up; }
           Mod+L                   { focus-column-right; }
           Mod+WheelScrollUp       { focus-column-left; }
           Mod+WheelScrollDown     { focus-column-right; }
@@ -113,8 +113,6 @@
           Mod+4                       { focus-workspace 4; }
           Mod+5                       { focus-workspace 5; }
           Mod+6                       { focus-workspace 6; }
-          Mod+I                       { focus-workspace-up; }
-          Mod+U                       { focus-workspace-down; }
           Mod+Ctrl+WheelScrollUp      { focus-workspace-up; }
           Mod+Ctrl+WheelScrollDown    { focus-workspace-down; }
           Mod+Shift+1                 { move-window-to-workspace 1; }
@@ -141,6 +139,7 @@
           Mod+Ctrl+J          { set-window-height "+5%"; }
           Mod+Ctrl+K          { set-window-height "-5%"; }
           Mod+Ctrl+L          { set-column-width "+5%"; }
+          Mod+Ctrl+R          { reset-window-height; }
           Mod+Space           { toggle-window-floating; }
           Mod+F               { switch-focus-between-floating-and-tiling; }
       }
