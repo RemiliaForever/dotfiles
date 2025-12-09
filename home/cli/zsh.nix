@@ -35,6 +35,7 @@
 
     initContent = ''
       # keybind
+      WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
       bindkey '\e[1;5D' backward-word
       bindkey '\e[1;5C' forward-word
 
@@ -54,7 +55,6 @@
       add-zsh-hook preexec _preexec_title
 
       # plugin
-
       zstyle -d ':completion:*' format
       zstyle ':completion:*:descriptions' format '[%d]'
       zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
@@ -65,7 +65,6 @@
       zstyle ':fzf-tab:*' switch-group '<' '>'
 
       # extra
-
       function nd() {
           dir="$PWD"
           while  [[ "$dir" != "/" ]]; do
