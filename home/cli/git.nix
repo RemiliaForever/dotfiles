@@ -190,15 +190,6 @@
       };
     };
 
-    gh = {
-      enable = true;
-      extensions = with pkgs; [
-        gh-copilot
-        gh-dash
-
-        gh-notify
-      ];
-    };
-    zsh.completionInit = ''eval "$(${pkgs.gh-copilot}/bin/gh-copilot alias zsh)"'';
+    gh.enable = true;
   };
 }

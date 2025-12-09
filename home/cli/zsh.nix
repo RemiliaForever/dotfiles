@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh = {
@@ -54,7 +54,19 @@
       }
       add-zsh-hook preexec _preexec_title
 
+      # plugin
+
+      zstyle -d ':completion:*' format
+      zstyle ':completion:*:descriptions' format '[%d]'
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
+      zstyle ':completion:*' menu no
+      zstyle ':completion:*:git-checkout:*' sort false
+      zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+      zstyle ':fzf-tab:*' use-fzf-default-opts yes
+      zstyle ':fzf-tab:*' switch-group '<' '>'
+
       # extra
+
       function nd() {
           dir="$PWD"
           while  [[ "$dir" != "/" ]]; do
@@ -67,6 +79,7 @@
           echo ".shell not found"
           return 1
       }
+
     '';
 
     autosuggestion.enable = true;
@@ -77,6 +90,19 @@
         "brackets"
       ];
     };
+
+    plugins = with pkgs; [
+      {
+        name = "fzf-tab";
+        src = zsh-fzf-tab;
+        file = "share/fzf-tab/fzf-tab.plugin.zsh";
+      }
+      {
+        name = "autopair";
+        src = zsh-autopair;
+        file = "share/zsh/zsh-autopair/autopair.zsh";
+      }
+    ];
   };
 
 }

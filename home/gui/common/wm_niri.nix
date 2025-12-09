@@ -67,7 +67,7 @@
 
       // Key Bindings
 
-      binds {
+      binds { // use wev to get key code
           Mod+Ctrl+Q          { quit; }
           Mod+Ctrl+P          { spawn-sh "swaylock -f && sleep 1 && niri msg action power-off-monitors"; }
           Mod+Delete          allow-when-locked=true { spawn "swaylock"; }
@@ -132,7 +132,9 @@
           Mod+P               { switch-preset-column-width; }
           Mod+S               { maximize-column; }
           // Mod+S               { expand-column-to-available-width; }
+          Mod+Ctrl+S          { maximize-window-to-edges;}
           Mod+M               { fullscreen-window; }
+          Mod+MouseMiddle     { fullscreen-window; }
           Mod+C               { center-column; }
           // Mod+Ctrl+C { center-visible-columns; }
           Mod+Ctrl+H          { set-column-width "-5%"; }
@@ -200,17 +202,15 @@
           clip-to-geometry true
           open-floating false
           open-maximized-to-edges false
+          tiled-state true
       }
 
       window-rule {
           match app-id="xdg-desktop-portal-gnome"
           match title="图片"
           match title="视频"
-          open-floating true
-      }
-
-      window-rule {
           match title="Lark会议"
+
           open-floating true
       }
 

@@ -101,12 +101,14 @@
 
         window-rule {
             match app-id="^firefox$"
+
             open-on-workspace "browser"
             default-column-width {}
         }
 
         window-rule {
             match app-id="^Bytedance-lark$"
+
             open-on-workspace "lark"
             default-column-width {
                 proportion 1.0
@@ -117,13 +119,15 @@
             match app-id="^wechat$"
             match app-id="^QQ$"
             match app-id=r#"^org\.telegram\.desktop$"#
-            match app-id=r#"^discord$"#
+            match app-id="^discord$"
+
             open-on-workspace "chat"
         }
 
         window-rule {
             match app-id="^spotify$"
             match app-id="^steam$"
+
             open-on-workspace "fun"
             default-column-width {
                 proportion 0.6
@@ -131,6 +135,7 @@
         }
 
         window-rule {
+            match app-id="^wechat$"
             match app-id=r#"^org\.telegram\.desktop$"#
             block-out-from "screencast"
         }
