@@ -214,6 +214,20 @@
           open-floating true
       }
 
+      window-rule {
+          match app-id=r#"\.exe$"# // game
+          match title="wiliwili"
+
+          open-fullscreen true
+      }
+
+      window-rule {
+          match app-id="starrail.exe"
+
+          force-render true
+          force-render-fps 60
+      }
+
       // Layer Rules
 
       layer-rule {

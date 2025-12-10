@@ -59,6 +59,16 @@
           mods = "Super";
           action = "CreateNewWindow";
         }
+        {
+          key = "D";
+          mods = "Control|Alt";
+          action = "ScrollPageDown";
+        }
+        {
+          key = "U";
+          mods = "Control|Alt";
+          action = "ScrollPageUp";
+        }
       ];
     };
   };
