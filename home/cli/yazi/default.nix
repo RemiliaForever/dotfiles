@@ -23,6 +23,18 @@
         }
       ];
     };
+    theme = {
+      tabs = {
+        sep_inner = {
+          open = "";
+          close = "";
+        };
+        sep_outer = {
+          open = "";
+          close = "";
+        };
+      };
+    };
     initLua = ''
       require("ui"):setup()
     '';

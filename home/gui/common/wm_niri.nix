@@ -206,6 +206,7 @@
 
       window-rule {
           match app-id="xdg-desktop-portal-gnome"
+          match app-id="polkit-gnome-authentication-agent-1"
           match title="图片"
           match title="视频"
           match title="Lark会议"
@@ -228,7 +229,7 @@
 
       gestures {
           hot-corners {
-              bottom-right
+              off
           }
       }
 

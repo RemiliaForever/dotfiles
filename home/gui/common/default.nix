@@ -41,7 +41,6 @@ in
     kdePackages.kwallet
     libnotify
     playerctl
-    ueberzugpp
     wl-clipboard-rs
     # app
     kdePackages.ark

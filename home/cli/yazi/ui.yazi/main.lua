@@ -30,18 +30,19 @@ local function status_seq()
 			percent = math.floor((cursor + 1) * 100 / length)
 		end
 
+		local percent_str = ""
 		if percent == 0 then
-			percent = " Top "
+			percent_str = " Top "
 		elseif percent == 100 then
-			percent = " Bot "
+			percent_str = " Bot "
 		else
-			percent = string.format(" %2d%% ", percent)
+			percent_str = string.format(" %2d%% ", percent)
 		end
 
 		local style = self:style()
 		return ui.Line({
 			ui.Span(" "):fg(style.alt.bg),
-			ui.Span(percent):style(style.alt),
+			ui.Span(percent_str):style(style.alt),
 		})
 	end
 
