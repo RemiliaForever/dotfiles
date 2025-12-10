@@ -1,4 +1,4 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 
 {
   programs.yazi = {
@@ -20,6 +20,17 @@
         {
           on = "<C-c>";
           run = "plugin clipboard";
+          desc = "Copy selected files to system clipboard";
+        }
+        {
+          on = "p";
+          run = "plugin smart-paste";
+          desc = "Paste into the hovered directory or CWD";
+        }
+        {
+          on = [ "R" ];
+          run = "plugin recycle-bin";
+          desc = "Open recycle bin";
         }
       ];
     };
@@ -36,11 +47,18 @@
       };
     };
     initLua = ''
+      require("full-border"):setup{
+          type = ui.Border.ROUNDED,
+      }
       require("ui"):setup()
+      require("recycle-bin"):setup()
     '';
     plugins = {
-      clipboard = ./clipboard.yazi;
+      full-border = pkgs.yaziPlugins.full-border;
       ui = ./ui.yazi;
+      clipboard = pkgs.yaziPlugins.wl-clipboard;
+      smart-paste = pkgs.yaziPlugins.smart-paste;
+      recycle-bin = pkgs.yaziPlugins.recycle-bin;
     };
   };
 
