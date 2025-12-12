@@ -5,7 +5,6 @@
     ./display.nix
     ./audio.nix
     ./bluetooth.nix
-    # ./input_method.nix
     ./printing.nix
   ];
 
@@ -23,7 +22,7 @@
   # portals and keyring
   programs.niri = {
     enable = true;
-    useNautilus = false;
+    # useNautilus = false;
   };
   security.pam.services.login.enableGnomeKeyring = true;
   environment.pathsToLink = [

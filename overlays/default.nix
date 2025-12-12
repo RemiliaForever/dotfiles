@@ -8,5 +8,6 @@
     })
     (import ./patch/pr.nix)
     (import ./patch/rollback.nix)
+    (import ./patch/aagl.nix)
   ];
 }

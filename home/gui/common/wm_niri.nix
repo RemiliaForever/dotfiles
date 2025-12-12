@@ -59,8 +59,9 @@
       // Input
 
       input {
+          disable-power-key-handling
           warp-mouse-to-focus
-          focus-follows-mouse
+          focus-follows-mouse max-scroll-amount="25%"
       }
 
       // Outputs
@@ -74,7 +75,7 @@
           Mod+Shift+Slash     { show-hotkey-overlay; }
           Mod+Tab             repeat=false { toggle-overview; }
           Mod+R               repeat=false { spawn "wofi"; }
-          Mod+Return          repeat=false { spawn "alacritty"; }
+          Mod+Return          repeat=false { spawn "wezterm" "start" "--always-new-process"; }
           Mod+W               repeat=false { close-window; }
 
           // Media keys
@@ -186,7 +187,7 @@
 
       prefer-no-csd
 
-      screenshot-path null
+      screenshot-path "~/Pictures/ScreenShot/%Y-%m-%d_%H-%M-%S.png"
 
       hotkey-overlay {
           skip-at-startup
@@ -215,14 +216,12 @@
       }
 
       window-rule {
-          match app-id=r#"\.exe$"# // game
+          match app-id="starrail.exe"
+          match app-id="yuanshen.exe"
+          match app-id="steam_app_3228590"
           match title="wiliwili"
 
           open-fullscreen true
-      }
-
-      window-rule {
-          match app-id="starrail.exe"
 
           force-render true
           force-render-fps 60

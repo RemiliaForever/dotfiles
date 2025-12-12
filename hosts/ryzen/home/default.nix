@@ -130,7 +130,7 @@
 
             open-on-workspace "fun"
             default-column-width {
-                proportion 0.6
+                proportion 0.75
             }
         }
 

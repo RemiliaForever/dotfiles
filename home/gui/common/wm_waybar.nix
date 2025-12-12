@@ -6,6 +6,7 @@
 }:
 
 let
+  term = "wezterm start --always-new-process";
   waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
     import base64
     import imaplib
@@ -190,7 +191,7 @@ let
       restart-interval = 60;
       format = "{}";
       tooltip-format = "koumakan";
-      on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/koumakan'";
+      on-click = "${term} -e neomutt -e 'source ~/.config/neomutt/koumakan'";
       on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
     };
     "custom/email#nexa4ai" = {
@@ -198,7 +199,7 @@ let
       restart-interval = 60;
       format = "{}";
       tooltip-format = "nexa4ai";
-      on-click = "alacritty -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
+      on-click = "${term} -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
       on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon nexa4ai'";
     };
     network = {
@@ -218,13 +219,13 @@ let
       tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
       tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
       interval = 1;
-      on-click = "alacritty -e nmtui";
+      on-click = "${term} -e nmtui";
     };
     wireplumber = {
       format = " {volume}%";
       format-muted = "<span color='red'> {volume}%</span>";
       on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-      on-click-right = "alacritty -e pulsemixer";
+      on-click-right = "${term} -e pulsemixer";
     };
     temperature = {
       format = " {temperatureC}°C";
@@ -243,7 +244,7 @@ let
         swap: {swapPercentage}%
         {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
       interval = 3;
-      on-click = "alacritty -e htop";
+      on-click = "${term} -e htop";
     };
     battery = {
       format = "{icon}󱐥";

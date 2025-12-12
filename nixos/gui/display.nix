@@ -14,8 +14,8 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      symbola
-      berkeley-mono
+      noto-fonts-color-emoji
+
       nerd-fonts.victor-mono
     ];
     fontconfig = {
@@ -24,10 +24,9 @@
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
-          "Symbola"
+          "Noto Color Emoji"
         ];
         monospace = [
-          "Berkeley Mono Variable"
           "VictorMono Nerd Font"
           "Noto Sans Mono CJK SC"
           "Symbola"

@@ -24,7 +24,8 @@ in
     ./wm_waybar.nix
     ./wm_wofi.nix
 
-    ./alacritty.nix
+    # ./alacritty.nix
+    ./wezterm
     ./firefox.nix
     ./mpv.nix
     ./zathura.nix

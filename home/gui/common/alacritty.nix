@@ -1,9 +1,7 @@
 { ... }:
 
 {
-  # fix TERM
-  programs.zsh.shellAliases.ssh = "TERM=xterm-256color ssh";
-
+  programs.wezterm.enable = true;
   programs.alacritty = {
     enable = true;
     settings = {
