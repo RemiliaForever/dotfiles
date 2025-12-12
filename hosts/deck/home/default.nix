@@ -14,16 +14,9 @@
   programs.niri.extraConfig = ''
     // Host Specific Configurations
 
-    // Inputs
-
-    input {
-
-    }
-
     // Outputs
 
     output "eDP-1" {
-        transform 90
     }
   '';
   programs.waybar = {
