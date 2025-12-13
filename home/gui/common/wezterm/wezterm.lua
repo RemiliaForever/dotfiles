@@ -2,7 +2,8 @@ local wezterm = require("wezterm")
 
 local config = wezterm.config_builder()
 
-config.front_end = "WebGpu" -- 'OpenGL'
+config.front_end = "OpenGL"
+-- config.front_end = "WebGpu"
 config.use_ime = true
 config.enable_tab_bar = false
 config.window_close_confirmation = "NeverPrompt"
@@ -47,6 +48,22 @@ config.keys = {
 		action = wezterm.action_callback(function(_, pane)
 			os.execute("wezterm start --always-new-process --cwd " .. pane:get_current_working_dir().file_path .. " &")
 		end),
+	},
+	{
+		key = "Space",
+		mods = "CTRL|ALT",
+		action = wezterm.action.QuickSelectArgs({
+			label = "open url",
+			patterns = {
+				"https?://\\S+",
+			},
+			skip_action_on_paste = true,
+			action = wezterm.action_callback(function(window, pane)
+				local url = window:get_selection_text_for_pane(pane)
+				wezterm.log_info("opening: " .. url)
+				wezterm.open_with(url)
+			end),
+		}),
 	},
 	{
 		key = "u",

@@ -103,16 +103,12 @@
             match app-id="^firefox$"
 
             open-on-workspace "browser"
-            default-column-width {}
         }
 
         window-rule {
             match app-id="^Bytedance-lark$"
 
             open-on-workspace "lark"
-            default-column-width {
-                proportion 1.0
-            }
         }
 
         window-rule {
@@ -137,6 +133,7 @@
         window-rule {
             match app-id="^wechat$"
             match app-id=r#"^org\.telegram\.desktop$"#
+
             block-out-from "screencast"
         }
       '';

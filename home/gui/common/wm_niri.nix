@@ -216,6 +216,16 @@
       }
 
       window-rule {
+          match app-id="^firefox$"
+          match app-id="^Bytedance-lark$"
+          match app-id="Remmina$"
+
+          default-column-width {
+              proportion 1.0
+          }
+      }
+
+      window-rule {
           match app-id="starrail.exe"
           match app-id="yuanshen.exe"
           match app-id="steam_app_3228590"

@@ -78,7 +78,7 @@
         format = "[$ssh_symbol]($style)";
         # style = "";
         ssh_only = true;
-        ssh_symbol = "🌐";
+        ssh_symbol = "⚝ ";
       };
       directory = {
         format = "[$path]($style)[$read_only]($read_only_style)";
