@@ -28,7 +28,7 @@
 
   config.programs.waybar =
     let
-      term = "wezterm start --always-new-process";
+      term = "alacritty -e";
       waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
         import base64
         import imaplib

@@ -44,7 +44,7 @@ vim.cmd("syntax enable")
 util.map("q:", "<nop>")
 util.nmap("<C-h>", "<cmd>nohl<cr>")
 
--- vim.g.clipboard = "osc52"
+vim.g.clipboard = "osc52"
 util.vmap("<C-c>", '"+y')
 util.vmap("<C-x>", '"+c')
 util.nmap("<C-p>", '"+p')

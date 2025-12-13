@@ -29,7 +29,7 @@
         monospace = [
           "VictorMono Nerd Font"
           "Noto Sans Mono CJK SC"
-          "Symbola"
+          "Noto Color Emoji"
         ];
       };
     };

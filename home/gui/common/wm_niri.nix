@@ -75,7 +75,7 @@
           Mod+Shift+Slash     { show-hotkey-overlay; }
           Mod+Tab             repeat=false { toggle-overview; }
           Mod+R               repeat=false { spawn "wofi"; }
-          Mod+Return          repeat=false { spawn "wezterm" "start" "--always-new-process"; }
+          Mod+Return          repeat=false { spawn "alacritty"; }
           Mod+W               repeat=false { close-window; }
 
           // Media keys
@@ -102,8 +102,8 @@
           Mod+WheelScrollUp       { focus-column-left; }
           Mod+WheelScrollDown     { focus-column-right; }
           Mod+Shift+H             { move-column-left; }
-          Mod+Shift+J             { move-window-down; }
-          Mod+Shift+K             { move-window-up; }
+          Mod+Shift+J             { move-window-down-or-to-workspace-down; }
+          Mod+Shift+K             { move-window-up-or-to-workspace-up; }
           Mod+Shift+L             { move-column-right; }
           Mod+O                   { focus-monitor-next; }
           Mod+Shift+O             { move-column-to-monitor-next; }

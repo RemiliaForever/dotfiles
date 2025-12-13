@@ -14,9 +14,9 @@
         dynamic_padding = true;
       };
       font = {
-        size = 12;
-        offset.x = -2;
-        offset.y = -2;
+        size = 11.5;
+        offset.x = 0;
+        offset.y = -6;
         normal.style = "Light";
       };
       colors = {
