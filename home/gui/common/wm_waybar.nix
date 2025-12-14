@@ -28,7 +28,7 @@
 
   config.programs.waybar =
     let
-      term = "alacritty -e";
+      term = "alacritty";
       waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
         import base64
         import imaplib
