@@ -187,6 +187,7 @@
           format = "{title:.48}";
         };
         mpris = {
+          player = "spotify";
           format = "{status_icon} - {title} - {position}/{length}";
           tooltip-format = ''
             {player}
