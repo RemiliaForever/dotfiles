@@ -32,7 +32,7 @@
         ''
           # auto start
           if [[ "$(tty)" == "/dev/tty1" ]] ; then
-              exec niri-session -l
+              exec env RUST_LOG=niri=info niri-session -l
           fi
         ''
       else

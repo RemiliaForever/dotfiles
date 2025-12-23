@@ -107,6 +107,7 @@
 
         window-rule {
             match app-id="^Bytedance-lark$"
+            match title="^Lark会议$"
 
             open-on-workspace "lark"
         }
