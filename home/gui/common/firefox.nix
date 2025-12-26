@@ -10,7 +10,7 @@
     profiles.remilia = {
       search = {
         force = true;
-        default = "ddg";
+        default = "google";
         engines = {
           nixos-packages = {
             name = "NixOS Packages";
