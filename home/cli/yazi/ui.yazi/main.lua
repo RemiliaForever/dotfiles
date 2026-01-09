@@ -1,63 +1,3 @@
-local function status_seq()
-	function Status:mode()
-		local mode = tostring(self._tab.mode):sub(1, 3):upper()
-
-		local style = self:style()
-		return ui.Line({
-			ui.Span(" " .. mode .. " "):style(style.main),
-			ui.Span(""):fg(style.main.bg):bg(style.alt.bg),
-		})
-	end
-
-	function Status:size()
-		local h = self._current.hovered
-		if not h then
-			return ""
-		end
-
-		local style = self:style()
-		return ui.Line({
-			ui.Span(" " .. ya.readable_size(h:size() or h.cha.len) .. " "):style(style.alt),
-			ui.Span(""):fg(style.alt.bg),
-		})
-	end
-
-	function Status:percent()
-		local percent = 0
-		local cursor = self._current.cursor
-		local length = #self._current.files
-		if cursor ~= 0 and length ~= 0 then
-			percent = math.floor((cursor + 1) * 100 / length)
-		end
-
-		local percent_str = ""
-		if percent == 0 then
-			percent_str = " Top "
-		elseif percent == 100 then
-			percent_str = " Bot "
-		else
-			percent_str = string.format(" %2d%% ", percent)
-		end
-
-		local style = self:style()
-		return ui.Line({
-			ui.Span(" "):fg(style.alt.bg),
-			ui.Span(percent_str):style(style.alt),
-		})
-	end
-
-	function Status:position()
-		local cursor = self._current.cursor
-		local length = #self._current.files
-
-		local style = self:style()
-		return ui.Line({
-			ui.Span(""):fg(style.main.bg):bg(style.alt.bg),
-			ui.Span(string.format(" %2d/%-2d ", math.min(cursor + 1, length), length)):style(style.main),
-		})
-	end
-end
-
 local function status()
 	Status:children_add(function()
 		local h = cx.active.current.hovered
@@ -85,7 +25,6 @@ end
 
 return {
 	setup = function()
-		status_seq()
 		status()
 		hostname()
 	end,

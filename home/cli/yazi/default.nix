@@ -35,6 +35,12 @@
       ];
     };
     theme = {
+      indicator = {
+        padding = {
+          open = "";
+          close = "";
+        };
+      };
       tabs = {
         sep_inner = {
           open = "";
@@ -43,6 +49,16 @@
         sep_outer = {
           open = "";
           close = "";
+        };
+      };
+      status = {
+        sep_left = {
+          open = "";
+          close = "";
+        };
+        sep_right = {
+          open = "";
+          close = "";
         };
       };
     };
