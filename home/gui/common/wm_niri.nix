@@ -137,6 +137,7 @@
           // Mod+S                     { expand-column-to-available-width; }
           Mod+Ctrl+S                { maximize-window-to-edges;}
           Mod+M                     { fullscreen-window; }
+          Mod+Ctrl+M                { toggle-windowed-fullscreen; }
           Mod+MouseMiddle           { fullscreen-window; }
           Mod+C                     { center-column; }
           // Mod+Ctrl+C                { center-visible-columns; }

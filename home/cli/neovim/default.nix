@@ -19,7 +19,7 @@
       clang-tools
       go
       ruff
-      nixfmt-rfc-style
+      nixfmt
       nodePackages.prettier
       rustfmt
       stylua

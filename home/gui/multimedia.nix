@@ -1,7 +1,7 @@
 {
   pkgs,
   cudaSupport ? false,
-  hipSupport ? false,
+  rocmSupport ? false,
   ...
 }:
 
@@ -9,7 +9,7 @@
   home.packages = with pkgs; [
     #bambu-studio # NOTE: user login notwork
     (blender.override {
-      inherit cudaSupport hipSupport;
+      inherit cudaSupport rocmSupport;
     })
     darktable
     kdePackages.kdenlive
