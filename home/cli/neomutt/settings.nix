@@ -31,7 +31,7 @@
       sidebar_visible = "yes";
       sidebar_width = "30";
       sidebar_format = "'%B%?F? [%F]?%* %?N?%N/?%S'";
-      sidebar_sort_method = "path";
+      sidebar_sort = "path";
 
       # mailcap
       mailcap_path = "'${config.xdg.configHome}/neomutt/mailcap'";

@@ -94,6 +94,7 @@
           };
           "Groups/0/Items/0"."Name" = "keyboard-us";
           "Groups/0/Items/1"."Name" = "pinyin";
+          "Groups/0/Items/2"."Name" = "shuangpin";
         };
         globalOptions = {
           "Hotkey/TriggerKeys"."0" = "Control+space";
@@ -107,9 +108,11 @@
           };
           cloudpinyin.globalSection = {
             MinimumPinyinLength = "2";
-            Backend = "Baidu";
+            Backend = "Google";
           };
           pinyin.globalSection = {
+            ShuangpinProfile = "Xiaohe";
+            PinyinInPreedit = "True";
             PageSize = "7";
             CloudPinyinEnabled = "True";
             CloudPinyinIndex = "3";
