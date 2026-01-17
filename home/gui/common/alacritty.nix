@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh.shellAliases = {
@@ -6,6 +6,7 @@
   };
   programs.alacritty = {
     enable = true;
+    package = pkgs.alacritty-graphics;
     settings = {
       general = {
         live_config_reload = true;

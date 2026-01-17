@@ -54,7 +54,7 @@
             mode "3840x2160@119.88"
             scale 2.0
             position x=0 y=0
-            variable-refresh-rate
+            // variable-refresh-rate
             focus-at-startup
         }
 
