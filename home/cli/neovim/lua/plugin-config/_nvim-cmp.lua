@@ -2,6 +2,7 @@ local cmp = require("cmp")
 local luasnip = require("luasnip")
 
 vim.opt.completeopt = "menu,menuone,noselect"
+vim.o.winborder = "rounded"
 
 local kind_icons = {
 	Text = " ",
@@ -29,7 +30,6 @@ local kind_icons = {
 	Event = " ",
 	Operator = "󰆕 ",
 	TypeParameter = "󰅲 ",
-
 	Copilot = " ",
 }
 
@@ -79,6 +79,9 @@ cmp.setup({
 			vim_item.kind = string.format("%s [%s]", kind_icons[vim_item.kind], entry.source.name)
 			return vim_item
 		end,
+	},
+	view = {
+		entries = { name = "custom", selection_order = "near_cursor" },
 	},
 })
 
