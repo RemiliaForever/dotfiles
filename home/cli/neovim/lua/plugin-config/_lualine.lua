@@ -14,7 +14,7 @@ lualine.setup({
 			"filename",
 			{ "diagnostics", update_in_insert = true },
 		},
-		lualine_c = { "lsp_progress" },
+		lualine_c = { "lsp_status" },
 		lualine_x = { "filetype" },
 		lualine_y = { "progress" },
 		lualine_z = { "location" },

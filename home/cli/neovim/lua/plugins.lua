@@ -18,7 +18,6 @@ require("lazy").setup({
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		event = "VeryLazy",
 		config = function()
 			require("plugin-config/_nvim-treesitter")
 		end,
@@ -83,7 +82,6 @@ require("lazy").setup({
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-			"arkav/lualine-lsp-progress",
 		},
 		event = "VeryLazy",
 		config = function()

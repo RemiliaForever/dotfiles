@@ -15,6 +15,7 @@
       gnumake
       cmake
       nodejs
+      tree-sitter
       # conform
       clang-tools
       go
