@@ -134,8 +134,8 @@
           Mod+Period                { expel-window-from-column; }
           Mod+P                     { switch-preset-column-width; }
           Mod+S                     { maximize-column; }
-          // Mod+S                     { expand-column-to-available-width; }
-          Mod+Ctrl+S                { maximize-window-to-edges;}
+          Mod+Ctrl+S               { expand-column-to-available-width; }
+          Mod+Shift+S                { maximize-window-to-edges;}
           Mod+M                     { fullscreen-window; }
           Mod+Ctrl+M                { toggle-windowed-fullscreen; }
           Mod+MouseMiddle           { fullscreen-window; }

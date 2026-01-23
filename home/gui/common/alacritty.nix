@@ -63,10 +63,20 @@
         {
           key = "D";
           mods = "Control|Alt";
-          action = "ScrollPageDown";
+          action = "ScrollHalfPageDown";
         }
         {
           key = "U";
+          mods = "Control|Alt";
+          action = "ScrollHalfPageUp";
+        }
+        {
+          key = "F";
+          mods = "Control|Alt";
+          action = "ScrollPageDown";
+        }
+        {
+          key = "B";
           mods = "Control|Alt";
           action = "ScrollPageUp";
         }
