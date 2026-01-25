@@ -1,6 +1,15 @@
 final: prev:
 
 {
+  # https://github.com/NixOS/nixpkgs/pull/481597
+  github-copilot-cli = prev.github-copilot-cli.overrideAttrs (oldAttrs: rec {
+    version = "0.0.384";
+    src = final.fetchzip {
+      url = "https://registry.npmjs.org/@github/copilot/-/copilot-${version}.tgz";
+      hash = "sha256-UI85wx9So28J0QCXP1z2zCXmA54L1dzd0Msr9NLs0CY=";
+    };
+  });
+
   # apply patch to niri
   niri = prev.niri.overrideAttrs (oldAttrs: {
     patches =
