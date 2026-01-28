@@ -10,19 +10,12 @@
     ../../../nixos/gui
     ../../../nixos/opt/aagl.nix
     ../../../nixos/opt/spotify.nix
+    ../../../nixos/opt/steamos.nix
     ../../../nixos/opt/virtualisation.nix
     ../../../nixos/opt/wireshark.nix
   ];
 
   services.zerotierone.enableNexa = true;
-
-  # steam
-  programs.steam = {
-    enable = true;
-    protontricks.enable = true;
-  };
-
-  #services.flatpak.enable = true;
 
   # build machine keep more generations
   programs.nh.clean = {

@@ -1,5 +1,6 @@
 {
   jovian,
+  pkgs,
   config,
   lib,
   ...
@@ -8,6 +9,10 @@
 {
   imports = [
     jovian.nixosModules.jovian
+  ];
+
+  environment.systemPackages = with pkgs; [
+    adwsteamgtk
   ];
 
   programs.steam = {

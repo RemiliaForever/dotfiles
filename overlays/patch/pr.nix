@@ -1,13 +1,14 @@
 final: prev:
 
 {
-  # https://github.com/NixOS/nixpkgs/pull/481597
+  # upgrade to latest version
   github-copilot-cli = prev.github-copilot-cli.overrideAttrs (oldAttrs: rec {
-    version = "0.0.384";
+    version = "0.0.396";
     src = final.fetchzip {
       url = "https://registry.npmjs.org/@github/copilot/-/copilot-${version}.tgz";
-      hash = "sha256-UI85wx9So28J0QCXP1z2zCXmA54L1dzd0Msr9NLs0CY=";
+      hash = "sha256-jlGD4PoZi4eIeE5q94Gmw9Z/Sk5SJPbZrg50OtNyavQ=";
     };
+    nativeInstallCheckInputs = [ ];
   });
 
   # apply patch to niri
