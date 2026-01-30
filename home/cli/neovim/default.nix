@@ -53,6 +53,6 @@
   };
 
   programs.zsh.shellAliases = {
-    ai = "nvim -c 'lua vim.defer_fn(function()require(\"plugin-config/_avante\").zen_mode()end, 100)'";
+    ai = "copilot";
   };
 }

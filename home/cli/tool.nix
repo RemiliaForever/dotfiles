@@ -10,10 +10,23 @@
     github-copilot-cli
   ];
 
+  home.file.".copilot/copilot-instructions.md".text = ''
+    # Response
+    Always respond in chinese.
+    Prefer using markdown format to respond.
+  '';
+
   programs.zsh.initContent = ''
     # comma
     export COMMA_PICKER="fzf"
   '';
+  programs.fzf = {
+    enable = true;
+    changeDirWidgetCommand = null;
+    changeDirWidgetOptions = [ ];
+    defaultCommand = null;
+    defaultOptions = [ ];
+  };
 
   programs = {
     bat = {
@@ -37,14 +50,6 @@
 
     ripgrep = {
       enable = true;
-    };
-
-    fzf = {
-      enable = true;
-      changeDirWidgetCommand = null;
-      changeDirWidgetOptions = [ ];
-      defaultCommand = null;
-      defaultOptions = [ ];
     };
 
     direnv = {

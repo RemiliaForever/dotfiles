@@ -68,16 +68,3 @@ require("avante").setup({
 		},
 	},
 })
-
-M = {}
-function M.zen_mode()
-	vim.opt.fillchars = "vert: ,stl: ,stlnc: "
-	require("avante.api").ask({
-		show_logo = true,
-		new_chat = true,
-		sidebar_post_render = function(sidebar)
-			sidebar:toggle_code_window()
-		end,
-	})
-end
-return M
