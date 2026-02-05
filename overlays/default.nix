@@ -7,8 +7,8 @@
       berkeley-mono = final.callPackage ./app/berkeley-mono { };
       kotlin-lsp = final.callPackage ./app/kotlin-lsp { }; # https://github.com/NixOS/nixpkgs/pull/482845
     })
+    (import ./patch/update.nix)
     (import ./patch/pr.nix)
-    (import ./patch/rollback.nix)
     (import ./patch/aagl.nix)
   ];
 }
