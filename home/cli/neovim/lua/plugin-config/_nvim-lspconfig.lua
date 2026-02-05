@@ -109,7 +109,7 @@ local lsps = {
 	"html",
 	--"jdtls",
 	"jsonls",
-	--"kotlin_language_server",
+	"kotlin_lsp",
 	"lua_ls",
 	"neocmake",
 	"nixd",

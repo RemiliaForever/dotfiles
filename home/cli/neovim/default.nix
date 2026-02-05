@@ -11,34 +11,35 @@
       # tool
       xxd
       # plugin
+      cmake
       gcc
       gnumake
-      cmake
       nodejs
       tree-sitter
       # conform
       clang-tools
       go
-      ruff
       nixfmt
       nodePackages.prettier
+      ruff
       rustfmt
       stylua
       taplo
       # lsp
+      basedpyright
       bash-language-server
-      vscode-langservers-extracted
-      dockerfile-language-server
       docker-compose-language-service
+      dockerfile-language-server
       gopls
+      kotlin-lsp
+      lua-language-server
       neocmakelsp
       nixd
       openscad-lsp
-      basedpyright
-      typescript-language-server
-      lua-language-server
       rust-analyzer
       texlab
+      typescript-language-server
+      vscode-langservers-extracted
       vue-language-server
     ];
   };
