@@ -14,5 +14,5 @@
 
   home.file.".face".source = ./remilia.jpg;
 
-  home.stateVersion = "24.11";
+  home.stateVersion = "26.05";
 }

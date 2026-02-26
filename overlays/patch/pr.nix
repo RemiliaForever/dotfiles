@@ -18,4 +18,16 @@ final: prev:
         })
       ];
   });
+
+  # https://github.com/NixOS/nixpkgs/issues/493431
+  lager = prev.lager.override {
+    boost = final.boost188;
+  };
+
+  # https://github.com/NixOS/nixpkgs/pull/493813
+  openscad = prev.openscad.overrideAttrs (oldAttrs: {
+    patches = oldAttrs.patches or [ ] ++ [
+      ./openscad/boost-1.89.patch
+    ];
+  });
 }

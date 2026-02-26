@@ -12,7 +12,6 @@
         user = {
           name = "RemiliaForever";
           email = "remilia@koumakan.cc";
-          signingKey = "remilia@koumakan.cc";
         };
 
         alias = {
@@ -70,6 +69,11 @@
         "TODO.md"
         "avante.md"
       ];
+
+      signing = {
+        format = "openpgp";
+        key = "remilia@koumakan.cc";
+      };
     };
 
     delta = {
