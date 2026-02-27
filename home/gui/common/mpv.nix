@@ -6,7 +6,7 @@ let
     shaders: text:
     glsl_prefix
     + " set \""
-    + builtins.concatStringsSep ":" (builtins.map (s: "${pkgs.anime4k}/Anime4K_${s}.glsl") shaders)
+    + builtins.concatStringsSep ":" (map (s: "${pkgs.anime4k}/Anime4K_${s}.glsl") shaders)
     + "\"; show-text \"${text}\"";
 in
 {
@@ -18,6 +18,7 @@ in
       sub-auto = "fuzzy";
       save-position-on-quit = true;
       osc = "no";
+      border = "no";
     };
     extraInput = ''
       CTRL+0 ${glsl_prefix} clr ""; show-text "GLSL shaders cleared";

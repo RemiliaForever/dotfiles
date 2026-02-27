@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
@@ -161,6 +161,15 @@
           };
         };
       };
+    };
+
+    mpv.config = lib.mkForce {
+      hwdec = "nvdec";
+      vo = "gpu";
+      sub-auto = "fuzzy";
+      save-position-on-quit = true;
+      osc = "no";
+      border = "no";
     };
   };
 }
