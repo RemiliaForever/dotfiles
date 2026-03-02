@@ -19,5 +19,10 @@
         HostName koumakan.cc
         Port 121
         User root
+
+    Host aliyun
+        HostName 106.14.245.151
+        Port 121
+        User root
   '';
 }

@@ -15,7 +15,10 @@
     ../../../nixos/opt/wireshark.nix
   ];
 
-  services.zerotierone.enableNexa = true;
+  services.zerotierone = {
+    # enableNexa = true;
+    enableGame = true;
+  };
 
   # build machine keep more generations
   programs.nh.clean = {
