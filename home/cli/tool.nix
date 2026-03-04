@@ -10,16 +10,26 @@
     github-copilot-cli
   ];
 
-  home.file.".copilot/copilot-instructions.md".text = ''
-    # Response
-    Always respond in chinese.
-    Prefer using markdown format to respond.
-  '';
-
+  # comma
   programs.zsh.initContent = ''
     # comma
     export COMMA_PICKER="fzf"
   '';
+
+  # copilot
+  home.file.".copilot/copilot-instructions.md".text = ''
+    # Response
+    Always respond in chinese.
+    Prefer using markdown format to respond.
+
+    # Command Use
+    OS is NixOS, comma is installed, so you can use comma like `comma <command>` if command is not installed, for example `comma prettyping` to use prettyping command.
+  '';
+  programs.zsh.shellAliases = {
+    a = "copilot --model gpt-4.1";
+    aa = "copilot --model claude-sonnet-4.6";
+  };
+
   programs.fzf = {
     enable = true;
     changeDirWidgetCommand = null;

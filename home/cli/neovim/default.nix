@@ -52,8 +52,4 @@
     "nvim/lua".source = ./lua;
     "nvim/init.lua".source = ./init.lua;
   };
-
-  programs.zsh.shellAliases = {
-    ai = "copilot";
-  };
 }
