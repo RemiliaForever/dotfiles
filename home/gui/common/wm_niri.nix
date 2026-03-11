@@ -233,7 +233,6 @@
       window-rule {
           match app-id="starrail.exe"
           match app-id="yuanshen.exe"
-          match app-id="steam_app_"
           match title="wiliwili"
 
           open-fullscreen true

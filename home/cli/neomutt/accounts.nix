@@ -45,8 +45,8 @@
       };
 
       folders = {
+        sent = "Inbox";
         drafts = "[Gmail]/Drafts";
-        sent = "[Gmail]/Sent Mail";
         trash = "[Gmail]/Trash";
       };
       neomutt = {
