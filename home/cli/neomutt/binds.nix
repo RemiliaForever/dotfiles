@@ -65,6 +65,14 @@
         key = "\\Cp";
         action = "sidebar-toggle-visible";
       }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "@";
+        action = "imap-fetch-mail";
+      }
     ];
     macros = [
       {
