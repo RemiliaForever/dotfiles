@@ -15,10 +15,7 @@
 
   qt = {
     enable = true;
-    style = {
-      name = "breeze";
-      package = pkgs.kdePackages.breeze;
-    };
+    style.name = "breeze";
   };
 
   home.pointerCursor = {
