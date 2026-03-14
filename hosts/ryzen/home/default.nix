@@ -15,11 +15,9 @@
   home.packages = with pkgs; [
     baidupcs-go
 
-    lark
     qq
     wechat
     discord
-    slack
     telegram-desktop
   ];
 
@@ -75,9 +73,6 @@
         workspace "browser" {
             open-on-output "DP-1"
         }
-        workspace "lark" {
-            open-on-output "DP-1"
-        }
         workspace "chat" {
             open-on-output "DP-1"
         }
@@ -89,7 +84,6 @@
         // Miscellaneous
 
         spawn-sh-at-startup "sleep 3 && firefox"
-        spawn-sh-at-startup "sleep 3 && bytedance-lark"
         spawn-sh-at-startup "sleep 3 && wechat"
         spawn-sh-at-startup "sleep 5 && qq"
         spawn-sh-at-startup "sleep 7 && discord"
@@ -103,13 +97,6 @@
             match app-id="^firefox$"
 
             open-on-workspace "browser"
-        }
-
-        window-rule {
-            match app-id="^Bytedance-lark$"
-            match title="^Lark会议$"
-
-            open-on-workspace "lark"
         }
 
         window-rule {
@@ -155,7 +142,6 @@
         mainBar = {
           "niri/workspaces".format-icons = {
             "browser" = "󰈹 ";
-            "lark" = "󱗆 ";
             "chat" = " ";
             "fun" = " ";
           };

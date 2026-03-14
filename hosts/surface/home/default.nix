@@ -8,7 +8,6 @@
   ];
 
   home.packages = with pkgs; [
-    lark
     wechat
     qq
     discord

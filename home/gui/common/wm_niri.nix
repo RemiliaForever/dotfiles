@@ -215,14 +215,12 @@
           match app-id="polkit-gnome-authentication-agent-1"
           match title="图片"
           match title="视频"
-          match title="Lark会议"
 
           open-floating true
       }
 
       window-rule {
           match app-id="^firefox$"
-          match app-id="^Bytedance-lark$"
           match app-id="^Remmina$"
 
           default-column-width {
