@@ -65,22 +65,6 @@ in
       "172.18.10.2" = [ "console" ];
       "172.18.10.3" = [ "surface" ];
       "172.18.10.4" = [ "deck" ];
-      "172.18.10.5" = [ "win" ];
     };
-    # // (
-    #   if config.services.zerotierone.enableNexa then
-    #     {
-    #       #"172.18.20.1" = [ "nexa-amd" ];
-    #       "172.18.20.2" = [ "nexa-intel" ];
-    #       "172.18.20.3" = [ "nexa-xelite" ];
-    #       "172.18.20.4" = [ "nexa-amd" ];
-    #       "172.18.20.5" = [ "nexa-lcfc" ];
-    #       "172.18.20.6" = [ "nexa-xelite2" ];
-    #
-    #       "44.251.240.140" = [ "nexa-mac" ];
-    #     }
-    #   else
-    #     { }
-    # );
   };
 }
