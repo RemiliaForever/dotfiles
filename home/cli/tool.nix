@@ -26,8 +26,8 @@
     OS is NixOS, comma is installed, so you can use comma like `comma <command>` if command is not installed, for example `comma prettyping` to use prettyping command.
   '';
   programs.zsh.shellAliases = {
-    a = "copilot --model gpt-4.1";
-    aa = "copilot --model claude-sonnet-4.6";
+    a = "copilot --model gpt-5-mini";
+    aa = "copilot --model gpt-5.4";
   };
 
   programs.fzf = {
