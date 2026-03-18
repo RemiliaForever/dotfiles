@@ -17,7 +17,7 @@
 
     qq
     wechat
-    discord
+    slack
     telegram-desktop
   ];
 
@@ -86,7 +86,7 @@
         spawn-sh-at-startup "sleep 3 && firefox"
         spawn-sh-at-startup "sleep 3 && wechat"
         spawn-sh-at-startup "sleep 5 && qq"
-        spawn-sh-at-startup "sleep 7 && discord"
+        spawn-sh-at-startup "sleep 7 && slack"
         spawn-sh-at-startup "sleep 10 && Telegram"
         spawn-sh-at-startup "sleep 8 && spotify"
         spawn-sh-at-startup "sleep 8 && steam"
@@ -103,7 +103,7 @@
             match app-id="^wechat$"
             match app-id="^QQ$"
             match app-id=r#"^org\.telegram\.desktop$"#
-            match app-id="^discord$"
+            match app-id="^Slack$"
 
             open-on-workspace "chat"
         }

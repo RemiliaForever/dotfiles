@@ -2,6 +2,7 @@
 {
   virtualisation = {
     libvirtd.enable = true;
+    libvirtd.qemu.swtpm.enable = true;
     spiceUSBRedirection.enable = true;
 
     docker = {

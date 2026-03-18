@@ -10,7 +10,7 @@
   home.packages = with pkgs; [
     wechat
     qq
-    discord
+    slack
 
     krita # from multimedia
   ];
