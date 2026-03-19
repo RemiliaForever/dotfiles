@@ -25,17 +25,7 @@
     starship.settings.hostname.style = "yellow";
 
     zsh = {
-      initContent = ''
-        # sync
-        sb() {
-            cmd="rsync -v -aP --mkpath --delete $PWD/$1/ ''${S_HOST:-win}:''${PWD#/home/remilia/}/$1/ --exclude .git --exclude .cache --exclude .direnv ''${@:2}"
-            echo "$cmd"
-            eval "$cmd"
-        }
-        s() {
-            sb "$1" ''${@:2} --exclude build
-        }
-      '';
+      initContent = "";
       shellAliases = {
         hrst = "systemctl --user restart waybar wpaperd";
       };

@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     grub2-themes = {
       url = "github:vinceliuice/grub2-themes";
@@ -62,6 +63,7 @@
           specialArgs = {
             host = host;
             nixos-hardware = inputs.nixos-hardware;
+            nixos-wsl = inputs.nixos-wsl;
             jovian = inputs.jovian;
             aagl = inputs.aagl;
             spicetify = inputs.spicetify;
