@@ -10,9 +10,17 @@
   wsl.enable = true;
   wsl.defaultUser = "remilia";
 
-  # override
+  # override boot loader
   boot.loader.grub.enable = lib.mkForce false;
   boot.loader.grub2-theme.enable = lib.mkForce false;
+
+  # override sops
+  system.activationScripts.setupSecrets = lib.mkForce "";
+  sops.secrets."hashedPassword".neededForUsers = lib.mkForce false;
+  users.users.remilia.hashedPasswordFile = lib.mkForce null;
+  users.allowNoPasswordLogin = lib.mkForce true;
+
+  # override services
   services.sing-box.enable = lib.mkForce false;
   services.zerotierone.enable = lib.mkForce false;
   services.openssh.enable = lib.mkForce false;
