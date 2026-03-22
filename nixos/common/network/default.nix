@@ -24,5 +24,10 @@
         HostName 106.14.245.151
         Port 121
         User root
+
+    Host qcom
+        Hostname localhost
+        Port 13322
+        User hongzhic
   '';
 }
