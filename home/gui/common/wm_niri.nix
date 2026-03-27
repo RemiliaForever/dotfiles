@@ -221,7 +221,6 @@
 
       window-rule {
           match app-id="^firefox$"
-          match app-id="^Remmina$"
 
           default-column-width {
               proportion 1.0

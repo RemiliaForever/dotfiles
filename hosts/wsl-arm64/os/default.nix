@@ -5,6 +5,7 @@
     nixos-wsl.nixosModules.default
 
     ../../../nixos/common
+    ../../../nixos/opt/virtualisation.nix
   ];
 
   wsl.enable = true;

@@ -13,6 +13,7 @@
   systemd.user.services.sops-nix.Service.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/true";
 
   # cli
+  programs.starship.settings.format = lib.mkForce "\\(wsl\\) $directory $character";
 
   home.sessionVariables = {
   };
