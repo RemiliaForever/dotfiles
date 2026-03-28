@@ -25,4 +25,9 @@
   services.sing-box.enable = lib.mkForce false;
   services.zerotierone.enable = lib.mkForce false;
   services.openssh.enable = lib.mkForce false;
+
+  # override virtualisation
+  virtualisation.libvirtd.enable = lib.mkForce false;
+  virtualisation.spiceUSBRedirection.enable = lib.mkForce false;
+  boot.binfmt.emulatedSystems = lib.mkForce [ ];
 }
