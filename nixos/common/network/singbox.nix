@@ -172,6 +172,11 @@ in
         auto_detect_interface = true;
         default_domain_resolver = "dns-hosts";
       };
+      experimental.clash_api = {
+        external_controller = "127.0.0.1:9090";
+        external_ui = "/var/lib/sing-box/ui";
+        external_ui_download_url = "https://github.com/haishanh/yacd/archive/gh-pages.zip";
+      };
     };
   };
 }

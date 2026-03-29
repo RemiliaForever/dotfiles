@@ -25,11 +25,7 @@ require("avante").setup({
 	provider = "copilot",
 	providers = {
 		copilot = {
-			model = "gpt-5.1-mini",
-			context_window = 64000, -- Number of tokens to send to the model for context
-			extra_request_body = {
-				max_tokens = 20480,
-			},
+			model = "gpt-5-mini",
 		},
 		deepseek = {
 			__inherited_from = "openai",
