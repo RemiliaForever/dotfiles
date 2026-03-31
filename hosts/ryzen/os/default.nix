@@ -16,7 +16,6 @@
   ];
 
   services.zerotierone = {
-    # enableNexa = true;
     enableGame = true;
   };
 

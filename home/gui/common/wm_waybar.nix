@@ -149,7 +149,6 @@
               [
                 "tray"
                 "custom/email#koumakan"
-                "custom/email#nexa4ai"
               ]
             else
               [ ]
@@ -216,14 +215,6 @@
           tooltip-format = "koumakan";
           on-click = "${term} -e neomutt -e 'source ~/.config/neomutt/koumakan'";
           on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
-        };
-        "custom/email#nexa4ai" = {
-          exec = "${waybar-email-daemon}/bin/waybar-email-daemon nexa4ai imap.gmail.com INBOX";
-          restart-interval = 60;
-          format = "{}";
-          tooltip-format = "nexa4ai";
-          on-click = "${term} -e neomutt -e 'source ~/.config/neomutt/nexa4ai'";
-          on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon nexa4ai'";
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";

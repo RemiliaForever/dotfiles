@@ -8,8 +8,6 @@
     secrets = {
       "mail/koumakan/address" = { };
       "mail/koumakan/password" = { };
-      "mail/nexa4ai/address" = { };
-      "mail/nexa4ai/password" = { };
       "api/deepseek" = { };
       "api/anthropic" = { };
       "api/google_api_key" = { };
