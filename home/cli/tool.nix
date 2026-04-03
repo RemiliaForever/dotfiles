@@ -24,7 +24,7 @@
 
     # Command Use
     OS is NixOS, comma is installed.
-    You should call command with comma, like `comma <command>`, for example `comma prettyping` to use prettyping command.
+    You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
   '';
   programs.zsh.shellAliases = {
     a = "copilot --model gpt-5-mini";
