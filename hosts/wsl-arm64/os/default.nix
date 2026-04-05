@@ -6,6 +6,8 @@
 
     ../../../nixos/common
     ../../../nixos/opt/virtualisation.nix
+
+    ./patch.nix
   ];
 
   wsl.enable = true;
@@ -29,5 +31,5 @@
   # override virtualisation
   virtualisation.libvirtd.enable = lib.mkForce false;
   virtualisation.spiceUSBRedirection.enable = lib.mkForce false;
-  boot.binfmt.emulatedSystems = lib.mkForce [ ];
+  boot.binfmt.emulatedSystems = lib.mkForce [ "x86_64-linux" ];
 }

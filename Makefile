@@ -1,8 +1,10 @@
+HOST ?= $@
+
 remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
 
 param = . -a $(args)
-param_remote = -H koumakan-$@ --target-host $@ -o build/$@ $(param)
+param_remote = -H koumakan-$@ --target-host $(HOST) -o build/$@ $(param)
 
 local:
 	nh os switch $(param)
@@ -15,11 +17,16 @@ $(remotes):
 
 
 renice:
-	for i in $$(seq 1 32); do sudo renice 20 --pid `ps --no-heading -o tid --user nixbld$$i`; done
-	sleep 5
-	for i in $$(seq 1 32); do sudo renice 20 --pid `ps --no-heading -o tid --user nixbld$$i`; done
-	sleep 5
-	for i in $$(seq 1 32); do sudo renice 20 --pid `ps --no-heading -o tid --user nixbld$$i`; done
+	for r in $$(seq 1 3); do \
+		for j in $$(seq 1 32); do \
+			pids=$$(ps -u nixbld$$j -o pid=); \
+			if [ -n "$$pids" ]; then \
+				echo "Renicing nixbld$$j: $$pids"; \
+				sudo renice -n 19 -p $$pids || true; \
+			fi; \
+		done; \
+		sleep 5; \
+	done
 
 update:
 	nix flake update
