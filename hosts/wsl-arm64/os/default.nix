@@ -12,6 +12,7 @@
 
   wsl.enable = true;
   wsl.defaultUser = "remilia";
+  wsl.interop.register = true;
 
   # override boot loader
   boot.loader.grub.enable = lib.mkForce false;
