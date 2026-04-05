@@ -25,9 +25,13 @@
         Port 121
         User root
 
-    Host qcom
+    Host qcw
         Hostname localhost
         Port 13322
         User hongzhic
+
+    Host qcl
+        Hostname localhost
+        Port 13422
   '';
 }
