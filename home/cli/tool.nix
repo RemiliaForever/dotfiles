@@ -27,7 +27,7 @@
     You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
   '';
   programs.zsh.shellAliases = {
-    a = "copilot --model gpt-5-mini";
+    a = "copilot --model gpt-5-mini --reasoning-effort low";
     aa = "copilot --model gpt-5.4";
   };
 
