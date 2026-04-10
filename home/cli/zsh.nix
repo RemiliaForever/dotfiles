@@ -33,6 +33,15 @@
       ct = "ctest --test-dir build";
     };
 
+    # extra completion without install it
+    completionInit = ''
+      fpath=(
+        ${pkgs.bazel}/share/zsh/site-functions
+        $fpath
+      )
+      autoload -U compinit && compinit
+    '';
+
     initContent = ''
       # keybind
       WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
