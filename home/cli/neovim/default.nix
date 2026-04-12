@@ -20,7 +20,7 @@
       clang-tools
       go
       nixfmt
-      nodePackages.prettier
+      prettier
       ruff
       rustfmt
       stylua

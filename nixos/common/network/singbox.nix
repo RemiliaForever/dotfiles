@@ -76,6 +76,11 @@ in
         rules = [
           {
             action = "route";
+            domain_suffix = [ "singbox.koumakan.cc" ];
+            server = "dns-hosts";
+          }
+          {
+            action = "route";
             rule_set = "geosite-cn";
             domain_suffix = direct_domain;
             server = "dns-local";
