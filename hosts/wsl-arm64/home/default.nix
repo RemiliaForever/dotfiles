@@ -13,7 +13,14 @@
   systemd.user.services.sops-nix.Service.ExecStart = lib.mkForce "${pkgs.coreutils}/bin/true";
 
   # cli
-  programs.starship.settings.format = lib.mkForce "\\(wsl\\) $directory $character";
+  programs = {
+    starship.settings.format = lib.mkForce "\\(wsl\\) $directory $character";
+    gh.gitCredentialHelper.hosts = [
+      "github.com"
+      "gist.github.com"
+      "github.qualcomm.com"
+    ];
+  };
 
   home.sessionVariables = {
   };
