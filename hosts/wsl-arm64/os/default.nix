@@ -32,5 +32,7 @@
   # override virtualisation
   virtualisation.libvirtd.enable = lib.mkForce false;
   virtualisation.spiceUSBRedirection.enable = lib.mkForce false;
-  boot.binfmt.emulatedSystems = lib.mkForce [ "x86_64-linux" ];
+  boot.binfmt.emulatedSystems = lib.mkForce [
+    # "x86_64-linux"
+  ];
 }
