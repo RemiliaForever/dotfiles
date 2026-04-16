@@ -25,6 +25,17 @@
     extraArgs = lib.mkForce "--keep 5 --keep-since 4w";
   };
 
+  services.sing-box.settings = {
+    inbounds = [
+      {
+        tag = "http-in";
+        type = "http";
+        listen = "0.0.0.0";
+        listen_port = 1080;
+      }
+    ];
+  };
+
   # deluge
   services.deluge = {
     enable = true;

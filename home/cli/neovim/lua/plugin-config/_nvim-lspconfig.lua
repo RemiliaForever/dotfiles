@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.lsp.buf.format({ async = true })
 		end, opts)
 
-		vim.keymap.set("n", "[s", "<cmd>LspRestart<cr><cmd>Copilot enable<cr>", opts)
+		vim.keymap.set("n", "[s", "<cmd>lsp restart<cr><cmd>Copilot enable<cr>", opts)
 		vim.keymap.set("n", "[wa", vim.lsp.buf.add_workspace_folder, opts)
 		vim.keymap.set("n", "[wr", vim.lsp.buf.remove_workspace_folder, opts)
 		vim.keymap.set("n", "[wl", function()

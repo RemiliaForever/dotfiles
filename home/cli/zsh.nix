@@ -28,15 +28,12 @@
 
       latexmk = "latexmk -interaction=nonstopmode";
       ncdu = "ncdu --color=dark";
-
-      cb = "nice -n 19 cmake --build build -j";
-      ct = "ctest --test-dir build";
     };
 
     # extra completion without install it
     completionInit = ''
       fpath=(
-        ${pkgs.bazel}/share/zsh/site-functions
+        ${pkgs.bazel_9}/share/zsh/site-functions
         $fpath
       )
       autoload -U compinit && compinit

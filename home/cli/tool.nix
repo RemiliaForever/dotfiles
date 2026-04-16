@@ -1,5 +1,16 @@
 { pkgs, lib, ... }:
 
+let
+  prompt = pkgs.writeText "prompt" ''
+    # Response
+    Always respond in chinese.
+    Prefer using markdown format to respond.
+
+    # Command Use
+    OS is NixOS, comma is installed.
+    You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
+  '';
+in
 {
   home.packages = with pkgs; [
     comma
@@ -8,6 +19,7 @@
     xh
 
     github-copilot-cli
+    claude-code
   ];
 
   # comma
@@ -17,18 +29,15 @@
   '';
 
   # copilot
-  home.file.".copilot/copilot-instructions.md".text = ''
-    # Response
-    Always respond in chinese.
-    Prefer using markdown format to respond.
-
-    # Command Use
-    OS is NixOS, comma is installed.
-    You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
-  '';
+  home.file = {
+    ".copilot/copilot-instructions.md".source = prompt;
+    ".claude/CLAUDE.md".source = prompt;
+  };
   programs.zsh.shellAliases = {
-    a = "copilot --model gpt-5-mini --reasoning-effort low";
-    aa = "copilot --model gpt-5.4";
+    c = "copilot --model gpt-5-mini --reasoning-effort low";
+    cc = "copilot --model gpt-5.4 --autopilot";
+    a = "claude --model us.anthropic.claude-sonnet-4-6 --effort low";
+    aa = "claude --model 'us.anthropic.claude-opus-4-6-v1[1m]'";
   };
 
   programs.fzf = {

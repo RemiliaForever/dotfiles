@@ -33,5 +33,9 @@
     Host qcl
         Hostname localhost
         Port 13422
+
+    Host qcs
+        Hostname 192.168.0.11
+        User remil
   '';
 }
