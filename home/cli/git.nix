@@ -196,6 +196,35 @@
       };
     };
 
-    gh.enable = true;
+    # gh
+    gh = {
+      enable = true;
+      gitCredentialHelper.enable = false;
+    };
+    git.settings.credential.helper =
+      let
+        helper = pkgs.writeShellScript "git-credential-helper" ''
+          test "$1" = get || exit 0
+          while IFS='=' read -r key value; do
+            case "$key" in
+              protocol) protocol="$value" ;;
+              host) host="$value" ;;
+            esac
+          done
+          if [ "$host" = "github.com" ]; then
+            user=$(git config user.name)
+            case "$user" in
+              "Hongzhi Chen") account="hongzhic_QCOM" ;;
+              *) account="$user" ;;
+            esac
+            token=$(gh auth token --user "$account" --hostname "$host")
+          else
+            token=$(gh auth token --hostname "$host")
+          fi
+          printf 'protocol=%s\nhost=%s\nusername=%s\npassword=%s\n' \
+            "$protocol" "$host" "$account" "$token"
+        '';
+      in
+      "!${helper}";
   };
 }
