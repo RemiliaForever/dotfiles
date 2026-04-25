@@ -39,6 +39,17 @@
                   libsForQt5.qt5.qtquickcontrols2
                 ]);
 
+              extraPreBwrapCmds = ''
+                # fix ssh_config
+                mkdir -p /tmp/fhs-ssh
+                awk '/^[[:space:]]*[Ii]nclude[[:space:]]/{for(i=2;i<=NF;i++)system("cat "$i" 2>/dev/null");next}1' \
+                  /etc/ssh/ssh_config > /tmp/fhs-ssh/ssh_config
+                chmod 600 /tmp/fhs-ssh/ssh_config
+              '';
+              extraBwrapArgs = [
+                "--bind /tmp/fhs-ssh /etc/ssh"
+              ];
+
               profile = ''
                 export SHELL=${pkgs.zsh}/bin/zsh
               '';
