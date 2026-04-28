@@ -24,15 +24,15 @@
       excludeFile = pkgs.writeText "rsync-exclude" ''
         .git
         .DS_Store
-        .direnv
-        .shell
+        .direnv/
+        .shell/
         .envrc
-        node_modules
-        dist*
-        build*
-        pkg*
-        target*
-        bazel-*
+        node_modules/
+        dist*/
+        build*/
+        pkg*/
+        target*/
+        bazel-*/
       '';
     in
     "rsync -avP --delete --exclude-from=${excludeFile}";
