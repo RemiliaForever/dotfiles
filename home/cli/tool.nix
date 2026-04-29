@@ -48,6 +48,9 @@
         # Command Use
         OS is NixOS, comma is installed.
         You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
+
+        # Coding
+        When you write code, you should be cautious about adding comments; unless the logic is complex, names are insufficient to express functionality, or there are requirements for inputs/outputs, comments should be kept as concise as possible.
       '';
     in
     {

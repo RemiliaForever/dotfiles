@@ -46,6 +46,7 @@
         push.default = "simple";
         merge.autoStash = true;
         rebase.autoStash = true;
+        receive.denyCurrentBranch = "warn";
         diff = {
           tool = "nvimdiff";
           colorMoved = "default";
