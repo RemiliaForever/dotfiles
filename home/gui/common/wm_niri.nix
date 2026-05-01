@@ -233,9 +233,6 @@
           match title="wiliwili"
 
           open-fullscreen true
-
-          force-render true
-          force-render-fps 60
       }
 
       // Layer Rules

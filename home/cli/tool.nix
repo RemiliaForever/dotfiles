@@ -9,7 +9,7 @@
     rsync
 
     github-copilot-cli
-    claude-code-bin
+    claude-code
   ];
 
   # comma
