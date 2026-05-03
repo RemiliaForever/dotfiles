@@ -42,15 +42,27 @@
     let
       prompt = pkgs.writeText "prompt" ''
         # Response
-        Always respond in chinese.
-        Prefer using markdown format to respond.
 
-        # Command Use
-        OS is NixOS, comma is installed.
-        You should call command with comma if command is not installed, like `comma <command>`, for example `comma prettyping` to use prettyping command.
+        Write in English by default. Always reply to the user in Chinese. Keep proper nouns in their original form.
+
+        Format replies to the user as markdown.
+
+        # Workflow
+
+        OS is NixOS with `comma` installed. If a command is not available, invoke it via `comma <command>` (e.g. `comma prettyping`).
+
+        Before reporting a task complete, clean up incidental artifacts you generated (e.g. `nix build`'s `result` symlink, scratch files under `/tmp`). Leave alone pre-existing files, normal build outputs (`target/`, `dist/`), and outputs the user asked to keep. Ask if unsure.
 
         # Coding
-        When you write code, you should be cautious about adding comments; unless the logic is complex, names are insufficient to express functionality, or there are requirements for inputs/outputs, comments should be kept as concise as possible.
+
+        Keep code simple. Avoid unnecessary abstractions, speculative parameters, or indirection — add them only when there's a concrete need, not a hypothetical one.
+
+        Be cautious about adding comments. Only add them when:
+        - the logic is complex and names alone are not enough
+        - there are non-obvious input/output constraints
+        - there is a hidden invariant or a workaround worth flagging
+
+        Keep comments concise.
       '';
     in
     {
