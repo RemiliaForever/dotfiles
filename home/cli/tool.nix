@@ -49,9 +49,11 @@
 
         # Workflow
 
-        OS is NixOS with `comma` installed. If a command is not available, invoke it via `comma <command>` (e.g. `comma prettyping`).
+        OS is NixOS with `comma` installed. If a command is not available, invoke it via `comma <command>` (e.g. `comma prettyping`) or `nix shell nixpkgs#<package> -c <command>`.
 
         Before reporting a task complete, clean up incidental artifacts you generated (e.g. `nix build`'s `result` symlink, scratch files under `/tmp`). Leave alone pre-existing files, normal build outputs (`target/`, `dist/`), and outputs the user asked to keep. Ask if unsure.
+
+        Do not self-attribute (e.g. `Co-Authored-By: Claude`, "Generated with Claude Code") in commits, PRs, or files.
 
         # Coding
 
