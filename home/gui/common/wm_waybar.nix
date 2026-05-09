@@ -29,6 +29,19 @@
   config.programs.waybar =
     let
       term = "alacritty";
+      waybar-pass-otp = pkgs.writers.writeBashBin "waybar-pass-otp" ''
+        pass=${pkgs.pass-nodmenu.withExtensions (ext: [ ext.pass-otp ])}/bin/pass
+        store="''${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+        selected=$(find "$store" -type f -name '*.gpg' -printf '%P\n' \
+          | sed 's/\.gpg$//' | ${pkgs.wofi}/bin/wofi --dmenu --prompt "pass otp") || exit 0
+        if otp=$($pass otp "$selected" 2>/dev/null); then
+          printf '%s' "$otp" | ${pkgs.wl-clipboard-rs}/bin/wl-copy
+          ${pkgs.libnotify}/bin/notify-send "pass otp" "copied: $selected"
+        else
+          ${pkgs.libnotify}/bin/notify-send "pass otp" "failed: $selected"
+        fi
+      '';
+
       waybar-email-daemon = pkgs.writers.writePython3Bin "waybar-email-daemon" { } ''
         import base64
         import imaplib
@@ -305,6 +318,7 @@
             on-scroll-up = "shift_down";
             on-scroll-down = "shift_up";
           };
+          on-click = "${waybar-pass-otp}/bin/waybar-pass-otp";
         };
       };
     in
