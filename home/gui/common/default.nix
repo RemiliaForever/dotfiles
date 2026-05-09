@@ -38,7 +38,6 @@ in
     kdePackages.ffmpegthumbs
     # tool
     brightnessctl
-    kdePackages.kwallet
     libnotify
     playerctl
     wl-clipboard-rs

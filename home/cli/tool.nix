@@ -7,16 +7,17 @@
     trash-cli
     xh
     rsync
+    (pass-nodmenu.withExtensions (ext: [ ext.pass-otp ]))
+    saml2aws
 
     github-copilot-cli
     claude-code
   ];
 
-  # comma
-  programs.zsh.initContent = ''
-    # comma
-    export COMMA_PICKER="fzf"
-  '';
+  home.sessionVariables = {
+    COMMA_PICKER = "fzf";
+    SAML2AWS_KEYRING_BACKEND = "secret-service";
+  };
 
   # rsync
   programs.zsh.shellAliases.rsync =
