@@ -54,6 +54,8 @@
 
         Before reporting a task complete, clean up incidental artifacts you generated (e.g. `nix build`'s `result` symlink, scratch files under `/tmp`). Leave alone pre-existing files, normal build outputs (`target/`, `dist/`), and outputs the user asked to keep. Ask if unsure.
 
+        When creating a new git worktree, place it under `.claude/worktrees/` at the project root (e.g. `.claude/worktrees/<name>`).
+
         Do not self-attribute (e.g. `Co-Authored-By: Claude`, "Generated with Claude Code") in commits, PRs, or files.
 
         # Coding
@@ -75,7 +77,7 @@
   programs.zsh.shellAliases = {
     c = "copilot --model gpt-5-mini --reasoning-effort low";
     cc = "copilot --model gpt-5.4 --autopilot";
-    a = "claude --model us.anthropic.claude-sonnet-4-6 --effort low --allow-dangerously-skip-permissions";
+    a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
     aa = "claude --model 'us.anthropic.claude-opus-4-7[1m]' --effort high --permission-mode bypassPermissions";
   };
 
