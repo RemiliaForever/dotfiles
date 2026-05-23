@@ -16,7 +16,7 @@
 
   home.sessionVariables = {
     COMMA_PICKER = "fzf";
-    SAML2AWS_KEYRING_BACKEND = "secret-service";
+    SAML2AWS_KEYRING_BACKEND = "pass";
   };
 
   # rsync

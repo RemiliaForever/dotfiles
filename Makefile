@@ -13,8 +13,7 @@ wsl:
 	sudo nix run .#nixosConfigurations.koumakan-wsl-arm64.config.system.build.tarballBuilder
 
 $(remotes):
-	nh os switch $(param_remote)
-
+	nh os boot $(param_remote)
 
 renice:
 	for r in $$(seq 1 3); do \

@@ -30,12 +30,13 @@
         Port 13322
         User hongzhic
 
-    Host qcl
-        Hostname localhost
-        Port 13422
-
     Host qcs
         Hostname 192.168.0.11
         User remil
+
+    Host qcl
+        ProxyJump qcs
+        Hostname 127.0.0.1
+        Port 1022
   '';
 }

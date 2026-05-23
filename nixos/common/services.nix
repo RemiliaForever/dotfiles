@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  systemd.coredump.extraConfig = "Storage=none";
+  systemd.coredump.settings.Coredump.Storage = "none";
 
   services = {
     openssh.enable = true;
