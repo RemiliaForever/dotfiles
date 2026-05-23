@@ -93,7 +93,7 @@
             match app-id="^wechat$"
             match app-id="^QQ$"
             match app-id=r#"^org\.telegram\.desktop$"#
-            match app-id="^Slack$"
+            match app-id="^slack$"
 
             open-on-workspace "chat"
         }

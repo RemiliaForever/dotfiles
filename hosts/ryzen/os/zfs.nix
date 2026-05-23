@@ -8,7 +8,10 @@
     extraModprobeConfig = ''
       options zfs zfs_arc_max=68719476736 zfs_dirty_data_max=8589934592 l2arc_headroom=0
     '';
-    zfs.extraPools = [ "ryzen" ];
+    zfs = {
+      forceImportRoot = false;
+      extraPools = [ "ryzen" ];
+    };
   };
 
   networking.hostId = "2da72dea";
