@@ -78,7 +78,7 @@
     c = "copilot --model gpt-5-mini --reasoning-effort low";
     cc = "copilot --model gpt-5.4 --autopilot";
     a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
-    aa = "claude --model 'us.anthropic.claude-opus-4-7[1m]' --effort high --permission-mode bypassPermissions";
+    aa = "claude --model 'us.anthropic.claude-opus-4-8[1m]' --effort max --permission-mode bypassPermissions";
   };
 
   programs.fzf = {

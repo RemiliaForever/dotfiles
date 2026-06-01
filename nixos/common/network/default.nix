@@ -33,6 +33,7 @@
     Host qcs
         Hostname 192.168.0.11
         User remil
+        LogLevel ERROR
 
     Host qcl
         ProxyJump qcs
