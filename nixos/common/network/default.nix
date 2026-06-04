@@ -29,6 +29,13 @@
         Hostname localhost
         Port 13322
         User hongzhic
+        LogLevel ERROR
+
+    Host qcwl
+        ProxyJump qcw
+        Hostname 127.0.0.1
+        Port 1022
+        HostKeyAlias qcwl
 
     Host qcs
         Hostname 192.168.0.11
@@ -39,5 +46,6 @@
         ProxyJump qcs
         Hostname 127.0.0.1
         Port 1022
+        HostKeyAlias qcl
   '';
 }

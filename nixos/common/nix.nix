@@ -42,4 +42,6 @@
     clean.dates = "daily";
     clean.extraArgs = "--keep 5 --keep-since 1w";
   };
+
+  programs.nix-ld.enable = true;
 }
