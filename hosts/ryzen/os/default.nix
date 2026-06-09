@@ -43,4 +43,5 @@
     group = "users";
     dataDir = "/home/remilia";
   };
+  systemd.services.deluged.serviceConfig.MemoryHigh = "1G";
 }
