@@ -13,6 +13,7 @@
       "audio"
       "input"
       "dialout"
+      "kvm"
     ];
     shell = pkgs.zsh;
   };
