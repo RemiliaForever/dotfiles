@@ -23,17 +23,18 @@
   programs.zsh.shellAliases.rsync =
     let
       excludeFile = pkgs.writeText "rsync-exclude" ''
-        .git
-        .DS_Store
+        .ccache/
         .direnv/
         .shell/
-        .envrc
-        node_modules/
-        dist*/
+        bazel-*/
         build*/
+        dist*/
+        node_modules/
         pkg*/
         target*/
-        bazel-*/
+        .envrc
+        .git
+        .DS_Store
       '';
     in
     "rsync -avP --delete --exclude-from=${excludeFile}";
