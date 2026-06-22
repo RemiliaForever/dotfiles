@@ -13,7 +13,7 @@ final: prev:
   });
 
   claude-code = prev.claude-code.overrideAttrs (oldAttrs: rec {
-    version = "2.1.159";
+    version = "2.1.175";
     src =
       let
         inherit (final.stdenv.hostPlatform.node) platform arch;
@@ -22,10 +22,10 @@ final: prev:
         url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/${version}/${platform}-${arch}/claude";
         sha256 =
           {
-            "darwin-arm64" = "5adf7b4d349f743d669cd5adf2ce76dbb5e146d8ab99b3a63c5aef2ef15595f9";
-            "darwin-x64" = "ababd6c754f7e028ab5e4bd74d4d6d3a802cafb57c9d41ea9178e897655c17bd";
-            "linux-arm64" = "befd054f02c17e4b61a6a92b30286a147ca8c5c1bbf38b91dd14cba6fbb1e07d";
-            "linux-x64" = "e2126caf00ed3ec09371a29947658c7e9b31185256b2ac5728263bd95f7e3541";
+            "darwin-arm64" = "6b75bf132c866ed409bf913c318ca32011e73ffb12d3cd67ecc37bc4ee9ec65d";
+            "darwin-x64" = "3770f2cb42d3f776e62a59aa16230843dc7b8422b36be9b1532e02a6e92e7fa8";
+            "linux-arm64" = "360f1f6f43ec26d9bb6e20e487bf44b753d9b8407e89e74bfeeb79707399f435";
+            "linux-x64" = "4fc72fa6090c9a03f1850e1b1ccb3d6806bf802b67e3cb9dc5f2ced4b7ed5ca1";
           }
           ."${platform}-${arch}";
       };
