@@ -20,7 +20,10 @@
               pv
             ];
 
-            shellHook = '''';
+            # NIX_LD = pkgs.stdenv.cc.bintools.dynamicLinker;
+            # NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [];
+
+            shellHook = "";
           };
         }
       );

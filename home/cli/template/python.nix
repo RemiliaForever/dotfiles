@@ -1,7 +1,4 @@
-# if [ "$FHS_CURRENT" != "$1" ]; then
-#     export FHS_CURRENT=$1
-#     use flake path:"$PWD/.shell"
-# fi
+# use flake path:"$PWD/.shell"
 
 {
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -18,32 +15,28 @@
           };
         in
         {
-          default =
-            (pkgs.buildFHSEnv {
-              name = "FHS";
-              targetPkgs =
-                pkgs:
-                (with pkgs; [
-                  python3
-                  uv
-                ]);
+          default = pkgs.mkShell rec {
+            packages = with pkgs; [
+              python3
+              uv
+            ];
 
-              profile = ''
-                export SHELL=${pkgs.zsh}/bin/zsh
-                export UV_PYTHON_DOWNLOADS="never"
+            ROOT_DIR = "/path/to/your/project";
+            PATH = "$ROOT_DIR/.venv/bin:$PATH";
+            UV_PYTHON_DOWNLOADS = "never";
+            LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath packages;
 
-                pushd /path/to/project
-                if [ ! -d ".venv" ]; then
-                    uv venv .venv
-                fi
-                unset PYTHONPATH
-                uv sync
-                source .venv/bin/activate
-                popd
-              '';
-
-              runScript = "zsh";
-            }).env;
+            shellHook = ''
+              pushd $ROOT_DIR
+              if [ ! -d ".venv" ]; then
+                  uv venv .venv
+              fi
+              unset PYTHONPATH
+              uv sync
+              source .venv/bin/activate
+              popd
+            '';
+          };
         }
       );
     };
