@@ -8,7 +8,6 @@
     xh
     rsync
     (pass-nodmenu.withExtensions (ext: [ ext.pass-otp ]))
-    saml2aws
 
     github-copilot-cli
     claude-code
@@ -16,7 +15,6 @@
 
   home.sessionVariables = {
     COMMA_PICKER = "fzf";
-    SAML2AWS_KEYRING_BACKEND = "pass";
   };
 
   # rsync
