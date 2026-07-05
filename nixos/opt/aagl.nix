@@ -11,5 +11,7 @@
     anime-game-launcher.enable = true;
     honkers-railway-launcher.enable = true;
     sleepy-launcher.enable = true;
+
+    anime-games-launcher.enable = true;
   };
 }

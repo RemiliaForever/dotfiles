@@ -19,7 +19,9 @@
   };
   programs.zsh.enable = true;
 
-  systemd.user.extraConfig = "DefaultLimitNOFILE=65535";
+  systemd.user.settings.Manager = {
+    DefaultLimitNOFILE = 65535;
+  };
 
   security.sudo.wheelNeedsPassword = false;
 }

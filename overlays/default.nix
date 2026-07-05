@@ -10,4 +10,8 @@
     (import ./patch/pr.nix)
     (import ./patch/aagl.nix)
   ];
+
+  nixpkgs.config.permittedInsecurePackages = [
+    "pnpm-10.34.0"
+  ];
 }

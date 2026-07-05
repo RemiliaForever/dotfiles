@@ -48,8 +48,8 @@
       hostnames = fs.toList (fs.fileFilter (file: file.name == "hostname.nix") ./hosts);
 
       hosts = builtins.listToAttrs (
-        builtins.map (hostname: {
-          name = builtins.baseNameOf (builtins.dirOf hostname);
+        map (hostname: {
+          name = baseNameOf (dirOf hostname);
           value = import /${hostname};
         }) hostnames
       );

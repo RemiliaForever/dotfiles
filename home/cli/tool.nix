@@ -82,10 +82,6 @@
 
   programs.fzf = {
     enable = true;
-    changeDirWidgetCommand = null;
-    changeDirWidgetOptions = [ ];
-    defaultCommand = null;
-    defaultOptions = [ ];
   };
 
   programs = {

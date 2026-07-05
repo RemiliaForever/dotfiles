@@ -11,4 +11,6 @@ in
   anime-game-launcher = prev.anime-game-launcher.override override;
   honkers-railway-launcher = prev.honkers-railway-launcher.override override;
   sleepy-launcher = prev.sleepy-launcher.override override;
+
+  animes-game-launcher = prev.animes-game-launcher.override override;
 }

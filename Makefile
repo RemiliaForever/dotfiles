@@ -9,6 +9,9 @@ param_remote = -H koumakan-$@ --target-host $(HOST) -o build/$@ $(param)
 local:
 	nh os switch $(param)
 
+boot:
+	nh os boot $(param)
+
 wsl:
 	sudo nix run .#nixosConfigurations.koumakan-wsl-arm64.config.system.build.tarballBuilder
 
