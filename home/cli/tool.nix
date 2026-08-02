@@ -77,7 +77,7 @@
     c = "copilot --model gpt-5-mini --reasoning-effort low";
     cc = "copilot --model gpt-5.4 --autopilot";
     a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
-    aa = "claude --model 'us.anthropic.claude-opus-4-8[1m]' --effort high --permission-mode bypassPermissions";
+    aa = "claude --model 'us.anthropic.claude-opus-4-8' --effort high --permission-mode bypassPermissions";
   };
 
   programs.fzf = {
@@ -141,7 +141,7 @@
         format = "[$ssh_symbol]($style)";
         # style = "";
         ssh_only = true;
-        ssh_symbol = "⚝ ";
+        ssh_symbol = "☆ ";
       };
       directory = {
         format = "[$path]($style)[$read_only]($read_only_style)";
@@ -151,7 +151,7 @@
         fish_style_pwd_dir_length = 1;
       };
       jobs = {
-        symbol = "✦ ";
+        symbol = "♦ ";
       };
       cmd_duration = {
         format = "[ $duration]($style) ";

@@ -19,16 +19,12 @@
     binfmt = true;
   };
 
-  # portals and keyring
-  programs.niri = {
-    enable = true;
-    # useNautilus = false;
-  };
+  # portals and keyring, and loc
+  programs.niri.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
   environment.pathsToLink = [
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];
-  # lock
   security.pam.services.swaylock = { };
 }

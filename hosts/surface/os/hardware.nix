@@ -9,12 +9,6 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
-    kernelPatches = [
-      {
-        name = "rust-zunstable-options";
-        patch = ./rust-target-fix.patch;
-      }
-    ];
     initrd.availableKernelModules = [
       "xhci_pci"
       "nvme"

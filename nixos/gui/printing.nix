@@ -12,5 +12,7 @@
     };
   };
 
+  programs.system-config-printer.enable = true;
+
   environment.systemPackages = with pkgs; [ hplip ];
 }

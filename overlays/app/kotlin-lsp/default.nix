@@ -19,14 +19,14 @@ let
   };
 
   hash = selectSystem {
-    "x86_64-linux" = "sha256-kxV0AU1TEi7U84boc45V7GJNJzo3uWraHEo6q4Kd9+U=";
-    "aarch64-linux" = "sha256-SZ/Fjoe5fz8G7OBiTlRKwD8cVLrc674ptSYJ9T/XWic=";
+    "x86_64-linux" = "sha256-6ajvuyFga+IL9eLqNKCPphdVwRxpFQSQOy54HGreEqw=";
+    "aarch64-linux" = "sha256-769vjedw4TzXPak1U/ls69sIiyow3057VGAADBCXtsU=";
   };
 in
 
 stdenv.mkDerivation (finalAttrs: rec {
   pname = "kotlin-lsp";
-  version = "262.8190.0";
+  version = "262.9593.0";
 
   src = fetchzip {
     url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}${suffix}.tar.gz";

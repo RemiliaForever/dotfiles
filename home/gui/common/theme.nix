@@ -19,6 +19,7 @@
   };
 
   home.pointerCursor = {
+    enable = true;
     name = "capitaine-cursors-white";
     package = pkgs.capitaine-cursors;
     size = 24;
