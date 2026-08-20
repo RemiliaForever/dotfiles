@@ -17,7 +17,10 @@
     ];
     shell = pkgs.zsh;
   };
-  programs.zsh.enable = true;
+  programs.zsh = {
+    enable = true;
+    enableGlobalCompInit = false;
+  };
 
   systemd.user.settings.Manager = {
     DefaultLimitNOFILE = 65535;
