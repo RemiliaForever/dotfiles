@@ -6,7 +6,8 @@
     ../../../home/cli
   ];
 
-  home.packages = [
+  home.packages = with pkgs; [
+    rtun
   ];
 
   # override sops

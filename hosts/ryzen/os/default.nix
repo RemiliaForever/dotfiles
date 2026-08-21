@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -44,4 +44,18 @@
     dataDir = "/home/remilia";
   };
   systemd.services.deluged.serviceConfig.MemoryHigh = "1G";
+
+  # rtun server: accepts client tunnels and binds the ports they request
+  systemd.services.rtun = {
+    description = "rtun reverse tunnel server";
+    wantedBy = [ "multi-user.target" ];
+    wants = [ "network-online.target" ];
+    after = [ "network-online.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.rtun}/bin/rtun server --listen 0.0.0.0:13300";
+      Restart = "always";
+      RestartSec = 5;
+      DynamicUser = true;
+    };
+  };
 }
