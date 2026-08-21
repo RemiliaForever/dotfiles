@@ -67,6 +67,18 @@
         - there is a hidden invariant or a workaround worth flagging
 
         Keep comments concise.
+
+        # Temp Files
+
+        Use `/tmp/claude/:sessionid:/:filename:` for temporary files. Avoid creating temp files in the project directory unless necessary.
+
+        Clean up temp files after job completion. If a temp file is needed for debugging, ask the user to save it explicitly.
+
+        For windows machines, put files in home directories (e.g. `~/tmp/:sessionid:/`) instead of `/tmp/claude/:sessionid:/`.
+
+        # Background Tasks
+
+        Use task to run background tasks. Avoid using `nohup` or `setsid` make background task not tracable.
       '';
     in
     {
@@ -74,10 +86,9 @@
       ".claude/CLAUDE.md".source = prompt;
     };
   programs.zsh.shellAliases = {
-    c = "copilot --model gpt-5-mini --reasoning-effort low";
-    cc = "copilot --model gpt-5.4 --autopilot";
+    cc = "copilot --model auto --autopilot";
     a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
-    aa = "claude --model 'us.anthropic.claude-opus-4-8' --effort high --permission-mode bypassPermissions";
+    aa = "claude --model 'opus[1m]' --effort high --permission-mode bypassPermissions";
   };
 
   programs.fzf = {

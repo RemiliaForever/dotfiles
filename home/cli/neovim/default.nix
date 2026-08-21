@@ -15,6 +15,7 @@
       gcc
       gnumake
       nodejs
+      cargo
       tree-sitter
       # conform
       clang-tools
