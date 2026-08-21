@@ -1,0 +1,32 @@
+[package]
+name = "rtun"
+version = "0.1.0"
+edition = "2021"
+description = "Reverse port-forwarding and reverse SOCKS5 tunnel over a custom protocol"
+
+[[bin]]
+name = "rtun"
+path = "src/main.rs"
+
+[dependencies]
+aes-gcm = "0.10"
+anyhow = "1"
+clap = { version = "4", features = ["derive", "env"] }
+getrandom = "0.2"
+hkdf = "0.12"
+sha2 = "0.10"
+tokio = { version = "1", features = [
+  "rt-multi-thread",
+  "macros",
+  "net",
+  "io-util",
+  "time",
+  "sync",
+] }
+
+[profile.release]
+lto = true
+strip = true
+opt-level = "z"
+codegen-units = 1
+panic = "abort"

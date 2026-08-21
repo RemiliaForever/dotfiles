@@ -5,6 +5,7 @@
     (final: prev: {
       berkeley-mono = final.callPackage ./app/berkeley-mono { };
       kotlin-lsp = final.callPackage ./app/kotlin-lsp { }; # https://github.com/NixOS/nixpkgs/pull/482845
+      rtun = final.callPackage ./app/rtun { };
     })
     (import ./patch/update.nix)
     (import ./patch/pr.nix)
