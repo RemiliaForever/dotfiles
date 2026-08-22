@@ -4,6 +4,7 @@
 use anyhow::{bail, Result};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::TcpStream;
+use tracing::trace;
 
 /// Negotiates a SOCKS5 CONNECT and returns the requested `(host, port)`.
 pub async fn negotiate(s: &mut TcpStream) -> Result<(String, u16)> {
@@ -13,6 +14,7 @@ pub async fn negotiate(s: &mut TcpStream) -> Result<(String, u16)> {
     let nmethods = s.read_u8().await?;
     let mut methods = vec![0u8; nmethods as usize];
     s.read_exact(&mut methods).await?;
+    trace!("client offers auth methods {methods:?}");
     // We only support "no authentication"; reject clients that don't offer it.
     if !methods.contains(&0x00) {
         s.write_all(&[0x05, 0xFF]).await?;
@@ -49,12 +51,14 @@ pub async fn negotiate(s: &mut TcpStream) -> Result<(String, u16)> {
         other => bail!("unsupported socks atyp {other}"),
     };
     let port = s.read_u16().await?;
+    trace!("connect request for {host}:{port} (atyp {atyp})");
     Ok((host, port))
 }
 
 /// Sends the SOCKS5 reply (success or general failure).
 pub async fn reply(s: &mut TcpStream, ok: bool) -> Result<()> {
     let rep = if ok { 0x00 } else { 0x01 };
+    trace!("replying with code {rep}");
     s.write_all(&[0x05, rep, 0x00, 0x01, 0, 0, 0, 0, 0, 0]).await?;
     Ok(())
 }
