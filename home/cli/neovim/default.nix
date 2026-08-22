@@ -16,6 +16,7 @@
       gnumake
       nodejs
       cargo
+      rustc
       tree-sitter
       # conform
       clang-tools
