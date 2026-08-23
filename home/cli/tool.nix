@@ -70,11 +70,11 @@
 
         # Temp Files
 
-        Use `/tmp/claude/:sessionid:/:filename:` for temporary files. Avoid creating temp files in the project directory unless necessary.
+        Use `/tmp/claude/:SESSIONID:/:filename:` for temporary files. Avoid creating temp files in the project directory unless necessary. Do not directly put files in `/tmp/claude`, instead, create a subdirectory for each session.
 
         Clean up temp files after job completion. If a temp file is needed for debugging, ask the user to save it explicitly.
 
-        For windows machines, put files in home directories (e.g. `~/tmp/:sessionid:/`) instead of `/tmp/claude/:sessionid:/`.
+        For windows machines, put files in home directories (e.g. `~/tmp/:SESSIONID:/`) instead.
 
         # Background Tasks
 
