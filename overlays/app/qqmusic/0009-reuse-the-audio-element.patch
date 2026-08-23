@@ -1,0 +1,32 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -276,6 +276,7 @@
+   // songlist代表传入播放器的歌单列表，playlist是对songlist做了洗牌等操作的列表，两者会有区别，但是都要存下来
+   constructor() {
+     this.audio = void 0;
++    this.audioReady = void 0;
+     this.currentSong = void 0;
+     this.eventHandler = void 0;
+     this.index = void 0;
+@@ -325,6 +326,20 @@
+ 
+ 
+   async initAudio() {
++    // The player initialises the audio when it mounts, and play() initialises it
++    // again whenever state is still NOT_READY -- which it stays until the first
++    // canplay -- so every play() before that point left another orphaned
++    // <audio autoplay> in the document. Hand back the first attempt instead,
++    // including while it is still resolving, or a play() racing the mount would
++    // carry on with no cdn list.
++    if (!this.audioReady) {
++      this.audioReady = this.buildAudio();
++    }
++
++    return this.audioReady;
++  }
++
++  async buildAudio() {
+     const audio = document.createElement('audio');
+     audio.style.cssText = 'height:0;width:0;display:none';
+     audio.crossOrigin = 'anonymous';

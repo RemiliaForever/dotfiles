@@ -1,0 +1,21 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -633,6 +633,8 @@
+     this.playList = [];
+     this.currentSong = null;
+     this.index = 0;
++    // Or the desktop widget keeps showing whatever played last.
++    navigator.mediaSession.metadata = null;
+     this.trigger(types/* PLAY_STATE.CLEAR_PLAY_LIST */.tJ.CLEAR_PLAY_LIST);
+   }
+ 
+@@ -718,7 +720,7 @@
+       this.playNext();
+     });
+     navigator.mediaSession.setActionHandler('previoustrack', () => {
+-      this.playNext();
++      this.playPrev();
+     });
+   }
+ 

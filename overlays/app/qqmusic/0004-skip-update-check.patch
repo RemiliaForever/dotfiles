@@ -1,0 +1,13 @@
+diff -ruN a/modules/common/74700.js b/modules/common/74700.js
+--- a/modules/common/74700.js
++++ b/modules/common/74700.js
+@@ -65,6 +65,9 @@
+   }
+ 
+   async getUpdateConfig() {
++    this.updateConfig = { ...DefaultConfig };
++    this.setUpdateStrategy(new NotUpdateStrategy(this));
++    return;
+     await (0,_network__WEBPACK_IMPORTED_MODULE_0__/* .ufetch */ .D)(_network_api__WEBPACK_IMPORTED_MODULE_1__/* .MusicAPI.queryUpdate */ .LU.queryUpdate(cv)).then(res => {
+       if (res.code === 0 && res.updateMsg.code === 0) {
+         this.updateConfig = res.updateMsg.data;

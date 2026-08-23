@@ -1,0 +1,27 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -391,7 +391,13 @@
+       if (this.audio.src && this.cdnUtil.sortedCdnList) {
+         var _this$currentSong;
+ 
+-        if (this.cdnUtil.checkIsAvailable((_this$currentSong = this.currentSong) === null || _this$currentSong === void 0 ? void 0 : _this$currentSong.mid)) {
++        // checkIsAvailable reports the opposite of its name: it is true once
++        // the song has burnt its retry budget. Tested unnegated, the retry
++        // below could only run after a budget that only the retry itself
++        // spends, so a load error skipped the song on the first try and the
++        // CDN fallback never ran at all. The skip after the branches was
++        // unconditional too, so it also skipped a second time.
++        if (!this.cdnUtil.checkIsAvailable((_this$currentSong = this.currentSong) === null || _this$currentSong === void 0 ? void 0 : _this$currentSong.mid)) {
+           var _this$currentSong2;
+ 
+           this.cdnUtil.addDisabledCdn((_this$currentSong2 = this.currentSong) === null || _this$currentSong2 === void 0 ? void 0 : _this$currentSong2.mid, this.audio.src);
+@@ -403,8 +409,6 @@
+           this.playNext();
+         }
+       }
+-
+-      this.playNext(false, 0);
+     });
+     this.audio = audio;
+     document.body.appendChild(this.audio);

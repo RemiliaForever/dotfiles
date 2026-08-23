@@ -1,0 +1,17 @@
+diff -ruN a/modules/349/32698.js b/modules/349/32698.js
+--- a/modules/349/32698.js
++++ b/modules/349/32698.js
+@@ -102,7 +102,12 @@
+ 
+   item.action.play = 0;
+ 
+-  if (item.action.play_lq || item.action.play_hq || item.action.play_sq || item.action.play_5_1) {
++  // Stock ORs the four play bits alone, so a song whose rights data contradicts
++  // itself -- download and cache bits set for a quality, play bit clear -- is
++  // greyed out on the strength of one half of it. Read the whole group instead:
++  // a song with none of the bits set still greys, so the row, its menu and the
++  // selection keep telling the truth.
++  if (item.action.play_lq || item.action.play_hq || item.action.play_sq || item.action.play_5_1 || item.action.down_lq || item.action.down_hq || item.action.down_sq || item.action.cache_lq || item.action.cache_hq || item.action.cache_sq) {
+     item.action.play = 1;
+   }
+ 

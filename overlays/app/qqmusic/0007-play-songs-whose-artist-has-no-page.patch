@@ -1,0 +1,24 @@
+diff -ruN a/modules/349/32698.js b/modules/349/32698.js
+--- a/modules/349/32698.js
++++ b/modules/349/32698.js
+@@ -176,7 +176,7 @@
+ };
+ 
+ const isSongAvailable = (song, showDisableDialog = true) => {
+-  var _song$action, _song$singer$;
++  var _song$action, _song$track;
+ 
+   if ((song === null || song === void 0 ? void 0 : song.vipIcon) === '1') {
+     if (!_lib_common_login__WEBPACK_IMPORTED_MODULE_0__/* .default.isLogin */ .Z.isLogin()) {
+@@ -197,7 +197,10 @@
+     return false;
+   }
+ 
+-  if (!(song !== null && song !== void 0 && (_song$singer$ = song.singer[0]) !== null && _song$singer$ !== void 0 && _song$singer$.mid)) {
++  // Stock gates playability on the artist having a page of their own, which
++  // says nothing about the song. Check that the song itself is identifiable
++  // instead: without a mid there is no filename to ask a vkey for.
++  if (!(song !== null && song !== void 0 && ((_song$track = song.track) !== null && _song$track !== void 0 && _song$track.mid || song.mid))) {
+     showDisableDialog && _src_lib_common_popup__WEBPACK_IMPORTED_MODULE_5__/* .default.show */ .Z.show(0, '暂不支持播放');
+     return false;
+   }

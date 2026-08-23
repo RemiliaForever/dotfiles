@@ -1,0 +1,53 @@
+diff -ruN a/modules/349/32698.js b/modules/349/32698.js
+--- a/modules/349/32698.js
++++ b/modules/349/32698.js
+@@ -1,6 +1,7 @@
+ /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+ /* harmony export */   "cv": () => (/* binding */ formatSongItemData),
+ /* harmony export */   "nn": () => (/* binding */ isSongAvailable),
++/* harmony export */   "eu": () => (/* binding */ explainUnavailable),
+ /* harmony export */   "TV": () => (/* binding */ shuffle),
+ /* harmony export */   "Oe": () => (/* binding */ IMG_TYPE),
+ /* harmony export */   "GR": () => (/* binding */ handleImgLoadErr),
+@@ -180,6 +181,14 @@
+   }
+ };
+ 
++const explainUnavailable = song => {
++  if ((song === null || song === void 0 ? void 0 : song.copyRight) === '1') {
++    (0,_src_lib_common_service_commands_show_common_dlg__WEBPACK_IMPORTED_MODULE_1__/* .showDisableFrame */ .f6)(song);
++  } else {
++    _src_lib_common_show_msg__WEBPACK_IMPORTED_MODULE_4__/* .default.showMsg */ .Z.showMsg(song);
++  }
++};
++
+ const isSongAvailable = (song, showDisableDialog = true) => {
+   var _song$action, _song$track;
+ 
+@@ -192,11 +201,7 @@
+ 
+   if ((song === null || song === void 0 ? void 0 : song.disabled) === 1 || !(song !== null && song !== void 0 && (_song$action = song.action) !== null && _song$action !== void 0 && _song$action.play)) {
+     if (showDisableDialog) {
+-      if ((song === null || song === void 0 ? void 0 : song.copyRight) === '1') {
+-        (0,_src_lib_common_service_commands_show_common_dlg__WEBPACK_IMPORTED_MODULE_1__/* .showDisableFrame */ .f6)(song);
+-      } else {
+-        _src_lib_common_show_msg__WEBPACK_IMPORTED_MODULE_4__/* .default.showMsg */ .Z.showMsg(song);
+-      }
++      explainUnavailable(song);
+     }
+ 
+     return false;
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -473,6 +473,10 @@
+     if (response.url) {
+       this.audio.src = response.url;
+       this.audio.load();
++    } else if (showDisableDialog) {
++      // Nothing local refused this one, so the server did. The user asked for
++      // it by name, so explain rather than silently moving on.
++      (0,tools/* explainUnavailable */.eu)(song);
+     } else if (this.songList.length > 1) {
+       popup/* default.show */.Z.show(1, '歌曲暂无资源，已自动为您切换下一首');
+ 

@@ -1,0 +1,90 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -288,6 +288,7 @@
+     this.state = void 0;
+     this.timeStamp = void 0;
+     this.cdnUtil = void 0;
++    this.failedSongNumber = 0;
+     this._onPlayStatusChange = new lib/* Emitter */.Q5();
+     this.onPlayStatusChange = this._onPlayStatusChange.event;
+     this._onPlayIdxWillStep = new lib/* Emitter */.Q5();
+@@ -362,6 +363,7 @@
+         playStatus: src_types/* PLAY_STATE_CHANGE */.kQ[types/* PLAY_STATE.PLAYING */.tJ.PLAYING]
+       });
+       this.setMediaSession();
++      this.failedSongNumber = 0;
+     });
+     audio.addEventListener('pause', () => {
+       this.setState(types/* PLAY_STATE.PAUSED */.tJ.PAUSED, {
+@@ -406,7 +408,10 @@
+           });
+         } else {
+           popup/* default.show */.Z.show(0, '播放失败');
+-          this.playNext();
++
++          // Same counter, same reason: without it a playlist that fails to
++          // load at every song would be walked for ever.
++          this.playNext(false, ++this.failedSongNumber);
+         }
+       }
+     });
+@@ -438,7 +443,8 @@
+ 
+     const {
+       showDisableDialog,
+-      up
++      up,
++      badSongNumber = 0
+     } = config;
+ 
+     if (!this.isReady()) {
+@@ -470,10 +476,12 @@
+     } else if (this.songList.length > 1) {
+       popup/* default.show */.Z.show(1, '歌曲暂无资源，已自动为您切换下一首');
+ 
++      // This counter is the only bound on the recursion below; resetting it
++      // here lets a playlist where nothing plays skip for ever.
+       if (up) {
+-        this.playNext();
++        this.playNext(false, badSongNumber + 1);
+       } else {
+-        this.playPrev();
++        this.playPrev(badSongNumber + 1);
+       }
+     } else {
+       popup/* default.show */.Z.show(1, '歌曲暂无资源');
+@@ -537,6 +545,13 @@
+         });
+         return;
+       }
++
++      // Sequential mode deliberately holds the index at the end of the list,
++      // so without stopping here the last song restarts for ever.
++      if (mode === types/* PLAY_MODE.SEQUENTIAL */.kV.SEQUENTIAL && this.playList.length > 0 && index >= this.playList.length - 1) {
++        this.pause();
++        return;
++      }
+     }
+ 
+     if (badSongNumber >= this.playList.length) {
+@@ -588,7 +603,8 @@
+         index: this.index
+       }, {
+         showDisableDialog: false,
+-        up: true
++        up: true,
++        badSongNumber
+       });
+       return;
+     }
+@@ -644,7 +660,8 @@
+         index: this.index
+       }, {
+         showDisableDialog: false,
+-        up: false
++        up: false,
++        badSongNumber
+       });
+     }
+   }

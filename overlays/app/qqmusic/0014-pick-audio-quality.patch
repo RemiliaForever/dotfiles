@@ -1,0 +1,415 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -278,6 +278,7 @@
+     this.audio = void 0;
+     this.audioReady = void 0;
+     this.currentSong = void 0;
++    this.playingFormat = void 0;
+     this.eventHandler = void 0;
+     this.index = void 0;
+     this.mode = types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE;
+@@ -820,36 +821,89 @@
+ 
+ 
+   async generateVKey(song) {
+-    const param = {
+-      songmid: [],
+-      filename: []
+-    };
+-    const mids = song.map(item => {
+-      var _item$track, _item$track2, _item$file, _item$track3, _item$track4;
++    // Stock hardcodes the M500 filename, so a Linux client only ever gets
++    // 128kbps however good the account or the song is. Start at the format the
++    // user asked for and walk down until the server issues a vkey.
++    const formats = setting/* AUDIO_FORMATS */.aq;
++    const from = formats.findIndex(format => format.prefix === setting/* default.settingInitialValue.quality */.ZP.settingInitialValue.quality);
++    const mids = song.map(item => item?.track?.mid || item?.mid);
++    const files = song.map(item => item?.track?.file || item?.file || {});
++    let code = -1;
++
++    for (const format of formats.slice(from < 0 ? 0 : from)) {
++      // A size of 0 says the song has no such format. An absent size says
++      // nothing -- this client predates some of them -- so still ask.
++      if (files.every(file => (0,setting/* formatSizeOf */.fS)(file, format) === 0)) {
++        continue;
++      }
++
++      const param = {
++        songmid: mids,
++        filename: files.map((file, idx) => format.prefix + (file.media_mid || mids[idx]) + format.ext)
++      }; // 使用vkey专用接口，增加加密签名
++
++      const res = await (0,network/* ufetch */.D)({
++        getVKey: (0,asset_api/* getUrlVKey */.g_)(param)
++      }, true);
++
++      if (res.code !== 0 || res.getVKey.code !== 0) {
++        // 如果 code 不是 0，将 code 放入 rep 中
++        code = res.getVKey.code;
++        continue;
++      }
++
++      const midurlinfo = res.getVKey.data.midurlinfo;
++
++      // A response the server declines to fill in comes back with an empty
++      // string where the url should be. That is the refusal to fall on.
++      if (midurlinfo.some(item => !item.purl)) {
++        continue;
++      }
++
++      const availableCDN = this.cdnUtil.getAvailableCdn(mids); // What the play bar shows, which is not the chosen format when the song
++      // did not have it and the chain fell a step.
+ 
+-      param.songmid.push((item === null || item === void 0 ? void 0 : (_item$track = item.track) === null || _item$track === void 0 ? void 0 : _item$track.mid) || (item === null || item === void 0 ? void 0 : item.mid));
+-      param.filename.push(`M500${(item === null || item === void 0 ? void 0 : (_item$track2 = item.track) === null || _item$track2 === void 0 ? void 0 : _item$track2.file.media_mid) || (item === null || item === void 0 ? void 0 : (_item$file = item.file) === null || _item$file === void 0 ? void 0 : _item$file.media_mid) || (item === null || item === void 0 ? void 0 : (_item$track3 = item.track) === null || _item$track3 === void 0 ? void 0 : _item$track3.mid)}.mp3`);
+-      return (item === null || item === void 0 ? void 0 : (_item$track4 = item.track) === null || _item$track4 === void 0 ? void 0 : _item$track4.mid) || (item === null || item === void 0 ? void 0 : item.mid);
+-    }); // 使用vkey专用接口，增加加密签名
+-
+-    const res = await (0,network/* ufetch */.D)({
+-      getVKey: (0,asset_api/* getUrlVKey */.g_)(param)
+-    }, true);
+-
+-    if (res.code === 0 && res.getVKey.code === 0) {
+-      const availableCDN = this.cdnUtil.getAvailableCdn(mids);
+-      const midurlinfo = res.getVKey.data.midurlinfo.map((item, idx) => ({
++      this.playingFormat = format.prefix;
++      return midurlinfo.map((item, idx) => ({
+         url: availableCDN[idx] + item.purl,
+         codes: null
+       }));
+-      return midurlinfo;
+-    } else {
+-      // 如果 code 不是 0，将 code 放入 rep 中
+-      return [{
+-        url: '',
+-        code: res.getVKey.code
+-      }];
+     }
++
++    return [{
++      url: '',
++      code
++    }];
++  }
++
++  // Choosing a format has to change what is playing, not just the next song,
++  // so resolve a fresh url and drop back in where we were. The element cannot
++  // seek until it has metadata for the new stream, hence the one-shot listener.
++  async reloadCurrentSong() {
++    if (!this.currentSong || !this.audio) {
++      return;
++    }
++
++    const at = this.audio.currentTime;
++    const wasPlaying = !this.audio.paused;
++    const [response] = await this.generateVKey([this.currentSong]);
++
++    if (!response.url) {
++      return;
++    }
++
++    const resume = () => {
++      this.audio.removeEventListener('loadedmetadata', resume);
++      this.audio.currentTime = at;
++
++      if (wasPlaying) {
++        this.audio.play();
++      }
++    };
++
++    this.audio.addEventListener('loadedmetadata', resume);
++    this.audio.src = response.url;
++    this.audio.load();
+   }
+ 
+   on(eventName, listener) {
+diff -ruN a/modules/349/62384.js b/modules/349/62384.js
+--- a/modules/349/62384.js
++++ b/modules/349/62384.js
+@@ -1,6 +1,8 @@
+ 
+ // EXPORTS
+ __webpack_require__.d(__webpack_exports__, {
++  "aq": () => (/* binding */ AUDIO_FORMATS),
++  "fS": () => (/* binding */ formatSizeOf),
+   "cB": () => (/* binding */ INIT_PARAM),
+   "ZP": () => (/* binding */ setting)
+ });
+@@ -71,12 +73,68 @@
+ 
+ 
+ 
++// Best first. Only formats this Chromium can decode are listed, which is why
++// size_ape and size_dts are absent -- nothing here can play either one -- and
++// why 杜比全景声 is too: canPlayType for its codec is the empty string. 臻品音质
++// is absent for a different reason, its files not being reachable from here.
++//
++// The two tiers this client predates are not in file at all; their sizes are
++// indices into file.size_new, which is what a numeric size means below (see
++// formatSizeOf). Putting PQ above SQ lets an MQ pick fall to a 5.1 downmix
++// rather than the stereo master, but the other arrangement would drop a PQ
++// pick past SQ to a lossy mp3, which is worse. Neither tier contains the
++// other, and neither is contained by SQ, so some fall-through is unavoidable.
++const AUDIO_FORMATS = [{
++  prefix: 'AI00',
++  ext: '.flac',
++  size: 0,
++  tag: 'MQ',
++  // 臻品母带, 24 bit / 192 kHz. The client ships an unused .icon_hi_res sprite
++  // for the tier above lossless, so this is its colour.
++  color: '#e5b046',
++  tint: 'rgba(229, 176, 70, 0.15)'
++}, {
++  prefix: 'Q001',
++  ext: '.flac',
++  size: 2,
++  tag: 'PQ',
++  // 臻品全景声, six-channel flac. The client has no colour for this one, and
++  // its .tag_51 sprite takes the skin colour HQ already uses, so pick one.
++  color: '#4aa3ff',
++  tint: 'rgba(74, 163, 255, 0.15)'
++}, {
++  prefix: 'F000',
++  ext: '.flac',
++  size: 'size_flac',
++  tag: 'SQ',
++  color: '#f60',
++  tint: 'rgba(255, 102, 0, 0.15)'
++}, {
++  prefix: 'M800',
++  ext: '.mp3',
++  size: 'size_320mp3',
++  tag: 'HQ',
++  color: '#1ecc94',
++  tint: 'rgba(30, 204, 148, 0.15)'
++}, {
++  prefix: 'M500',
++  ext: '.mp3',
++  size: 'size_128mp3',
++  tag: '标准'
++}];
++// A format either names a field of file or, for the tiers added after this
++// client was built, indexes file.size_new. Zero means the song has no such
++// format; undefined means the response did not say, so it is worth asking.
++
++const formatSizeOf = (file, format) => typeof format.size === 'number' ? ((file === null || file === void 0 ? void 0 : file.size_new) || [])[format.size] : file === null || file === void 0 ? void 0 : file[format.size];
++
+ let INIT_PARAM;
+ 
+ (function (INIT_PARAM) {
+   INIT_PARAM["WINDOW_SIZE"] = "window_size";
+   INIT_PARAM["VOLUME"] = "volume";
+   INIT_PARAM["THEME"] = "theme";
++  INIT_PARAM["QUALITY"] = "quality";
+ })(INIT_PARAM || (INIT_PARAM = {}));
+ 
+ const LIGHT_SKIN_USER_AGENT_CONFIG = 'SkinId/10001|1ecc94|144|1|||1fd4af';
+@@ -93,7 +151,8 @@
+ const DefaultSetting = {
+   window_size: [1000, 750],
+   volume: 50,
+-  theme: 'dark'
++  theme: 'dark',
++  quality: 'F000'
+ };
+ 
+ class SettingUtil {
+@@ -128,6 +187,11 @@
+     }
+   }
+ 
++  setInitialSettingValue(key, value) {
++    settings_default().setSync(key, value);
++    Reflect.set(this.settingInitialValue, key, value);
++  }
++
+   applySettingInMainProcess() {
+     const {
+       settingValue
+diff -ruN a/modules/index/47998.js b/modules/index/47998.js
+--- a/modules/index/47998.js
++++ b/modules/index/47998.js
+@@ -533,7 +533,9 @@
+   const [isProcessDotVisible, setProcessDotVisible] = (0,react.useState)(false); // 是否显示桌面歌词
+ 
+   const [isDesktopLyricWindowVisible, setDesktopLyricWindowVisible] = (0,react.useState)(setting/* default.settingValue.AUTO_OPEN_DESKTOP_LYRIC */.ZP.settingValue.AUTO_OPEN_DESKTOP_LYRIC);
+-  const [isPlayModePopoverVisible, setModePopoverVisible] = (0,react.useState)(false);
++  const [isPlayModePopoverVisible, setModePopoverVisible] = (0,react.useState)(false); // 音质
++  const [isQualityPopoverVisible, setQualityPopoverVisible] = (0,react.useState)(false);
++  const [quality, setQuality] = (0,react.useState)(setting/* default.settingInitialValue.quality */.ZP.settingInitialValue.quality);
+   const [currentSong, setCurrentSong] = (0,react.useState)((LogicalPlayer === null || LogicalPlayer === void 0 ? void 0 : LogicalPlayer.currentSong) || DEFAULT_SONG);
+   const [playingInfo, setPlayingInfo] = (0,stook_esm/* useStore */.oR)('PlayingStore', {
+     songOnPlaying: null,
+@@ -713,6 +715,7 @@
+   const hidePopoverWindow = () => {
+     setVolumePopoverVisible(false);
+     setModePopoverVisible(false);
++    setQualityPopoverVisible(false);
+   };
+ 
+   const handleWheelOnShadowWindow = ev => {
+@@ -1144,12 +1147,106 @@
+    */
+ 
+ 
++  // None of this has a stylesheet entry, so it carries its own colours -- but
++  // they are the client's own: .tag_sq is #f60 and .tag_hq takes the skin
++  // colour, #1ecc94. Standard has no tag at all in the client, so it is left to
++  // the theme's text colour and keeps following the light and dark skins.
++  const QUALITY_DIM = '#71717a';
++  const PLAYER_RIGHT_STYLE = {
++    display: 'flex',
++    alignItems: 'center',
++    justifyContent: 'flex-end',
++    gap: '14px'
++  };
++
++  const pillStyle = (format, available) => ({
++    display: 'inline-block',
++    fontSize: '11px',
++    fontWeight: 'bold',
++    lineHeight: '15px',
++    borderRadius: '4px',
++    textAlign: 'center',
++    border: '1px solid ' + (available ? format.color || 'currentColor' : '#3f3f46'),
++    color: available ? format.color || undefined : QUALITY_DIM,
++    background: available && format.tint ? format.tint : 'transparent'
++  }); // The client spells sizes this way itself, over in its song list.
++
++
++  const formatSize = bytes => Number(bytes / 1024 / 1024).toFixed(2) + 'M';
++
++  const audioFormats = setting/* AUDIO_FORMATS */.aq;
++  const currentFormat = Math.max(audioFormats.findIndex(format => format.prefix === quality), 0);
++  const playingFormat = audioFormats.find(format => format.prefix === LogicalPlayer.playingFormat);
++  const badgeFormat = playingFormat || audioFormats[currentFormat];
++  const currentFile = currentSong && (currentSong.track && currentSong.track.file || currentSong.file) || {};
++
++  const selectQuality = async prefix => {
++    setting/* default.setInitialSettingValue */.ZP.setInitialSettingValue(setting/* INIT_PARAM.QUALITY */.cB.QUALITY, prefix);
++    setQualityPopoverVisible(false);
++    await LogicalPlayer.reloadCurrentSong();
++    setQuality(prefix);
++  }; // Borrows the play mode popover's list, so it matches the one beside it.
++
++
++  const qualityPopoverContent = /*#__PURE__*/react.createElement("ul", {
++    className: "player_mode_popover__content c_bg4 c_txt1"
++  }, audioFormats.map((format, index) => {
++    // A size of 0 says this song has no such format; an absent size says nothing.
++    const available = (0,setting/* formatSizeOf */.fS)(currentFile, format) !== 0;
++    const selected = format.prefix === quality;
++    const bytes = Number((0,setting/* formatSizeOf */.fS)(currentFile, format)) || 0;
++    return /*#__PURE__*/react.createElement("a", {
++      className: "player_mode_popover_list__item",
++      key: index,
++      onClick: () => selectQuality(format.prefix)
++    }, /*#__PURE__*/react.createElement("span", {
++      className: format.color ? undefined : 'c_txt2',
++      style: { ...pillStyle(format, available),
++        minWidth: '38px',
++        marginRight: '10px',
++        padding: '2px 0'
++      }
++    }, format.tag), /*#__PURE__*/react.createElement("span", {
++      style: {
++        display: 'inline-block',
++        minWidth: '54px',
++        textAlign: 'right',
++        fontSize: '12px',
++        fontVariantNumeric: 'tabular-nums',
++        fontWeight: selected ? '600' : '400',
++        color: available ? selected && format.color || undefined : QUALITY_DIM
++      }
++    }, formatSize(bytes)), /*#__PURE__*/react.createElement("div", {
++      className: "common_hover__bg c_bg_normal"
++    }));
++  }));
++
+   const renderRight = () => {
+     var _playingInfo$songList;
+ 
+     return /*#__PURE__*/react.createElement("div", {
+-      className: "player_cont_right"
+-    }, !isCoverPlayer && /*#__PURE__*/react.createElement("div", {
++      className: "player_cont_right",
++      style: PLAYER_RIGHT_STYLE
++    }, /*#__PURE__*/react.createElement(popover/* default */.Z, {
++      content: qualityPopoverContent,
++      trigger: "click",
++      placement: "topRight",
++      visible: isQualityPopoverVisible,
++      onVisibleChange: setQualityPopoverVisible
++    }, /*#__PURE__*/react.createElement("span", {
++      className: 'player_quality_badge' + (badgeFormat.color ? '' : ' c_txt2'),
++      title: "选择音质",
++      style: { ...pillStyle(badgeFormat, true),
++        padding: '2px 7px',
++        cursor: 'pointer',
++        userSelect: 'none'
++      },
++      onClick: ev => {
++        ev.preventDefault();
++        ev.stopPropagation();
++        setQualityPopoverVisible(!isQualityPopoverVisible);
++      }
++    }, badgeFormat.tag)), !isCoverPlayer && /*#__PURE__*/react.createElement("div", {
+       className: "player_time"
+     }, `${(0,utils/* translateTime */.xj)(currentPlaytime)}/${(0,utils/* translateTime */.xj)(duration)}`), !isCoverPlayer && /*#__PURE__*/react.createElement("a", {
+       className: `player_lyric_img ${isDesktopLyricWindowVisible ? 'show_desktop_lyric' : ''}`,
+@@ -1167,7 +1264,7 @@
+   return /*#__PURE__*/react.createElement(react.Fragment, null, isPlayListVisible && /*#__PURE__*/react.createElement("div", {
+     className: "player_voice_dialog--shadow",
+     onClick: switchPlaylistVisibleState
+-  }), (isPlayModePopoverVisible || isVolumePopoverVisible) && /*#__PURE__*/react.createElement("div", {
++  }), (isPlayModePopoverVisible || isVolumePopoverVisible || isQualityPopoverVisible) && /*#__PURE__*/react.createElement("div", {
+     className: "player_voice_dialog--shadow",
+     onClick: hidePopoverWindow,
+     onWheel: handleWheelOnShadowWindow
+diff -ruN a/modules/index/57224.js b/modules/index/57224.js
+--- a/modules/index/57224.js
++++ b/modules/index/57224.js
+@@ -29,6 +29,8 @@
+ var styles = __webpack_require__(35012);
+ // EXTERNAL MODULE: ./node_modules/antd/es/popover/index.js + 1 modules
+ var popover = __webpack_require__(19181);
++// EXTERNAL MODULE: ./src/main_process/util/setting.ts + 2 modules
++var setting = __webpack_require__(62384);
+ ;// CONCATENATED MODULE: ./src/component/song_list/component/song_info.tsx
+ 
+ 
+@@ -201,6 +203,33 @@
+ 
+       const file = (songInfo === null || songInfo === void 0 ? void 0 : (_songInfo$track6 = songInfo.track) === null || _songInfo$track6 === void 0 ? void 0 : _songInfo$track6.file) || (songInfo === null || songInfo === void 0 ? void 0 : songInfo.file);
+ 
++      // The row shows one badge, the best format the song has. The skin only
++      // has sprites for SQ, HQ and 5.1, so a tier above them gets a text pill in
++      // the colour the quality picker uses; below them the stock chain decides,
++      // exactly as it always did. A tier whose size the response did not report
++      // is not claimed here, though generateVKey still asks for it.
++      const best = setting/* AUDIO_FORMATS */.aq.find(format => (0,setting/* formatSizeOf */.fS)(file, format) > 0);
++
++      if (best && typeof best.size === 'number') {
++        return /*#__PURE__*/react.createElement("i", {
++          className: "js_quality_icon",
++          style: {
++            display: 'block',
++            height: '13px',
++            marginRight: '4px',
++            padding: '0 3px',
++            fontSize: '9px',
++            fontStyle: 'normal',
++            fontWeight: 'bold',
++            lineHeight: '11px',
++            borderRadius: '2px',
++            border: '1px solid ' + best.color,
++            color: best.color,
++            background: best.tint
++          }
++        }, best.tag);
++      }
++
+       if ((file === null || file === void 0 ? void 0 : file.size_dts) > 0) {
+         return /*#__PURE__*/react.createElement("i", {
+           className: "tag_51 icon_skin c_bg_skin js_quality_icon",

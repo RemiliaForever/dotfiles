@@ -1,0 +1,110 @@
+diff -ruN a/app/common_dialog.js b/app/common_dialog.js
+--- a/app/common_dialog.js
++++ b/app/common_dialog.js
+@@ -54,7 +54,13 @@
+     },
+     31669: (e) => {
+       "use strict";
+-      e.exports = require("util");
++      // Node 24 dropped the legacy type predicates. The bundled nedb still
++      // calls isDate and isRegExp, and threw on every insert without them.
++      e.exports = {
++        ...require("util"),
++        isDate: (value) => value instanceof Date,
++        isRegExp: (value) => value instanceof RegExp,
++      };
+     },
+     65013: (e) => {
+       "use strict";
+diff -ruN a/app/index.js b/app/index.js
+--- a/app/index.js
++++ b/app/index.js
+@@ -776,7 +776,13 @@
+     },
+     31669: (n) => {
+       "use strict";
+-      n.exports = require("util");
++      // Node 24 dropped the legacy type predicates. The bundled nedb still
++      // calls isDate and isRegExp, and threw on every insert without them.
++      n.exports = {
++        ...require("util"),
++        isDate: (value) => value instanceof Date,
++        isRegExp: (value) => value instanceof RegExp,
++      };
+     },
+     65013: (n) => {
+       "use strict";
+diff -ruN a/app/login.js b/app/login.js
+--- a/app/login.js
++++ b/app/login.js
+@@ -40,7 +40,13 @@
+     },
+     31669: (e) => {
+       "use strict";
+-      e.exports = require("util");
++      // Node 24 dropped the legacy type predicates. The bundled nedb still
++      // calls isDate and isRegExp, and threw on every insert without them.
++      e.exports = {
++        ...require("util"),
++        isDate: (value) => value instanceof Date,
++        isRegExp: (value) => value instanceof RegExp,
++      };
+     },
+     65013: (e) => {
+       "use strict";
+diff -ruN a/app/lyric.js b/app/lyric.js
+--- a/app/lyric.js
++++ b/app/lyric.js
+@@ -324,7 +324,13 @@
+     },
+     31669: (_) => {
+       "use strict";
+-      _.exports = require("util");
++      // Node 24 dropped the legacy type predicates. The bundled nedb still
++      // calls isDate and isRegExp, and threw on every insert without them.
++      _.exports = {
++        ...require("util"),
++        isDate: (value) => value instanceof Date,
++        isRegExp: (value) => value instanceof RegExp,
++      };
+     },
+     65013: (_) => {
+       "use strict";
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -187,6 +187,8 @@
+ // EXTERNAL MODULE: external "path"
+ var external_path_ = __webpack_require__(85622);
+ var external_path_default = /*#__PURE__*/__webpack_require__.n(external_path_);
++// EXTERNAL MODULE: external "electron"
++var external_electron_ = __webpack_require__(58933);
+ ;// CONCATENATED MODULE: ./src/client/modules/local_database/index.ts
+ 
+ 
+@@ -230,8 +232,15 @@
+ 
+ }
+ 
++// __dirname is where the bundle sits, which on this platform is a read-only
++// store path: the file could never be created, so nedb's load found nothing,
++// getLocalData's callback never fired, and the play list, its order and the
++// play mode have never once survived a restart. Put it in userData, which is
++// where Electron expects an app's own state and the only directory here that
++// is writable.
++
+ LocalDatabaseManager.db = new (nedb_default())({
+-  filename: external_path_default().join(__dirname, 'music_playlist.db'),
++  filename: external_path_default().join(external_electron_.remote.app.getPath('userData'), 'music_playlist.db'),
+   autoload: true
+ });
+ /* harmony default export */ const local_database = (LocalDatabaseManager);
+@@ -245,8 +254,6 @@
+ var utils = __webpack_require__(31603);
+ // EXTERNAL MODULE: ./node_modules/@tencent/qmfe-ts-core/lib/index.js + 10 modules
+ var lib = __webpack_require__(30366);
+-// EXTERNAL MODULE: external "electron"
+-var external_electron_ = __webpack_require__(58933);
+ // EXTERNAL MODULE: ./src/lib/common/login.ts
+ var login = __webpack_require__(68010);
+ ;// CONCATENATED MODULE: ./src/client/modules/players/index.ts

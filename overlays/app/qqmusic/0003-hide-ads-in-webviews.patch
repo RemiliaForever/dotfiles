@@ -1,0 +1,51 @@
+diff -ruN a/app/main.js b/app/main.js
+--- a/app/main.js
++++ b/app/main.js
+@@ -11575,6 +11575,12 @@
+             }
+             initElectronSetting() {
+               ((r.app.allowRendererProcessReuse = !1),
++                r.session.defaultSession.webRequest.onBeforeRequest(
++                  { urls: ["*://tmead.y.qq.com/*"] },
++                  (e, t) => {
++                    t({ cancel: !0 });
++                  },
++                ),
+                 r.session.defaultSession.webRequest.onBeforeSendHeaders(
+                   { urls: ["*://c.y.qq.com/*", "*://u.y.qq.com/*"] },
+                   (e, t) => {
+diff -ruN a/app/preload.js b/app/preload.js
+--- a/app/preload.js
++++ b/app/preload.js
+@@ -1,10 +1,30 @@
+ // All of the Node.js APIs are available in the preload process.
+ // It has the same sandbox as a Chrome extension.
+-const { ipcRenderer } = require("electron");
++const { ipcRenderer, webFrame } = require("electron");
+ 
+ // 把ipcRenderer挂载到window上，webview内部的js可以拿到这个模块
+ window.ipcRenderer = ipcRenderer;
+ 
++webFrame.insertCSS(`
++  /* The promo carousel. Its .layout_cont wraps nothing else, and the paid
++     banner that overlays it is a sibling inside the same one. */
++  .layout_cont:has(> .mod_swipe.swipe_action_banner),
++  /* The skeleton shown before the carousel loads, which would otherwise
++     stay on the page forever. */
++  .layout_cont:has(> ul.mod_banner),
++  /* Belt and braces for the ad host being reachable after all. */
++  .unisdk__ad_focus_big_banner {
++    display: none !important;
++  }
++
++  /* "手机专享" -- a page of screenshots of the phone app. Linux only sees
++     it because the tab is gated on a client string that reads "electron"
++     here, so every version check is false and the fallback tab wins. */
++  nav.mod_top_nav > a.tab__item[href$="#/musicroom/phone"] {
++    display: none !important;
++  }
++`);
++
+ window.addEventListener("DOMContentLoaded", () => {
+   const replaceText = (selector, text) => {
+     const element = document.getElementById(selector);
