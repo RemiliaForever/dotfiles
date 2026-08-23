@@ -19,6 +19,8 @@
     wechat
     slack
     telegram-desktop
+
+    qqmusic
   ];
 
   programs = {
@@ -78,7 +80,7 @@
         spawn-sh-at-startup "sleep 5 && qq"
         spawn-sh-at-startup "sleep 7 && slack"
         spawn-sh-at-startup "sleep 10 && Telegram"
-        spawn-sh-at-startup "sleep 8 && spotify"
+        spawn-sh-at-startup "sleep 8 && qqmusic"
         spawn-sh-at-startup "sleep 8 && steam"
 
         // Window Rules
@@ -99,7 +101,7 @@
         }
 
         window-rule {
-            match app-id="^spotify$"
+            match app-id="^qqmusic$"
             match app-id="^steam$"
 
             open-on-workspace "fun"
