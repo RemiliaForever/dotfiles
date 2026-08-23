@@ -199,7 +199,7 @@
           format = "{title:.48}";
         };
         mpris = {
-          player = "spotify";
+          player = "qqmusic";
           format = "{status_icon} - {title} - {position}/{length}";
           tooltip-format = ''
             {player}
@@ -213,9 +213,9 @@
             stopped = "";
           };
           title-len = 32;
-          interval = 1;
-          on-scroll-up = "playerctl previous";
-          on-scroll-down = "playerctl next";
+          interval = 0.3;
+          on-scroll-up = "playerctl -p qqmusic previous";
+          on-scroll-down = "playerctl -p qqmusic next";
         };
         tray = {
           icon-size = 14;
