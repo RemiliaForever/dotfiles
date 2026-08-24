@@ -24,8 +24,8 @@ in
     ./wm_waybar.nix
     ./wm_wofi.nix
 
-    ./alacritty.nix
     ./firefox.nix
+    ./kitty.nix
     ./mpv.nix
     ./zathura.nix
   ];
@@ -52,11 +52,11 @@ in
 
   xdg = {
     desktopEntries = {
-      "yazi-alacritty" = {
-        name = "Yazi (Alacritty)";
+      "yazi-kitty" = {
+        name = "Yazi (Kitty)";
         icon = "yazi";
         comment = "Blazing fast terminal file manager written in Rust, based on async I/O";
-        exec = "alacritty -e yazi";
+        exec = "kitty yazi";
         type = "Application";
         mimeType = [ "inode/directory" ];
         categories = [
@@ -67,11 +67,11 @@ in
           "FileManager"
         ];
       };
-      "neovim-alacritty" = {
-        name = "Neovim (Alacritty)";
+      "neovim-kitty" = {
+        name = "Neovim (Kitty)";
         icon = "nvim";
         comment = "Edit text files";
-        exec = "alacritty -e nvim %F";
+        exec = "kitty nvim %F";
         type = "Application";
         mimeType = [
           "text/english"
@@ -103,8 +103,8 @@ in
     mimeApps = {
       enable = true;
       defaultApplications = genMimeMap {
-        #"yazi-alacritty.desktop" = [ "inode/directory" ];
-        "neovim-alacritty.desktop" = [
+        #"yazi-kitty.desktop" = [ "inode/directory" ];
+        "neovim-kitty.desktop" = [
           "text/english"
           "text/plain"
           "text/markdown"

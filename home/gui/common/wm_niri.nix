@@ -79,7 +79,7 @@
           Mod+Shift+Slash           { show-hotkey-overlay; }
           Mod+Tab                   repeat=false { toggle-overview; }
           Mod+R                     repeat=false { spawn "wofi"; }
-          Mod+Return                repeat=false { spawn "alacritty"; }
+          Mod+Return                repeat=false { spawn "kitty"; }
           Mod+W                     repeat=false { close-window; }
 
           // Media keys

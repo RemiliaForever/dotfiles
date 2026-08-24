@@ -34,34 +34,7 @@
         }
       ];
     };
-    theme = {
-      indicator = {
-        padding = {
-          open = "";
-          close = "";
-        };
-      };
-      tabs = {
-        sep_inner = {
-          open = "";
-          close = "";
-        };
-        sep_outer = {
-          open = "";
-          close = "";
-        };
-      };
-      status = {
-        sep_left = {
-          open = "";
-          close = "";
-        };
-        sep_right = {
-          open = "";
-          close = "";
-        };
-      };
-    };
+    theme = { };
     initLua = ''
       require("full-border"):setup{
           type = ui.Border.ROUNDED,

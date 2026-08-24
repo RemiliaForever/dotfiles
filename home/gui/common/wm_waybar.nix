@@ -28,7 +28,6 @@
 
   config.programs.waybar =
     let
-      term = "alacritty";
       waybar-pass-otp = pkgs.writers.writeBashBin "waybar-pass-otp" ''
         pass=${pkgs.pass-nodmenu.withExtensions (ext: [ ext.pass-otp ])}/bin/pass
         store="''${PASSWORD_STORE_DIR:-$HOME/.password-store}"
@@ -226,7 +225,7 @@
           restart-interval = 60;
           format = "{}";
           tooltip-format = "koumakan";
-          on-click = "${term} -e neomutt -e 'source ~/.config/neomutt/koumakan'";
+          on-click = "kitty neomutt -e 'source ~/.config/neomutt/koumakan'";
           on-click-right = "pkill -SIGRTMIN+1 -f 'waybar-email-daemon koumakan'";
         };
         network = {
@@ -246,13 +245,13 @@
           tooltip-format = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}";
           tooltip-format-wifi = "{ifname}\n\n{ipaddr}/{cidr} - {gwaddr}\n\n{essid} - {frequency} - {signalStrength}%";
           interval = 1;
-          on-click = "${term} -e nmtui";
+          on-click = "kitty nmtui";
         };
         wireplumber = {
           format = " {volume}%";
           format-muted = "<span color='red'> {volume}%</span>";
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click-right = "${term} -e pulsemixer";
+          on-click-right = "kitty pulsemixer";
         };
         temperature = {
           format = " {temperatureC}°C";
@@ -271,7 +270,7 @@
             swap: {swapPercentage}%
             {swapUsed:0.1f}G/{swapTotal:0.1f}G'';
           interval = 3;
-          on-click = "${term} -e htop";
+          on-click = "kitty htop";
         };
         battery = {
           format = "{icon}󱐥";
