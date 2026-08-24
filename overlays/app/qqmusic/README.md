@@ -92,9 +92,11 @@ in sequence and regenerated in sequence.
 The series is layered: runtime, then privacy, then policy, then upstream bug
 fixes, then one change that is a judgement call, then a behaviour change, and
 last the one new feature. The biggest and most invasive changes are at the end,
-so a failure there leaves everything before it applied.
+so a failure there leaves everything before it applied. Anything found later is
+appended rather than slotted into its layer, so the earlier patches keep the
+line numbers they were generated against.
 
-### `0001-use-current-electron` -- 10 files
+### `0001-use-current-electron` -- 20 files
 
 The floor. Three Electron API changes between 8 and 43 each break the app
 outright:
@@ -105,7 +107,11 @@ outright:
   initialises `@electron/remote/main` and enables it per window.
 - **`contextIsolation`**, default flipped to true in Electron 12. Restored to
   false on `BrowserWindow` `webPreferences` and on `<webview>`, or every bridge
-  between preload and page is severed.
+  between preload and page is severed. The `<webview>` half also needs
+  `nodeintegration`, and it has to be repeated **eleven times**: the webview
+  component is module `69458`, and webpack copied it into every lazy page chunk
+  that uses it rather than hoisting it. Patch one copy and only that one page
+  works; see the note on duplicated modules under *Verifying a change*.
 - **Cookie `sameSite`**. Electron 8's `cookies.set` was effectively
   `no_restriction`; 43 defaults to `lax`, which drops the login cookies on
   cross-site API requests. Four `cookies.set` calls now say so explicitly.
@@ -133,11 +139,15 @@ string that reads `electron`, so every check is false and the fallback tab wins.
 Early return with `NotUpdateStrategy`. Otherwise the client offers a dialog and
 downloads a `.deb`, none of which can work here.
 
-### `0005-fix-lyric-offset` -- `index/8437.js`
+### `0005-fix-lyric-offset` -- `index/8437.js`, `lyric/8437.js`
 
 A lyric with no `[offset:]` tag makes `parseInt(undefined)` return `NaN`, so
 `playTime2ms(tag) - NaN` turns **every timestamp** into `NaN` and the lyric never
 highlights. `|| 0`.
+
+Module `8437` is duplicated too -- once for the main window, once for the
+detached lyric window -- so both copies get it, or the desktop lyric keeps the
+bug the main window no longer has.
 
 ### `0006-fix-media-session-handlers` -- `349/35229.js`
 
@@ -328,6 +338,94 @@ same track and `PQ` is six-channel audio that Chromium downmixes to stereo,
 which is generally worse than the stereo master unless there is real surround
 output -- neither is a sensible thing to start pulling unasked.
 
+### `0015-open-other-peoples-playlists` -- `common/54128.js`
+
+Appended after the fact, when opening any playlist that was not in the sidebar
+turned out to show an empty page.
+
+`jump(PAGE_TYPE.PLAYLIST)` matches the id against the two sidebar lists first,
+and a playlist found in either is pushed as `/playlist_detail/<tid>`. Anything
+else -- so anyone else's playlist, reached from search or a recommendation --
+fell through to a branch that built a `y.qq.com/#/playlist_detail?id=<id>` url
+and pushed it as a query parameter on the bare path. But the page takes its id
+from the path, so `match.params.tid` was undefined, `parseInt` made it `NaN`,
+and the CGI answered code 10004 with an empty songlist. Nothing threw: the page
+just rendered no detail header and "this playlist has no songs".
+
+The fix pushes `/playlist_detail/<id>`, which is what the same client already
+does when that identical url shape arrives from a webview -- `TogglePage` in
+`common/4095.js` pulls the id out of it before pushing. The two sidebar
+branches are untouched, which is why self-created and collected playlists were
+never affected and still behave exactly as before.
+
+### `0016-keep-loading-until-the-playlist-arrives` -- `index/767.js`
+
+Opening a playlist flashed "this playlist has no songs", and then -- once that
+was fixed by rendering nothing instead -- went blank for as long as the request
+took.
+
+`usePlayListInfo` starts with `isLoading` false and `songlist` `[]`, and both of
+its effects run *after* the first render, so the first frame took the not-loading
+path with an empty list. `detailContent` is null until a response has actually
+been handled, which is the condition this uses instead.
+
+What it renders while waiting matters as much as the condition. Three animations
+are in play on this page:
+
+- `QQMusicLoading` (`349/4694.js`, export `.Z`) -- the spinning icon plus
+  "正在加载中". The lazy route shows it via `LoadingComponent` (`.N`) while the
+  chunk resolves, at `height: 100%`.
+- `PlayListDetailLoading` (`index/767.js`, the local `loading`) -- a full
+  skeleton of the header, tabs and twenty song rows. The `isLoading` branch draws
+  it, and stock never got there, so it had never once been seen.
+- nothing at all, which is what the first attempt here did.
+
+The chunk resolves almost immediately (`767` is already in the index bundle), so
+the icon appears for a frame or two; the CGI request is the part that takes
+hundreds of milliseconds. Drawing the skeleton in that window reads as two
+different animations in a row, and drawing nothing reads as the animation
+finishing early and the page hanging blank. So it renders `QQMusicLoading`
+itself, same export and same height as the route's, and the one animation simply
+continues until the songs replace it.
+
+`4694` lives in chunk `349`, which `index.html` loads before `index.js`, so the
+cross-chunk require is safe -- `47998` does the same thing.
+
+`detailContent` joins the `useMemo` dependencies so the swap also happens for a
+playlist that really is empty.
+
+Worth knowing if this area is touched again: `_isLoading` in that hook is a plain
+`let` in the hook body, so it is re-created on every render and cannot guard
+across renders. It happens to work -- both effects of a single render share the
+one closure, so the second is suppressed -- which is also why `isLoading` never
+becomes true on a cold open and the skeleton never appears. Left alone.
+
+### `0017-drop-the-dead-screensaver-watcher` -- `app/main.js`
+
+On `ready`, Linux builds ran `child_process.exec` on a shell pipeline that fed
+`dbus-monitor --session "type='signal',interface='org.gnome.ScreenSaver'"` into a
+`while read` loop, and destroyed and re-created the tray icon whenever it saw an
+unlock. Two things are wrong with it here.
+
+Nothing owns `org.gnome.ScreenSaver` on this session bus -- niri provides
+`org.freedesktop.ScreenSaver` -- and the name is not activatable either, so the
+signal never arrived and the tray was never rebuilt. Meanwhile nothing ever
+killed the pipeline: three processes per run (the `sh`, `dbus-monitor`, and the
+`sh` on the right of the pipe), and since `dbus-monitor` only writes on a lock
+or unlock it never got the write error that would have told it the parent was
+gone. They accumulated one set per launch, reparented to `systemd --user`.
+
+They also inherited the main process's file descriptors. One of those was the
+`--remote-debugging-port` listening socket, so after the app exited the port
+stayed in `LISTEN` on a dead instance -- accepting connections that nothing would
+ever answer -- and could not be reused until the leftovers were killed by hand.
+That is worth knowing before blaming a debugging session on something else.
+
+Removing it outright rather than reaping it on `will-quit`: the feature does
+nothing on this machine, so there is no behaviour to preserve. If this is ever
+run on GNOME, the tray may need rebuilding after an unlock again, and the right
+fix then is a watcher on the name that session actually has.
+
 ## Rebasing onto a new upstream release
 
 1. Bump the version and hash in nixpkgs' `qqmusic` (this overlay takes it as
@@ -363,11 +461,17 @@ Two shapes to keep in mind when editing:
   build log; either one means the patch no longer describes the tree it was
   generated against and should be regenerated.
 - `rewrapped 594 modules, N changed` -- `N` must match the number of renderer
-  modules the series touches, currently 11. A larger `N` means something
+  modules the series touches, currently 24. A larger `N` means something
   reformatted a module it did not mean to.
 - Unwrap the built bundle again and diff it against the patched source tree; it
   must be byte-identical.
 - `node --check` on every top-level bundle a patch touched.
+- **Check for duplicated modules.** webpack copies a shared module into every
+  chunk that imports it, so `modules/<chunk>/<id>.js` may exist under several
+  chunks and a patch that names one path leaves the rest stock. For every module
+  id a patch touches, list `modules/*/<id>.js` and require the copies to be
+  identical afterwards. This has bitten twice: `69458` (11 copies) and `8437`
+  (2 copies).
 - When reorganising the series without meaning to change behaviour, diff the
   final tree against the previous final tree and require every differing line to
   be a comment.

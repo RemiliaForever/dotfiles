@@ -132,6 +132,126 @@ diff -ruN a/app/visible_play.js b/app/visible_play.js
      },
    },
    (e) => {
+diff -ruN a/modules/163/69458.js b/modules/163/69458.js
+--- a/modules/163/69458.js
++++ b/modules/163/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/261/69458.js b/modules/261/69458.js
+--- a/modules/261/69458.js
++++ b/modules/261/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/427/69458.js b/modules/427/69458.js
+--- a/modules/427/69458.js
++++ b/modules/427/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/433/69458.js b/modules/433/69458.js
+--- a/modules/433/69458.js
++++ b/modules/433/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/552/69458.js b/modules/552/69458.js
+--- a/modules/552/69458.js
++++ b/modules/552/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/720/69458.js b/modules/720/69458.js
+--- a/modules/720/69458.js
++++ b/modules/720/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/845/69458.js b/modules/845/69458.js
+--- a/modules/845/69458.js
++++ b/modules/845/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/869/69458.js b/modules/869/69458.js
+--- a/modules/869/69458.js
++++ b/modules/869/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/940/69458.js b/modules/940/69458.js
+--- a/modules/940/69458.js
++++ b/modules/940/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
+diff -ruN a/modules/common_dialog/69458.js b/modules/common_dialog/69458.js
+--- a/modules/common_dialog/69458.js
++++ b/modules/common_dialog/69458.js
+@@ -44,6 +44,8 @@
+   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (loading || keepAliveDelayLoading) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_src_component_loading_qqmusic_loading__WEBPACK_IMPORTED_MODULE_2__/* .QQMusicLoading */ .Z, {
+     className: "loading_cover"
+   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("webview", {
++    nodeintegration: '',
++    webpreferences: 'contextIsolation=false',
+     preload: _src_lib_common_utils__WEBPACK_IMPORTED_MODULE_1__/* .default.returnPreload */ .ZP.returnPreload(),
+     src: src,
+     id: id,
 diff -ruN a/modules/876/69458.js b/modules/876/69458.js
 --- a/modules/876/69458.js
 +++ b/modules/876/69458.js

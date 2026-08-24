@@ -10,3 +10,15 @@ diff -ruN a/modules/index/8437.js b/modules/index/8437.js
  
            _tmpTag = ms2playTime(_t);
            _rSubstr = _rSubstr.replace(/&apos;/g, `’`);
+diff -ruN a/modules/lyric/8437.js b/modules/lyric/8437.js
+--- a/modules/lyric/8437.js
++++ b/modules/lyric/8437.js
+@@ -75,7 +75,7 @@
+           _tmpTag = _tmpTag.indexOf('.') != -1 ? _tmpTag : `${_tmpTag}.00`;
+           _rSubstr = _rSubstr.trim();
+ 
+-          const _t = playTime2ms(_tmpTag) - parseInt(lrcData.offset);
++          const _t = playTime2ms(_tmpTag) - (parseInt(lrcData.offset) || 0);
+ 
+           _tmpTag = ms2playTime(_t);
+           _rSubstr = _rSubstr.replace(/&apos;/g, `’`);

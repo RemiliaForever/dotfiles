@@ -1,0 +1,46 @@
+diff -ruN a/modules/index/767.js b/modules/index/767.js
+--- a/modules/index/767.js
++++ b/modules/index/767.js
+@@ -8,6 +8,8 @@
+ 
+ // EXTERNAL MODULE: ./node_modules/react/index.js
+ var react = __webpack_require__(67294);
++// EXTERNAL MODULE: ./src/component/loading/qqmusic_loading.tsx
++var qqmusic_loading = __webpack_require__(4694);
+ // EXTERNAL MODULE: ./node_modules/react-router-dom/esm/react-router-dom.js
+ var react_router_dom = __webpack_require__(73727);
+ // EXTERNAL MODULE: ./node_modules/react-router/esm/react-router.js
+@@ -3974,6 +3976,24 @@
+         render: () => {
+           var _playListDetail$songl;
+ 
++          // A fresh mount renders before either effect has run: songlist is still
++          // the initial [] while isLoading is still false, so stock showed the
++          // empty-playlist notice for a frame, and the request that decides the
++          // real answer is still hundreds of milliseconds away. detailContent is
++          // what says a response has actually been handled.
++          //
++          // This is the same component, with the same height, that the lazy route
++          // shows while the chunk resolves, so the animation carries straight on
++          // instead of ending and leaving the page blank until the songs land.
++          // The skeleton this page also ships would read as a second animation.
++          if (!playListDetail.detailContent) {
++            return /*#__PURE__*/react.createElement(qqmusic_loading/* QQMusicLoading */.Z, {
++              style: {
++                height: '100%'
++              }
++            });
++          }
++
+           if (playListDetail.songlist.length === 0) {
+             return /*#__PURE__*/react.createElement(NoFav/* default */.Z, {
+               title: '歌单里没有歌曲'
+@@ -4024,7 +4044,7 @@
+         scrollToTopFunc: scrollToTop
+       }))));
+     }
+-  }, [isLoading, isSelfCreate, isCollect, playListDetail.songlist, needToShowToTopBtn, needToShowFocusBtn]);
++  }, [isLoading, isSelfCreate, isCollect, playListDetail.detailContent, playListDetail.songlist, needToShowToTopBtn, needToShowFocusBtn]);
+ };
+ 
+ /* harmony default export */ const component_play_list_detail = (PlayListDetail);

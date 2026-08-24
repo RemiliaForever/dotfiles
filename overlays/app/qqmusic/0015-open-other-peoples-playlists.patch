@@ -1,0 +1,24 @@
+diff -ruN a/modules/common/54128.js b/modules/common/54128.js
+--- a/modules/common/54128.js
++++ b/modules/common/54128.js
+@@ -85,14 +85,13 @@
+     } // 自建歌单和收藏的歌单可以和左侧歌单列表匹配，走上面的逻辑，非自建歌单走下面逻辑
+ 
+ 
+-    const url = `https://y.qq.com/wk_v17/#/playlist_detail?id=${opts.id}`; // console.log("search", utils.paramToUrl({ url: encodeURIComponent(url) }));
+-    // history.push({ pathname: `/playlist_detail/${opts.id}`});
+-
++    // The page reads the id out of the path, so pushing it as a query parameter
++    // asked for playlist NaN and rendered the empty result -- which is every
++    // playlist that is in neither sidebar list, so anyone else's. The client
++    // already gets this right when the same url arrives from a webview: see
++    // TogglePage, which pulls the id out of exactly this shape before pushing.
+     _history__WEBPACK_IMPORTED_MODULE_0__/* .default.push */ .Z.push({
+-      pathname: '/playlist_detail',
+-      search: _utils__WEBPACK_IMPORTED_MODULE_1__/* .default.paramToUrl */ .ZP.paramToUrl({
+-        url: encodeURIComponent(url)
+-      })
++      pathname: `/playlist_detail/${opts.id}`
+     });
+   } else if (type == PAGE_TYPE.ALBUM) {
+     if (!opts.mid) {

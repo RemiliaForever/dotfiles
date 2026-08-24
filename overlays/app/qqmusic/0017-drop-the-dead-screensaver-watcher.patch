@@ -1,0 +1,38 @@
+diff -ruN a/app/main.js b/app/main.js
+--- a/app/main.js
++++ b/app/main.js
+@@ -11710,25 +11710,15 @@
+                     z.applySettingInMainProcess();
+                   }, 2e3)
+                 : z.applySettingInMainProcess(),
+-              (function () {
+-                let e = null;
+-                "linux" === i().platform() &&
+-                  ((e = kt().exec(
+-                    'dbus-monitor --session "type=\'signal\',interface=\'org.gnome.ScreenSaver\'" |\n    while read x; do\n      case "$x" in \n        *"boolean true"*) echo SCREEN_LOCKED;;\n        *"boolean false"*) echo SCREEN_UNLOCKED;;  \n      esac\n    done ',
+-                  )),
+-                  e.stdout.on("data", (e) => {
+-                    if ("SCREEN_UNLOCKED" === e.toString().trim()) {
+-                      const e = H.getInstance();
+-                      (e.tray.destroy(), e.init());
+-                    }
+-                  }),
+-                  e.stderr.on("data", function (e) {
+-                    console.log(`stderr: ${e}`);
+-                  }),
+-                  e.on("exit", function (e) {
+-                    console.log(`child process exited with code ${e}`);
+-                  }));
+-              })(),
++              // Removed: a dbus-monitor pipeline watching org.gnome.ScreenSaver, whose
++              // only effect was to destroy and rebuild the tray icon on unlock. Nothing
++              // owns that name on this session bus -- it has org.freedesktop.ScreenSaver
++              // instead -- so it never fired once. What it did do was outlive the app:
++              // nothing killed the sh, the dbus-monitor or the second sh, and because
++              // dbus-monitor only writes on a lock or unlock it never noticed the dead
++              // parent. Each run left a set behind, holding descriptors it had inherited
++              // from the main process -- a devtools socket among them, which kept that
++              // port bound to an instance that no longer existed.
+               "darwin" === i().platform() && r.app.dock.setIcon(T));
+           }),
+           r.app.requestSingleInstanceLock()
