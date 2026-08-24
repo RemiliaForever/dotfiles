@@ -38,11 +38,12 @@
       copy_on_select = "clipboard";
       clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
       mouse_hide_wait = "-1.0";
+      enable_audio_bell = "no";
     };
     extraConfig = "modify_font baseline 4px";
 
     keybindings = {
-      "super+n" = "new_os_window";
+      "super+n" = "new_os_window_with_cwd";
       "ctrl+alt+d" = "remote_control scroll-window 0.5p";
       "ctrl+alt+u" = "remote_control scroll-window 0.5p-";
       "ctrl+alt+f" = "scroll_page_down";
