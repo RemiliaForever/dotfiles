@@ -1,7 +1,34 @@
 diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 --- a/modules/349/35229.js
 +++ b/modules/349/35229.js
-@@ -276,6 +276,7 @@
+@@ -72,11 +72,22 @@
+   }
+ 
+   async init() {
+-    const res = await (0,network/* ufetch */.D)({
+-      getCDNList: (0,asset_api/* getCDNList */.NS)()
+-    });
++    // ufetch rejects outright when the CGI does not answer, and initAudio()
++    // remembers buildAudio()'s promise -- so one network blip here used to wedge
++    // playback for the rest of the session: every later play() threw at the
++    // await, with cdns still empty. Treat no answer like an error answer, which
++    // the branch below already falls back for.
++    let res;
++
++    try {
++      res = await (0,network/* ufetch */.D)({
++        getCDNList: (0,asset_api/* getCDNList */.NS)()
++      });
++    } catch {
++      res = undefined;
++    }
+ 
+-    if (res.code === 0 && res.getCDNList && res.getCDNList.data) {
++    if (res && res.code === 0 && res.getCDNList && res.getCDNList.data) {
+       this.cdns = res.getCDNList.data.sip;
+       this.testFileWifi = res.getCDNList.data.testfilewifi;
+     } else {
+@@ -276,6 +287,7 @@
    // songlist代表传入播放器的歌单列表，playlist是对songlist做了洗牌等操作的列表，两者会有区别，但是都要存下来
    constructor() {
      this.audio = void 0;
@@ -9,7 +36,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      this.currentSong = void 0;
      this.eventHandler = void 0;
      this.index = void 0;
-@@ -325,6 +326,20 @@
+@@ -325,6 +337,20 @@
  
  
    async initAudio() {

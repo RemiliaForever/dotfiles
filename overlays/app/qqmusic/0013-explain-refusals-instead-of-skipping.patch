@@ -40,7 +40,7 @@ diff -ruN a/modules/349/32698.js b/modules/349/32698.js
 diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 --- a/modules/349/35229.js
 +++ b/modules/349/35229.js
-@@ -473,6 +473,10 @@
+@@ -484,6 +484,10 @@
      if (response.url) {
        this.audio.src = response.url;
        this.audio.load();

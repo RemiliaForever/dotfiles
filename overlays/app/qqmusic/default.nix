@@ -42,6 +42,7 @@ let
     ./0015-open-other-peoples-playlists.patch
     ./0016-keep-loading-until-the-playlist-arrives.patch
     ./0017-drop-the-dead-screensaver-watcher.patch
+    ./0018-prime-the-media-session.patch
   ];
 
   # See mpris-name.c: makes the client show up on D-Bus as qqmusic, not chromium.

@@ -86,12 +86,12 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
  
  }
  
-+// __dirname is where the bundle sits, which on this platform is a read-only
-+// store path: the file could never be created, so nedb's load found nothing,
-+// getLocalData's callback never fired, and the play list, its order and the
-+// play mode have never once survived a restart. Put it in userData, which is
-+// where Electron expects an app's own state and the only directory here that
-+// is writable.
++// webpack resolves nedb to its browser build, so this filename never names a
++// file: it is the localforage key the collection lives under, inside the
++// IndexedDB database called NeDB. __dirname is the bundle's own directory, a
++// store path whose hash changes on every rebuild, so each rebuild came up with
++// an empty collection and orphaned the one before it. userData is stable across
++// rebuilds, which is what lets the play list survive at all.
 +
  LocalDatabaseManager.db = new (nedb_default())({
 -  filename: external_path_default().join(__dirname, 'music_playlist.db'),

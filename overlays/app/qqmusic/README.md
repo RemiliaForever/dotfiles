@@ -91,7 +91,9 @@ in sequence and regenerated in sequence.
 
 The series is layered: runtime, then privacy, then policy, then upstream bug
 fixes, then one change that is a judgement call, then a behaviour change, and
-last the one new feature. The biggest and most invasive changes are at the end,
+last the one new feature -- which is why `0019` sits after `0018` even though it
+was written first: it is optional, and it is currently commented out in
+`default.nix`, so keeping it last means the enabled set applies without offsets. The biggest and most invasive changes are at the end,
 so a failure there leaves everything before it applied. Anything found later is
 appended rather than slotted into its layer, so the earlier patches keep the
 line numbers they were generated against.
@@ -111,7 +113,13 @@ outright:
   `nodeintegration`, and it has to be repeated **eleven times**: the webview
   component is module `69458`, and webpack copied it into every lazy page chunk
   that uses it rather than hoisting it. Patch one copy and only that one page
-  works; see the note on duplicated modules under *Verifying a change*.
+  works; see the note on duplicated modules under *Verifying a change*. All
+  eleven were then checked on a running client over CDP -- the ten host routes
+  (`musicroom`, `recommend`, `video`, `singer_detail`, `song_detail`,
+  `album_detail`, `category_detail`, `toplist_detail`, `mv_set` and the `*`
+  fallback that `category_tags` lands on) plus the `common_dialog` window -- each
+  mounting a `<webview>` carrying both attributes, rendering real content, and
+  reporting `process` and `require` as defined inside the guest.
 - **Cookie `sameSite`**. Electron 8's `cookies.set` was effectively
   `no_restriction`; 43 defaults to `lax`, which drops the login cookies on
   cross-site API requests. Four `cookies.set` calls now say so explicitly.
@@ -173,24 +181,34 @@ The play list, its order and the play mode never survived a restart, for two
 independent reasons.
 
 `LocalDatabaseManager` opens its nedb store at
-`path.join(__dirname, 'music_playlist.db')`. `__dirname` here is wherever the
-bundle sits, which is a read-only store path, so the file could never be created
-and `getLocalData`'s `if (!err && doc)` callback never fired -- which is also why
-`playList` and `songList` sit at `undefined` rather than `[]` after a cold start.
-The store moves to `app.getPath('userData')`. The renderer reaches `app` through
-`@electron/remote`, already wired into module `58933` by patch 0001; the
-`external_electron_` import is declared further down the file than the block that
-now needs it, so it moves up to where webpack would have hoisted it.
+`path.join(__dirname, 'music_playlist.db')`. That filename never names a file:
+webpack resolves `nedb` to `browser-version/browser-specific/lib/storage.js`, so
+the collection lives in localforage, under that string as its key, in the
+IndexedDB database called `NeDB`. What breaks is that `__dirname` is the bundle's
+own directory -- a store path whose hash changes on every rebuild. So each new
+build opened a key nothing had ever written and came up empty, leaving the
+previous build's list orphaned under its own path. Confirmed on a running client:
+`nedbdata` held twenty-four `/nix/store/<hash>-qqmusic-app-1.1.8/music_playlist.db`
+keys, one per build ever run, plus two from the upstream `.asar` layout. The store
+moves to `app.getPath('userData')`, which is stable across rebuilds. The renderer
+reaches `app` through `@electron/remote`, already wired into module `58933` by
+patch 0001; the `external_electron_` import is declared further down the file than
+the block that now needs it, so it moves up to where webpack would have hoisted
+it.
 
 That alone is not enough. Node 24 -- Electron 43 ships 24.18 -- removed the
 legacy type predicates, and the bundled nedb still calls `util.isDate` and
-`util.isRegExp`, so every insert threw before touching the disk. Module `31669`
+`util.isRegExp`, so every insert threw before reaching storage. Module `31669`
 is `require("util")`, so it hands those two back, spread over the real module.
 `isArray` is the only one of the nine still present and nothing else in the
 bundle calls any of them; the spread drops no members and leaves
 `inspect.custom`, `promisify.custom` and `inherits` intact. As with patch 0001's
 `58933`, `31669` is defined in four of the top-level bundles and all four are
 patched, since every window loads `index.js`.
+
+One limit this does not lift: `savePlayList()` has a single caller, `playAll()`,
+so the persisted `index` is wherever the list was started from, not the track
+playing when the client closed. Restoring lands on the former.
 
 ### `0009-reuse-the-audio-element` -- `349/35229.js`
 
@@ -206,6 +224,16 @@ re-entry. Returning the promise rather than returning early matters: a `play()`
 racing the mount would otherwise continue past an `initAudio()` that has not yet
 finished `await this.cdnUtil.init()`. The method body moves to `buildAudio()`
 unchanged, which is why that half of the diff is a single signature line.
+
+Memoising the promise means memoising a rejection too, and `buildAudio()` has
+exactly one way to reject: `await this.cdnUtil.init()`, whose `ufetch` rejects
+outright when the CGI does not answer. One network blip at startup therefore used
+to wedge playback for the whole session -- every later `play()` threw at
+`await this.initAudio()`, with `cdns` still the constructor's `[]` -- where
+before this patch the next `play()` would have retried (leaking another element,
+but recovering). So `init()` now treats no answer like the error answer it
+already falls back for, which is also the honest fix: a transient CGI failure
+should never have been fatal. That is what keeps the memo safe to hold.
 
 ### `0010-fix-cdn-failover` -- `349/35229.js`
 
@@ -248,6 +276,18 @@ before `ended` is an implementation detail; the explicit call is correct either
 way. It cannot be left to `setState(ENDED)`, because the play button is driven by
 `playState === PLAYING` and `playState` only subscribes to the PLAYING and PAUSED
 events.
+
+The stop excludes radio mode, and that exclusion is load-bearing. 猜你喜欢 is
+radio 99, served five songs at a time: the 推荐 page's play button sends
+`radioCmd {cmd: 1}`, which reaches `RadioPlayer._playRadioData` and starts
+playback as `PLAYER_MODE.RADIO` -- and `playAll` leaves the play mode alone when
+it is already SEQUENTIAL, so a radio plays *as* a sequential list. Refilling the
+batch hangs off `onPlayIdxWillStep`, which `playNext` fires only after this block:
+`RadioPlayer._handlePlayerIdxStep` watches for `prevIdx === length - 1 && step ===
+1`, holds the step with `setAllowPlayIdxStep(false)`, fetches the next five and
+restarts at index 0. Stopping before the event stranded every radio after one
+batch. `LIST_CYCLE` was never affected -- it wraps to 0 and fires the event
+anyway -- which is why this only ever showed up in sequential play.
 
 **`badSongNumber` was dropped.** It is `playNext`/`playPrev`'s only recursion
 bound (`if (badSongNumber >= this.playList.length) return`), and upstream loses
@@ -426,6 +466,180 @@ nothing on this machine, so there is no behaviour to preserve. If this is ever
 run on GNOME, the tray may need rebuilding after an unlock again, and the right
 fix then is a watcher on the name that session actually has.
 
+### `0018-prime-the-media-session` -- `349/35229.js`
+
+Restoring the play list (`0008`) puts the last song back in `currentSong`, but
+nothing tells the desktop about it: `setMediaSession()` is only called from the
+audio element's `playing` handler. So on a fresh start `playerctl` and the waybar
+module saw no player at all until the user pressed play, and
+`navigator.mediaSession`'s action handlers -- which `Player`'s constructor does
+register at startup -- had nothing to be attached to.
+
+Setting the metadata earlier is not enough. On Linux, Chromium's MPRIS service is
+driven by `SystemMediaControlsNotifier`, which follows the *active* media session,
+and a session only becomes active by requesting audio focus -- which happens when
+something actually plays. Assigning `navigator.mediaSession.metadata` does not
+request focus, so before any playback there is no session for the notifier to
+follow and the bus name is not even taken.
+
+The session therefore has to be opened with a real track, and it has to be long
+enough: Chromium classifies media shorter than five seconds as transient content
+(a UI sound), which takes ducking focus and never reaches the system controls.
+`silentTrackUrl()` builds 30 seconds of 8 kHz 8-bit mono silence -- 240 kB, a
+blob URL, no asset in the bundle, which matters because `rewrap` cannot add
+webpack modules. `primeMediaSession()` plays it on a throwaway hidden element,
+pauses it the moment `play()` resolves, and then publishes the restored song.
+
+A separate element, not the player's own, deliberately: the player's element
+carries the `playing`/`pause` listeners that drive `state`, the IPC to the lyric
+window and `playStatusChange`, so priming through it would have flashed the whole
+UI into "playing" and back. The media session is per-document, not per-element,
+so a silent element that is merely paused keeps the session alive while the real
+element joins it later.
+
+Four details hang off that:
+
+- 8-bit PCM samples are unsigned, so silence is `0x80`. A fresh `ArrayBuffer` is
+  `0x00`, which is full deflection -- inaudible while it holds, but it clicks on
+  the edges.
+- `navigator.mediaSession.playbackState` is deliberately left alone. A state the
+  page declares wins over the players' own for as long as it stands, so setting
+  it to `'paused'` here would have reported Paused over the song that later
+  really plays. The primer is genuinely paused, so Chromium derives the same
+  answer by itself.
+- `setPositionState()` overrides the position Chromium would derive from the
+  playing element, so without it the widget would report the silent track's
+  `0:00/0:30` as the song's length. It is cleared again in `dropPrimer()`.
+- `dropPrimer()` runs from the real element's `playing` handler, once the real
+  player has joined the session -- not earlier, or the session would briefly have
+  no players and the MPRIS entry would blink out. `clearPlayList()` drops it too,
+  so emptying the queue takes the widget's entry with it instead of leaving a
+  titleless one behind.
+
+`resume()` gained a branch for the same reason. Its first line handles
+`state === PAUSED`; with nothing ever loaded the state is `NOT_READY`, and a
+`resume()` with no argument fell through the whole method and did nothing -- so
+the widget's play button, and the primed session, would have been decoration.
+It now starts the restored play list at `index`.
+
+Unverified statically: whether Electron 43 lets the primer autoplay without a
+gesture (the player's own element already relies on the same policy, via its
+`autoplay` attribute), and whether a paused player is enough to hold the session
+open. Both need `playerctl -p qqmusic metadata` on a freshly started client that
+has not played anything.
+
+### `0019-listen-together` -- 4 files
+
+Adds 「一起听」, the feature the Linux build ships without. The endpoints are real
+and were recovered rather than invented, so this section records where each one
+came from -- and what is still missing.
+
+**Where the protocol came from.** The Linux client has no trace of the feature:
+zero hits across all 594 renderer modules, and `wk_v17` -- the H5 bundle behind
+every one of its webviews -- has no listen-together route either. The official
+Windows client 22.52 does. `QQMusic.dll` carries the RTTI symbol
+`CListenTogetherDataLogic`, the source path
+`ce\gfqqmusic\listentogether\listentogetherdatalogic.cpp`, the UI strings
+「开启一起听」/「结束一起听」, and one plain-text URL --
+`i2.y.qq.com/n3/wk_v20/entry/index/frame/listen_together/invitation`. Note
+`wk_v20`, not `wk_v17`; that mismatch is why searching the Linux client's own H5
+never turns anything up. `QQMusic_Protocol.dll` holds a table of 141 `music.*`
+command strings, four of them for rooms. `wk_v20`'s `frame_page` chunk and the
+mobile share page `y.qq.com/m/share/listen_together/index.js` supply the rest,
+including the request params.
+
+| module | method | params |
+| --- | --- | --- |
+| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomCreate` | unknown |
+| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomEntry` | unknown |
+| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomHeartBeat` | unknown |
+| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomQuit` | unknown |
+| `music.lightUGCRoom.LightUGCRoomSvr` | `QueryLightUGCRoomState` | `{showID}` |
+| `music.lightUGCRoom.LightUGCRoomSongSvr` | `LightUGCRoomSongOper` | `{showID, opType: 0}` to read; other `opType`s unknown |
+| `track_info.UniformRuleCtrlServer` | `GetTrackInfo` | `{ids, types}` |
+| `music.togetherRoom.TogetherRoomUser` | `GetInvitedUserList` | `{bizid: 1}` |
+| `music.liveShow.LiveShowOfficialRoomBasicSvr` | `QueryWebShareUserInfo` | `{encryptUin}` |
+
+All of them exist. The server distinguishes four failures cleanly, which is what
+makes that claim checkable: `500003` no such module, `40000` no such method on a
+real module, `1000` needs a login, `11000` no such room, `0` ok. A room is
+addressed by `showID`, not a room id.
+
+**How the two room reads divide up.** `QueryLightUGCRoomState` returns membership,
+not playback: `roomInfo`, `users`, `msg`, `models`, `avatar3D`, `friendInfo`, and
+nothing about a song. Everything about what is playing comes from `SongOper` with
+`opType: 0`, which needs no more than `{showID, opType: 0}` and returns the whole
+room state -- `songPlayingInfo`, `songList`, `songRandomIndex`, `playMode`,
+`mediaVersion`, `sourceInfo`, `currPlaylistType`. So `opType: 0` is query, and the
+read path is closed.
+
+**What is still missing.** `Create`/`Entry`/`HeartBeat`/`Quit` and the `opType`
+values that *change* room state are only ever called from the Windows client's
+native layer, so the dll yields their field names but not their values, and no H5
+constructs them. The gap is confined to `buildRoomParam` and `songOperParam` in
+`349/35229.js`; filling those in from a capture is the whole remaining task. Until
+then following a room works and driving one does not.
+
+**Position is extrapolated, not polled.** `SongOper` returns `songOffset`
+alongside `songStartTime` and `songPlayVersion`, so `songOffset` is the position
+*at* `songStartTime` and a follower advances from there -- polling latency does
+not accumulate into drift. `songPlayVersion` is the server's state counter, and
+`tick()` ignores a response whose version it has already applied, so an
+out-of-order poll cannot drag the player backwards. `heartBeatInterval` arrives
+in `roomInfo`; until it does, polling runs at 5s.
+
+**The room's queue is authoritative.** `follow()` adopts it rather than looking
+for room songs in the local play list. The first cut did the latter -- reindex
+when a room `songID` matched something in `player.songList`, otherwise sync
+position only -- and that is wrong in the ordinary case: the room plays songs the
+listener does not have queued, `findIndex` returns `-1` every poll, and the client
+ends up seeking its *own* song to the room's offset. It looked joined and synced
+nothing.
+
+Room entries carry only `songID`, `songType`, `songDuration`, `songIndex`, `title`
+and auth fields, which the player cannot take, so `resolveRoomSongs` exchanges
+them for real song objects through `track_info.UniformRuleCtrlServer/GetTrackInfo`
+and `formatSongItemData`. Three details matter: `types` is required, and without
+it the call answers `103901` with zero tracks; the room's `songType` is a
+different enum from the client's `type` (`1` against `0` for the same song), which
+`formatSongItemData` normalises; and the result is reordered to the room's own
+order, because `songIndex` indexes that. A signature of the room's id/type pairs
+keeps the exchange from repeating on every poll.
+
+One consequence worth knowing: `playAll()` is what calls `savePlayList()`, so
+joining a room replaces the persisted play list with the room's. The official
+clients take over the queue the same way.
+
+**UI.** The button sits in `player_cont_state_tool` next to love / menu /
+comment, and follows their conventions exactly: an `action_button` whose icon is
+a `-webkit-mask-image` tinted by `currentColor`, `18px`, `margin-left: 16px`,
+`opacity: 0.6`, `#1ecc94` on hover and while a room is live. The room bar renders
+above the progress bar in the same accent at 12% alpha. The context-menu entry
+「开启一起听」sits next to 分享, which already opens a window the same way, and is
+shown only for a single online song.
+
+The icon is an inline `data:` SVG rather than a new asset module: `rewrap` only
+substitutes existing `eval()` wrappers, so a patch cannot add a module to a
+chunk, and a data URI needs none. The two new CSS classes are appended to the
+`css-loader` string literal in `index/95586.js`.
+
+**Joining.** The official client is handed a share link through a
+`tencent://QQMusic/?...cmd_0==jump...` deeplink (`qqmusicmac://` on macOS); this
+build registers no protocol handler, so that route does not reach us. Right-clicking
+the play-bar button parses a share link out of the clipboard instead. Opening a room
+still goes through the official invitation page in a `showCommonDlg` window.
+
+What the app puts on the clipboard is a `c6.y.qq.com/base/fcgi-bin/u?__=<code>`
+short link, which carries no parameters at all -- `showID` only appears after the
+redirect, so `parseShareParams` alone never matches one. `resolveShareLink` follows
+it with `fetch`, which works cross-origin because the window options in `main.js`
+set `webSecurity: false`. It cannot read `Location` directly: under
+`redirect: 'manual'` Chromium returns an `opaqueredirect` response whose headers
+are unreadable, so it lets the chain finish and reads `res.url`, falling back to
+scanning the landing page's body. The parser accepts the parameters spelled three
+ways, because all three occur: plain in a URL, `&amp;`-escaped in HTML, and
+percent-encoded inside a deeplink's `url_0`.
+
 ## Rebasing onto a new upstream release
 
 1. Bump the version and hash in nixpkgs' `qqmusic` (this overlay takes it as
@@ -461,8 +675,9 @@ Two shapes to keep in mind when editing:
   build log; either one means the patch no longer describes the tree it was
   generated against and should be regenerated.
 - `rewrapped 594 modules, N changed` -- `N` must match the number of renderer
-  modules the series touches, currently 24. A larger `N` means something
-  reformatted a module it did not mean to.
+  modules the *enabled* series touches: 24 as `default.nix` currently stands, 26
+  with `0019` uncommented. A larger `N` means something reformatted a module it
+  did not mean to.
 - Unwrap the built bundle again and diff it against the patched source tree; it
   must be byte-identical.
 - `node --check` on every top-level bundle a patch touched.

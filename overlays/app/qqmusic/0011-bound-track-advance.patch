@@ -1,7 +1,7 @@
 diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 --- a/modules/349/35229.js
 +++ b/modules/349/35229.js
-@@ -288,6 +288,7 @@
+@@ -299,6 +299,7 @@
      this.state = void 0;
      this.timeStamp = void 0;
      this.cdnUtil = void 0;
@@ -9,7 +9,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      this._onPlayStatusChange = new lib/* Emitter */.Q5();
      this.onPlayStatusChange = this._onPlayStatusChange.event;
      this._onPlayIdxWillStep = new lib/* Emitter */.Q5();
-@@ -362,6 +363,7 @@
+@@ -373,6 +374,7 @@
          playStatus: src_types/* PLAY_STATE_CHANGE */.kQ[types/* PLAY_STATE.PLAYING */.tJ.PLAYING]
        });
        this.setMediaSession();
@@ -17,7 +17,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      });
      audio.addEventListener('pause', () => {
        this.setState(types/* PLAY_STATE.PAUSED */.tJ.PAUSED, {
-@@ -406,7 +408,10 @@
+@@ -417,7 +419,10 @@
            });
          } else {
            popup/* default.show */.Z.show(0, '播放失败');
@@ -29,7 +29,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
          }
        }
      });
-@@ -438,7 +443,8 @@
+@@ -449,7 +454,8 @@
  
      const {
        showDisableDialog,
@@ -39,7 +39,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      } = config;
  
      if (!this.isReady()) {
-@@ -470,10 +476,12 @@
+@@ -481,10 +487,12 @@
      } else if (this.songList.length > 1) {
        popup/* default.show */.Z.show(1, '歌曲暂无资源，已自动为您切换下一首');
  
@@ -54,21 +54,23 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
        }
      } else {
        popup/* default.show */.Z.show(1, '歌曲暂无资源');
-@@ -537,6 +545,13 @@
+@@ -548,6 +556,15 @@
          });
          return;
        }
 +
 +      // Sequential mode deliberately holds the index at the end of the list,
-+      // so without stopping here the last song restarts for ever.
-+      if (mode === types/* PLAY_MODE.SEQUENTIAL */.kV.SEQUENTIAL && this.playList.length > 0 && index >= this.playList.length - 1) {
++      // so without stopping here the last song restarts for ever. Radio mode
++      // rides on SEQUENTIAL, and RadioPlayer fetches its next batch from the
++      // step event below, so stopping here would end a radio after one batch.
++      if (mode === types/* PLAY_MODE.SEQUENTIAL */.kV.SEQUENTIAL && !this.isRadioMode && this.playList.length > 0 && index >= this.playList.length - 1) {
 +        this.pause();
 +        return;
 +      }
      }
  
      if (badSongNumber >= this.playList.length) {
-@@ -588,7 +603,8 @@
+@@ -599,7 +616,8 @@
          index: this.index
        }, {
          showDisableDialog: false,
@@ -78,7 +80,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
        });
        return;
      }
-@@ -644,7 +660,8 @@
+@@ -655,7 +673,8 @@
          index: this.index
        }, {
          showDisableDialog: false,

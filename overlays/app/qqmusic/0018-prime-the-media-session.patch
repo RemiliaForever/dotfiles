@@ -1,0 +1,154 @@
+diff -ruN a/modules/349/35229.js b/modules/349/35229.js
+--- a/modules/349/35229.js
++++ b/modules/349/35229.js
+@@ -283,11 +283,49 @@
+ 
+ 
+ 
++// MPRIS only exists while the page holds audio focus, and Chromium only grants
++// that for media it considers persistent content, which means longer than five
++// seconds -- anything shorter counts as a UI sound and never reaches the system
++// controls. So the session has to be opened with a real, long enough track.
++// 8 kHz 8-bit mono silence is half a minute for 240 kB and decodes anywhere.
++function silentTrackUrl() {
++  const rate = 8000;
++  const samples = rate * 30;
++  const buffer = new ArrayBuffer(44 + samples);
++  const view = new DataView(buffer);
++
++  const ascii = (at, text) => {
++    for (let i = 0; i < text.length; i++) {
++      view.setUint8(at + i, text.charCodeAt(i));
++    }
++  };
++
++  ascii(0, 'RIFF');
++  view.setUint32(4, 36 + samples, true);
++  ascii(8, 'WAVEfmt ');
++  view.setUint32(16, 16, true);
++  view.setUint16(20, 1, true);
++  view.setUint16(22, 1, true);
++  view.setUint32(24, rate, true);
++  view.setUint32(28, rate, true);
++  view.setUint16(32, 1, true);
++  view.setUint16(34, 8, true);
++  ascii(36, 'data');
++  view.setUint32(40, samples, true);
++  // 8-bit samples are unsigned, so silence is 0x80 and a fresh buffer's 0x00 is
++  // full deflection -- inaudible while it holds, but it clicks on the edges.
++  new Uint8Array(buffer, 44).fill(0x80);
++  return URL.createObjectURL(new Blob([buffer], {
++    type: 'audio/wav'
++  }));
++}
++
+ class Player {
+   // songlist代表传入播放器的歌单列表，playlist是对songlist做了洗牌等操作的列表，两者会有区别，但是都要存下来
+   constructor() {
+     this.audio = void 0;
+     this.audioReady = void 0;
++    this.primer = void 0;
+     this.currentSong = void 0;
+     this.playingFormat = void 0;
+     this.eventHandler = void 0;
+@@ -374,6 +412,7 @@
+         song: this.currentSong,
+         playStatus: src_types/* PLAY_STATE_CHANGE */.kQ[types/* PLAY_STATE.PLAYING */.tJ.PLAYING]
+       });
++      this.dropPrimer();
+       this.setMediaSession();
+       this.failedSongNumber = 0;
+     });
+@@ -695,6 +734,7 @@
+     this.currentSong = null;
+     this.index = 0;
+     // Or the desktop widget keeps showing whatever played last.
++    this.dropPrimer();
+     navigator.mediaSession.metadata = null;
+     this.trigger(types/* PLAY_STATE.CLEAR_PLAY_LIST */.tJ.CLEAR_PLAY_LIST);
+   }
+@@ -704,6 +744,15 @@
+       return this.audio.play();
+     }
+ 
++    // Both the widget's play button and the primed session land here with no
++    // song and nothing loaded, where this used to fall through and do nothing.
++    // Start the restored play list instead.
++    if (!song && this.state === types/* PLAY_STATE.NOT_READY */.tJ.NOT_READY && this.playList.length > 0) {
++      return this.play({
++        index: this.index
++      });
++    }
++
+     if (song !== null && song !== void 0 && song.id) {
+       if (this.songList) {
+         const idx = this.songList.findIndex(item => (item === null || item === void 0 ? void 0 : item.id) === (song === null || song === void 0 ? void 0 : song.id));
+@@ -760,6 +809,7 @@
+       }
+ 
+       this.currentSong = this.songList[this.index];
++      this.primeMediaSession();
+     });
+     local_database.getLocalData('mode', res => {
+       this.setMode((res === null || res === void 0 ? void 0 : res.mode) || types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE);
+@@ -784,6 +834,60 @@
+       this.playPrev();
+     });
+   }
++  /**
++   * 打开时就把上次播放的歌曲交给桌面小组件
++   */
++
++
++  // Restoring the play list does not touch the audio element, so until the user
++  // pressed play there was no media session at all and the desktop widget had
++  // nothing to show. Open one with the silent track, pause it immediately, and
++  // hang the restored song on it.
++  async primeMediaSession() {
++    if (this.primer || !this.currentSong || this.isReady()) {
++      return;
++    }
++
++    const primer = document.createElement('audio');
++    primer.style.cssText = 'height:0;width:0;display:none';
++    primer.src = silentTrackUrl();
++    document.body.appendChild(primer);
++    this.primer = primer;
++
++    try {
++      await primer.play();
++    } catch {
++      // Autoplay refused, or the window went away while we were waiting.
++      this.dropPrimer();
++      return;
++    }
++
++    primer.pause();
++    this.setMediaSession();
++    // Deliberately not declaring playbackState: a state the page declares wins
++    // over the players' own for as long as it stands, so a 'paused' left here
++    // would have reported Paused over the song that is really playing. Chromium
++    // derives it from the primer instead, which is genuinely paused by now.
++    // Or the widget reports the silent track's half minute as the song length.
++    navigator.mediaSession.setPositionState({
++      duration: this.currentSong.interval || this.currentSong.track && this.currentSong.track.interval || 0,
++      position: 0,
++      playbackRate: 1
++    });
++  }
++
++  // Leaving the primer in the session would keep the position state we supplied
++  // above, frozen at zero, in front of the song that is actually playing.
++  dropPrimer() {
++    if (!this.primer) {
++      return;
++    }
++
++    URL.revokeObjectURL(this.primer.src);
++    this.primer.remove();
++    this.primer = undefined;
++    navigator.mediaSession.setPositionState();
++  }
+ 
+   setMode(mode) {
+     this.mode = mode;

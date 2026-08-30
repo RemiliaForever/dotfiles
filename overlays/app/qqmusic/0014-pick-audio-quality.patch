@@ -1,7 +1,7 @@
 diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 --- a/modules/349/35229.js
 +++ b/modules/349/35229.js
-@@ -278,6 +278,7 @@
+@@ -289,6 +289,7 @@
      this.audio = void 0;
      this.audioReady = void 0;
      this.currentSong = void 0;
@@ -9,7 +9,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      this.eventHandler = void 0;
      this.index = void 0;
      this.mode = types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE;
-@@ -820,36 +821,89 @@
+@@ -833,36 +834,89 @@
  
  
    async generateVKey(song) {
