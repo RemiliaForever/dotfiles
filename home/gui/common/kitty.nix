@@ -36,6 +36,7 @@
       color15 = "#dcdfe4";
 
       copy_on_select = "clipboard";
+      paste_actions = "no-op";
       clipboard_control = "write-clipboard write-primary read-clipboard read-primary";
       mouse_hide_wait = "-1.0";
       enable_audio_bell = "no";
