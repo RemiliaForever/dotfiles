@@ -12,24 +12,32 @@ let
   selectSystem =
     attrs:
     attrs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-  # upstream uses the default suffix for x64 and an `-aarch64` suffix otherwise
-  suffix = selectSystem {
-    "x86_64-linux" = "";
-    "aarch64-linux" = "-aarch64";
+
+  platform = selectSystem {
+    "x86_64-linux" = "linux-x64";
+    "aarch64-linux" = "linux-arm64";
   };
 
   hash = selectSystem {
-    "x86_64-linux" = "sha256-6ajvuyFga+IL9eLqNKCPphdVwRxpFQSQOy54HGreEqw=";
-    "aarch64-linux" = "sha256-769vjedw4TzXPak1U/ls69sIiyow3057VGAADBCXtsU=";
+    "x86_64-linux" = "sha256-VXOmoJuj4CvNIjDC4IkIOUbrQMOSXR3bFImOuOi87fw=";
+    "aarch64-linux" = "sha256-zyZqRoGBmWDNM8bI8rJHTmfs1sO7/gjp3Ckc4yuzAOo=";
   };
+
+  # JetBrains no longer serves the standalone kotlin-server tarballs on their CDN
+  # (every language-server/kotlin-server/*.tar.gz is 404, including the links in
+  # the GitHub release notes), so the server is taken from the VS Code extension,
+  # which ships the same tree under extension/server.
+  extensionVersion = "0.0.8";
 in
 
-stdenv.mkDerivation (finalAttrs: rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kotlin-lsp";
-  version = "262.9593.0";
+  version = "263.2689.0"; # extension/server/build.txt
 
   src = fetchzip {
-    url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${version}/kotlin-server-${version}${suffix}.tar.gz";
+    url = "https://JetBrains.gallery.vsassets.io/_apis/public/gallery/publisher/JetBrains/extension/kotlin-server/${extensionVersion}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage?targetPlatform=${platform}";
+    extension = "zip";
+    stripRoot = false;
     inherit hash;
   };
 
@@ -45,8 +53,11 @@ stdenv.mkDerivation (finalAttrs: rec {
   dontBuild = true;
 
   installPhase = ''
-    chmod +x ./kotlin-lsp.sh ./bin/intellij-server
-    chmod +x ./jbr/bin/java
+    runHook preInstall
+
+    cd extension/server
+
+    chmod +x ./bin/intellij-server ./jbr/bin/java
 
     # kotlin-lsp is headless so we can reduce the auto-patchelf dependencies
     rm ./jbr/lib/lib{awt_{wl,x}awt,jawt,fontmanager,jsound,{wl,}splashscreen}*
@@ -54,14 +65,17 @@ stdenv.mkDerivation (finalAttrs: rec {
     # retain original directory structure to reduce necessary patching
     mkdir -p $out/opt/kotlin-lsp $out/bin
     cp -r ./* $out/opt/kotlin-lsp
-    ln -s "$out/opt/kotlin-lsp/kotlin-lsp.sh" "$out/bin/kotlin-lsp"
+    # kotlin-lsp.sh only warns that it is deprecated and execs this
+    ln -s "$out/opt/kotlin-lsp/bin/intellij-server" "$out/bin/kotlin-lsp"
+
+    runHook postInstall
   '';
 
-  passthru.tests.help = testers.testVersion {
-    # not checking the version but this checks the JVM classpath and statically (i.e. at import time) loaded native libraries
+  # also checks the JVM classpath and statically (i.e. at import time) loaded native libraries
+  passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
-    command = "${finalAttrs.meta.mainProgram} --help";
-    version = "Usage: ${finalAttrs.meta.mainProgram}";
+    command = "${finalAttrs.meta.mainProgram} --version";
+    version = "ILS-${finalAttrs.version}";
   };
 
   meta = {
