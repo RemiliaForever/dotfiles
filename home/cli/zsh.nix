@@ -69,21 +69,6 @@
       zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
       zstyle ':fzf-tab:*' use-fzf-default-opts yes
       zstyle ':fzf-tab:*' switch-group '<' '>'
-
-      # extra
-      function nd() {
-          dir="$PWD"
-          while  [[ "$dir" != "/" ]]; do
-              if [[ -d "$dir/.shell" ]]; then
-                  nix develop "path:$dir/.shell"
-                  return $?
-              fi
-              dir=$(dirname "$dir")
-          done
-          echo ".shell not found"
-          return 1
-      }
-
     '';
 
     autosuggestion.enable = true;
