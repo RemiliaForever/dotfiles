@@ -119,12 +119,7 @@
           statusPanelView = "allBranchesLog";
         };
         git = {
-          pagers = [
-            {
-              colorArg = "always";
-              parseEmoji = true;
-            }
-          ];
+          parseEmoji = true;
           branchLogCmd = "git lg {{branchName}}";
           allBranchesLogCmds = [
             "git lg --all"
@@ -140,7 +135,7 @@
           {
             context = "subCommits";
             key = "t";
-            command = "tig show {{.SelectedSubCommit.Sha}}";
+            command = "tig show {{.SelectedCommit.Hash}}";
             description = "tig commit (`t` again to browse files at revision)";
             output = "terminal";
           }
@@ -161,7 +156,7 @@
           {
             context = "commitFiles";
             key = "t";
-            command = "tig {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
+            command = "tig {{.SelectedCommit.Hash}} -- {{.SelectedCommitFile.Name}}";
             description = "tig file (history of commits affecting file)";
             output = "terminal";
           }
@@ -182,7 +177,7 @@
           {
             context = "commitFiles";
             key = "b";
-            command = "tig blame {{.SelectedSubCommit.Sha}} -- {{.SelectedCommitFile.Name}}";
+            command = "tig blame {{.SelectedCommit.Hash}} -- {{.SelectedCommitFile.Name}}";
             description = "blame file at revision";
             output = "terminal";
           }
