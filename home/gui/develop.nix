@@ -7,6 +7,6 @@
     kicad
     openscad
     virt-manager
-    libreoffice-qt6-fresh
+    libreoffice-qt6
   ];
 }
