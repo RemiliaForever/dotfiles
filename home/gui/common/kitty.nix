@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.zsh.shellAliases = {
@@ -16,6 +16,7 @@
 
       background = "#181818";
       foreground = "#dcdfe4";
+
       # normal
       color0 = "#555555"; # "#282c34";
       color1 = "#e06c75";
@@ -42,6 +43,14 @@
       enable_audio_bell = "no";
     };
     extraConfig = "modify_font baseline 4px";
+
+    environment.PATH = builtins.concatStringsSep ":" [
+      "/run/wrappers/bin"
+      "${config.home.homeDirectory}/.nix-profile/bin"
+      "/etc/profiles/per-user/${config.home.username}/bin"
+      "/nix/var/nix/profiles/default/bin"
+      "/run/current-system/sw/bin"
+    ];
 
     keybindings = {
       "super+n" = "new_os_window_with_cwd";
