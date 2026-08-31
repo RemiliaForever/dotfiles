@@ -7,7 +7,6 @@
 
     ../../../nixos/common
     ../../../nixos/gui
-    ../../../nixos/opt/spotify.nix
     ../../../nixos/opt/wireshark.nix
   ];
 

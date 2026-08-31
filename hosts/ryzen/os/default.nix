@@ -9,7 +9,6 @@
     ../../../nixos/common
     ../../../nixos/gui
     ../../../nixos/opt/aagl.nix
-    ../../../nixos/opt/spotify.nix
     ../../../nixos/opt/steamos.nix
     ../../../nixos/opt/virtualisation.nix
     ../../../nixos/opt/wireshark.nix
