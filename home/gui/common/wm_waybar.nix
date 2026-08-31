@@ -201,8 +201,7 @@
           player = "qqmusic";
           format = "{status_icon} - {title} - {position}/{length}";
           tooltip-format = ''
-            {player}
-            status: {status_icon} {position}/{length}
+            {player} - {status_icon}
             title:  {title}
             artist: {artist}
             album:  {album}'';
