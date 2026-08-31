@@ -46,6 +46,7 @@ in
     kdePackages.dolphin
     kdePackages.gwenview
     nextcloud-client
+    qqmusic
 
     wiliwili
   ];

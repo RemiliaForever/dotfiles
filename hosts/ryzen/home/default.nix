@@ -19,8 +19,6 @@
     wechat
     slack
     telegram-desktop
-
-    qqmusic
   ];
 
   programs = {
