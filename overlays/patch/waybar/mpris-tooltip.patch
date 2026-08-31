@@ -1,0 +1,21 @@
+Only refresh the mpris tooltip when its text changed, mirroring what
+src/modules/network.cpp already does.
+
+gtk_widget_set_tooltip_text() queues a display-wide tooltip query, which
+synthesises a motion event and restarts GTK's 500ms HOVER_TIMEOUT. Setting it
+unconditionally on every update means a sub-500ms interval keeps the timer from
+ever expiring, so no module in the bar can show a tooltip at all.
+
+--- a/src/modules/mpris/mpris.cpp
++++ b/src/modules/mpris/mpris.cpp
+@@ -734,7 +734,9 @@
+           fmt::arg("player_icon", getIconFromJson(config_["player-icons"], info.name)),
+           fmt::arg("status_icon", getIconFromJson(config_["status-icons"], info.status_string)));
+ 
+-      label_.set_tooltip_text(tooltip_text);
++      if (label_.get_tooltip_text() != tooltip_text) {
++        label_.set_tooltip_text(tooltip_text);
++      }
+     } catch (fmt::format_error const& e) {
+       spdlog::warn("mpris: format error (tooltip): {}", e.what());
+     }
