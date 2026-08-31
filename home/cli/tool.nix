@@ -61,12 +61,7 @@
 
         Keep code simple. Avoid unnecessary abstractions, speculative parameters, or indirection — add them only when there's a concrete need, not a hypothetical one.
 
-        Be cautious about adding comments. Only add them when:
-        - the logic is complex and names alone are not enough
-        - there are non-obvious input/output constraints
-        - there is a hidden invariant or a workaround worth flagging
-
-        Keep comments concise.
+        Do not add comment if possible, keep comments concise.
 
         # Temp Files
 
