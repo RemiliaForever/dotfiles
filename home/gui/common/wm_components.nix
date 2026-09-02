@@ -51,7 +51,6 @@
 
   # authentication
   services.polkit-gnome.enable = true;
-  services.gnome-keyring.enable = true;
   programs.swaylock = {
     enable = true;
     package = pkgs.swaylock-effects;

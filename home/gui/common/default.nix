@@ -203,6 +203,7 @@ in
     enable = true;
     createDirectories = true;
     desktop = null;
+    projects = "${config.home.homeDirectory}/Workspace";
     publicShare = null;
     templates = "${config.home.homeDirectory}/.template";
   };
