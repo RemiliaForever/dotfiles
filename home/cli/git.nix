@@ -68,9 +68,8 @@
         ".secrets"
         ".direnv"
         ".shell"
-        ".shell.nix"
+        ".pi"
         "TODO.md"
-        "avante.md"
       ];
 
       signing = {

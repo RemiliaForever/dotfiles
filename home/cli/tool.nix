@@ -9,8 +9,8 @@
     rsync
     (pass-nodmenu.withExtensions (ext: [ ext.pass-otp ]))
 
-    github-copilot-cli
     claude-code
+    pi-coding-agent
   ];
 
   home.sessionVariables = {
@@ -77,13 +77,12 @@
       '';
     in
     {
-      ".copilot/copilot-instructions.md".source = prompt;
       ".claude/CLAUDE.md".source = prompt;
+      ".pi/agent/AGENTS.md".source = prompt;
     };
   programs.zsh.shellAliases = {
-    cc = "copilot --model auto --autopilot";
     a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
-    aa = "claude --model 'opus[1m]' --effort high --permission-mode bypassPermissions";
+    aa = "claude --model 'opus[1m]' --effort medium --permission-mode bypassPermissions";
   };
 
   programs.fzf = {
