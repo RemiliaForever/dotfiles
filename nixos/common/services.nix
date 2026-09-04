@@ -1,7 +1,16 @@
 { lib, ... }:
 
 {
-  systemd.coredump.settings.Coredump.Storage = "none";
+  systemd = {
+    coredump.settings.Coredump.Storage = "none";
+
+    tmpfiles.rules = [ "q /tmp 1777 root root 2h" ];
+
+    timers.systemd-tmpfiles-clean.timerConfig = {
+      OnBootSec = "15min";
+      OnUnitActiveSec = "1h";
+    };
+  };
 
   services = {
     openssh.enable = true;
