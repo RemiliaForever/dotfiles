@@ -49,13 +49,11 @@
 
         # Workflow
 
-        OS is NixOS with `comma` installed. If a command is not available, invoke it via `comma <command>` (e.g. `comma prettyping`) or `nix shell nixpkgs#<package> -c <command>`.
+        OS is NixOS. If a command is not available, invoke it via `nix shell nixpkgs#<package> -c <command>`.
 
         Before reporting a task complete, clean up incidental artifacts you generated (e.g. `nix build`'s `result` symlink, scratch files under `/tmp`). Leave alone pre-existing files, normal build outputs (`target/`, `dist/`), and outputs the user asked to keep. Ask if unsure.
 
-        When creating a new git worktree, place it under `.claude/worktrees/` at the project root (e.g. `.claude/worktrees/<name>`).
-
-        Do not self-attribute (e.g. `Co-Authored-By: Claude`, "Generated with Claude Code") in commits, PRs, or files.
+        When creating a new git worktree, place it under `.pi/worktrees/` at the project root (e.g. `.pi/worktrees/<name>`).
 
         # Coding
 
@@ -65,15 +63,13 @@
 
         # Temp Files
 
-        Use `/tmp/claude/:SESSIONID:/:filename:` for temporary files. Avoid creating temp files in the project directory unless necessary. Do not directly put files in `/tmp/claude`, instead, create a subdirectory for each session.
+        Use `.pi/temp/:filename:` in project root for temporary files. Do not put files in system/user temp dir.
 
         Clean up temp files after job completion. If a temp file is needed for debugging, ask the user to save it explicitly.
 
-        For windows machines, put files in home directories (e.g. `~/tmp/:SESSIONID:/`) instead.
-
         # Background Tasks
 
-        Use task to run background tasks. Avoid using `nohup` or `setsid` make background task not tracable.
+        Use bg_run to run background tasks. Avoid using `nohup` or `setsid` make background task not tracable.
       '';
     in
     {
@@ -81,8 +77,9 @@
       ".pi/agent/AGENTS.md".source = prompt;
     };
   programs.zsh.shellAliases = {
-    a = "claude --model haiku --effort low --allow-dangerously-skip-permissions";
-    aa = "claude --model 'opus[1m]' --effort medium --permission-mode bypassPermissions";
+    aq = "pi --models 'qgenie/*'";
+    ab = "pi --models 'breeze/*'";
+    ag = "pi --models 'github-copilot/gpt-5.6-luna,github-copilot/gpt-5.6-sol,github-copilot/claude-opus-5,github-copilot/claude-sonnet-5'";
   };
 
   programs.fzf = {

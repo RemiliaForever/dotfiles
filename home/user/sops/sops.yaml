@@ -7,9 +7,10 @@ api:
     anthropic: ENC[AES256_GCM,data:aEJHaYf4vBIfsx6rPwzHtI+BIJgIt0nq9tOmikxYM/pNz5PRCIdHGfXSIQMdn15lnko6HAe3qH6fCF+ieCEBl7Jc3SIaw1v+MgSUZ9hbc6y7FUtRFD6gx8MPnJwHIjx3m5NP2hnNFOYn7cX2,iv:jIPbgrF1TmapqpSVU7fOxh48BZKf5QVKITqZ7e3uFkM=,tag:Q7zfkOOQHYvn/1AYkCyJng==,type:str]
     google_api_key: ENC[AES256_GCM,data:uJbAOFM88rq82BBJ1kg9D05iVFgZpHB4L+Q8BKrh34LIF2VzMlTI,iv:Qu5X3KZQin94EqnGx5JgwMbzbUAfWowZFZjRTqNqQZo=,tag:0hdv0QJIAzL5tfMZyQFIgA==,type:str]
     google_search_engine_id: ENC[AES256_GCM,data:6j+6D9f3TixW+6dUU2dex50=,iv:fmbBIJnIr7PgUA+VPvzd60vTO63ngsomNZt39DgRyoY=,tag:ighqQ7ewBQdWJrBMRcpVzw==,type:str]
+    exa: ENC[AES256_GCM,data:tm0lvnTgAwe+0igyXbFhaKlEduYS2npleLKhODh01heAHPT9,iv:FEYPwkb3Xtq5pb/jd1qngUah+ZC5e5keepNNhN5jI0Q=,tag:m/PvDiUrgREKdoEd/T2HWA==,type:str]
 sops:
-    lastmodified: "2026-03-31T15:13:57Z"
-    mac: ENC[AES256_GCM,data:tOgLDsbXBWZAM2ZLVxHkI1zOqPFKQGFdtWQeA6LlY+vji12iQ0MeDPAFgFaS3w2am4BkD/VF+TcimJPBb6OYxqWBsEkXH2LoG4iyI8NXY9nV5bbJAUXRdaL2YUdrZOEZT75m5NFhgTDBAPrhvJypYhXOY/x3mmx7acn6X5gR1u0=,iv:uW+urKxTFyq3luanDYQa9QsiLcB1K+BprC7tIOHeTDg=,tag:av1wBUPUv5GaA++s6RGSbA==,type:str]
+    lastmodified: "2026-09-03T11:11:41Z"
+    mac: ENC[AES256_GCM,data:sch/RLFJf3G8pc42SiRB1L8GcxT3K3x/yy3SWj95AoTxN9UtPipaNM/cU7XBx1a7EB9F5jEDe8+As5/RXtHYx3xRN9tMepOM31893BNvN+6VajhabMn7rNwdS7yF6ykVAi0wsDAcPtprwqC6U026XjQ1poRWlzBuEAZBM77ocTQ=,iv:wJRzHDTw2G3HIskSX7+4/zo6hmDECIysYr2QojkHxb0=,tag:ek/CBfPj24cepcrKizVcjA==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-
@@ -32,4 +33,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: 6382326ae6fd8356030396ad624434a577907d82
     unencrypted_suffix: _unencrypted
-    version: 3.12.2
+    version: 3.13.3

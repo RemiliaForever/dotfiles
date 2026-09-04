@@ -70,6 +70,7 @@
         ".shell"
         ".pi"
         "TODO.md"
+        "AGENTS.override.md"
       ];
 
       signing = {
