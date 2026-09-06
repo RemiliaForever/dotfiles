@@ -9,7 +9,6 @@
     rsync
     (pass-nodmenu.withExtensions (ext: [ ext.pass-otp ]))
 
-    claude-code
     pi-coding-agent
   ];
 
@@ -73,13 +72,13 @@
       '';
     in
     {
-      ".claude/CLAUDE.md".source = prompt;
       ".pi/agent/AGENTS.md".source = prompt;
     };
   programs.zsh.shellAliases = {
     aq = "pi --models 'qgenie/*'";
     ab = "pi --models 'breeze/*'";
     ag = "pi --models 'github-copilot/gpt-5.6-luna,github-copilot/gpt-5.6-sol,github-copilot/claude-opus-5,github-copilot/claude-sonnet-5'";
+    al = "pi --models 'llama-cpp/*'";
   };
 
   programs.fzf = {
