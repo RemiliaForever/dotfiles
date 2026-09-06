@@ -59,7 +59,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
        this.setMediaSession();
        this.failedSongNumber = 0;
      });
-@@ -695,6 +734,7 @@
+@@ -702,6 +741,7 @@
      this.currentSong = null;
      this.index = 0;
      // Or the desktop widget keeps showing whatever played last.
@@ -67,7 +67,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      navigator.mediaSession.metadata = null;
      this.trigger(types/* PLAY_STATE.CLEAR_PLAY_LIST */.tJ.CLEAR_PLAY_LIST);
    }
-@@ -704,6 +744,15 @@
+@@ -711,6 +751,15 @@
        return this.audio.play();
      }
  
@@ -83,7 +83,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      if (song !== null && song !== void 0 && song.id) {
        if (this.songList) {
          const idx = this.songList.findIndex(item => (item === null || item === void 0 ? void 0 : item.id) === (song === null || song === void 0 ? void 0 : song.id));
-@@ -760,6 +809,7 @@
+@@ -767,6 +816,7 @@
        }
  
        this.currentSong = this.songList[this.index];
@@ -91,7 +91,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      });
      local_database.getLocalData('mode', res => {
        this.setMode((res === null || res === void 0 ? void 0 : res.mode) || types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE);
-@@ -784,6 +834,60 @@
+@@ -791,6 +841,60 @@
        this.playPrev();
      });
    }

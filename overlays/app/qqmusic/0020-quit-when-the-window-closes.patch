@@ -1,0 +1,54 @@
+diff -ruN a/app/main.js b/app/main.js
+--- a/app/main.js
++++ b/app/main.js
+@@ -8933,6 +8933,12 @@
+           }
+         }
+         w.instance = void 0;
++        // Quitting means closing every window, and the handler below refuses to
++        // close, so an app.quit() from anywhere could never finish. Nothing else
++        // reads this.
++        r.app.on("before-quit", () => {
++          r.app.isQuitting = !0;
++        });
+         class x {
+           constructor() {}
+           static getInstance() {
+@@ -8947,7 +8953,15 @@
+                 search: (null == o ? void 0 : o.extraUrl) || "",
+               }),
+               i.on("close", (e) => {
+-                (e.preventDefault(), i.hide());
++                // The main window is the app: closing it quits, rather than
++                // leaving a process running with nothing on screen and only the
++                // tray to bring it back. The others -- the desktop lyric, the
++                // visual player -- are meant to reappear as they were, so they
++                // still hide, except on the way out, where preventing the close
++                // would cancel the quit.
++                t === g.MAIN_WINDOW
++                  ? r.app.quit()
++                  : r.app.isQuitting || (e.preventDefault(), i.hide());
+               }),
+               i
+             );
+@@ -9085,7 +9099,10 @@
+               {
+                 label: "退出QQ音乐",
+                 click: () => {
+-                  r.app.exit(0);
++                  // quit(), not exit(0): the renderer keeps the play position in
++                  // localStorage, whose last second or so is still in Chromium's
++                  // commit queue when the process is shot in the head.
++                  r.app.quit();
+                 },
+               },
+             ]);
+@@ -11480,7 +11497,7 @@
+                 );
+               }
+               quit() {
+-                r.app.exit(0);
++                r.app.quit();
+               }
+             }),
+           (Mt.instance = void 0),

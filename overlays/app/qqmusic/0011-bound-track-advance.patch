@@ -17,7 +17,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      });
      audio.addEventListener('pause', () => {
        this.setState(types/* PLAY_STATE.PAUSED */.tJ.PAUSED, {
-@@ -417,7 +419,10 @@
+@@ -424,7 +426,10 @@
            });
          } else {
            popup/* default.show */.Z.show(0, '播放失败');
@@ -29,7 +29,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
          }
        }
      });
-@@ -449,7 +454,8 @@
+@@ -456,7 +461,8 @@
  
      const {
        showDisableDialog,
@@ -39,7 +39,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      } = config;
  
      if (!this.isReady()) {
-@@ -481,10 +487,12 @@
+@@ -488,10 +494,12 @@
      } else if (this.songList.length > 1) {
        popup/* default.show */.Z.show(1, '歌曲暂无资源，已自动为您切换下一首');
  
@@ -54,7 +54,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
        }
      } else {
        popup/* default.show */.Z.show(1, '歌曲暂无资源');
-@@ -548,6 +556,15 @@
+@@ -555,6 +563,15 @@
          });
          return;
        }
@@ -70,7 +70,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      }
  
      if (badSongNumber >= this.playList.length) {
-@@ -599,7 +616,8 @@
+@@ -606,7 +623,8 @@
          index: this.index
        }, {
          showDisableDialog: false,
@@ -80,7 +80,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
        });
        return;
      }
-@@ -655,7 +673,8 @@
+@@ -662,7 +680,8 @@
          index: this.index
        }, {
          showDisableDialog: false,

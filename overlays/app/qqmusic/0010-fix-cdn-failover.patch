@@ -1,7 +1,7 @@
 diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 --- a/modules/349/35229.js
 +++ b/modules/349/35229.js
-@@ -402,7 +402,13 @@
+@@ -402,10 +402,23 @@
        if (this.audio.src && this.cdnUtil.sortedCdnList) {
          var _this$currentSong;
  
@@ -16,7 +16,17 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
            var _this$currentSong2;
  
            this.cdnUtil.addDisabledCdn((_this$currentSong2 = this.currentSong) === null || _this$currentSong2 === void 0 ? void 0 : _this$currentSong2.mid, this.audio.src);
-@@ -414,8 +420,6 @@
++          const position = this.audio.currentTime;
++          const resume = () => {
++            this.audio.removeEventListener('loadedmetadata', resume);
++            this.audio.currentTime = position;
++            this.audio.play();
++          };
++          this.audio.addEventListener('loadedmetadata', resume);
+           this.play({
+             index: this.index
+           });
+@@ -414,8 +427,6 @@
            this.playNext();
          }
        }

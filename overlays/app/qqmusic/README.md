@@ -90,13 +90,10 @@ generated against the tree the previous ones produced, so they must be applied
 in sequence and regenerated in sequence.
 
 The series is layered: runtime, then privacy, then policy, then upstream bug
-fixes, then one change that is a judgement call, then a behaviour change, and
-last the one new feature -- which is why `0019` sits after `0018` even though it
-was written first: it is optional, and it is currently commented out in
-`default.nix`, so keeping it last means the enabled set applies without offsets. The biggest and most invasive changes are at the end,
-so a failure there leaves everything before it applied. Anything found later is
-appended rather than slotted into its layer, so the earlier patches keep the
-line numbers they were generated against.
+fixes, then one change that is a judgement call, then behaviour changes and
+features built on those foundations. Related changes are kept together, and
+more invasive changes come later so a failure there leaves everything before it
+applied.
 
 ### `0001-use-current-electron` -- 20 files
 
@@ -208,7 +205,8 @@ patched, since every window loads `index.js`.
 
 One limit this does not lift: `savePlayList()` has a single caller, `playAll()`,
 so the persisted `index` is wherever the list was started from, not the track
-playing when the client closed. Restoring lands on the former.
+playing when the client closed. Restoring lands on the former -- until `0019`,
+which keeps the song and the second separately.
 
 ### `0009-reuse-the-audio-element` -- `349/35229.js`
 
@@ -260,6 +258,10 @@ skipping is wrong, or right after the branches had already acted.
 
 Negated, the retry is bounded: two hosts, a budget of four errors,
 `getAvailableCdn` rotating between them and clearing the bad set when it fills.
+
+The same error handler now preserves `currentTime` across a CDN retry. It seeks
+on `loadedmetadata`, the earliest point an audio element accepts a seek, so a
+network blip no longer sends a listener back to the beginning of the song.
 
 ### `0011-bound-track-advance` -- `349/35229.js`, 7 sites
 
@@ -528,117 +530,102 @@ gesture (the player's own element already relies on the same policy, via its
 open. Both need `playerctl -p qqmusic metadata` on a freshly started client that
 has not played anything.
 
-### `0019-listen-together` -- 4 files
+### `0019-restore-playback-state` -- `349/35229.js`, `349/40292.js`, `index/47998.js`
 
-Adds 「一起听」, the feature the Linux build ships without. The endpoints are real
-and were recovered rather than invented, so this section records where each one
-came from -- and what is still missing.
+`0008` brought the play list, its order and the play mode back, and stopped
+there: a restart put the queue back but landed on whichever song the list was
+started from, at zero seconds. Four separate things were in the way.
 
-**Where the protocol came from.** The Linux client has no trace of the feature:
-zero hits across all 594 renderer modules, and `wk_v17` -- the H5 bundle behind
-every one of its webviews -- has no listen-together route either. The official
-Windows client 22.52 does. `QQMusic.dll` carries the RTTI symbol
-`CListenTogetherDataLogic`, the source path
-`ce\gfqqmusic\listentogether\listentogetherdatalogic.cpp`, the UI strings
-「开启一起听」/「结束一起听」, and one plain-text URL --
-`i2.y.qq.com/n3/wk_v20/entry/index/frame/listen_together/invitation`. Note
-`wk_v20`, not `wk_v17`; that mismatch is why searching the Linux client's own H5
-never turns anything up. `QQMusic_Protocol.dll` holds a table of 141 `music.*`
-command strings, four of them for rooms. `wk_v20`'s `frame_page` chunk and the
-mobile share page `y.qq.com/m/share/listen_together/index.js` supply the rest,
-including the request params.
+**Nothing recorded the song, and nothing recorded the second.**
+`savePlayList()` runs from `playAll()`, once per queue, so the `index` it stores
+is where that queue was begun. The position was never stored at all. It does not
+belong in that record either: nedb's browser build rewrites the whole collection
+on every update -- a hundred songs of JSON -- and the position moves several
+times a second. So it lives in `localStorage` instead, as `play_position`, one
+object of `{id, index, position}` written from the `playing` and `pause`
+handlers and about once a second from `timeupdate`. That store is synchronous,
+which is what makes it survive a quit that leaves the renderer no time to write
+anything, and it belongs to the profile rather than to the build, so it survives
+a rebuild for the same reason the nedb store `0008` relocated does. The `id` is
+the point of it: the saved position is used only while it still describes the
+list that came back with it, and any other list starts where its own `index`
+says.
 
-| module | method | params |
-| --- | --- | --- |
-| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomCreate` | unknown |
-| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomEntry` | unknown |
-| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomHeartBeat` | unknown |
-| `music.lightUGCRoom.LightUGCRoomSvr` | `LightUGCRoomQuit` | unknown |
-| `music.lightUGCRoom.LightUGCRoomSvr` | `QueryLightUGCRoomState` | `{showID}` |
-| `music.lightUGCRoom.LightUGCRoomSongSvr` | `LightUGCRoomSongOper` | `{showID, opType: 0}` to read; other `opType`s unknown |
-| `track_info.UniformRuleCtrlServer` | `GetTrackInfo` | `{ids, types}` |
-| `music.togetherRoom.TogetherRoomUser` | `GetInvitedUserList` | `{bizid: 1}` |
-| `music.liveShow.LiveShowOfficialRoomBasicSvr` | `QueryWebShareUserInfo` | `{encryptUin}` |
+What it records is `audio.ended ? 0 : currentTime`, because a stopped sequential
+list ends in a `pause()` (`0011`) that would otherwise store the last song's full
+duration, and pressing play on a song restored at its own end does nothing anyone
+can see.
 
-All of them exist. The server distinguishes four failures cleanly, which is what
-makes that claim checkable: `500003` no such module, `40000` no such method on a
-real module, `1000` needs a login, `11000` no such room, `0` ok. A room is
-addressed by `showID`, not a room id.
+**The restore was a race.** The play bar takes the song it shows, its duration
+and the queue from whatever `initAudio()` resolves to, and `LocalDatabaseManager`
+handed its result back through a callback nothing could wait for -- it dropped
+the callback entirely when the collection had nothing to say, which makes
+"nothing stored" indistinguishable from "not read yet". So the restore ran
+against the CGI request in `cdnUtil.init()`, and only usually won. It now always
+calls back, `getLocalPlayerData()` is a promise the constructor keeps, and
+`buildAudio()` awaits it before returning. What it returns grew a `position` and
+a `mode` for the same reason.
 
-**How the two room reads divide up.** `QueryLightUGCRoomState` returns membership,
-not playback: `roomInfo`, `users`, `msg`, `models`, `avatar3D`, `friendInfo`, and
-nothing about a song. Everything about what is playing comes from `SongOper` with
-`opType: 0`, which needs no more than `{showID, opType: 0}` and returns the whole
-room state -- `songPlayingInfo`, `songList`, `songRandomIndex`, `playMode`,
-`mediaVersion`, `sourceInfo`, `currPlaylistType`. So `opType: 0` is query, and the
-read path is closed.
+**Restoring the mode threw the restore away.** `setMode()` reshuffles for
+`RANDOM` and resets `index` to 0, which is right when the user picks the mode and
+wrong when the mode is merely being read back: the stored play list is already
+the shuffled one. The restore assigns `mode` directly. The play bar's mode
+control reads `LogicalPlayer.mode` in a `useState`, at mount, which is before any
+of this has happened -- so it spent every cold start showing the default -- and
+now takes it from `initData` like everything else.
 
-**What is still missing.** `Create`/`Entry`/`HeartBeat`/`Quit` and the `opType`
-values that *change* room state are only ever called from the Windows client's
-native layer, so the dll yields their field names but not their values, and no H5
-constructs them. The gap is confined to `buildRoomParam` and `songOperParam` in
-`349/35229.js`; filling those in from a capture is the whole remaining task. Until
-then following a room works and driving one does not.
+**`currentSong` came from the wrong list.** `songList[index]`, where `index`
+indexes `playList`. The two differ in random mode.
 
-**Position is extrapolated, not polled.** `SongOper` returns `songOffset`
-alongside `songStartTime` and `songPlayVersion`, so `songOffset` is the position
-*at* `songStartTime` and a follower advances from there -- polling latency does
-not accumulate into drift. `songPlayVersion` is the server's state counter, and
-`tick()` ignores a response whose version it has already applied, so an
-out-of-order poll cannot drag the player backwards. `heartBeatInterval` arrives
-in `roomInfo`; until it does, polling runs at 5s.
+With that in place the seek itself is small: `play()` starts the restored song at
+the restored position, once, through a one-shot `loadedmetadata` listener, and
+only for the song identity the restore recorded -- anything else the user starts
+instead begins at the beginning, and clears it. `primeMediaSession` reports the
+same position to the desktop widget, bounded by the song's own duration, since
+`setPositionState` throws past the end and the two numbers come from different
+places.
 
-**The room's queue is authoritative.** `follow()` adopts it rather than looking
-for room songs in the local play list. The first cut did the latter -- reindex
-when a room `songID` matched something in `player.songList`, otherwise sync
-position only -- and that is wrong in the ordinary case: the room plays songs the
-listener does not have queued, `findIndex` returns `-1` every poll, and the client
-ends up seeking its *own* song to the room's offset. It looked joined and synced
-nothing.
+It deliberately does not start playing. The client is launched at login here, and
+a restored position is not a reason to make noise.
 
-Room entries carry only `songID`, `songType`, `songDuration`, `songIndex`, `title`
-and auth fields, which the player cannot take, so `resolveRoomSongs` exchanges
-them for real song objects through `track_info.UniformRuleCtrlServer/GetTrackInfo`
-and `formatSongItemData`. Three details matter: `types` is required, and without
-it the call answers `103901` with zero tracks; the room's `songType` is a
-different enum from the client's `type` (`1` against `0` for the same song), which
-`formatSongItemData` normalises; and the result is reordered to the room's own
-order, because `songIndex` indexes that. A signature of the room's id/type pairs
-keeps the exchange from repeating on every poll.
+The same restore also keeps radio playback alive. 猜你喜欢 is radio 99, served
+a batch at a time and played *as* a sequential list (see `0011`). Its
+`playerMode` and radio id are persisted alongside the queue, and
+`adoptRestoredRadio()` rebuilds the `RadioPlayer` just before the list steps.
+That prevents the sequential end-of-list stop from pausing a restored radio,
+and gives `_handlePlayerIdxStep` the `radioData` it needs to fetch the next
+batch. The normal queue leaves `radioId` undefined, so it is not mistaken for a
+radio. The new `__webpack_require__(40292)` closes a cycle with `35229`; neither
+module touches the other while it is evaluated, and both already live in chunk
+`349`.
 
-One consequence worth knowing: `playAll()` is what calls `savePlayList()`, so
-joining a room replaces the persisted play list with the room's. The official
-clients take over the queue the same way.
+### `0020-quit-when-the-window-closes` -- `app/main.js`
 
-**UI.** The button sits in `player_cont_state_tool` next to love / menu /
-comment, and follows their conventions exactly: an `action_button` whose icon is
-a `-webkit-mask-image` tinted by `currentColor`, `18px`, `margin-left: 16px`,
-`opacity: 0.6`, `#1ecc94` on hover and while a room is live. The room bar renders
-above the progress bar in the same accent at 12% alpha. The context-menu entry
-「开启一起听」sits next to 分享, which already opens a window the same way, and is
-shown only for a single online song.
+Two window factories sit next to each other in `main.js`: one destroys its
+window on `close`, the other calls `preventDefault()` and hides it. The second is
+what the main window, the desktop lyric and the visual player are built with,
+which left the app with no way out.
 
-The icon is an inline `data:` SVG rather than a new asset module: `rewrap` only
-substitutes existing `eval()` wrappers, so a patch cannot add a module to a
-chunk, and a data URI needs none. The two new CSS classes are appended to the
-`css-loader` string literal in `index/95586.js`.
+- The titlebar's ✕ sends `window_message`/`close` for `MAIN_WINDOW`, so it hid
+  the window and left the process running with nothing on screen.
+- The application menu's 退出 calls `app.quit()`, and quitting means closing every
+  window: each one refused, and the quit was cancelled. It had never worked.
+- The tray's 退出QQ音乐 and the settings popup's 退出QQ音乐 got out only because
+  they called `app.exit(0)` instead.
 
-**Joining.** The official client is handed a share link through a
-`tencent://QQMusic/?...cmd_0==jump...` deeplink (`qqmusicmac://` on macOS); this
-build registers no protocol handler, so that route does not reach us. Right-clicking
-the play-bar button parses a share link out of the clipboard instead. Opening a room
-still goes through the official invitation page in a `showCommonDlg` window.
+Now the main window *is* the app: closing it quits. The others keep hiding,
+except while the app is on its way out -- `before-quit` sets `app.isQuitting`,
+and a prevented close during a quit would cancel it. The quit has to be explicit
+rather than left to `window-all-closed`, which does fire on Linux: the desktop
+lyric window is created five seconds after start and merely hidden, so closing
+the main window never empties the set.
 
-What the app puts on the clipboard is a `c6.y.qq.com/base/fcgi-bin/u?__=<code>`
-short link, which carries no parameters at all -- `showID` only appears after the
-redirect, so `parseShareParams` alone never matches one. `resolveShareLink` follows
-it with `fetch`, which works cross-origin because the window options in `main.js`
-set `webSecurity: false`. It cannot read `Location` directly: under
-`redirect: 'manual'` Chromium returns an `opaqueredirect` response whose headers
-are unreadable, so it lets the chain finish and reads `res.url`, falling back to
-scanning the landing page's body. The parser accepts the parameters spelled three
-ways, because all three occur: plain in a URL, `&amp;`-escaped in HTML, and
-percent-encoded inside a deeplink's `url_0`.
+The two `app.exit(0)` paths become `app.quit()`. `0019` keeps the play position
+in `localStorage`, whose last second or so is still in Chromium's commit queue
+when the process is shot in the head.
+
+The tray stays, and clicking it still hides and shows the window -- which is now
+what hiding is for.
 
 ## Rebasing onto a new upstream release
 
@@ -675,9 +662,8 @@ Two shapes to keep in mind when editing:
   build log; either one means the patch no longer describes the tree it was
   generated against and should be regenerated.
 - `rewrapped 594 modules, N changed` -- `N` must match the number of renderer
-  modules the *enabled* series touches: 24 as `default.nix` currently stands, 26
-  with `0019` uncommented. A larger `N` means something reformatted a module it
-  did not mean to.
+  modules the series touches: 25 as it stands. A larger `N` means something
+  reformatted a module it did not mean to.
 - Unwrap the built bundle again and diff it against the patched source tree; it
   must be byte-identical.
 - `node --check` on every top-level bundle a patch touched.
@@ -693,4 +679,6 @@ Two shapes to keep in mind when editing:
 
 The client can be inspected live with `--remote-debugging-port`. Use a throwaway
 `--user-data-dir`, and note that its log prints account tokens, so filter
-anything you read out of it.
+anything you read out of it. The windows are created with `devTools: false`,
+which also keeps their targets out of `/json/list`, so that port answers
+`/json/version` and nothing else until that option is patched out.

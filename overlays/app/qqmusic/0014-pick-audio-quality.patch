@@ -9,7 +9,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      this.eventHandler = void 0;
      this.index = void 0;
      this.mode = types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE;
-@@ -833,36 +834,89 @@
+@@ -840,36 +841,89 @@
  
  
    async generateVKey(song) {
