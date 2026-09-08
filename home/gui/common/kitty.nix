@@ -9,6 +9,7 @@
     settings = {
       font_family = ''family="VictorMono Nerd Font" style=Light'';
       font_size = 11.5;
+      scrollback_lines = 20000;
       modify_font = "cell_height -6px";
 
       hide_window_decorations = "yes";
