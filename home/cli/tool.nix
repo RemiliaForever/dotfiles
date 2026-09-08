@@ -46,6 +46,8 @@
 
         Format replies to the user as markdown.
 
+        For Telegram turns, never call `ask_user_question`, use top-level `telegram_button` comments for choices, for free-text input, ask the user to reply normally.
+
         # Workflow
 
         OS is NixOS. If a command is not available, invoke it via `nix shell nixpkgs#<package> -c <command>`.
