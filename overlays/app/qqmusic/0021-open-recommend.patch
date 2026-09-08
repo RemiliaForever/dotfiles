@@ -1,0 +1,11 @@
+--- a/modules/index/47998.js
++++ b/modules/index/47998.js
+@@ -2887,7 +2887,7 @@
+       exact: true,
+       path: "/",
+       render: () => /*#__PURE__*/react.createElement(react_router/* Redirect */.l_, {
+-        to: "/musicroom"
++        to: "/recommend"
+       })
+     }), list.map(infos => {
+       if (infos.playlists.length > 0) {

@@ -627,6 +627,12 @@ when the process is shot in the head.
 The tray stays, and clicking it still hides and shows the window -- which is now
 what hiding is for.
 
+### `0021-open-recommend` -- `index/47998.js`
+
+The root route previously redirected to `/musicroom`, so a fresh launch opened
+音乐馆. It now redirects to `/recommend`, making 推荐 the default while leaving
+explicit navigation to the other pages unchanged.
+
 ## Rebasing onto a new upstream release
 
 1. Bump the version and hash in nixpkgs' `qqmusic` (this overlay takes it as
@@ -662,7 +668,7 @@ Two shapes to keep in mind when editing:
   build log; either one means the patch no longer describes the tree it was
   generated against and should be regenerated.
 - `rewrapped 594 modules, N changed` -- `N` must match the number of renderer
-  modules the series touches: 25 as it stands. A larger `N` means something
+  modules the series touches: 26 as it stands. A larger `N` means something
   reformatted a module it did not mean to.
 - Unwrap the built bundle again and diff it against the patched source tree; it
   must be byte-identical.

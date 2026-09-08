@@ -45,6 +45,7 @@ let
     ./0018-prime-the-media-session.patch
     ./0019-restore-playback-state.patch
     ./0020-quit-when-the-window-closes.patch
+    ./0021-open-recommend.patch
   ];
 
   # See mpris-name.c: makes the client show up on D-Bus as qqmusic, not chromium.
