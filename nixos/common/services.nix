@@ -26,11 +26,9 @@
       HandleLidSwitchExternalPower = lib.mkDefault "ignore";
     };
 
-    journald = {
-      extraConfig = ''
-        SystemMaxUse=1G
-        RuntimeMaxUse=512M
-      '';
+    journald.settings.Journal = {
+      SystemMaxUse = "1G";
+      RuntimeMaxUse = "512M";
     };
   };
 }
