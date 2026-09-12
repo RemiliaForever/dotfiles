@@ -7,7 +7,7 @@
   programs.kitty = {
     enable = true;
     settings = {
-      font_family = ''family="VictorMono Nerd Font" style=Light'';
+      font_family = ''family="Victor Mono" style=Light'';
       font_size = 11.5;
       scrollback_lines = 20000;
       modify_font = "cell_height -6px";
@@ -43,7 +43,7 @@
       mouse_hide_wait = "-1.0";
       enable_audio_bell = "no";
     };
-    extraConfig = "modify_font baseline 4px";
+    # extraConfig = "modify_font baseline 4px";
 
     environment.PATH = builtins.concatStringsSep ":" [
       "/run/wrappers/bin"

@@ -6,8 +6,6 @@
 {
 
   home.packages = with pkgs; [
-    # gnome-keyring
-    gcr
     seahorse
   ];
 
