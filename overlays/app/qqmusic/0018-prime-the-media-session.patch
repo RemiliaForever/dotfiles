@@ -67,7 +67,12 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      navigator.mediaSession.metadata = null;
      this.trigger(types/* PLAY_STATE.CLEAR_PLAY_LIST */.tJ.CLEAR_PLAY_LIST);
    }
-@@ -711,6 +751,15 @@
+@@ -711,6 +751,20 @@
++      if (this.audio.ended || !this.audio.src || this.audio.currentTime === 0) {
++        return this.play({
++          index: this.index
++        });
++      }
        return this.audio.play();
      }
  
@@ -91,9 +96,17 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      });
      local_database.getLocalData('mode', res => {
        this.setMode((res === null || res === void 0 ? void 0 : res.mode) || types/* PLAY_MODE.LIST_CYCLE */.kV.LIST_CYCLE);
-@@ -791,6 +841,60 @@
+@@ -791,6 +841,82 @@
        this.playPrev();
      });
++    navigator.mediaSession.setActionHandler('stop', () => {
++      this.pause();
++      this.audio.currentTime = 0;
++      this.setState(types/* PLAY_STATE.NOT_READY */.tJ.NOT_READY, {
++        song: this.currentSong
++      });
++      setTimeout(() => this.primeMediaSession(true), 0);
++    });
    }
 +  /**
 +   * 打开时就把上次播放的歌曲交给桌面小组件
@@ -104,13 +117,19 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 +  // pressed play there was no media session at all and the desktop widget had
 +  // nothing to show. Open one with the silent track, pause it immediately, and
 +  // hang the restored song on it.
-+  async primeMediaSession() {
-+    if (this.primer || !this.currentSong || this.isReady()) {
++  async primeMediaSession(force = false) {
++    if (this.primer && !force || !this.currentSong || !force && this.isReady()) {
 +      return;
++    }
++    if (this.primer) {
++      this.dropPrimer();
 +    }
 +
 +    const primer = document.createElement('audio');
 +    primer.style.cssText = 'height:0;width:0;display:none';
++    // The primer becomes the active MPRIS audio element after a stop. Carry
++    // over the current volume instead of letting a fresh element reset it.
++    primer.volume = this.audio ? this.audio.volume : 1;
 +    primer.src = silentTrackUrl();
 +    document.body.appendChild(primer);
 +    this.primer = primer;
@@ -125,6 +144,9 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 +
 +    primer.pause();
 +    this.setMediaSession();
++    navigator.mediaSession.setActionHandler('play', () => this.play({
++      index: this.index
++    }));
 +    // Deliberately not declaring playbackState: a state the page declares wins
 +    // over the players' own for as long as it stands, so a 'paused' left here
 +    // would have reported Paused over the song that is really playing. Chromium
@@ -144,6 +166,11 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 +      return;
 +    }
 +
++    // MPRIS volume changes apply to the primer while it is active. Copy it
++    // back before handing control to the real song.
++    if (this.audio) {
++      this.audio.volume = this.primer.volume;
++    }
 +    URL.revokeObjectURL(this.primer.src);
 +    this.primer.remove();
 +    this.primer = undefined;

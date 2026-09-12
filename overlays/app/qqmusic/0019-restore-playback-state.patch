@@ -66,7 +66,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
      this.bindMediaSessionEvent();
    }
  
-@@ -414,12 +430,14 @@
+@@ -414,12 +430,21 @@
        });
        this.dropPrimer();
        this.setMediaSession();
@@ -78,6 +78,13 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
          song: this.currentSong
        });
 +      this.savePlayPosition();
++      // Chromium drops MPRIS when the final track ends. Re-prime the session
++      // with the current song so the stopped player remains controllable.
++      if (audio.ended) {
++        // A ended media element rejects play() until it is rewound.
++        audio.currentTime = 0;
++        setTimeout(() => this.primeMediaSession(true), 0);
++      }
        (0,dispatch/* playStatusChange */.RP)(this.currentSong, src_types/* PLAY_STATE_CHANGE */.kQ[types/* PLAY_STATE.PAUSED */.tJ.PAUSED]);
      });
      audio.addEventListener('ended', () => {
@@ -326,7 +333,7 @@ diff -ruN a/modules/349/35229.js b/modules/349/35229.js
 +      // setPositionState throws on a position past the end, and the two come
 +      // from different places: one from the song's metadata, one from where
 +      // playback actually got to.
-+      position: Math.min(this.restoredPosition, duration),
++      position: force ? 0 : Math.min(this.restoredPosition, duration),
        playbackRate: 1
      });
    }
