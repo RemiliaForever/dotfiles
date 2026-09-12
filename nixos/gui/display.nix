@@ -14,9 +14,10 @@
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
-      noto-fonts-color-emoji
+      victor-mono
 
-      nerd-fonts.victor-mono
+      nerd-fonts.symbols-only
+      twemoji-color-font
     ];
     fontconfig = {
       enable = true;
@@ -24,12 +25,12 @@
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
         emoji = [
-          "Noto Color Emoji"
+          "Twitter Color Emoji"
         ];
         monospace = [
-          "VictorMono Nerd Font"
+          "Victor Mono"
           "Noto Sans Mono CJK SC"
-          "Noto Color Emoji"
+          "Symbols Nerd Font Mono"
         ];
       };
     };
