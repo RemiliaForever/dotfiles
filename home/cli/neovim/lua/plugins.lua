@@ -39,24 +39,10 @@ require("lazy").setup({
 		end,
 	},
 	{
-		"yetone/avante.nvim",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			-- option
-			"hrsh7th/nvim-cmp",
-			"ibhagwan/fzf-lua",
-			"folke/snacks.nvim",
-			"nvim-tree/nvim-web-devicons",
-			-- provider
-			"zbirenbaum/copilot.lua",
-		},
+		"zbirenbaum/copilot.lua",
 		event = "VeryLazy",
-		version = false,
-		build = "make",
 		config = function()
-			require("plugin-config/_avante")
+			require("plugin-config/_copilot")
 		end,
 	},
 	-- ui components
