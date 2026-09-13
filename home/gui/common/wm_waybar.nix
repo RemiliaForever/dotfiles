@@ -149,6 +149,7 @@
             (if isMain then "" else "!") + config.programs.waybar.mainOutput;
         layer = "top";
         position = "top";
+        height = 30;
         modules-left = [
           "custom/starter"
           "niri/workspaces"
@@ -229,8 +230,8 @@
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
-          format-ethernet = "  {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
-          format-wifi = "{icon} {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+          format-ethernet = " {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+          format-wifi = "{icon}{bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
           format-linked = " ";
           format-disconnected = " ";
           format-disabled = " ";
@@ -261,7 +262,7 @@
           input-filename = config.programs.waybar.temperature.input-filename;
         };
         memory = {
-          format = "  {percentage}%";
+          format = " {percentage}%";
           tooltip-format = ''
             mem:  {percentage}%
             {used:0.1f}G/{total:0.1f}G

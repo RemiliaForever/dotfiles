@@ -7,10 +7,10 @@
   programs.kitty = {
     enable = true;
     settings = {
-      font_family = ''family="Victor Mono" style=Light'';
-      font_size = 11.5;
+      font_family = "Victor Mono Light";
+      italic_font = "Victor Mono Oblique";
+      font_size = 12;
       scrollback_lines = 20000;
-      modify_font = "cell_height -6px";
 
       hide_window_decorations = "yes";
       background_opacity = 0.9;
@@ -43,7 +43,10 @@
       mouse_hide_wait = "-1.0";
       enable_audio_bell = "no";
     };
-    # extraConfig = "modify_font baseline 4px";
+    extraConfig = ''
+      modify_font cell_height -8px
+      modify_font baseline 2px
+    '';
 
     environment.PATH = builtins.concatStringsSep ":" [
       "/run/wrappers/bin"
