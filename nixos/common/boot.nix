@@ -12,7 +12,7 @@
         efiSupport = true;
 
         fontSize = 32;
-        configurationLimit = 8;
+        configurationLimit = 2;
       };
       grub2-theme = {
         enable = true;
