@@ -17,16 +17,13 @@
       victor-mono
 
       nerd-fonts.symbols-only
-      twemoji-color-font
     ];
     fontconfig = {
       enable = true;
       defaultFonts = {
         serif = [ "Noto Serif CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" ];
-        emoji = [
-          "Twitter Color Emoji"
-        ];
+        # emoji = [ ];
         monospace = [
           "Victor Mono"
           "Noto Sans Mono CJK SC"

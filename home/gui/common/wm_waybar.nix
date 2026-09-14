@@ -230,8 +230,8 @@
         };
         network = {
           format = "{bandwidthUpBytes:>} {bandwidthDownBytes:>}";
-          format-ethernet = " {bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
-          format-wifi = "{icon}{bandwidthDownBytes:>}  {bandwidthUpBytes:>} ";
+          format-ethernet = " {bandwidthDownBytes:>} {bandwidthUpBytes:>}";
+          format-wifi = "{icon}{bandwidthDownBytes:>} {bandwidthUpBytes:>}";
           format-linked = " ";
           format-disconnected = " ";
           format-disabled = " ";
@@ -274,8 +274,8 @@
         };
         battery = {
           format = "{icon}󱐥";
-          format-discharging = "{icon} {time}";
-          format-charging = "{icon}󱐋 {time}";
+          format-discharging = "{icon}{time}";
+          format-charging = "{icon}󱐋{time}";
           format-icons = [
             " "
             " "

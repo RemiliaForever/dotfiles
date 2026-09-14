@@ -9,6 +9,7 @@
     settings = {
       font_family = "Victor Mono Light";
       italic_font = "Victor Mono Oblique";
+      bold_italic_font = "Victor Mono Bold Oblique";
       font_size = 12;
       scrollback_lines = 20000;
 
