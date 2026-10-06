@@ -20,6 +20,10 @@
     docker-compose
   ];
 
+  programs.zsh.shellAliases = {
+    dc = "docker compose";
+  };
+
   boot.binfmt = {
     preferStaticEmulators = true;
     emulatedSystems = [ "aarch64-linux" ];
