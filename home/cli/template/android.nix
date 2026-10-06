@@ -27,7 +27,7 @@
 
         in
         {
-          devShells.default = pkgs.mkShell rec {
+          default = pkgs.mkShell rec {
             nativeBuildInputs = with pkgs; [
               (writeShellScriptBin "gradle" ''${pkgs.gradle}/bin/gradle $GRADLE_OPTS "$@"'')
               androidComposition.androidsdk
@@ -43,7 +43,7 @@
             ANDROID_NDK_ROOT = "${ANDROID_HOME}/ndk-bundle";
             GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${ANDROID_HOME}/build-tools/${buildToolsVersion}/aapt2";
 
-            shellHook = '''';
+            shellHook = "";
           };
         }
       );

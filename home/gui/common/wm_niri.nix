@@ -26,7 +26,6 @@
       niri
       xwayland-satellite
     ];
-    # programs.zsh.completionInit = ''eval "$(${pkgs.niri}/bin/niri completions zsh)"'';
     programs.zsh.loginExtra =
       if config.programs.niri.autoStart then
         ''
