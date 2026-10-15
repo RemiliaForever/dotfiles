@@ -23,6 +23,7 @@
         .ccache/
         .direnv/
         .shell/
+        .pi/
         bazel-*/
         build*/
         dist*/
