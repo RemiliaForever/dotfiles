@@ -172,6 +172,7 @@ in
           "image/x-sony-arw"
           "image/x-panasonic-rw2"
         ];
+        "mpv.desktop" = [ "video/matroska" ];
       };
     };
 
