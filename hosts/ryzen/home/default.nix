@@ -148,4 +148,6 @@
       border = "no";
     };
   };
+
+  services.mako.settings.output = "DP-1";
 }

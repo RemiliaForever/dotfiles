@@ -13,8 +13,8 @@
     enable = true;
 
     settings = {
-      default-timeout = 10000;
       layer = "overlay";
+      default-timeout = 10000;
       sort = "-time";
 
       background-color = "#212121dd";
