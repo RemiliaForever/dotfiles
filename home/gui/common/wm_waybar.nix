@@ -31,6 +31,9 @@
       waybar-pass-otp = pkgs.writers.writeBashBin "waybar-pass-otp" ''
         pass=${pkgs.pass-nodmenu.withExtensions (ext: [ ext.pass-otp ])}/bin/pass
         store="''${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+        if ${pkgs.procps}/bin/pkill -f '^${pkgs.wofi}/bin/wofi' 2>/dev/null; then
+          exit 0
+        fi
         selected=$(find "$store" -type f -name '*.gpg' -printf '%P\n' \
           | sed 's/\.gpg$//' | ${pkgs.wofi}/bin/wofi --dmenu --prompt "pass otp") || exit 0
         if otp=$($pass otp "$selected" 2>/dev/null); then
@@ -179,7 +182,7 @@
           exec = "python3 -c \"from datetime import datetime; print(' %.2f' % ((datetime(2055,8,11) - datetime.now()).total_seconds()/86400))\"";
           interval = 300;
           tooltip = false;
-          on-click = "wofi";
+          on-click = "${pkgs.procps}/bin/pkill -f '^${pkgs.wofi}/bin/wofi' || ${pkgs.wofi}/bin/wofi";
           on-click-middle = "sleep 1 && niri msg action power-off-monitors";
           on-click-right = "wpaperctl next";
           on-triple-click-right = "niri msg action quit --skip-confirmation";

@@ -77,7 +77,7 @@
           Mod+Ctrl+Delete           { spawn-sh "swaylock -f && sleep 1 && niri msg action power-off-monitors"; }
           Mod+Shift+Slash           { show-hotkey-overlay; }
           Mod+Tab                   repeat=false { toggle-overview; }
-          Mod+R                     repeat=false { spawn "wofi"; }
+          Mod+R                     repeat=false { spawn-sh "${pkgs.procps}/bin/pkill -f '^${pkgs.wofi}/bin/wofi' || ${pkgs.wofi}/bin/wofi"; }
           Mod+Return                repeat=false { spawn "kitty"; }
           Mod+W                     repeat=false { close-window; }
 
