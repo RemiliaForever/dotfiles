@@ -103,12 +103,6 @@ in
           }
           {
             action = "route";
-            domain = [
-              "openai.koumakan.cc"
-              "nextcloud.koumakan.cc"
-              "ha.koumakan.cc"
-              "gitlab.koumakan.cc"
-            ];
             domain_suffix = [ "tailscale.internal" ];
             server = "dns-headscale";
           }
