@@ -3,7 +3,6 @@
 {
   imports = [
     ./singbox.nix
-    ./zerotier.nix
   ];
   networking = {
     hostName = "koumakan-${host.hostname}";

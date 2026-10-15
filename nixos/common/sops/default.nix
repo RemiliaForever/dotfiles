@@ -9,6 +9,7 @@
       "hashedPassword".neededForUsers = true;
       "singbox/server" = { };
       "singbox/uuid" = { };
+      "tailscale/auth-key" = { };
     };
   };
 }

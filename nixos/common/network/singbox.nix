@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, host, ... }:
 
 let
   direct_domain = [
@@ -34,6 +34,19 @@ in
     enable = true;
     settings = {
       log.level = "warn";
+      endpoints = [
+        {
+          tag = "headscale-ep";
+          type = "tailscale";
+          control_url = "https://tailscale.koumakan.cc:34369";
+          detour = "direct-out";
+          hostname = host.hostname;
+          state_directory = "/var/lib/sing-box/tailscale";
+          system_interface = true;
+          system_interface_name = "tailscale";
+          auth_key._secret = config.sops.secrets."tailscale/auth-key".path;
+        }
+      ];
       inbounds = [
         {
           tag = "tun-in";
@@ -52,15 +65,20 @@ in
             tag = "dns-local";
             type = "udp";
             server = "114.114.114.114";
-            # dialer
             detour = "direct-out";
           }
           {
             tag = "dns-proxy";
             type = "tls";
             server = "1.1.1.1";
-            # dialer
             detour = "vless-out";
+          }
+          {
+            tag = "dns-headscale";
+            type = "tailscale";
+            endpoint = "headscale-ep";
+            accept_default_resolvers = false;
+            accept_search_domain = true;
           }
           {
             tag = "dns-hosts";
@@ -70,14 +88,29 @@ in
                 "154.17.13.197"
                 "154.17.21.145"
               ];
+              "tailscale.koumakan.cc" = [ "106.14.245.151" ];
             };
           }
         ];
         rules = [
           {
             action = "route";
-            domain_suffix = [ "singbox.koumakan.cc" ];
+            domain_suffix = [
+              "singbox.koumakan.cc"
+              "tailscale.koumakan.cc"
+            ];
             server = "dns-hosts";
+          }
+          {
+            action = "route";
+            domain = [
+              "openai.koumakan.cc"
+              "nextcloud.koumakan.cc"
+              "ha.koumakan.cc"
+              "gitlab.koumakan.cc"
+            ];
+            domain_suffix = [ "tailscale.internal" ];
+            server = "dns-headscale";
           }
           {
             action = "route";
@@ -99,7 +132,6 @@ in
         {
           tag = "direct-out";
           type = "direct";
-          # dialer
           connect_timeout = "10s";
           tcp_fast_open = true;
         }
@@ -118,7 +150,6 @@ in
             path = "/notify";
             max_early_data = 2048;
           };
-          # dialer
           connect_timeout = "10s";
           tcp_fast_open = true;
         }
@@ -155,6 +186,11 @@ in
           }
           {
             action = "route";
+            ip_cidr = [ "100.64.10.0/24" ];
+            outbound = "headscale-ep";
+          }
+          {
+            action = "route";
             rule_set = [ ];
             domain_suffix = proxy_domain;
             ip_cidr = proxy_ip;
@@ -184,4 +220,6 @@ in
       };
     };
   };
+
+  networking.search = [ "tailscale.internal" ];
 }

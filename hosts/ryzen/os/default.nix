@@ -14,10 +14,6 @@
     ../../../nixos/opt/wireshark.nix
   ];
 
-  services.zerotierone = {
-    enableGame = true;
-  };
-
   # build machine keep more generations
   programs.nh.clean = {
     dates = lib.mkForce "weekly";

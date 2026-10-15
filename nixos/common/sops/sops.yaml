@@ -2,9 +2,11 @@ hashedPassword: ENC[AES256_GCM,data:PndtzjhmvCttg5N+IeW7zhWl/4jGSAN8qGgtjBSC1VnA
 singbox:
     server: ENC[AES256_GCM,data:2rpbtTwHIyTqG5xvPLtNrw/kpQ==,iv:q5J3Jb/7iVPcbJPt9ah4XRQv1+gwboCHg+/mrIF85fM=,tag:53rgvMJkhd5P9VyIzn2X1A==,type:str]
     uuid: ENC[AES256_GCM,data:7y2qQjL5jZACLjmeu3dX4oImSlj9tQVfIoUU/veknzxQCD+/,iv:nS015iUASZ4cq7kxSdcIojCq8HQGMtWGKzdr/jD1/xg=,tag:NVRtf4Tuejof0BWgm9lHCQ==,type:str]
+tailscale:
+    auth-key: ENC[AES256_GCM,data:hCiKy82gA7plFYVv8MJ9PeQiAk9hTTbseebh4Q9f7aDF4OBcJi+diFX93ApDII0znx3hbhLGEvSi+Snjd2P7NKbnPGAmLBDfUer4YEi+ljkSBc6c3NT5SA==,iv:bGb9zEDvfbUNCMqqEIePoZ9Ib6oIoObrhoV2swaM1ac=,tag:kuKC16TBdV+UCCeylO8DBQ==,type:str]
 sops:
-    lastmodified: "2025-09-20T13:57:27Z"
-    mac: ENC[AES256_GCM,data:LEO5b4fb6wF8W63zfxguGYHNqZT/pLjCi1yzTGuo6pjBYgPcif5SItE6avqFgIAGzD8ZAPf919RqnGq2FE3lSbosWwN6dpUtjNV9iRswDXbWnbFccB8DgrCRGfp38XTWkZ32ksTwwQca5l5Ics5V4X+LmGx+V//SItKzNB5P0E0=,iv:VMqpyezRSX352Jer/9LHGcyIu2U5KZIEi+DLdxffwQs=,tag:NHkhyYkSc0R664tsOj1XvA==,type:str]
+    lastmodified: "2026-10-15T09:59:03Z"
+    mac: ENC[AES256_GCM,data:JAUfJo0gJWDO24wTHQR3YrYbLYfrDN2huFA/qLUM25TaajYjthp0nO58vz/YVXWYnL9h0hld834ZqYQY8FBBvLh/U8sKpmX9lXMTocs1S5T80dxWcFA0OvICSO+shZIM9D6P6l9Mk6T4Q39H03yAVXZFz6uTpxb8UWuY/7Dbgsw=,iv:Ja7IFcxXABoonlypnmIUf1frX5B1xOUAHohyXi+QZok=,tag:Ew8vETWMlgCnJshRVxNeXg==,type:str]
     pgp:
         - created_at: "2024-07-22T04:34:49Z"
           enc: |-

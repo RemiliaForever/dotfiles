@@ -9,7 +9,6 @@
       enable = true;
       daemon.settings = {
         bip = "172.19.0.1/16";
-        insecure-registries = [ "172.18.10.1:5050" ];
         live-restore = false;
         userland-proxy = false;
         features.cdi = true;

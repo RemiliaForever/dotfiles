@@ -27,7 +27,6 @@
 
   # override services
   services.sing-box.enable = lib.mkForce false;
-  services.zerotierone.enable = lib.mkForce false;
   services.openssh.ports = lib.mkForce [ 1022 ];
 
   # override virtualisation
