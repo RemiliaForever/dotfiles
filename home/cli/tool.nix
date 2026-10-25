@@ -79,9 +79,9 @@
     };
   programs.zsh.shellAliases = {
     aq = "pi --models 'qgenie/*'";
-    ab = "pi --models 'breeze/*'";
-    ag = "pi --models 'github-copilot/gpt-6-luna,github-copilot/gpt-6-sol,github-copilot/claude-opus-5,github-copilot/claude-sonnet-5'";
-    al = "pi --models 'llama-cpp/*'";
+    ab = "pi --models 'breeze/gpt-*'";
+    ag = "pi --models 'github-copilot/gpt-6-luna,github-copilot/gpt-6.1-sol'";
+    ad = "pi --models 'deepseek/deepseek-flash'";
   };
 
   programs.fzf = {
