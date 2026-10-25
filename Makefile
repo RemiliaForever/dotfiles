@@ -1,4 +1,5 @@
 HOST ?= $@
+CMD ?= boot
 
 remotes := $(notdir $(wildcard ./hosts/*))
 .PHONY: local $(remotes)
@@ -16,7 +17,7 @@ wsl:
 	sudo nix run .#nixosConfigurations.koumakan-wsl-arm64.config.system.build.tarballBuilder
 
 $(remotes):
-	nh os boot $(param_remote)
+	nh os $(CMD) $(param_remote)
 
 renice:
 	for r in $$(seq 1 3); do \
