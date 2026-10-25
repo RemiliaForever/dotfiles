@@ -17,6 +17,7 @@ let
     "deepseek.com"
     # game
     "steamcontent.com"
+    "deadzonerogue.com"
   ];
   direct_ip = [
     "154.17.13.197"
