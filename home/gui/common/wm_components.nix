@@ -29,7 +29,7 @@
         default-timeout = 0;
       };
 
-      on-notify = "exec ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/bell.oga";
+      on-notify = "exec ${pkgs.pipewire}/bin/pw-play ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/bell.oga";
     };
   };
 
