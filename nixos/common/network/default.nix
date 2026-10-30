@@ -46,5 +46,10 @@
         Hostname 127.0.0.1
         Port 1022
         HostKeyAlias qcl
+
+    Host qcx
+        Hostname 192.168.0.106
+        User HCKTest
+        LogLevel ERROR
   '';
 }
