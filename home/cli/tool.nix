@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   home.packages = with pkgs; [
@@ -110,6 +114,17 @@
 
     ripgrep = {
       enable = true;
+    };
+
+    tmux = {
+      enable = true;
+      extraConfig = ''
+        set -g status off
+        set -g allow-passthrough on
+        unbind -a
+        set -g prefix None
+        bind-key -n 'C-\' detach-client
+      '';
     };
 
     direnv = {
