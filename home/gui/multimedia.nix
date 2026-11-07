@@ -7,14 +7,14 @@
 
 {
   home.packages = with pkgs; [
-    #bambu-studio # NOTE: user login notwork
-    (blender.override {
-      inherit cudaSupport rocmSupport;
-    })
+    bambu-studio # NOTE: user login notwork
+    # (blender.override {
+    #   inherit cudaSupport rocmSupport;
+    # })
     darktable
     kdePackages.kdenlive
     kdePackages.kwave
-    krita
+    # krita
     ardour
     (obs-studio.override { inherit cudaSupport; })
   ];
