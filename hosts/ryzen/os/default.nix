@@ -53,4 +53,10 @@
       DynamicUser = true;
     };
   };
+
+  services.wivrn = {
+    enable = true;
+    steam.enable = true;
+    steam.importOXRRuntimes = true;
+  };
 }
