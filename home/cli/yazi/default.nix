@@ -36,8 +36,8 @@
     };
     theme = { };
     initLua = ''
-      require("full-border"):setup{
-          type = ui.Border.ROUNDED,
+      require("full-border"):setup {
+          set = "rounded",
       }
       require("ui"):setup()
       require("recycle-bin"):setup()
