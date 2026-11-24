@@ -19,20 +19,20 @@ let
   };
 
   hash = selectSystem {
-    "x86_64-linux" = "sha256-Je5qZT7Nerdlq1UL+llelxzmsIrsUnB3MZuJ8ajsm8M=";
-    "aarch64-linux" = "sha256-Rop4z+fSulG5JQcN8vT7gCAtmxROrTELBRFI/4KKJMw=";
+    "x86_64-linux" = "sha256-iHXrlkdG/4B+qSC0rWPLUTmqM8tsLQIctpE2XwqDRhg=";
+    "aarch64-linux" = "sha256-AGJPH9tQABDFzhqlUiY8gV9IoQ2EQUMHw3NCfoxOCqs=";
   };
 
   # JetBrains no longer serves the standalone kotlin-server tarballs on their CDN
   # (every language-server/kotlin-server/*.tar.gz is 404, including the links in
   # the GitHub release notes), so the server is taken from the VS Code extension,
   # which ships the same tree under extension/server.
-  extensionVersion = "0.0.13";
+  extensionVersion = "0.0.27";
 in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kotlin-lsp";
-  version = "263.6379.0"; # extension/server/build.txt
+  version = "263.7084.0"; # extension/server/build.txt
 
   src = fetchzip {
     url = "https://JetBrains.gallery.vsassets.io/_apis/public/gallery/publisher/JetBrains/extension/kotlin-server/${extensionVersion}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage?targetPlatform=${platform}";
