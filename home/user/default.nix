@@ -5,7 +5,9 @@
     ./sops
   ];
 
-  home.sessionVariables = { };
+  home.sessionVariables = {
+    NIXPKGS_ALLOW_UNFREE = "1";
+  };
 
   home = {
     username = "remilia";
