@@ -6,6 +6,8 @@
 
 {
   home.packages = with pkgs; [
+    (lib.hiPrio pkgs.uutils-coreutils-noprefix)
+
     comma
     prettyping
     trash-cli
@@ -84,7 +86,7 @@
   programs.zsh.shellAliases = {
     aq = "pi --models 'qgenie/*'";
     ab = "pi --models 'breeze/gpt-*'";
-    ag = "pi --models 'github-copilot/gpt-6-luna,github-copilot/gpt-6.1-sol'";
+    ag = "pi --models 'github-copilot/gpt-6-luna,github-copilot/gpt-6.2-sol'";
     ad = "pi --models 'deepseek/deepseek-flash'";
   };
 
