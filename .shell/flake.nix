@@ -1,26 +1,24 @@
 {
-  description = "A basic flake for nix-direnv";
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
   outputs =
-    { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          name = "dotfiles";
-          packages = with pkgs; [
-            sops
-          ];
-          shellHook = "";
-        };
-      }
-    );
+    { nixpkgs, ... }:
+    {
+      devShells = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              sops
+            ];
+          };
+        }
+      );
+    };
 }
